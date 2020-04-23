@@ -6,9 +6,9 @@ import App from './App';
 it('renders without crashing', () => {
   expect(() => {
     render(
-     <Router>
-       <App />
-     </Router>
-   );
+      <Router>
+        <App />
+      </Router>
+    );
   }).not.toThrowError();
 });

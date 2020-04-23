@@ -6,10 +6,14 @@ import { noop } from '../../../Testing';
 test('should render', () => {
   expect(() => {
     render(
-      <HouseHoldFormComponent
-        onSelectedChild={noop}
-        onFormErrors={noop}
-      />
+      <HouseHoldFormComponent register={noop} errors={noop} />
     );
   }).not.toThrowError();
+});
+
+test('should show invalid form if required field is not filled out', () => {
+  const { getByText } = render(
+    <HouseHoldFormComponent register={noop} errors={{ street_address: true }} />
+  );
+  getByText(/This field is required/i);
 });
