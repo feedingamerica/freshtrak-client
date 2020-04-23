@@ -4,22 +4,22 @@ import { EventHandler } from '../../Utils/EventHandler';
 import { API_URL } from '../../Utils/Urls';
 import axios from 'axios';
 
-const EventListContainer = props => {
-  const isSearchData = !!props.searchData.zip_code;
+const EventListContainer = ({ searchData }) => {
   const [agencyResponse, setAgencyResponse] = useState(false);
   const [agencyData, setAgencyData] = useState({});
 
   useEffect(() => {
-    if (isSearchData) {
-      buildSearchData(props.searchData);
-    }
-  }, [props.searchData]);
+    const isSearchData = !!searchData.zip_code;
+    const buildSearchData = data => {
+      if (Object.keys(data)[0]) {
+        handleSubmit(data);
+      }
+    };
 
-  const buildSearchData = data => {
-    if (Object.keys(data)[0]) {
-      handleSubmit(data);
+    if (isSearchData) {
+      buildSearchData(searchData);
     }
-  };
+  }, [searchData]);
 
   const handleSubmit = async query => {
     if (query) {
