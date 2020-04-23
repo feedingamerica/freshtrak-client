@@ -22,8 +22,8 @@ const HeaderDataComponent = () => {
                         Food Resources Near You
                     </h1>
                 }
-                    {location.pathname !== RENDER_URL.EVENT_LIST_URL && <p className="text-center">
-                    We’re here to help! Input your address to find food access resources in your
+                    {location.pathname != RENDER_URL.EVENT_LIST_URL && <p className="text-center">
+                    We’re here to help! Input your zip code to find food access resources in your
                     neighborhood.
                     </p>}
                 </div>
