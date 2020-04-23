@@ -10,7 +10,7 @@ import ButtonComponent from "../General/ButtonComponent";
 import ExpectImage from "../../Assets/img/freshTrak.jpg";
 import ExpectImageMobile from "../../Assets/img/freshTrak-mobile.jpg";
 
-const AboutFreshTrakComponent = (props) => {
+const AboutFreshTrakComponent = () => {
   return (
     <React.Fragment>
        <section>

@@ -15,7 +15,7 @@ import ExpectImage from "../../Assets/img/freshTrak.jpg";
 import ExpectImageMobile from "../../Assets/img/freshTrak-mobile.jpg";
 
 
-const WorkingWithFreshTrakComponent = (props) => {
+const WorkingWithFreshTrakComponent = () => {
 
     return (
         <React.Fragment>

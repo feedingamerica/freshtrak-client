@@ -316,7 +316,7 @@ body {
         cursor: pointer;
         font-size: 1.3rem;
         @include responsive(extra-smaller-devices) {
-           
+           margin-top: 2rem;
         }
         .back-arrow {
             width: 24px;
