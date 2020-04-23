@@ -72,7 +72,7 @@ const HeaderComponent = (props) => {
                   title="Find Resources"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item className="dropdown-item" onClick={()=>{history.push('/freshtrak-about')}}>
+                  <NavDropdown.Item className="dropdown-item" onSelect={()=>{history.push('/freshtrak-about')}}>
                     About Freshtrak
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -82,7 +82,7 @@ const HeaderComponent = (props) => {
                   title="For Food Banks"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item className="dropdown-item" onClick={()=>{history.push('/freshtrak-working')}}>
+                  <NavDropdown.Item className="dropdown-item" onSelect={()=>{history.push('/freshtrak-working')}}>
                     Working with Freshtrak
                   </NavDropdown.Item>
                 </NavDropdown>
