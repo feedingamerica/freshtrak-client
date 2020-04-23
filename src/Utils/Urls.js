@@ -27,5 +27,11 @@ export const API_URL = {
 
 export const RENDER_URL = {
     HOME_URL: '/',
-    EVENT_LIST_URL:'/events/list'
+    DASHBOARD_URL: '/dashboard',
+    EVENT_CREATE_URL:'/events/create',
+    EVENT_LIST_URL:'/events/list',
+    EVENT_EDIT_URL:'/events/:id/edit',
+    EVENT_CONFIRM_URL:'/events/1/confirm',
+    ADD_FAMILY_URL: '/family/create',
+    AUTHENTICATED_USER_URL:'/user'
 };

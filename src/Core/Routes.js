@@ -8,10 +8,14 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+const ConfirmationComponent = lazy(() =>
+  import("../Modules/Family/ConfirmationComponent")
+);
 const DashBoardContainer = lazy(() =>
   import("../Modules/Dashboard/DashBoardContainer")
 );
 const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
+const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
@@ -34,7 +38,16 @@ const Routes = () => {
               path={RENDER_URL.EVENT_LIST_URL}
               component={EventContainer}
             />
-
+            <Route
+              exact
+              path={RENDER_URL.ADD_FAMILY_URL}
+              render={(props) => <FamilyContainer {...props} />}
+            />
+            <Route
+              exact
+              path={RENDER_URL.EVENT_CONFIRM_URL}
+              render={(props) => <ConfirmationComponent {...props} />}
+            />
             <Route
               path={"*"}
               render={(props) => <Redirect to="/" {...props} />}
