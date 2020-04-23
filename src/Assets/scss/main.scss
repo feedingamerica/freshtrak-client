@@ -316,7 +316,7 @@ body {
         cursor: pointer;
         font-size: 1.3rem;
         @include responsive(extra-smaller-devices) {
-            display: none;
+           
         }
         .back-arrow {
             width: 24px;
@@ -708,6 +708,44 @@ body {
         }
         .pt-100 {
             padding-bottom: 50px;
+        }
+    }
+    .color-green{
+       color: $primaryColor; 
+    }
+    .custom-list{
+        margin:1rem 0 0;
+        padding: 0;
+        list-style: none;
+        li{
+            margin-bottom: .5rem;
+        }
+    }
+    .info-banner{
+        @include responsive(extra-smaller-devices) {
+            .mobile-view{
+                display: block;
+            }
+            .desktop-view{
+                display: none;
+                }
+        }
+        @include responsive(smaller-devices) {
+            .mobile-view{
+                display: none;
+                }
+                .desktop-view{
+                    display: block;
+                    }
+        }
+        @include responsive(medium-devices) {
+           
+        }
+        @include responsive(medium-devices-landscape) {
+        }
+        @include responsive(large-devices) {
+        }
+        @include responsive(extra-large-devices) {
         }
     }
 }

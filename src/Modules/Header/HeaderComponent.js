@@ -6,21 +6,20 @@ import React, { useEffect, useState } from "react";
 
 import mainLogo from "../../Assets/img/logo.png";
 import navBarIcon from "../../Assets/img/menu.svg";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import {
   Nav,
   NavDropdown,
-  Navbar,
-  DropdownItem,
+  Navbar
 } from "react-bootstrap";
-import userIcon from "../../Assets/img/Mask.svg";
 
 import { RENDER_URL } from "../../Utils/Urls";
 const HeaderComponent = (props) => {
   const [navbarShrink, setNavbarShrink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const shortHeader = props.shortHeader || "";
-
+  
+  let history = useHistory();
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") !== null) {
       setIsLoggedIn(true);
@@ -73,8 +72,8 @@ const HeaderComponent = (props) => {
                   title="Find Resources"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item className="dropdown-item" href="#1">
-                    Find Resources
+                  <NavDropdown.Item className="dropdown-item" onClick={()=>{history.push('/freshtrak-about')}}>
+                    About Freshtrak
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
@@ -83,8 +82,8 @@ const HeaderComponent = (props) => {
                   title="For Food Banks"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item className="dropdown-item" href="#4">
-                    For Food Banks
+                  <NavDropdown.Item className="dropdown-item" onClick={()=>{history.push('/freshtrak-working')}}>
+                    Working with Freshtrak
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>

@@ -8,18 +8,16 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-const ConfirmationComponent = lazy(() =>
-  import("../Modules/Family/ConfirmationComponent")
-);
 const DashBoardContainer = lazy(() =>
   import("../Modules/Dashboard/DashBoardContainer")
 );
 const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
-const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
-
+const StaticPageContainer = lazy(() =>
+  import("../Modules/StaticPages/StaticPageContainer")
+);
 const Routes = () => {
   React.useEffect(() => {}, []);
 
@@ -39,14 +37,12 @@ const Routes = () => {
               component={EventContainer}
             />
             <Route
-              exact
-              path={RENDER_URL.ADD_FAMILY_URL}
-              render={(props) => <FamilyContainer {...props} />}
+              path={RENDER_URL.FRESHTRAK_WORKING}
+              component={StaticPageContainer}
             />
             <Route
-              exact
-              path={RENDER_URL.EVENT_CONFIRM_URL}
-              render={(props) => <ConfirmationComponent {...props} />}
+              path={RENDER_URL.FRESHTRAK_ABOUT}
+              component={StaticPageContainer}
             />
             <Route
               path={"*"}
