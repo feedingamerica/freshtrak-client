@@ -5,7 +5,7 @@ const BoxComponent = ({ title ='',content = null, imageUrl = '',className = '', 
             <div className="col-12 col-lg-4 col-xl-4">
                 <div className="mobile-flex">
                     <div className="item-icon">
-                        <img src={imageUrl} />
+                        <img alt={title} src={imageUrl} />
                     </div>
                     <div className="item-details">
                         <h4>{title} </h4>
