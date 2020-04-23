@@ -11,15 +11,15 @@ import {
   Nav,
   NavDropdown,
   Navbar,
-  DropdownItem,
 } from "react-bootstrap";
-import userIcon from "../../Assets/img/Mask.svg";
 
 import { RENDER_URL } from "../../Utils/Urls";
 const HeaderComponent = (props) => {
   const [navbarShrink, setNavbarShrink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const shortHeader = props.shortHeader || "";
+
+  const localIsLoggedIn = localStorage.getItem("isLoggedIn");
 
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") !== null) {
@@ -32,7 +32,7 @@ const HeaderComponent = (props) => {
         setNavbarShrink("");
       }
     };
-  }, [localStorage.getItem("isLoggedIn"), isLoggedIn]);
+  }, [localIsLoggedIn, isLoggedIn]);
 
   return (
     <React.Fragment>

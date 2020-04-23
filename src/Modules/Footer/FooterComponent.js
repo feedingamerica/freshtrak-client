@@ -9,7 +9,8 @@ const FooterComponent = (props) => {
     	<div className="container pt-50">
                 <div className="row">
                     <LogoComponent/>
-                    <div className="col-lg-6 col-xl-6">
+                    {/* Out of scope */}
+                    {/* <div className="col-lg-6 col-xl-6">
                         <div className="row">
                             <div className="col-md-6">
                                 <span className="list-title">Find Resources</span>
@@ -27,7 +28,7 @@ const FooterComponent = (props) => {
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="row pt-2 pb-3">
                     <div className="col-md-12">
