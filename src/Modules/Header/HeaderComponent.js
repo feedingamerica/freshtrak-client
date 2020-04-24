@@ -60,13 +60,15 @@ const HeaderComponent = (props) => {
                 type="button"
                 data-toggle="collapse"
                 data-target="#navbarCollapse"
+                onClick={() => setMobileMenu(true)}
               >
                 <span className="navbar-toggler-icon">
                   <img src={navBarIcon} alt="UserLogo" className="img-fluid" />
                 </span>
               </button>
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            {/* Commented to restrict triggering bootstrap dropdown */}
+            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
             <Navbar.Collapse
               id="navbarCollapse"
               className="justify-content-end"
@@ -83,7 +85,7 @@ const HeaderComponent = (props) => {
               </Nav>
               <Nav className="navbar-nav small  main-menu align-items-center">
                 <NavDropdown
-                  title="For Food Banks"
+                  title="For Foodbanks"
                   aria-labelledby="dropdown01"
                 >
                   <NavDropdown.Item className="dropdown-item" onSelect={()=>{history.push('/freshtrak-working')}}>
@@ -103,18 +105,15 @@ const HeaderComponent = (props) => {
                 showMobileMenu && <div id="menuSlider" className="mobile-menu fadeIn">
                     <div className="d-flex h-100 justify-content-end flex-column">
                         <div className="mobile-menu-items">
-                            <div className="menu-item-title">Find Resources</div>
+                            <div className="menu-item-title">FIND RESOURCES</div>
                                 <ul className="mt-2">
-                                    <li><a>Resources Near You</a></li>
-                                    <li><a>Register with FreshTrak</a></li>
-                                    <li><a>About FreshTrak</a></li>
+                                    <li><a onClick={()=>{setMobileMenu(false);history.push('/freshtrak-about')}}>About FreshTrak</a></li>
                                 </ul>
                             </div>
                             <div className="mobile-menu-items mt-4 mb-4">
-                            <div className="menu-item-title">For Foodbanks</div>
+                            <div className="menu-item-title">FOR FOODBANKS</div>
                                 <ul className="mt-2">
-                                    <li><a>Working with FreshTrak</a></li>
-                                    <li><a>Register Your Foodbank</a></li>
+                                    <li><a onClick={()=>{setMobileMenu(false);history.push('/freshtrak-working')}}>Working with FreshTrak</a></li>
                                 </ul>
                             </div>
                             <hr></hr>

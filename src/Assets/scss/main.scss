@@ -835,3 +835,10 @@ body {
         }
     }
 }
+
+// Added for fixing Search button
+.validationError {
+    font-size: .7rem;
+    position: absolute;
+    color: #ff0000;
+    }

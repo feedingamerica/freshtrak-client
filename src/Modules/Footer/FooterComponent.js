@@ -14,13 +14,13 @@ const FooterComponent = (props) => {
                     <div className="col-lg-6 col-xl-6">
                         <div className="row">
                             <div className="col-md-6">
-                                <span className="list-title">Find Resources</span>
+                                <span className="list-title">FIND RESOURCES</span>
                                 <ul>
                                     <li><a onClick={()=>history.push('/freshtrak-about')}>About FreshTrak</a></li>
                                 </ul>
                             </div>
                             <div className="col-md-6">
-                                <span className="list-title">Find Resources</span>
+                                <span className="list-title">FOR FOODBANKS</span>
                                 <ul>
                                     <li><a onClick={()=>history.push('freshtrak-working')}>Working with FreshTrak</a></li>
                                 </ul>
