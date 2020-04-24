@@ -20,6 +20,9 @@ const HeaderComponent = (props) => {
   const shortHeader = props.shortHeader || "";
   
   let history = useHistory();
+
+  const localIsLoggedIn = localStorage.getItem("isLoggedIn");
+
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") !== null) {
       setIsLoggedIn(true);

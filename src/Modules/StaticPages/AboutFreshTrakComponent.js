@@ -64,9 +64,9 @@ const AboutFreshTrakComponent = () => {
             </div>
             <div className="row mt-5 text-center">
             <div className="col-12">
-            
+            {/* Out of Scope */}
             {/* No action event specified for button. onClickfunction is specified as it is mandatory */}
-            <ButtonComponent
+            {/* <ButtonComponent
                   type="button"
                   name="findFood"
                   dataid=""
@@ -74,7 +74,7 @@ const AboutFreshTrakComponent = () => {
                   value="Find Food In Your Area"
                   className="btn custom-button"
                   onClickfunction={()=>{}}
-                />
+                /> */}
             </div>
             </div>
           </div>

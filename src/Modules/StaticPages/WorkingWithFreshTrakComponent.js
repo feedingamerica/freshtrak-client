@@ -71,8 +71,9 @@ const WorkingWithFreshTrakComponent = () => {
                 
                 <div className="row mt-5 text-center">
                 <div className="col-12">
+                    {/* Out of Scope */}
                     {/* No action event specified for button. onClickfunction is specified as it is mandatory */}
-                    <ButtonComponent type='button' name="findFood" dataid='' id="find-food" value="Find Food In Your Area" className='btn custom-button' onClickfunction={()=>{}}/>
+                    {/* <ButtonComponent type='button' name="findFood" dataid='' id="find-food" value="Find Food In Your Area" className='btn custom-button' onClickfunction={()=>{}}/> */}
                 </div>
                 </div>
 
