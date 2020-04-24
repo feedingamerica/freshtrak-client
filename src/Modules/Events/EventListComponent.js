@@ -15,12 +15,10 @@ const EventListComponent = props => {
 
   return (
     <div className="search-results-list">
-      <div className="row align-items-end">
-        <div className="col-lg-4 col-xl-4">
-          <h2 className="font-weight-bold mobile-text-left">
-            Resource Events in Your Area
-          </h2>
-        </div>
+      <div className="row m-0">
+        <h2 className="font-weight-bold mobile-text-left">
+          Resource Events in Your Area
+        </h2>
         {/* Out of scope */}
         {/* <div className="col-lg-4 col-xl-4 d-none-xs d-none-sm">
           <div className="switch-view d-flex justify-content-center">

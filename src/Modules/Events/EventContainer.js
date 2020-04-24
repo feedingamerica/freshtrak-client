@@ -14,14 +14,14 @@ const EventContainer = props => {
     let [searchDetails,setSearchDetails] = useState({});
     const [serverError, setServerError] = useState(false);
     const [loading, setLoading] = useState(false);
-    let isSearchData = !!props.location.state;
-
+    
     useEffect(() => {
+        let isSearchData = !!props.location.state;
         if (isSearchData){
             buildSearchData(props.location.state.searchData);
             props.history.replace({ state: null });
         }
-    }, []);
+    });
 
     const handleSubmit = async query => {
         if(query) {
