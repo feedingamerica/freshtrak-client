@@ -8,7 +8,6 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     const [passwordError, setPasswordError] = React.useState(false);
     let data,childFamilyData ='';
 
-
     const buildForm = (event) => {
         event.preventDefault();
         let name = event.target.name;

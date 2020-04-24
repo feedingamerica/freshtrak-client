@@ -51,7 +51,6 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
     }, [streetAddress, aptNo,zip,housingType]);
 
 
-
     const dataToParent = () => {
         props.onSelectedChild(childFamilyData);
     };

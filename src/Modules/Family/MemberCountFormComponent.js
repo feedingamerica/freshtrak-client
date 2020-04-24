@@ -1,6 +1,4 @@
-import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
-import ReactDOM from 'react-dom';
+import React from "react";
 
 const MemberCountFormComponent = (props) => {
     const [countSenior, setCountSenior] = React.useState(0);
