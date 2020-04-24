@@ -18,7 +18,7 @@ const ResourceListComponent = ({ dataToChild }) => {
         <div className="search-results">
             <div className="search-list-title">Your Local Food Banks</div>
             {foodBankArray.map((value, index) => {
-                const { foodbank: { name, address, city, state, zip, phone, fb_url } } = value;
+                const { foodbank: { name, address, city, state, zip, phone, display_url } } = value;
                 return(
                     <div className="row align-items-center mt-2" key={index}>
                         <div className="col-lg-4 col-sm-6">
@@ -32,7 +32,7 @@ const ResourceListComponent = ({ dataToChild }) => {
                         </div>
                         <div className="col-lg-4 col-sm-6 caption-text">
                             <div>{phone}</div>
-                            <div>{fb_url}</div>
+                            <div><a href={display_url} target="_blank" rel="noopener noreferrer">{display_url}</a></div>
                         </div>
                     </div>
                 )
