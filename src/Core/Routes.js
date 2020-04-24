@@ -12,6 +12,7 @@ const DashBoardContainer = lazy(() =>
   import("../Modules/Dashboard/DashBoardContainer")
 );
 const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
+const TimeSlotContainer = lazy(() => import("../Modules/Events/TimeSlotContainer"));
 const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
@@ -33,6 +34,12 @@ const Routes = () => {
               exact
               path={RENDER_URL.EVENT_LIST_URL}
               component={EventContainer}
+            />
+
+            <Route
+                exact
+                path={RENDER_URL.TIME_SLOT}
+                component={TimeSlotContainer}
             />
 
             <Route

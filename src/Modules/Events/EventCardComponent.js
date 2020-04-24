@@ -4,6 +4,11 @@
 import React from 'react';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import '../../Assets/scss/main.scss';
+import { RENDER_URL } from "../../Utils/Urls";
+import ButtonComponent from '../General/ButtonComponent';
+import {withRouter} from 'react-router-dom';
+
+
 
 const EventCardComponent = (props) => {
   const {
@@ -21,6 +26,14 @@ const EventCardComponent = (props) => {
       eventService,
     },
   } = props;
+
+  const reserverTime = () => {
+    console.log(props);
+      props.history.push({
+          pathname : RENDER_URL.TIME_SLOT,
+          state: { event: props.event }
+      });
+  };
 
   return (
     <div className="col-lg-4 col-xl-4">
@@ -48,19 +61,21 @@ const EventCardComponent = (props) => {
             {eventCity} {eventState} {eventZip}<br />
             {phoneNumber}
           </div>
-          {/* Out of scope */}
-          {/* <div className="day-view-item-detail-footer d-flex mt-3">
-            <button className="btn default-button flex-grow-1">
+          <div className="day-view-item-detail-footer d-flex mt-3">
+              {/* Out of scope */}
+              {/* <button className="btn default-button flex-grow-1">
               View Details
-            </button>
-            <button className="btn custom-button ml-1 flex-grow-1">
-              Reserve Time
-            </button>
-          </div> */}
+            </button>*/}
+            <ButtonComponent type ='button' name="reserveTime" dataid= ''
+                             id="" value="Reserve Time"
+                             className = 'btn custom-button ml-1 flex-grow-1'
+                             onClickfunction={reserverTime} />
+
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default EventCardComponent;
+export default withRouter(EventCardComponent);

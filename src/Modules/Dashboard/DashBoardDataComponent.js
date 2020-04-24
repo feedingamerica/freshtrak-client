@@ -3,6 +3,8 @@ import {withRouter} from 'react-router-dom';
 import SearchComponent from '../General/SearchComponent';
 import DashboardCreateAccountComponent from './DashboardCreateAccountComponent';
 import '../../Assets/scss/main.scss';
+import { RENDER_URL } from "../../Utils/Urls";
+
 const DashBoardDataComponent = (props) => {
     // Login is out of scope
     // const [isLoggedIn, setIsLoggedIn] = React.useState(localStorage.getItem('isLoggedIn'));
@@ -16,7 +18,7 @@ const DashBoardDataComponent = (props) => {
     const handleSubmit = (data) => {
         if(Object.keys(data)[0]) {
             props.history.push({
-                pathname : '/events/list',
+                pathname : RENDER_URL.EVENT_LIST_URL,
                 state: { searchData: data }
             });
         }
