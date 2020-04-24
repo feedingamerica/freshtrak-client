@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 
 import mainLogo from "../../Assets/img/logo.png";
 import navBarIcon from "../../Assets/img/menu.svg";
+import closeIcon from '../../Assets/img/close.svg';
 import { Link,useHistory } from "react-router-dom";
 import {
   Nav,
@@ -22,7 +23,7 @@ const HeaderComponent = (props) => {
   let history = useHistory();
 
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
-
+  const [showMobileMenu, setMobileMenu] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") !== null) {
       setIsLoggedIn(true);
@@ -95,6 +96,61 @@ const HeaderComponent = (props) => {
         </div>
       </Nav>
 
+
+            {/* Menu popup div */}
+
+            {
+                showMobileMenu && <div id="menuSlider" className="mobile-menu fadeIn">
+                    <div className="d-flex h-100 justify-content-end flex-column">
+                        <div className="mobile-menu-items">
+                            <div className="menu-item-title">Find Resources</div>
+                                <ul className="mt-2">
+                                    <li><a>Resources Near You</a></li>
+                                    <li><a>Register with FreshTrak</a></li>
+                                    <li><a>About FreshTrak</a></li>
+                                </ul>
+                            </div>
+                            <div className="mobile-menu-items mt-4 mb-4">
+                            <div className="menu-item-title">For Foodbanks</div>
+                                <ul className="mt-2">
+                                    <li><a>Working with FreshTrak</a></li>
+                                    <li><a>Register Your Foodbank</a></li>
+                                </ul>
+                            </div>
+                            <hr></hr>
+                            {/* Out of Scope */}
+                            {/* <div className="status-info"> */}
+                            {/* {isLoggedIn ? */}
+                            {/* <div className="user-avatar">
+                                <NavDropdown title={
+                                    <div className="d-flex align-items-center">
+                                        <span>
+                                        <img className="thumbnail-image" src={userIcon} alt="user pic" />
+                                    </span>
+                                    <span className="text-uppercase ml-2">MANAGE YOUR ACCOUNT</span>
+                                    </div> */}
+                                {/* }> */}
+                                    {/* <DropdownItem eventKey={1.3} onClick={(() => { localStorage.removeItem('isLoggedIn', false); setIsLoggedIn(false); window.location.reload(); })}>
+                                        <i className="fa fa-sign-out"></i> Logout
+                                    </DropdownItem>
+                                </NavDropdown> */}
+                                {/* <div className="user-avatar">
+                                {isLoggedIn == false ? <LoggedInComponent/> : <SignInComponent/>} */}
+{/* 
+                            </div>
+                            :
+
+                            <button className="sign-in-button" onClick={() => setModalShow(true)}>
+                                Sign In
+                                </button>}
+                            </div> */}
+                        </div>
+                        
+                    <button className="mobile-close" onClick={() => setMobileMenu(false)}>
+                        <img src={closeIcon}/>
+                    </button>
+                </div>
+            }
     </React.Fragment>
   );
 };

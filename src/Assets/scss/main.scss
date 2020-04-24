@@ -68,6 +68,89 @@ body {
             outline: none;
         }
     }
+    .mobile-menu{
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background:url(../img/mobile-menu-bg.svg) no-repeat $primaryColor;
+        background-size: cover;
+        width: 100%;
+        z-index: 1049;
+        -webkit-animation-duration: .5s;
+        animation-duration: .5s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        color: $color-white;
+        padding: 2rem;
+        overflow: auto;
+        &.fadeIn {
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
+            }
+        .mobile-close{
+            position: absolute;
+            right: 1.2rem;
+            top: 1.2rem;
+            background: none;
+            border: none;
+        }
+        .menu-item-title{
+            font-size: .8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            li{
+                margin: .6rem 0;
+                a{
+                    color: inherit;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                }
+            }
+        }
+      hr{
+        border-top: 2px solid $color-white;
+        width: 100%;
+      }
+      .sign-in-button {
+        font-size: 0.9rem;
+        color: $color-white;
+        cursor: pointer;
+        font-weight: 700;
+        background: none;
+        border: none;
+        padding: 0;
+        text-transform: uppercase;
+        &:focus{
+            outline: none;
+        }
+    }
+    .nav-link{
+        color: inherit;
+        padding: 0;
+    }
+    .dropdown-toggle::after{
+        display: none;
+    }
+    }
+    @-webkit-keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+     }
+     
+     @keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+     }
+
+
+     
     #mainNav {
         .sign-in-button {
             font-size: 0.8rem;
