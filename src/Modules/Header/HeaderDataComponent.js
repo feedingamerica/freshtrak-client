@@ -24,7 +24,7 @@ const HeaderDataComponent = () => {
                 }
                     {location.pathname !== RENDER_URL.EVENT_LIST_URL && <p className="text-center">
                     We’re here to help! Input your zip code to find food access resources in your
-                    neighborhood.
+                    community.
                     </p>}
                 </div>
             </div>
