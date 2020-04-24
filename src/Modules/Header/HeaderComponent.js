@@ -31,7 +31,7 @@ const HeaderComponent = (props) => {
         setNavbarShrink("");
       }
     };
-  }, [localStorage.getItem("isLoggedIn"), isLoggedIn]);
+  }, [localIsLoggedIn, isLoggedIn]);
 
   return (
     <React.Fragment>

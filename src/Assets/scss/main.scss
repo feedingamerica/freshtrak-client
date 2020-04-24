@@ -529,6 +529,9 @@ body {
         }
     }
     .search-results-list {
+        max-width: 900px;
+        margin: auto;
+
         .form-group {
             margin-bottom: 0;
         }
