@@ -11,5 +11,7 @@ export const API_URL = {
 
 export const RENDER_URL = {
     HOME_URL: '/',
-    EVENT_LIST_URL:'/events/list'
+    EVENT_LIST_URL:'/events/list',
+    FOOD_BANK_CREATE:'/foodbank/create',
+    FOOD_BANK_SUCCESS:'/foodbank/success'
 };

@@ -4,13 +4,16 @@
  */
 
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import BoxComponent from '../General/BoxComponent';
 import ButtonComponent from '../General/ButtonComponent';
 import PredictIcon from '../../Assets/img/predict.svg';
 import ServeFoodIcon from '../../Assets/img/serve-food.svg';
 import MoveQuickIcon from '../../Assets/img/move-quick.svg';
-const DashBoardFoodBankComponent = () => {	 
-     const handleClick = (e) => {
+const DashBoardFoodBankComponent = () => {
+    let history = useHistory();	 
+    const handleClick = (e) => {        
+        history.push('/foodbank/create');
     };
     return (
     	<div className="container pt-150 pb-150">
