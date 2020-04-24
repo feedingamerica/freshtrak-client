@@ -6,11 +6,14 @@ import React, { useEffect, useState } from "react";
 
 import mainLogo from "../../Assets/img/logo.png";
 import navBarIcon from "../../Assets/img/menu.svg";
+import userIcon from "../../Assets/img/Mask.svg";
 import { Link } from "react-router-dom";
+import CustomModalComponent from "../General/CustomModalComponent";
 import {
   Nav,
   NavDropdown,
   Navbar,
+  DropdownItem
 } from "react-bootstrap";
 
 import { RENDER_URL } from "../../Utils/Urls";
@@ -18,6 +21,7 @@ const HeaderComponent = (props) => {
   const [navbarShrink, setNavbarShrink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const shortHeader = props.shortHeader || "";
+  const [modalShow, setModalShow] = React.useState(false);
 
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
 
@@ -88,11 +92,52 @@ const HeaderComponent = (props) => {
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
+
+              {isLoggedIn ? (
+              <div className="user-avatar">
+                <NavDropdown
+                  title={
+                    <img
+                      className="thumbnail-image"
+                      src={userIcon}
+                      alt="user pic"
+                    />
+                  }
+                >
+                  <DropdownItem
+                    eventKey={1.3}
+                    onClick={() => {
+                      localStorage.removeItem("isLoggedIn", false);
+                      setIsLoggedIn(false);
+                      window.location.reload();
+                    }}
+                  >
+                    <i className="fa fa-sign-out"></i> Logout
+                  </DropdownItem>
+                </NavDropdown>
+              </div>
+            ) : (
+              <button
+                className="sign-in-button"
+                style={{ minHeight: "0px", marginLeft: "20px" }}
+                onClick={() => setModalShow(true)}
+              >
+                Sign In
+              </button>
+            )}
+
+
             </Navbar.Collapse>
           </Navbar>
         </div>
       </Nav>
 
+      {/* Common Modal */}
+      <CustomModalComponent
+        signin={"true"}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </React.Fragment>
   );
 };
