@@ -14,6 +14,7 @@ const DashBoardContainer = lazy(() =>
 const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
 const WrapperComponent = lazy(() => import("../Modules/General/WrapperComponent"));
 const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
+const MemberContainer = lazy(() => import("../Modules/Family/MemberContainer"));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -38,6 +39,11 @@ const Routes = () => {
               exact
               path={RENDER_URL.ADD_FAMILY_URL}
               component={FamilyContainer}
+            />
+            <Route
+              exact
+              path={RENDER_URL.ADD_MEMBER_INFO}
+              component={MemberContainer}
             />
 
             <Route

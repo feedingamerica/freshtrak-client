@@ -58,8 +58,8 @@ const FamilyContainer = () => {
             HouseHoldData:{
                 address: familyData.addressData ? familyData.addressData.addressData.streetAddress : '',
                 apt_number: familyData.addressData ? familyData.addressData.addressData.aptNo : '',
-                zipcode: familyData.zipData ? familyData.zipData.zipData.zip : '',
-                housingType: familyData.zipData ? familyData.zipData.zipData.housingType : '',
+                zipcode: familyData.zipData ? familyData.addressData.addressData.zip : '',
+                housingType: familyData.zipData ? familyData.addressData.addressData.housingType : '',
             },
             passwordData:{
                 password: familyData.passwordData ? familyData.passwordData.passwordData.password:''
