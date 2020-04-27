@@ -51,10 +51,6 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
         handleChange();
     }, [pickupInfo,pickupName,pickupNumberPlate,pickupNumberPlateTwo,pickupType]);
 
-    const addVehicle=()=>{
-        setAdditionalVehicle(true);
-    };
-
     const additionalBox=(e)=> {
         e.preventDefault();
         if (step===true) {
@@ -63,7 +59,6 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             setStep(true)
         }
     };
-
 
     return (
         <div className="form-fields pt-50">
