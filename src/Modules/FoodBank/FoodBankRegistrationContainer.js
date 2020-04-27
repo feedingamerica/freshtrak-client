@@ -1,24 +1,55 @@
 /**
  * Created by Basil on 24/04/20.
  */
-import React from 'react';
+import React, {useRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import FoodBankRegistrationComponent from './FoodBankRegistrationComponent';
 import FoodBankContactInfoComponent from './FoodBankContactInfoComponent';
 import ButtonComponent from '../General/ButtonComponent';
-const FoodBankRegistrationContainer = () => {
+
+const FoodBankRegistrationContainer = (props) => {	
+	const organizationFormRef = useRef();
+	const contactInfoFormRef = useRef();
 	let history = useHistory();
-	const handleClick = (e) =>{
+	let formError = {};
+	let orgnazationData = [];
+	/*const handleClick = (e) =>{
     	history.push('/foodbank/success');
-	}  
+	}*/  
+	const buildRegistrationData = (data) => {
+		if(Object.keys(data)[0]){
+            let dataKey = Object.keys(data)[0];
+            orgnazationData[dataKey] = data[dataKey];
+        }
+	};
+	const formErrors = (errors) => {
+        formError = errors;
+    };
+	const handleFormValidation = (e) => {
+		e.preventDefault();
+		let componentErrors = [];
+		componentErrors.push(organizationFormRef.current.triggerErrors(),
+            contactInfoFormRef.current.triggerErrors());
+		if( componentErrors.includes(true) || Object.keys(formError).length !== 0){			
+			return false;
+		}
+	};
 	return (
 		<div className="col-lg-4 col-md-6">
-			<form>
+			<form onSubmit = {handleFormValidation}>
 				<div className="content-wrapper">
-					<FoodBankRegistrationComponent />
-					<FoodBankContactInfoComponent />
+					<FoodBankRegistrationComponent 
+						onSelectedChild={buildRegistrationData}
+						ref={organizationFormRef}
+						onFormErrors = {formErrors}
+                        />
+					<FoodBankContactInfoComponent 
+						onSelectedChild={buildRegistrationData}
+						ref={contactInfoFormRef}
+						onFormErrors = {formErrors}
+					/>
 					<div className="button-wrap mt-4">
-						<ButtonComponent type ='button' name="savefoodbank" dataid= '' id="save-food-bank" value="Continue" className = 'btn custom-button' onClickfunction={handleClick} />
+						<ButtonComponent type ='submit' name="savefoodbank" dataid= '' id="save-food-bank" value="Continue" className = 'btn custom-button' onClickfunction={handleFormValidation} />
                    	</div>
 				</div>
 			</form>
