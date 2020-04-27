@@ -23,7 +23,6 @@ const TimeSlotContainer = props => {
             <section className="gray-bg">
                 <div className="container pt-150 pb-150">
                     <TimeSlotDetailsComponent eventDetails={eventDetails}/>
-
                 </div>
             </section>
         </div>
