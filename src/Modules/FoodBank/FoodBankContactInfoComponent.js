@@ -4,7 +4,7 @@
 import React, {useState} from 'react';
 import useForm from '../../Utils/UseForm';
 const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
-	const [contactInfoData,setContactInfoData] = useState([])
+	const [contactData,setContactData] = useState({})
 	const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [suffix, setSuffix] = useState('');
@@ -15,8 +15,8 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
     let data;
     const buildContactInfoForm = (event) => {		
 		event.preventDefault();
-		setIsChanged(event.target.name);
 		let name = event.target.name;
+		setIsChanged(name);
 		switch (name) {
 			case 'first_name'		: 	setFirstName(event.target.value);
 										break;
@@ -26,7 +26,7 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
 										break;    
 			case 'phone_number'		: 	setPhoneNumber(event.target.value);
 										break;
-			case 'email'			: 	setEmail(event.target.value);
+			case 'contact_email'	: 	setEmail(event.target.value);
 										break;
 			case 'comm_prefrencence': 	setCommmPreference(event.target.value);
 										break;										
@@ -35,23 +35,23 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
     };
     const handleChange = () => {
         data = {
-            contactInfoData: {
+            contactInfo: {
                 first_name: firstName,
                 last_name: lastName,
                 suffix: suffix,
                 phone_number: phoneNumber,
-                email: email,
+                contact_email: email,
                 comm_prefrencence: commPreference
             }
         };  
-        setContactInfoData(data.contactInfoData);
+        setContactData(data);
     };
     React.useEffect(() => {
         handleChange();
     }, [isChanged]);
 
     const dataToParent = () => {
-        props.onSelectedChild(contactInfoData);
+        props.onSelectedChild(contactData);
     };
 
     const { errors, handleErrors } =
@@ -65,7 +65,7 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
     React.useImperativeHandle(ref, () => ({
         triggerErrors(){
             handleChange();
-            return handleErrors(contactInfoData);
+            return handleErrors(contactData.contactInfo);
         }
 
     }));
@@ -92,7 +92,9 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
 			<div className="form-group">
 				<label>Suffix</label>
 				<select name="suffix" name="suffix" id="" className="form-control" >
-					<option>-</option>
+					<option>--Select one--</option>
+					<option>Jr</option>
+                    <option>Sr</option>
 				</select>
 			</div>
 			<div className="form-group">
@@ -115,7 +117,9 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
 			<div className="form-group">
 				<label>Communication Preference</label>
 				<select name="comm_preference" id="" className="form-control">
-					<option>-</option>
+					<option>--Select one--</option>
+					<option>Email</option>
+                    <option>Phone</option>
 				</select>
 			</div>
 		</div>

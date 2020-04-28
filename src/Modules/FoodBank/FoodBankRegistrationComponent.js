@@ -4,15 +4,17 @@
 import React, {useState} from 'react';
 import useForm from '../../Utils/UseForm';
 const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
-	const [organazationData,setOrganizationData] = useState([])
+	const [organazationData,setOrganizationData] = useState({})
 	const [organizationName, setOrganizationName] = useState('');
     const [address, setAddress] = useState('');
     const [suiteBlg, setSuiteBlg] = useState('');
     const [zipCode, setZipCode] = useState('');
+    const [isChanged, setIsChanged] = useState('');
     let data;
 	const buildOrganizationForm = (event) => {		
-		event.preventDefault();
+		event.preventDefault();		
 		let name = event.target.name;
+		setIsChanged(name);
 		switch (name) {
 			case 'org_name'	: 	setOrganizationName(event.target.value);
 								break;
@@ -27,19 +29,19 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
     };
     const handleChange = () => {
         data = {
-            organizationData: {
+            organizationInfo: {
                 org_name: organizationName,
                 address: address,
                 suiteblg: suiteBlg,
                 zipcode: zipCode,
             }
         };  
-        setOrganizationData(data.organizationData);
+        setOrganizationData(data);
     };	
 
     React.useEffect(() => {
         handleChange();
-    }, [organizationName, address,suiteBlg,zipCode]);
+    }, [isChanged]);
 
     const dataToParent = () => {
         props.onSelectedChild(organazationData);
@@ -55,7 +57,7 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
     React.useImperativeHandle(ref, () => ({
         triggerErrors(){
             handleChange();
-            return handleErrors(organazationData);
+            return handleErrors(organazationData.organizationInfo);
         }
 
     }));
