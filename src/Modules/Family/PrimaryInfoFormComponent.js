@@ -13,10 +13,11 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
     const [phoneNumberCheckBOx, setPhoneNumberCheckBOx] = React.useState('false');
     const [email, setEmail] = React.useState('Email');
     const [communicationPreference, setCommunicationPreference] = React.useState('Email');
-    let first_name,last_name,middle_name,suffix_form_data='';
-    let middle_name_form,first_name_form,last_name_form='';
     const [childFamilyData, setChildFamilyData] = React.useState('');
     const [phoneDisable, setPhoneDisable] = React.useState(false);
+    let first_name,last_name,middle_name,suffix_form_data='';
+    let middle_name_form,first_name_form,last_name_form='';
+
     let data = '';
 
     const buildNameForm = (e) => {
@@ -106,18 +107,19 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
 
     const { errors, handleErrors } =
         useForm(props, {
-            'first_name' : ['required', 'min:1'],
-            'last_name' : ['required', 'min:1'],
+            'first_name' : ['required'],
+            'last_name' : ['required'],
+            'middle_name' : ['required'],
             'phone_number' : ['required', 'min:2', 'max:12'],
             'dob' : ['required'],
-            'email' : ['required'],
+            'email' : ['required']
         }, dataToParent);
 
     React.useImperativeHandle(ref, () => ({
 
         triggerErrors(){
             handleChange();
-            return handleErrors(data.nameData);
+            return handleErrors(data.primaryData);
         }}));
 
     const phoneDisableFunction=()=>{
@@ -137,17 +139,30 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
             <div className="form-group">
                 <label>First Name</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="first_name" id="first_name"
-                       onBlur={handleErrors} required />
+                       onBlur={handleErrors}  />
+                <div> {errors.first_name && (
+                    <span className="validationError">{errors.first_name}</span>
+                )}
+                </div>
             </div>
+
             <div className="form-group">
                 <label>Middle Name</label>
-                <input type="text" className="form-control" onChange={buildNameForm} defaultValue={middle_name_form}
-                       name="middle_name" id="middle_name"  required />
+                <input type="text" className="form-control" onChange={buildNameForm} name="middle_name" id="middle_name"  onBlur={handleErrors}  required />
+                <div> {errors.middle_name && (
+                    <span className="validationError">{errors.middle_name}</span>
+                )}
+                </div>
             </div>
+
             <div className="form-group">
                 <label>Last Name</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="last_name" id="last_name"
                        onBlur={handleErrors} required  />
+                <div> {errors.last_name && (
+                    <span className="validationError">{errors.last_name}</span>
+                )}
+                </div>
             </div>
 
             <div className="form-group">
@@ -157,10 +172,18 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
                     <option value="Sr">Sr</option>
                 </select>
             </div>
+
             <div className="form-group">
                 <label>Date of Birth</label>
-                <input type="date" className="form-control"  name="dob" id="dob" min="1900-01-02" onChange={buildNameForm} required />
+                <input type="date" className="form-control"  name="dob" id="dob" min="1900-01-02" onChange={buildNameForm}  onBlur={handleErrors}  required />
+                <div> {errors.dob && (
+                    <span className="validationError">{errors.dob}</span>
+                )}
+                </div>
             </div>
+
+
+
             <div className="form-group">
                 <label>Head of Household</label>
                 <select id="hoh" name="hoh"  onChange={buildNameForm}  className="form-control">
@@ -179,6 +202,11 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
                 <label>Phone Number</label>
                 <input type="number" className="form-control" onChange={buildNameForm}  name="phone_number" id="phone_number"
                        onBlur={handleErrors} required />
+
+                <div> {errors.phone_number && (
+                    <span className="validationError">{errors.phone_number}</span>
+                )}
+                </div>
             </div>)}
 
             <div className="form-group">
@@ -189,11 +217,16 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
             </div>
             <div className="form-group">
                 <label>Email Address</label>
-                <input type="text" className="form-control" onChange={buildNameForm} name="email" id="email"/>
+                <input type="text" className="form-control" onChange={buildNameForm} name="email" id="email" onBlur={handleErrors} />
                 <small className="text-muted">
                     No Email? <a href="">Get one free from Google.</a>
                 </small>
+                <div> {errors.email && (
+                    <span className="validationError">{errors.email}</span>
+                )}
+                </div>
             </div>
+
             <div className="form-group">
                 <label >Communication Preference</label>
                 <select  id='communication_preference' name='communication_preference' defaultValue="Email" onChange={buildNameForm} className="form-control">

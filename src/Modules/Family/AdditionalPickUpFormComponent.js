@@ -9,7 +9,7 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     const [pickupNumberPlate, setPickupNumberPlate] = React.useState('');
     const [pickupNumberPlateTwo, setPickupNumberPlateTwo] = React.useState('');
     const [additionalVehicle, setAdditionalVehicle] = useState(true);
-    const [pickupType, setPickupType] = useState('me');
+    const [pickupType, setPickupType] = useState('Me');
     const [step, setStep] = useState(false);
     let data= '';
 

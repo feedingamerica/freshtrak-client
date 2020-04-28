@@ -6,6 +6,8 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     const [password, setPassword] = React.useState('');
     const [passwordConfirm, setPasswordConfirm] = React.useState('');
     const [passwordError, setPasswordError] = React.useState(false);
+    const [passwordFieldError, setPasswordFieldError] = React.useState(false);
+    const [passwordConfirmFieldError, setPasswordConfirmFieldError] = React.useState(false);
     let data,childFamilyData ='';
 
     const buildForm = (event) => {
@@ -41,7 +43,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     const { errors, handleErrors } =
         useForm(props, {
             'password' : ['required'],
-            'password_re' : ['required'],
+            'passwordConfirm' : ['required'],
         }, dataToParent);
 
     React.useImperativeHandle(ref, () => ({
@@ -51,14 +53,14 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         }}));
 
     const passwordCheck=()=>{
-        if (passwordConfirm===password){
+
+        if (password !== '' && passwordConfirm !==''&& passwordConfirm===password){
             setPasswordError(false)
         }
-        else if ( (password == '')){
-
+        else if ( password == ''){
+            setPasswordError(true)
         }else if(passwordConfirm ==''){
             setPasswordError(true)
-
         }else if (password!=passwordConfirm){
             setPasswordError(true)
         }
@@ -75,14 +77,25 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
             <div className="form-group">
                 <label>Password</label>
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password" id="password" required/>
+                <div> {passwordFieldError && (
+                    <span className="validationError"> Required</span>
+                )}
+                </div>
             </div>
+
             <div className="form-group">
                 <label>Confirm Password</label>
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="passwordConfirm" id="passwordConfirm" required/>
+
+                <div> {passwordConfirmFieldError && (
+                    <span className="validationError">Required</span>
+                )}
+                </div>
             </div>
+
             {passwordError &&(
                 <div>
-                   <span>Password must be same </span>
+                   <span className="validationError" >Password must be same </span>
                 </div>
             )}
         </div>

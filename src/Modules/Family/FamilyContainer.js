@@ -10,38 +10,45 @@ import FooterContainer from "../Footer/FooterContainer";
 import HeaderComponent from "../Header/HeaderComponent";
 import '../../Assets/scss/main.scss';
 import back from '../../Assets/img/back.svg';
+import useForm from '../../Utils/UseForm';
 
 
 const FamilyContainer = () => {
     let familyData = [];
     let formError = '';
     let componentErrors = [];
-    const nameFormRef = React.useRef();
+    const primaryFormRef = React.useRef();
     const addressFormRef = React.useRef();
-    const zipFormRef = React.useRef();
-    const dobFormRef = React.useRef();
+    const passwordFormRef = React.useRef();
+
+
 
     const handleFormValidation = (e) => {
+        console.log('handleFormValidation')
+        console.log('primaryFormRef',primaryFormRef)
+        console.log('addressFormRef',addressFormRef)
+        console.log('primaryFormRef',primaryFormRef)
+        console.log('Object.keys(formError)',Object.keys(formError).length)
         e.preventDefault();
         componentErrors.push(
-            nameFormRef.current.triggerErrors(),
-            zipFormRef.current.triggerErrors(),
-            addressFormRef.current.triggerErrors());
+            primaryFormRef.current.triggerErrors(),
+            addressFormRef.current.triggerErrors(),
+            passwordFormRef.current.triggerErrors());
         if( componentErrors.includes(true) ||
             Object.keys(formError).length !== 0){
             showMessage('error', 'Kindly fix all errors and continue');
             return false;
+        } else if (Object.keys(formError).length === 0){
+            console.log('esle if')
+            handleSubmit();
         }
-        handleSubmitConfirm();
+
     };
 
-    const handleSubmitConfirm = () => {
-        let title = 'Are you sure you want to proceed?';
-        confirm(title, handleSubmit);
-    };
+
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        console.log('handleSubmit')
         let familyDetails = {
             familyMemberData: {
                 first_name: familyData.primaryData ? familyData.primaryData.primaryData.first_name : '',
@@ -58,8 +65,8 @@ const FamilyContainer = () => {
             HouseHoldData:{
                 address: familyData.addressData ? familyData.addressData.addressData.streetAddress : '',
                 apt_number: familyData.addressData ? familyData.addressData.addressData.aptNo : '',
-                zipcode: familyData.zipData ? familyData.addressData.addressData.zip : '',
-                housingType: familyData.zipData ? familyData.addressData.addressData.housingType : '',
+                zipcode: familyData.addressData ? familyData.addressData.addressData.zipCode : '',
+                housingType: familyData.addressData ? familyData.addressData.addressData.housingType : '',
             },
             passwordData:{
                 password: familyData.passwordData ? familyData.passwordData.passwordData.password:''
@@ -70,13 +77,15 @@ const FamilyContainer = () => {
                 countJunior: familyData.memberCountData ? familyData.memberCountData.memberCountData.countMiddle:'',
             },
             pickuptData:{
-                pickupInfo: familyData.pickupData ? familyData.pickupData.pickupData.pickupInfo:'',
                 pickupName: familyData.pickupData ? familyData.pickupData.pickupData.pickupName:'',
+                pickupType: familyData.pickupData ? familyData.pickupData.pickupData.pickupType:'',
                 pickupNumberPlate: familyData.pickupData ? familyData.pickupData.pickupData.pickupNumberPlate:'',
+                pickupNumberPlateAdditional: familyData.pickupData ? familyData.pickupData.pickupData.pickupNumberPlateAdditional:'',
             }
         };
 
         if(familyDetails) {
+            console.log('familyDetails',familyDetails)
 
 
         } else {
@@ -88,7 +97,6 @@ const FamilyContainer = () => {
     const buildFamilyData = (childFamilyData) => {
         let dataKey = Object.keys(childFamilyData)[0];
         familyData[dataKey] = childFamilyData;
-        console.log(familyData)
 
     };
 
@@ -147,10 +155,10 @@ const FamilyContainer = () => {
                             </div>
                             <div className="col-lg-4 col-md-6">
                                 <RegistrationTextComponent/>
-                                <form>
+                                <form onSubmit={handleFormValidation}>
                                     <div className="content-wrapper pt-100">
                                         <div className="form-fields">
-                                                    <HouseHoldFormComponent ref={addressFormRef}
+                                                    <HouseHoldFormComponent   ref={addressFormRef}
                                                                             onSelectedChild = {buildFamilyData}
                                                                             onFormErrors = {formErrors} />
                                                     <MemberCountFormComponent ref={addressFormRef}
@@ -160,17 +168,19 @@ const FamilyContainer = () => {
 
                                         <div className="form-fields pt-50">
 
-                                            <PrimaryInfoFormComponent ref={addressFormRef}
+                                            <PrimaryInfoFormComponent ref={primaryFormRef}
                                                                       onSelectedChild = {buildFamilyData}
                                                                       onFormErrors = {formErrors} />
 
-                                            <PasswordRegistrationFormComponent ref={addressFormRef}
+                                            <PasswordRegistrationFormComponent ref={passwordFormRef}
                                                                                onSelectedChild = {buildFamilyData}
                                                                                onFormErrors = {formErrors} />
 
-                                            <AdditionalPickUpFormComponent ref={addressFormRef}
+                                            <AdditionalPickUpFormComponent
                                                                       onSelectedChild = {buildFamilyData}
                                                                       onFormErrors = {formErrors} />
+
+
 
                                             <div className="button-wrap mt-4">
                                                 <button className="btn custom-button">Continue</button>
