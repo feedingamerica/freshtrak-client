@@ -6,7 +6,6 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
     const [lastName, setLastName] = React.useState('');
     const [middleName, setMiddleName] = React.useState('');
     const [suffix, setSuffix] = React.useState('Jr');
-    const [suffixArray, setSuffixArray] = React.useState('');
     const [dob, setDob] = React.useState('');
     const [hoh, setHoh] = React.useState('');
     const [phoneNumber, setPhoneNumber] = React.useState('');
@@ -17,7 +16,6 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
     const [phoneDisable, setPhoneDisable] = React.useState(false);
     let first_name,last_name,middle_name,suffix_form_data='';
     let middle_name_form,first_name_form,last_name_form='';
-
     let data = '';
 
     const buildNameForm = (e) => {

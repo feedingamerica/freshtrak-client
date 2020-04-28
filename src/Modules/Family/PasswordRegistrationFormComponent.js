@@ -92,7 +92,6 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
                 )}
                 </div>
             </div>
-
             {passwordError &&(
                 <div>
                    <span className="validationError" >Password must be same </span>

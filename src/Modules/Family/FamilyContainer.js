@@ -45,8 +45,6 @@ const FamilyContainer = () => {
 
     };
 
-
-
     const handleSubmit = (e) => {
         console.log('handleSubmit')
         let familyDetails = {
@@ -179,8 +177,6 @@ const FamilyContainer = () => {
                                             <AdditionalPickUpFormComponent
                                                                       onSelectedChild = {buildFamilyData}
                                                                       onFormErrors = {formErrors} />
-
-
 
                                             <div className="button-wrap mt-4">
                                                 <button className="btn custom-button">Continue</button>
