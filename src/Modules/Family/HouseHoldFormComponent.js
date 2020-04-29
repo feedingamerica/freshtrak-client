@@ -78,7 +78,7 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
 
     return (
 
-        <div>
+        <div className="pb-50">
             <div className="form-title">
                         Household Information
             </div>

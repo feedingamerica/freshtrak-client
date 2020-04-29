@@ -67,7 +67,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
 
 
     return (
-        <div className="form-fields pt-50">
+        <div className="form-fields pb-50">
             <div className="form-title">
                 Create FresTrak Account
             </div>

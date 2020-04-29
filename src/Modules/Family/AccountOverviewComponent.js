@@ -27,7 +27,7 @@ const AccountOverviewComponent = () => {
                         <div className="content-wrapper">
                             <div className=" d-flex mb-3 flex-wrap">
                                 <div className="flex-grow-1 medium-title font-weight-bold">Your Information</div>
-                                <div className="ml-auto"  onClick={()=>{history.push('/account/edit',{page:'your-info'})}}><span >Edit</span></div>
+                                <div className="ml-auto"  onClick={()=>{history.push('/account/edit',{page:'your-info'})}}><span className="cursor text-underline">Edit</span></div>
                             </div>
                             <div className="d-flex flex-column mt-3 mb-3 time-wrapper">
                                 <span>Savannah Neeley</span>
@@ -52,7 +52,7 @@ const AccountOverviewComponent = () => {
                         <div className="content-wrapper">
                             <div className=" d-flex flex-wrap mb-3">
                                 <div className="flex-grow-1 medium-title font-weight-bold">Pickup Information</div>
-                                <div className="ml-auto"  onClick={()=>{history.push('/account/edit',{page:'pickup-info'})}}><span >Edit</span></div>
+                                <div className="ml-auto"  onClick={()=>{history.push('/account/edit',{page:'pickup-info'})}}><span className="cursor text-underline">Edit</span></div>
                             </div>
                             <div className="d-flex flex-column mt-3 mb-3 time-wrapper">
                                 <div className="d-flex">
@@ -70,7 +70,7 @@ const AccountOverviewComponent = () => {
                         <div className="content-wrapper">
                             <div className=" d-flex flex-wrap mb-3">
                                 <div className="flex-grow-1 medium-title font-weight-bold">Household Info</div>
-                                <div className="ml-auto"  onClick={()=>{history.push('/account/edit',{page:'house-info'})}}><span >Edit</span></div>
+                                <div className="ml-auto"  onClick={()=>{history.push('/account/edit',{page:'house-info'})}}><span className="cursor text-underline">Edit</span></div>
                             </div>
                             <div className="d-flex flex-column mt-3 mb-3 time-wrapper">
                                <span className="font-weight-bold">First Adult Member</span>
@@ -93,11 +93,11 @@ const AccountOverviewComponent = () => {
                             </div>
                             <div className="row mt-3 mb-3 time-wrapper">
                                <div className="col-xl-8 col-lg-8 col-sm-8 col-8">
-                                <span className="font-weight-bold">Email or Username</span>
-                                <span>s*******@gmail.com</span>
+                                <div className="font-weight-bold">Email or Username</div>
+                                <div>s*******@gmail.com</div>
                                </div>
                                <div className="col-xl-4 col-lg-4 col-sm-4 col-4 text-right">
-                                <a  onClick={()=>{history.push('/account/edit',{page:'login-info'})}}>Change Password</a>  
+                                <a  onClick={()=>{history.push('/account/edit',{page:'login-info'})}} className="cursor text-underline">Change Password</a>  
                                </div>                              
                             </div>
                         </div>
