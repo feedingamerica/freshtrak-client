@@ -5,7 +5,7 @@ import {Button} from 'react-bootstrap';
 
 const ButtonComponent = ({ type , name, dataid = null, id, value ='Button' ,className, onClickfunction }) => {
    
-    return <Button type={type} name={name} dataid={dataid} id={id} className = {className} onClick={onClickfunction}>{value}</Button>;
+    return <Button type={type} name={name} dataid={dataid} id={id} data-testid ="button" className = {className} onClick={onClickfunction}>{value}</Button>;
 };
 
 ButtonComponent.propTypes = {
