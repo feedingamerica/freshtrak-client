@@ -15,6 +15,12 @@ const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
 const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
+const AccountOverviewComponent = lazy(() =>
+  import("../Modules/Family/AccountOverviewComponent")
+);
+const EditAccountComponent = lazy(() =>
+  import("../Modules/Family/EditAccountComponent")
+);
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -34,7 +40,16 @@ const Routes = () => {
               path={RENDER_URL.EVENT_LIST_URL}
               component={EventContainer}
             />
-
+            <Route
+              exact
+              path={RENDER_URL.ACCOUNT_OVERVIEW_URL}
+              component={AccountOverviewComponent}
+            />
+            <Route
+              exact
+              path={RENDER_URL.ACCOUNT_EDIT_URL}
+              component={EditAccountComponent}
+            />
             <Route
               path={"*"}
               render={(props) => <Redirect to="/" {...props} />}

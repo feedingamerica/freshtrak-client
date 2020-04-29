@@ -17,7 +17,9 @@ const HeaderContainer = () => {
   return (
     <div>
       {location.pathname === RENDER_URL.EVENT_CONFIRM_URL ||
-      location.pathname === RENDER_URL.ADD_FAMILY_URL ? (
+      location.pathname === RENDER_URL.ADD_FAMILY_URL ||
+      location.pathname === RENDER_URL.ACCOUNT_OVERVIEW_URL ||
+      location.pathname === RENDER_URL.ACCOUNT_EDIT_URL ? (
         <HeaderComponent shortHeader={shortHeader} />
       ) : (
         <header className="header">
