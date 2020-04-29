@@ -1,19 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ButtonComponent from './../ButtonComponent';
 import { render} from '@testing-library/react';
+import {fake} from 'test-data-bot';
 
-test('Render without crashing',()=>{
-	const div = document.createElement('div');
-	ReactDOM.render(<ButtonComponent type ='button' name="testbutton" dataid= '' id="test-id" value="test-button" className = 'test-button' onClickfunction={()=>{}}/>,div);
-});
-
-test("render button correctly",()=>{
-	const {getByTestId} = render(<ButtonComponent type ='button' name="testbutton" dataid= '' id="testid" value="test-button" className = 'test-button' onClickfunction={()=>{}}/>);
-	expect(getByTestId('button')).toHaveTextContent('test-button');
-});
-
-test("render button correctly",()=>{
-	const {getByTestId} = render(<ButtonComponent type ='submit' name="testsubmitbutton" dataid= '' id="submit-test" value="submit-test-button" className = 'submit-test-button' onClickfunction={()=>{}}/>);
-	expect(getByTestId('button')).toHaveTextContent('submit-test-button');
+describe ("Checking wheather the button component loads correctly",()=>{	
+	const className = String(fake(f => f.random.word()));
+	const inputName = String(fake(f => f.random.word()));
+	const btnId = String(fake(f => f.random.word()));
+	const btnValue = String(fake(f => f.random.word()));
+	const mockFun = ()=>{};
+	const {getByTestId} = render(<ButtonComponent type ='button' name={inputName} dataid= '' id={btnId} value={btnValue} className = {className} onClickfunction={mockFun}/>);
+	test("render button correctly",()=>{
+		expect(getByTestId('button')).toHaveTextContent(btnValue);
+	})
 });
