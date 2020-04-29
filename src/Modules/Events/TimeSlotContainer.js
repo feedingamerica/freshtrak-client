@@ -11,12 +11,7 @@ const TimeSlotContainer = props => {
         if (isEventData){
             setEventDetails(props.location.state.event);
         }
-       console.log(props);
-
     },[]);
-
-
-
 
     return (
         <div>

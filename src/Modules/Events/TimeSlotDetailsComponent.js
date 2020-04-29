@@ -2,19 +2,24 @@ import React, {useEffect, useState} from 'react';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import '../../Assets/scss/main.scss';
 import ButtonComponent from '../General/ButtonComponent';
-import DropdownComponent from '../General/DropdownComponent';
+import TimePicker from 'react-time-picker';
+import 'react-clock/dist/Clock.css';
 
 const TimeSlotDetailsComponent = (props) => {
     const [timeDetails, setTimeDetails] = useState([]);
-    const [timeSlot, setTimeSlot] = React.useState('');
+    const [timeSlot, setTimeSlot] = React.useState("");
+    const [minTime, setMinTime] = React.useState("");
+    const [maxTime, setMaxTime] = React.useState("");
 
     useEffect(() => {
-        setTimeDetails([
-        {key: 10, value: 10},
-        {key: 11, value: 11},
-        {key: 12, value: 12}
-      ])
-    },[]);
+        if(props.eventDetails.startTime) {
+            let start = convertTime12to24(props.eventDetails.startTime);
+            let end = convertTime12to24(props.eventDetails.endTime);
+            setMinTime(start);
+            setMaxTime(end);
+            setTimeSlot(start);
+        }
+    },[props.eventDetails.startTime]);
 
     const {
         eventDetails: {
@@ -25,13 +30,36 @@ const TimeSlotDetailsComponent = (props) => {
         },
     } = props;
 
+
+    const convertTime12to24 = (time12h) => {
+
+        const [time, modifier] = time12h.split(' ');
+
+        let [hours, minutes] = time.split(':');
+        if (hours === '12') {
+            hours = '00';
+        }
+
+
+        if(typeof minutes == 'undefined'){
+            minutes = '00';
+        }
+
+        if (modifier === 'PM') {
+            hours = parseInt(hours, 10) + 12;
+        }
+
+        return `${hours}:${minutes}`;
+    };
+
+
     const saveTimeSlot = () => {
         console.log('redirect to register page');
     };
 
     const buildData = (e) => {
-        let { name, value } = e.target;
-        setTimeSlot(value);
+        console.log(e)
+        setTimeSlot(e);
     };
 
 
@@ -55,14 +83,11 @@ const TimeSlotDetailsComponent = (props) => {
                         to reserve a place with registration.</p>
                         <p> Please select a time slot to continue.</p>
                     </div>
-                    <DropdownComponent defaultValue={timeSlot} optionClassName='dropdown-item' name="reserveTime" title="Select Time" items={timeDetails} onChangefunction={buildData}
-                                        />
-                        {/*<select value="" className="dropdown-toggle btn btn-secondary" >*/}
-                            {/*<option className="dropdown-item" value={11} >11:00</option>*/}
-                            {/*{roleValue.map( (value, index) => {*/}
-                                {/*return <option className="dropdown-item" value={value.id} key={index}>{value.role_name}</option>*/}
-                            {/*})  }*/}
-                        {/*</select>*/}
+                    <div className="react-time-picker">
+                    <TimePicker format="hh:mm" hourAriaLabel="Hour" renderNumbers clockClassName="react-clock"
+                                value={timeSlot} minTime={minTime} maxTime={maxTime} name="reserveTime"
+                                onChange={buildData} />
+                    </div>
                     <div className="day-view-item-detail-footer d-flex mt-3">
                         <ButtonComponent type ='button' name="saveTimeSlot" dataid= ''
                                          id="" value="Continue"
