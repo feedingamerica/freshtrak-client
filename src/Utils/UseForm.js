@@ -27,6 +27,16 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
                 return errors_address
                     ? ""
                     : `Enter a valid address`;
+            case "numeric":
+                const validNumeric = new RegExp('^-?[0-9]\d*\.?\d*$'); 
+                let errors_numeric = validNumeric.test(value); 
+                return errors_numeric ?
+                      "" : `Enter a numeric value`;
+            case "email" :
+                const validEmail = new RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+                let errors_email = validEmail.test(value); 
+                return errors_email ?
+                      "" : `Enter a valid email address`;
             default:
                 return "";
         }

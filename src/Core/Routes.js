@@ -15,6 +15,8 @@ const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
 const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
+const FoodBankContainer = lazy(() => import("../Modules/FoodBank/FoodBankContainer"));
+const FoodBankSuccessContainer = lazy(() => import("../Modules/FoodBank/FoodBankSuccessContainer"));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -34,7 +36,16 @@ const Routes = () => {
               path={RENDER_URL.EVENT_LIST_URL}
               component={EventContainer}
             />
-
+            <Route
+              exact
+              path={RENDER_URL.FOOD_BANK_CREATE}
+              component={FoodBankContainer}
+            />
+            <Route
+              exact
+              path={RENDER_URL.FOOD_BANK_SUCCESS}
+              component={FoodBankSuccessContainer}
+            />
             <Route
               path={"*"}
               render={(props) => <Redirect to="/" {...props} />}
