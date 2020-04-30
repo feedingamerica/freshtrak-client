@@ -23,7 +23,7 @@ const EventCardComponent = (props) => {
   } = props;
 
   return (
-    <div className="col-lg-4 col-xl-4">
+    <div className="col-12">
       <div className="day-view-item">
         <div className="day-view-item-header">
           <div className="day-view-header-title">{agencyName}</div>

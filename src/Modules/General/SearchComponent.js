@@ -71,7 +71,7 @@ const SearchComponent = (props, ref) => {
     return (
         <form>
             <div className=" row align-items-end">
-                <div className="col-sm-6 col-md-6 col-lg-7 col-xl-8">
+                <div className="col-sm-6 col-md-6 col-lg-7 col-xl-8 search-left-box-fields">
                     <div className="d-flex">
                         {/* <div className="form-group flex-grow-1">
                             <label>Street</label>
@@ -96,7 +96,7 @@ const SearchComponent = (props, ref) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-sm-6 col-md-6 col-lg-5 col-xl-4 text-right">
+                <div className="col-sm-6 col-md-6 col-lg-5 col-xl-4 text-right search-left-box-fields">
                     <ButtonComponent type ='submit' name="searchForResources" dataid= ''
                                      id="search-resource" value="Search For Resources"
                                      className = 'btn custom-button search-button'
