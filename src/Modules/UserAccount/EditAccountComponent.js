@@ -77,7 +77,7 @@ const EditAccountComponent = (props) => {
 
                                 {/* Shows except for Pickup info */}
                                 {page!=='pickup-info' && 
-                                <div className="button-wrap mt-4">
+                                <div className="button-wrap mt-4 text-underline">
                                     <a onClick={()=>history.goBack()}>Cancel Changes</a>
                                 </div>}
                         

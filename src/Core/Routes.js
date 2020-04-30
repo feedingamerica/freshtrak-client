@@ -8,6 +8,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+
 const DashBoardContainer = lazy(() =>
   import("../Modules/Dashboard/DashBoardContainer")
 );
@@ -15,11 +16,11 @@ const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
 const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
-const AccountOverviewComponent = lazy(() =>
-  import("../Modules/AccountOverview/AccountOverviewComponent")
+const AccountOverviewContainer = lazy(() =>
+  import("../Modules/UserAccount/AccountOverviewContainer")
 );
 const EditAccountComponent = lazy(() =>
-  import("../Modules/AccountOverview/EditAccountComponent")
+  import("../Modules/UserAccount/EditAccountComponent")
 );
 
 const Routes = () => {
@@ -43,7 +44,7 @@ const Routes = () => {
             <Route
               exact
               path={RENDER_URL.ACCOUNT_OVERVIEW_URL}
-              component={AccountOverviewComponent}
+              component={AccountOverviewContainer}
             />
             <Route
               exact
