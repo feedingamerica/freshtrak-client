@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../Assets/scss/main.scss';
 
 const MemberInfoComponent= (props)=> {
 
@@ -43,6 +44,7 @@ const MemberInfoComponent= (props)=> {
                                 <label>Date of Birth</label>
                                 <input type="date" className="form-control" name={"dob_junior"+value} id={"dob_junior"+value} />
                             </div>
+
                         </div>
                     }</div>
                 })}
