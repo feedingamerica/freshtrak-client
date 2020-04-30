@@ -1,37 +1,38 @@
 import React from 'react';
 import '../../Assets/scss/main.scss';
 
-const MemberInfoComponent= (props)=> {
+const MemberInfoComponent = (props) => {
 
     const [countJunior, setJunior] = React.useState('3');
     const [countSenior, setSenior] = React.useState('');
     const [countAdult, setAdult] = React.useState('');
 
-    const JuniorMember=(props)=> {
-        let elementsJunior=Array.from(Array(countJunior).keys())
-        return(
+    const JuniorMember = (props) => {
+        let elementsJunior = Array.from(Array(countJunior).keys())
+        return (
             <div>
                 {elementsJunior.map((value, index) => {
                     return <div key={index}>{
-                        <div>
+                        <div className="info-wraps">
                             <div className="form-title">
                                 Your Information
                             </div>
                             <div className="form-group">
                                 <label>First Name</label>
-                                <input type="text" className="form-control"  name={"first_name_junior"+value} id="first_name"
-                                       />
+                                <input type="text" className="form-control" name={"first_name_junior" + value} id="first_name"
+                                />
                             </div>
                             <div className="form-group">
                                 <label>Middle Name</label>
                                 <input type="text" className="form-control"
-                                       name="middle_name" id="middle_name" />
+                                    name="middle_name" id="middle_name" />
                             </div>
                             <div className="form-group">
                                 <label>Last Name</label>
-                                <input type="text" className="form-control"  name={"last_name_junior"+value} id={"last_name_junior"+value}
-                                        />
-                            </div>
+                                <input type="text" className="form-control" name={"last_name_junior" + value} id={"last_name_junior" + value}
+                                />
+                                <div>
+                                </div>
 
                             <div className="form-group">
                                 <label>Suffix</label>
@@ -46,15 +47,16 @@ const MemberInfoComponent= (props)=> {
                             </div>
 
                         </div>
+                        </div>
                     }</div>
                 })}
             </div>
         )
     };
-  const AdultMember=(props)=> {
+    const AdultMember = (props) => {
 
-        let elementsAdult=Array.from(Array(countAdult).keys())
-        return(
+        let elementsAdult = Array.from(Array(countAdult).keys())
+        return (
             <div>
                 {elementsAdult.map((value, index) => {
                     return <div key={index}>{
@@ -64,30 +66,30 @@ const MemberInfoComponent= (props)=> {
                             </div>
                             <div className="form-group">
                                 <label>First Name</label>
-                                <input type="text" className="form-control"  name={"first_name_adult"+value} id={"first_name_adult"+value}
+                                <input type="text" className="form-control" name={"first_name_adult" + value} id={"first_name_adult" + value}
                                 />
                             </div>
                             <div className="form-group">
                                 <label>Middle Name</label>
                                 <input type="text" className="form-control"
-                                       name="middle_name" id="middle_name" />
+                                    name="middle_name" id="middle_name" />
                             </div>
                             <div className="form-group">
                                 <label>Last Name</label>
-                                <input type="text" className="form-control"  name={"last_name_adult"+value} id={"last_name_adult"+value}
+                                <input type="text" className="form-control" name={"last_name_adult" + value} id={"last_name_adult" + value}
                                 />
                             </div>
 
                             <div className="form-group">
                                 <label>Suffix</label>
-                                <select  id={"suffix_adult"+value} name={"suffix_adult"+value} className="form-control"  >
+                                <select id={"suffix_adult" + value} name={"suffix_adult" + value} className="form-control"  >
                                     <option>Jr</option>
                                     <option>Sr</option>
                                 </select>
                             </div>
                             <div className="form-group">
                                 <label>Date of Birth</label>
-                                <input type="date" className="form-control" name={"dob_adult"+value} id={"dob_adult"+value} />
+                                <input type="date" className="form-control" name={"dob_adult" + value} id={"dob_adult" + value} />
                             </div>
                         </div>
                     }</div>
@@ -96,11 +98,11 @@ const MemberInfoComponent= (props)=> {
         )
     };
 
-  const SeniorMember=(props)=> {
+    const SeniorMember = (props) => {
 
-        let elementSenior=Array.from(Array(countSenior).keys())
-        return(
-            <ul>
+        let elementSenior = Array.from(Array(countSenior).keys())
+        return (
+            <div>
                 {elementSenior.map((value, index) => {
                     return <div key={index}>{
                         <div>
@@ -109,44 +111,45 @@ const MemberInfoComponent= (props)=> {
                             </div>
                             <div className="form-group">
                                 <label>First Name</label>
-                                <input type="text" className="form-control"  name={"first_name_senior"+value} id={"first_name_senior"+value}
+                                <input type="text" className="form-control" name={"first_name_senior" + value} id={"first_name_senior" + value}
                                 />
                             </div>
                             <div className="form-group">
                                 <label>Middle Name</label>
                                 <input type="text" className="form-control"
-                                       name="middle_name" id="middle_name" />
+                                    name="middle_name" id="middle_name" />
                             </div>
                             <div className="form-group">
                                 <label>Last Name</label>
-                                <input type="text" className="form-control"  name={"last_name_senior"+value} id={"last_name_senior"+value}
+                                <input type="text" className="form-control" name={"last_name_senior" + value} id={"last_name_senior" + value}
                                 />
                             </div>
 
                             <div className="form-group">
                                 <label>Suffix</label>
-                                <select  className="form-control"   name={"suffix_senior"+value}  id={"suffix_senior"+value} >
+                                <select className="form-control" name={"suffix_senior" + value} id={"suffix_senior" + value} >
                                     <option>Jr</option>
                                     <option>Sr</option>
                                 </select>
                             </div>
                             <div className="form-group">
                                 <label>Date of Birth</label>
-                                <input type="date" className="form-control" name={"dob_senior"+value} id={"dob_senior"+value} />
+                                <input type="date" className="form-control" name={"dob_senior" + value} id={"dob_senior" + value} />
                             </div>
                         </div>
+
                     }</div>
                 })}
-            </ul>
+            </div>
         )
     };
 
     return (
-      <div>
-          <JuniorMember/>
-          <AdultMember/>
-          <SeniorMember/>
-      </div>
+        <div>
+            <JuniorMember />
+            <AdultMember />
+            <SeniorMember />
+        </div>
     )
 };
 
