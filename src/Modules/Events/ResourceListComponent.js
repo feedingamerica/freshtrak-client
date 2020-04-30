@@ -4,6 +4,17 @@ import mofcLogo from '../../Assets/img/MOFC-Logo.svg';
 const ResourceListComponent = ({ dataToChild }) => {
     const [foodBankArray, setFoodBankArray] = React.useState([]);
 
+    const foodBankDisplay = () => {
+        switch (foodBankArray.length) {
+            case 0:
+                return 'No Food Banks found within the zip code';
+            case 1:
+                return 'Your Local Food Bank';
+            default:
+                return 'Your Local Food Banks';
+        }
+    }
+
     React.useEffect(() => {
         if(dataToChild){
             const { foodbanks }  = dataToChild;
@@ -16,9 +27,9 @@ const ResourceListComponent = ({ dataToChild }) => {
 
     return (
         <div className="search-results">
-            <div className="search-list-title">Your Local Food Banks</div>
+            <div className="search-list-title">{foodBankDisplay()}</div>
             {foodBankArray.map((value, index) => {
-                const { foodbank: { name, address, city, state, zip, phone, fb_url } } = value;
+                const { foodbank: { name, address, city, state, zip, phone, display_url } } = value;
                 return(
                     <div className="row align-items-center mt-2" key={index}>
                         <div className="col-lg-4 col-sm-6">
@@ -32,7 +43,7 @@ const ResourceListComponent = ({ dataToChild }) => {
                         </div>
                         <div className="col-lg-4 col-sm-6 caption-text">
                             <div>{phone}</div>
-                            <div>{fb_url}</div>
+                            <div><a href={display_url} target="_blank" rel="noopener noreferrer">{display_url}</a></div>
                         </div>
                     </div>
                 )
