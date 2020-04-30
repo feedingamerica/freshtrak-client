@@ -29,6 +29,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         data = {
             passwordData: {
                 password: password,
+                passwordConfirmFieldError:passwordConfirmFieldError
             }
         };props.onSelectedChild(data);
     };
@@ -56,13 +57,17 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
 
         if (password !== '' && passwordConfirm !==''&& passwordConfirm===password){
             setPasswordError(false)
-        }
-        else if ( password == ''){
+            setPasswordConfirmFieldError(false)
+        } else if ( password === ''){
             setPasswordError(true)
-        }else if(passwordConfirm ==''){
+            setPasswordConfirmFieldError(true)
+        }else if(passwordConfirm ===''){
             setPasswordError(true)
-        }else if (password!=passwordConfirm){
+            setPasswordConfirmFieldError(true)
+        }else if (password!==passwordConfirm){
             setPasswordError(true)
+            setPasswordConfirmFieldError(true)
+
         }
     }
 

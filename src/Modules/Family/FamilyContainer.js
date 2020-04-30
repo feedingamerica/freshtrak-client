@@ -22,13 +22,7 @@ const FamilyContainer = () => {
     const passwordFormRef = React.useRef();
 
 
-
     const handleFormValidation = (e) => {
-        console.log('handleFormValidation')
-        console.log('primaryFormRef',primaryFormRef)
-        console.log('addressFormRef',addressFormRef)
-        console.log('primaryFormRef',primaryFormRef)
-        console.log('Object.keys(formError)',Object.keys(formError).length)
         e.preventDefault();
         componentErrors.push(
             primaryFormRef.current.triggerErrors(),
@@ -38,11 +32,10 @@ const FamilyContainer = () => {
             Object.keys(formError).length !== 0){
             showMessage('error', 'Kindly fix all errors and continue');
             return false;
-        } else if (Object.keys(formError).length === 0){
+        } else if (Object.keys(formError).length === 0 ){
             console.log('esle if')
             handleSubmit();
         }
-
     };
 
     const handleSubmit = (e) => {
@@ -83,7 +76,6 @@ const FamilyContainer = () => {
         };
 
         if(familyDetails) {
-            console.log('familyDetails',familyDetails)
 
 
         } else {
@@ -95,7 +87,6 @@ const FamilyContainer = () => {
     const buildFamilyData = (childFamilyData) => {
         let dataKey = Object.keys(childFamilyData)[0];
         familyData[dataKey] = childFamilyData;
-
     };
 
     const formErrors = (errors) => {
