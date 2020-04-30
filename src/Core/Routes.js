@@ -16,10 +16,10 @@ const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
 const AccountOverviewComponent = lazy(() =>
-  import("../Modules/Family/AccountOverviewComponent")
+  import("../Modules/AccountOverview/AccountOverviewComponent")
 );
 const EditAccountComponent = lazy(() =>
-  import("../Modules/Family/EditAccountComponent")
+  import("../Modules/AccountOverview/EditAccountComponent")
 );
 
 const Routes = () => {

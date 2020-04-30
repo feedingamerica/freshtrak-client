@@ -27,7 +27,7 @@ const EditAccountComponent = (props) => {
                             <NavigationBtnComponent />
                         </div>
                     </div>
-                    <div class="row">
+                    <div className ="row">
                         <div className="col-12">
                             <div className="title-wrap">
                                 <h1 className="big-title mt-5 mb-5 mobile-mb">
