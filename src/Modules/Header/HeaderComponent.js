@@ -7,11 +7,12 @@ import React, { useEffect, useState, Fragment } from "react";
 import mainLogo from "../../Assets/img/logo.png";
 import navBarIcon from "../../Assets/img/menu.svg";
 import closeIcon from '../../Assets/img/close.svg';
+// import navBarIcon from "../../Assets/img/menu.svg";
 import { Link } from "react-router-dom";
+import { LinkContainer } from 'react-router-bootstrap';
 import {
   Nav,
-  NavDropdown,
-  Navbar
+  Navbar,
 } from "react-bootstrap";
 
 import { RENDER_URL } from "../../Utils/Urls";
@@ -53,7 +54,8 @@ const HeaderComponent = (props) => {
                   />{" "}
                 </Link>
               </span>
-              <button
+              {/* Out of Scope */}
+              {/* <button
                 className="navbar-toggler mr-2"
                 type="button"
                 data-toggle="collapse"
@@ -63,11 +65,11 @@ const HeaderComponent = (props) => {
                 <span className="navbar-toggler-icon">
                   <img src={navBarIcon} alt="UserLogo" className="img-fluid" />
                 </span>
-              </button>
+              </button> */}
             </Navbar.Brand>
-            {/* Commented to restrict triggering bootstrap dropdown */}
-            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
-            <Navbar.Collapse
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            {/* Out of Scope */}
+            {/* <Navbar.Collapse
               id="navbarCollapse"
               className="justify-content-end"
             >
@@ -99,7 +101,12 @@ const HeaderComponent = (props) => {
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
-            </Navbar.Collapse>
+            </Navbar.Collapse> */}
+            <LinkContainer to={RENDER_URL.SIGN_IN}>
+              <Nav.Link href="" className="header-sign-in">
+                  SIGN IN
+              </Nav.Link>
+            </LinkContainer>
           </Navbar>
         </div>
       </Nav>

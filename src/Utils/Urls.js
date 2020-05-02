@@ -15,4 +15,5 @@ export const RENDER_URL = {
     FRESHTRAK_ABOUT:'/freshtrak-about',
     EVENT_LIST_URL:'/events/list',
     ADD_FAMILY_URL: '/family/create',
+    SIGN_IN: '/family/sign-in',
 };
