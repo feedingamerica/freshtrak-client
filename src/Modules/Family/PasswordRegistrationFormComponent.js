@@ -7,21 +7,6 @@ const PasswordInfoFormComponent = forwardRef(({ register, errors, getValues }, r
         Input a password to create a Frestrak account and easily register with one click in the future
       </small>
 
-      <div className="form-group mt-4">
-        <label htmlFor="communication_preference">Communication Preference</label>
-        <select
-          className="form-control"
-          name="communication_preference"
-          id="communication_preference"
-          ref={register}
-        >
-          <option value="" defaultValue></option>
-          <option value="email">Email</option>
-          <option value="phone">Phone</option>
-          <option value="no_contact">Please No Contact</option>
-        </select>
-      </div>
-
       <div className="form-group">
         <label htmlFor="email">Email</label>
         <input

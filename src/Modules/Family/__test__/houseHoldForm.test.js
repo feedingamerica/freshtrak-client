@@ -13,7 +13,7 @@ test('should render', () => {
 
 test('should show invalid form if required field is not filled out', () => {
   const { getByText } = render(
-    <HouseHoldFormComponent register={noop} errors={{ street_address: true }} />
+    <HouseHoldFormComponent register={noop} errors={{ address_line_1: true }} />
   );
   getByText(/This field is required/i);
 });

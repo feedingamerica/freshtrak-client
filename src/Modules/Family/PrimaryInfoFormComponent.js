@@ -49,36 +49,23 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, getValues }, r
         </select>
       </div>
       <div className="form-group">
-        <label htmlFor="dob">Date of Birth</label>
+        <label htmlFor="date_of_birth">Date of Birth</label>
         <input
           type="date"
           className="form-control"
-          name="dob"
-          id="dob"
+          name="date_of_birth"
+          id="date_of_birth"
           ref={register({ required: true })}
         />
-        {errors.dob && <span className="text-danger">This field is required</span>}
+        {errors.date_of_birth && <span className="text-danger">This field is required</span>}
       </div>
       <div className="form-group">
-        <label htmlFor="hoh">Head of Household</label>
-        <select
-          className="form-control"
-          name="hoh"
-          id="hoh"
-          ref={register({ required: true })}
-        >
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
-        {errors.hoh && <span className="text-danger">This field is required</span>}
-      </div>
-      <div className="form-group">
-        <label htmlFor="phone_number">Phone Number</label>
+        <label htmlFor="phone">Phone Number</label>
         <input
           type="tel"
           className="form-control"
-          name="phone_number"
-          id="phone_number"
+          name="phone"
+          id="phone"
           ref={register({
             validate: value => {
               const { no_phone_number } = getValues()
@@ -89,7 +76,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, getValues }, r
           })}
         />
         {
-          errors.phone_number && <span className="text-danger" data-testid="no phone error">This field is required. If you have no phone check "No Phone Available".</span>
+          errors.phone && <span className="text-danger" data-testid="no phone error">This field is required. If you have no phone check "No Phone Available".</span>
         }
       </div>
       <div className="form-check">

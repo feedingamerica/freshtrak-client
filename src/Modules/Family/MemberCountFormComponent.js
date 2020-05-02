@@ -62,12 +62,12 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
               <span className="sr-only">Decrease number of seniors</span>
               <span aria-hidden="true">-</span>
             </button>
-            <label className="sr-only" htmlFor="count_senior">Number of Seniors(65+)</label>
+            <label className="sr-only" htmlFor="seniors_in_household">Number of Seniors(65+)</label>
             <input
               type="text"
               className="number member-count"
-              name="count_senior"
-              id="count_senior"
+              name="seniors_in_household"
+              id="seniors_in_household"
               value={countSenior}
               onChange={() => {}}
               ref={register}
@@ -94,12 +94,12 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
               <span className="sr-only">Decrease number of adults</span>
               <span aria-hidden="true">-</span>
             </button>
-            <label className="sr-only" htmlFor="count_adult">Number of Adults</label>
+            <label className="sr-only" htmlFor="adults_in_household">Number of Adults</label>
             <input
               type="text"
               className="number member-count"
-              name="count_adult"
-              id="count_adult"
+              name="adults_in_household"
+              id="adults_in_household"
               value={countAdult}
               onChange={() => {}}
               ref={register}
@@ -126,12 +126,12 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
               <span className="sr-only">Decrease number of kids</span>
               <span aria-hidden="true">-</span>
             </button>
-            <label className="sr-only" htmlFor="count_kid">Number of Kids</label>
+            <label className="sr-only" htmlFor="children_in_household">Number of Kids</label>
             <input
               type="text"
               className="number member-count"
-              name="count_kid"
-              id="count_kid"
+              name="children_in_household"
+              id="children_in_household"
               value={countKid}
               onChange={() => {}}
               ref={register}
