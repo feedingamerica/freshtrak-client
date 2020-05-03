@@ -1,10 +1,18 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import SignInFormComponent from './SignInFormComponent';
 
 const SignInContainer = () => {
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => { console.log(data) };
+  const history = useHistory();
+  const onSubmit = data => {
+    console.log(data);
+    if (data) {
+      localStorage.setItem('isLoggedIn', true);
+      history.goBack();
+    }
+  };
 
   return (
     <div className="d-flex justify-content-center">
@@ -21,6 +29,5 @@ const SignInContainer = () => {
     </div>
   )
 }
-
 
 export default SignInContainer;

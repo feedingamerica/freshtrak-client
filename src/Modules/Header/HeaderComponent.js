@@ -23,9 +23,13 @@ const HeaderComponent = (props) => {
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
 
   useEffect(() => {
-    if (localStorage.getItem("isLoggedIn") !== null) {
+    let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
+    if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
+      setIsLoggedIn(false);
+    } else {
       setIsLoggedIn(true);
     }
+
     window.onscroll = () => {
       if (window.pageYOffset > 100) {
         setNavbarShrink("navbar-shrink");
@@ -35,6 +39,11 @@ const HeaderComponent = (props) => {
     };
   }, [localIsLoggedIn, isLoggedIn]);
 
+  const logOut = () => {
+    localStorage.setItem('isLoggedIn', false);
+    setIsLoggedIn(false);
+  }
+  
   return (
     <React.Fragment>
       <Nav
@@ -92,11 +101,22 @@ const HeaderComponent = (props) => {
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse> */}
-            <LinkContainer to={RENDER_URL.SIGN_IN}>
-              <Nav.Link href="" className="header-sign-in">
-                  SIGN IN
-              </Nav.Link>
-            </LinkContainer>
+            {!isLoggedIn && (
+              <LinkContainer to={RENDER_URL.SIGN_IN}>
+                <Nav.Link href="" className="header-sign-in">
+                    SIGN IN
+                </Nav.Link>
+              </LinkContainer>
+            )}
+            {isLoggedIn && (
+              <button
+                type="button"
+                className="btn btn-link header-sign-in"
+                onClick={logOut}
+                >
+                  LOG OUT
+                </button>
+            )}
           </Navbar>
         </div>
       </Nav>
