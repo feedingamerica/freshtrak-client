@@ -9,6 +9,7 @@ const SignInFormComponent = forwardRef(({ register, errors }, ref) => (
         className="form-control"
         name="email"
         id="email"
+        autoComplete="section-login email"
         ref={register({ required: true })}
       />
       {errors.email && <span className="text-danger">Your email is required</span>}
@@ -20,6 +21,7 @@ const SignInFormComponent = forwardRef(({ register, errors }, ref) => (
         className="form-control"
         name="password"
         id="password"
+        autoComplete="section-login passord"
         ref={register({ required: true })}
       />
       {errors.password && <span className="text-danger">Your Password is required</span>}
