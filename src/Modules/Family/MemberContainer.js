@@ -20,37 +20,36 @@ const MemberContainer = () => {
 
     const buildFamilyData = (childFamilyData) => {
         let dataKey = Object.keys(childFamilyData)[0];
-        familyData = childFamilyData;
     };
 
     return (
         <div>
             <HeaderComponent shortHeader={'navbar-green'} />
             <div className="container pt-100 pb-100 ">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="back-button">
-                            <span class="back-arrow">
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="back-button">
+                            <span className="back-arrow">
                                 <img src="img/back.svg" />
                             </span>
-                            <span class="font-weight-bold text-uppercase ml-2">Back</span>
+                            <span className="font-weight-bold text-uppercase ml-2">Back</span>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="title-wrap">
-                            <h1 class="big-title mt-5 mb-5 mobile-mb">
+                <div className="row">
+                    <div className="col-12">
+                        <div className="title-wrap">
+                            <h1 className="big-title mt-5 mb-5 mobile-mb">
                                 Household Info
                             </h1>
                             
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-8 col-md-6">
-                        <div class="content-wrapper">
-                            <div class="caption-text">
+                <div className="row">
+                    <div className="col-lg-8 col-md-6">
+                        <div className="content-wrapper">
+                            <div className="caption-text">
                                 <p>
                                     Would you mind telling us a little more about your
                                     household and your living situation?
@@ -64,7 +63,7 @@ const MemberContainer = () => {
                             <button className="btn custom-button">Skip This</button>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 register-confirmation">
+                    <div className="col-lg-4 col-md-6 register-confirmation">
                         <form>
                         <div className="content-wrapper mt-0">
                         <div className="form-fields">
