@@ -67,7 +67,7 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
 			<div className="form-title">
 				Organization Information
 			</div>
-			<div className="form-group">
+			<div className="form-group" data-testid="org_name">
 				<label>Organization Name</label>
 				<input type="text" name="org_name" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors} />
 				{errors.org_name && (
@@ -75,21 +75,21 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
                 )}
 			</div>
 			<div className="d-flex">
-				<div className="form-group">
+				<div className="form-group" data-testid="address">
 					<label>Address</label>
-					<input type="text" name ="address" className="form-control" onChange={buildOrganizationForm} />
+					<input type="text" name ="address" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors}/>
 					{errors.address && (
                         <span className="validationError">{errors.address}</span>
                  	)}
 				</div>
 				<div className="form-group ml-2">
 					<label>Suite/Blg</label>
-					<input type="text" name="suiteblg" className="form-control" onChange={buildOrganizationForm} />
+					<input type="text" name="suiteblg" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors}/>
 				</div>
 			</div>
-			<div className="form-group">
+			<div className="form-group" data-testid="zip_code">
 				<label>Zipcode</label>
-				<input type="text" name="zipcode" className="form-control" onChange={buildOrganizationForm} />
+				<input type="text" name="zipcode" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors}/>
 				{errors.zipcode && (
                     <span className="validationError">{errors.zipcode}</span>
                 )}
