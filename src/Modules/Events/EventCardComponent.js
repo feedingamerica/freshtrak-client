@@ -1,11 +1,14 @@
 /**
  * Event Card Component
  */
-import React from 'react';
+import React,{useContext} from 'react';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import '../../Assets/scss/main.scss';
+import EventContext from '../../Store/ContextApi/EventContext';
 
 const EventCardComponent = (props) => {
+
+  const eventContext = useContext(EventContext);
   const {
     event: {
       startTime,
@@ -22,6 +25,11 @@ const EventCardComponent = (props) => {
     },
   } = props;
 
+  const loadEventDetails = () =>{
+   
+    eventContext.setCurrentEvent(props.event);
+    eventContext.showEventDetails(true);
+  }
   return (
     <div className="col-12">
       <div className="day-view-item">
@@ -48,15 +56,16 @@ const EventCardComponent = (props) => {
             {eventCity} {eventState} {eventZip}<br />
             {phoneNumber}
           </div>
-          {/* Out of scope */}
-          {/* <div className="day-view-item-detail-footer d-flex mt-3">
-            <button className="btn default-button flex-grow-1">
+          
+          <div className="day-view-item-detail-footer d-flex mt-3">
+            <button className="btn default-button flex-grow-1" onClick={loadEventDetails}>
               View Details
             </button>
-            <button className="btn custom-button ml-1 flex-grow-1">
+            {/* Out of scope */}
+            {/* <button className="btn custom-button ml-1 flex-grow-1">
               Reserve Time
-            </button>
-          </div> */}
+            </button> */}
+          </div>
         </div>
       </div>
     </div>

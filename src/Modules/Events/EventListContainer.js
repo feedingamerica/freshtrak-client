@@ -4,7 +4,8 @@ import { EventHandler } from '../../Utils/EventHandler';
 import { API_URL } from '../../Utils/Urls';
 import axios from 'axios';
 
-const EventListContainer = ({ searchData }) => {
+const EventListContainer = (props) => {
+  const {searchData} = props; 
   const [agencyResponse, setAgencyResponse] = useState(false);
   const [agencyData, setAgencyData] = useState({});
 
@@ -20,6 +21,8 @@ const EventListContainer = ({ searchData }) => {
       buildSearchData(searchData);
     }
   }, [searchData]);
+
+
 
   const handleSubmit = async query => {
     if (query) {

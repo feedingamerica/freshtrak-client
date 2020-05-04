@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import EventContainer from './EventContainer';
 import MapContainer  from './MapContainer';
 
@@ -14,7 +14,9 @@ const EventMapContainer = props => {
         <div className="d-flex h-100">
             <div className="left-box">
                 <div className="search-area-left-block-contents h-100">
-                    <EventContainer location={props.location} />
+
+                    {/* tried {...props} */}
+                    <EventContainer {...props} />
                 </div>
             </div>
 
