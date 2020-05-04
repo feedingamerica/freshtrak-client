@@ -21,7 +21,7 @@ const FamilyContainer = () => {
     const primaryFormRef = React.useRef();
     const addressFormRef = React.useRef();
     const passwordFormRef = React.useRef();
-    const [familyInfo, setFamilyInfo] = React.useState({});
+
 
     const handleFormValidation = (e) => {
         e.preventDefault();
@@ -41,41 +41,15 @@ const FamilyContainer = () => {
     const handleSubmit = (e) => {
         console.log('handleSubmit')
         let familyDetails = {
-            familyMemberData: {
-                first_name: familyData.primaryData ? familyData.primaryData.primaryData.first_name : '',
-                last_name: familyData.primaryData ? familyData.primaryData.primaryData.last_name : '',
-                middle_name: familyData.primaryData ? familyData.primaryData.primaryData.middle_name : '',
-                hoh: familyData.primaryData ? familyData.primaryData.primaryData.hoh : '',
-                dob: familyData.primaryData ? familyData.primaryData.primaryData.dob : '',
-                suffix: familyData.primaryData ? familyData.primaryData.primaryData.suffix : '',
-                phoneNumber: familyData.primaryData ? familyData.primaryData.primaryData.phoneNumber : '',
-                phoneNumberCheckBOx: familyData.primaryData ? familyData.primaryData.primaryData.phoneNumberCheckBOx : '',
-                email: familyData.primaryData ? familyData.primaryData.primaryData.email : '',
-                communicationPreference: familyData.primaryData ? familyData.primaryData.primaryData.communicationPreference : '',
-            },
-            HouseHoldData:{
-                address: familyData.addressData ? familyData.addressData.addressData.streetAddress : '',
-                apt_number: familyData.addressData ? familyData.addressData.addressData.aptNo : '',
-                zipcode: familyData.addressData ? familyData.addressData.addressData.zipCode : '',
-                housingType: familyData.addressData ? familyData.addressData.addressData.housingType : '',
-            },
-            passwordData:{
-                password: familyData.passwordData ? familyData.passwordData.passwordData.password:''
-            },
-            memberCountData:{
-                countSenior: familyData.memberCountData ? familyData.memberCountData.memberCountData.countSenior:'',
-                countMiddle: familyData.memberCountData ? familyData.memberCountData.memberCountData.countMiddle:'',
-                countJunior: familyData.memberCountData ? familyData.memberCountData.memberCountData.countMiddle:'',
-            },
-            pickuptData:{
-                pickupName: familyData.pickupData ? familyData.pickupData.pickupData.pickupName:'',
-                pickupType: familyData.pickupData ? familyData.pickupData.pickupData.pickupType:'',
-                pickupNumberPlate: familyData.pickupData ? familyData.pickupData.pickupData.pickupNumberPlate:'',
-                pickupNumberPlateAdditional: familyData.pickupData ? familyData.pickupData.pickupData.pickupNumberPlateAdditional:'',
-            }
+            familyMemberData:familyData.primaryData ? familyData.primaryData.primaryData:'',
+            HouseHoldData:familyData.addressData ? familyData.addressData.addressData:'',
+            passwordData:familyData.passwordData ? familyData.passwordData.passwordData:'',
+            memberCountData:familyData.memberCountData ? familyData.memberCountData.memberCountData:'',
+            pickuptData:familyData.pickupData ? familyData.pickupData.pickupData:''
         };
 
         if(familyDetails) {
+            console.log(familyDetails)
         } else {
             showMessage('error', 'Something went wrong');
         }
