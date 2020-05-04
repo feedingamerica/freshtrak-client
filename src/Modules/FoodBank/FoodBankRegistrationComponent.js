@@ -67,7 +67,7 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
 			<div className="form-title">
 				Organization Information
 			</div>
-			<div className="form-group" data-testid="org_name">
+			<div className="form-group" data-testid="org-name">
 				<label>Organization Name</label>
 				<input type="text" name="org_name" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors} />
 				{errors.org_name && (
@@ -87,7 +87,7 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
 					<input type="text" name="suiteblg" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors}/>
 				</div>
 			</div>
-			<div className="form-group" data-testid="zip_code">
+			<div className="form-group" data-testid="zip-code">
 				<label>Zipcode</label>
 				<input type="text" name="zipcode" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors}/>
 				{errors.zipcode && (

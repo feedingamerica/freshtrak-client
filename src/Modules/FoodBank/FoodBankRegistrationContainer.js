@@ -53,7 +53,7 @@ const FoodBankRegistrationContainer = (props) => {
 	return (
 		<div className="col-lg-4 col-md-6">
 			<form onSubmit = {handleFormValidation}>
-				<div className="content-wrapper">
+				<div className="content-wrapper" data-testid="registr-data">
 					<FoodBankRegistrationComponent 
 						onSelectedChild={buildRegistrationData}
 						ref={organizationFormRef}
