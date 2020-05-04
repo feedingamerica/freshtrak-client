@@ -7,19 +7,19 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
     const [middleName, setMiddleName] = React.useState('');
     const [suffix, setSuffix] = React.useState('Jr');
     const [dob, setDob] = React.useState('');
-    const [hoh, setHoh] = React.useState('');
+    const [hoh, setHoh] = React.useState('Yes');
     const [phoneNumber, setPhoneNumber] = React.useState('');
     const [phoneNumberCheckBOx, setPhoneNumberCheckBOx] = React.useState('false');
     const [email, setEmail] = React.useState('Email');
     const [communicationPreference, setCommunicationPreference] = React.useState('Email');
     const [childFamilyData, setChildFamilyData] = React.useState('');
     const [phoneDisable, setPhoneDisable] = React.useState(false);
-    let first_name,last_name,middle_name,suffix_form_data='';
-    let middle_name_form,first_name_form,last_name_form='';
+    const [element, setElement] = React.useState('');
     let data = '';
 
     const buildNameForm = (e) => {
         let { name, value } = e.target;
+        setElement(name)
         let setFunction = '';
         switch (name) {
             case 'first_name':
@@ -62,7 +62,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
 
     React.useEffect(() => {
         handleChange();
-    }, [firstName, lastName,middleName, suffix,dob,hoh,phoneNumber,phoneNumberCheckBOx,email,communicationPreference]);
+    }, [element]);
 
     const handleChange = () => {
         data = { primaryData :{
@@ -80,24 +80,6 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
         };
         props.onSelectedChild(data);
     };
-
-    React.useEffect(() => {
-        if (first_name_form) {
-            setFirstName(first_name_form);
-            setMiddleName(middle_name_form);
-            setLastName(last_name_form);
-            setSuffix(suffix_form_data);
-        }
-    }, [first_name_form, middle_name_form, last_name_form, suffix]);
-
-    React.useEffect(() => {
-        if (first_name_form) {
-            setFirstName(first_name);
-            setMiddleName(middle_name);
-            setLastName(last_name);
-            setSuffix(suffix_form_data);
-        }
-    }, []);
 
     const dataToParent = () => {
         props.onSelectedChild(childFamilyData);

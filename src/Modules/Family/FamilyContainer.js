@@ -21,7 +21,7 @@ const FamilyContainer = () => {
     const primaryFormRef = React.useRef();
     const addressFormRef = React.useRef();
     const passwordFormRef = React.useRef();
-
+    const [familyInfo, setFamilyInfo] = React.useState({});
 
     const handleFormValidation = (e) => {
         e.preventDefault();
@@ -34,7 +34,6 @@ const FamilyContainer = () => {
             showMessage('error', 'Kindly fix all errors and continue');
             return false;
         } else if (Object.keys(formError).length === 0 ){
-            console.log('esle if')
             handleSubmit();
         }
     };

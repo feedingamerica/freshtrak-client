@@ -8,11 +8,13 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     const [passwordError, setPasswordError] = React.useState(false);
     const [passwordFieldError, setPasswordFieldError] = React.useState(false);
     const [passwordConfirmFieldError, setPasswordConfirmFieldError] = React.useState(false);
+    const [element, setElement] = React.useState('');
     let data,childFamilyData ='';
 
     const buildForm = (event) => {
         event.preventDefault();
         let name = event.target.name;
+        setElement(name)
         switch (name) {
             case 'password':
                 setPassword(event.target.value);
@@ -35,7 +37,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     };
     React.useEffect(() => {
         handleChange();
-    }, [password,passwordConfirm]);
+    }, [element]);
 
     const dataToParent = () => {
         props.onSelectedChild(childFamilyData);

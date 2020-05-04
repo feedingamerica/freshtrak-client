@@ -8,13 +8,15 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     const [pickupName, setpickupName] = React.useState('');
     const [pickupNumberPlate, setPickupNumberPlate] = React.useState('');
     const [pickupNumberPlateTwo, setPickupNumberPlateTwo] = React.useState('');
-    const [pickupType, setPickupType] = useState('Me');
-    const [step, setStep] = useState(false);
+    const [pickupType, setPickupType] =  React.useState('Me');
+    const [step, setStep] =  React.useState(false);
+    const [element, setElement] =  React.useState('');
     let data= '';
 
     const buildAddressForm = (event) => {
         event.preventDefault();
         let name = event.target.name;
+        setElement(name)
         switch (name) {
             case 'pickup_info':
                 setpickupInfo(event.target.value);
@@ -37,18 +39,18 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     const handleChange = () => {
         data = {
             pickupData: {
-                pickupInfo: pickupInfo,
                 pickupName: pickupName,
                 pickupNumberPlate: pickupNumberPlate,
                 pickupNumberPlateAdditional: pickupNumberPlateTwo,
                 pickupType: pickupType,
             }
-        };props.onSelectedChild(data);
+        };
+        props.onSelectedChild(data);
     };
 
     React.useEffect(() => {
         handleChange();
-    }, [pickupInfo,pickupName,pickupNumberPlate,pickupNumberPlateTwo,pickupType]);
+    }, [element]);
 
     const additionalBox=(e)=> {
         e.preventDefault();
