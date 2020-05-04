@@ -38,7 +38,6 @@ const FamilyContainer = () => {
     };
 
     const handleSubmit = (e) => {
-        console.log('handleSubmit')
         let familyDetails = {
             familyMemberData:familyData.primaryData ? familyData.primaryData.primaryData:'',
             HouseHoldData:familyData.addressData ? familyData.addressData.addressData:'',
@@ -48,7 +47,6 @@ const FamilyContainer = () => {
         };
 
         if(familyDetails) {
-            console.log(familyDetails)
         } else {
             showMessage('error', 'Something went wrong');
         }

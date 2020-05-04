@@ -8,13 +8,13 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
     const [zip, setZip] = React.useState('');
     const [housingType, setHousingType] = React.useState('Apartment');
     const [childFamilyData, setChildFamilyData] = React.useState([]);
-    const [element, setElement] = React.useState('');
+    const [isChanged, setIsChanged] = React.useState('');
     let data='';
 
     const buildAddressForm = (event) => {
         event.preventDefault();
         let name = event.target.name;
-        setElement(name)
+        setIsChanged(name)
         switch (name) {
             case 'street_address':
                 setStreetAddress(event.target.value);
@@ -48,7 +48,7 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
 
     React.useEffect(() => {
         handleChange();
-    }, [element]);
+    }, [isChanged]);
 
 
     const dataToParent = () => {

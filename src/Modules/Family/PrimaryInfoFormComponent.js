@@ -14,12 +14,12 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
     const [communicationPreference, setCommunicationPreference] = React.useState('Email');
     const [childFamilyData, setChildFamilyData] = React.useState('');
     const [phoneDisable, setPhoneDisable] = React.useState(false);
-    const [element, setElement] = React.useState('');
+    const [isChanged, setIsChanged] = React.useState('');
     let data = '';
 
     const buildNameForm = (e) => {
         let { name, value } = e.target;
-        setElement(name)
+        setIsChanged(name)
         let setFunction = '';
         switch (name) {
             case 'first_name':
@@ -62,7 +62,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
 
     React.useEffect(() => {
         handleChange();
-    }, [element]);
+    }, [isChanged]);
 
     const handleChange = () => {
         data = { primaryData :{
