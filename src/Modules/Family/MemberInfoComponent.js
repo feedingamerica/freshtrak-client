@@ -8,10 +8,10 @@ const MemberInfoComponent = (props) => {
     const [countAdult, setAdult] = React.useState('');
 
     const JuniorMember = (props) => {
-        let elementsJunior = Array.from(Array(countJunior).keys())
+        let contentJunior = Array.from(Array(countJunior).keys())
         return (
             <div>
-                {elementsJunior.map((value, index) => {
+                {contentJunior.map((value, index) => {
                     return <div key={index}>{
                         <div className="info-wraps">
                             <div className="form-title">
@@ -55,10 +55,10 @@ const MemberInfoComponent = (props) => {
     };
     const AdultMember = (props) => {
 
-        let elementsAdult = Array.from(Array(countAdult).keys())
+        let contentAdult = Array.from(Array(countAdult).keys())
         return (
             <div>
-                {elementsAdult.map((value, index) => {
+                {contentAdult.map((value, index) => {
                     return <div key={index}>{
                         <div>
                             <div className="form-title">
@@ -100,10 +100,10 @@ const MemberInfoComponent = (props) => {
 
     const SeniorMember = (props) => {
 
-        let elementSenior = Array.from(Array(countSenior).keys())
+        let contentAdult = Array.from(Array(countSenior).keys())
         return (
             <div>
-                {elementSenior.map((value, index) => {
+                {contentAdult.map((value, index) => {
                     return <div key={index}>{
                         <div>
                             <div className="form-title">

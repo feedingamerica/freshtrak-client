@@ -1,11 +1,11 @@
 import React from "react";
-
 import { confirm, showMessage } from '../../Utils/Util';
 import FooterContainer from "../Footer/FooterContainer";
 import HeaderComponent from "../Header/HeaderComponent";
 import '../../Assets/scss/main.scss';
 import MemberInfoComponent from './MemberInfoComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
+import back from '../../Assets/img/back.svg';
 
 const MemberContainer = () => {
     let familyData = ''
@@ -30,7 +30,7 @@ const MemberContainer = () => {
                     <div className="col-md-12">
                         <div className="back-button">
                             <span className="back-arrow">
-                                <img src="img/back.svg" />
+                                <img src={back} />
                             </span>
                             <span className="font-weight-bold text-uppercase ml-2">Back</span>
                         </div>
