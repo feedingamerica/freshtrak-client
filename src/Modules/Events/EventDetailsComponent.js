@@ -1,12 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Close from "../../Assets/img/add.svg";
 import EventContext from "../../Store/ContextApi/EventContext";
 
-const EventDetailsComponent = (props) => {
+import ImageViewModal from "../General/ImageViewModal";
+
+const EventDetailsComponent = () => {
   const { event, showEventDetails } = useContext(EventContext);
-  // console.log(eventDetails)
-  const a = useContext(EventContext);
-  console.log(a);
+  const [images, setImages] = useState([]);
+
+  const [showImage, setShowImage] = useState(false);
+
+  useEffect(() => {
+    const eventImages = ["/pantry1.jpg"];
+    setImages(eventImages);
+  }, []);
   return (
     <div className="list-view-detail">
       <div className="list-view-detail-header p-3">
@@ -60,7 +67,9 @@ const EventDetailsComponent = (props) => {
                 ordered lists, preset text styles)
               </p>
             </div>
-            <div className="image-view mt-3 mb-3"></div>
+            <div className="image-view mt-3 mb-3">
+              <img src={images} onClick={() => setShowImage(true)} />
+            </div>
           </div>
         </div>
         <div className="reserve-time">
@@ -69,6 +78,13 @@ const EventDetailsComponent = (props) => {
           </button>
         </div>
       </div>
+
+      {showImage == true && (
+        <ImageViewModal
+          src={"/pantry1.jpg"}
+          close={() => setShowImage(false)}
+        />
+      )}
     </div>
   );
 };
