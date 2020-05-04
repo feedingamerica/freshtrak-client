@@ -13,7 +13,6 @@ import '../../Assets/scss/main.scss';
 import back from '../../Assets/img/back.svg';
 import useForm from '../../Utils/UseForm';
 
-
 const FamilyContainer = () => {
     let familyData = [];
     let formError = '';
