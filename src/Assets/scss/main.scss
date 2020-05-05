@@ -1,3 +1,4 @@
+
 @import "./variables";
 @import "./mixins";
 @import "./form-elements";
@@ -712,5 +713,10 @@ body {
         .pt-100 {
             padding-bottom: 50px;
         }
+    }
+    .validationError {
+        font-size: .7rem;
+        position: absolute;
+        color: #ff0000;
     }
 }
