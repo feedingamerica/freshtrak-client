@@ -116,30 +116,30 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
             <div className="form-title">
                 Your Information
             </div>
-            <div className="form-group">
+            <div className="form-group" data-testid="first-name">
                 <label>First Name</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="first_name" id="first_name"
                        onBlur={handleErrors}  />
                 <div> {errors.first_name && (
-                    <span className="validationError" data-testid="first-name">{errors.first_name}</span>
+                    <span className="validationError" >{errors.first_name}</span>
                 )}
                 </div>
             </div>
 
-            <div className="form-group">
+            <div className="form-group" data-testid="middle-name">
                 <label>Middle Name</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="middle_name" id="middle_name"  onBlur={handleErrors}  required />
                 <div> {errors.middle_name && (
-                    <span className="validationError" data-testid="middle-name">{errors.middle_name}</span>
+                    <span className="validationError" >{errors.middle_name}</span>
                 )}
                 </div>
             </div>
 
-            <div className="form-group">
+            <div className="form-group" data-testid="last-name">
                 <label>Last Name</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="last_name" id="last_name"
                        onBlur={handleErrors} required  />
-                <div data-testid="last-name"> {errors.last_name && (
+                <div> {errors.last_name && (
                     <span className="validationError" >{errors.last_name}</span>
                 )}
                 </div>
@@ -153,7 +153,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
                 </select>
             </div>
 
-            <div className="form-group">
+            <div className="form-group" data-testid="dob">
                 <label>Date of Birth</label>
                 <input type="date" className="form-control"  name="dob" id="dob" min="1900-01-02" onChange={buildNameForm}  onBlur={handleErrors}  required />
                 <div> {errors.dob && (
