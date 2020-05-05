@@ -121,7 +121,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
                 <input type="text" className="form-control" onChange={buildNameForm} name="first_name" id="first_name"
                        onBlur={handleErrors}  />
                 <div> {errors.first_name && (
-                    <span className="validationError">{errors.first_name}</span>
+                    <span className="validationError" data-testid="first-name">{errors.first_name}</span>
                 )}
                 </div>
             </div>
@@ -130,7 +130,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
                 <label>Middle Name</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="middle_name" id="middle_name"  onBlur={handleErrors}  required />
                 <div> {errors.middle_name && (
-                    <span className="validationError">{errors.middle_name}</span>
+                    <span className="validationError" data-testid="middle-name">{errors.middle_name}</span>
                 )}
                 </div>
             </div>
@@ -139,8 +139,8 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
                 <label>Last Name</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="last_name" id="last_name"
                        onBlur={handleErrors} required  />
-                <div> {errors.last_name && (
-                    <span className="validationError">{errors.last_name}</span>
+                <div data-testid="last-name"> {errors.last_name && (
+                    <span className="validationError" >{errors.last_name}</span>
                 )}
                 </div>
             </div>
