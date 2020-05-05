@@ -16,4 +16,5 @@ export const RENDER_URL = {
     EVENT_LIST_URL:'/events/list',
     ADD_FAMILY_URL: '/family/create',
     SIGN_IN: '/family/sign-in',
+    EDIT_FAMILY_URL: '/family/edit',
 };
