@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
-import HeaderComponent from '../Header/HeaderComponent';
 import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import RegistrationTextComponent from './RegistrationTextComponent';
 import HouseHoldFormComponent from './HouseHoldFormComponent';
@@ -15,7 +14,6 @@ const FamilyContainer = () => {
   const onSubmit = data => { console.log(data) };
   return (
     <Fragment>
-      <HeaderComponent shortHeader={'navbar-green'} />
       <div className="main-wrapper mt-4">
         <section className="container pt-100 pb-100 register-confirmation">
           <div>
