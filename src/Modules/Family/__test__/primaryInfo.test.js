@@ -20,6 +20,7 @@ test("should render", () => {
 test("should show validation errors", async () => {
   const { container, getByTestId, getByText } = render(
     <PrimaryInfoFormComponent
+      ref = {jest.fn()}
       onSelectedChild={mockPrimaryInfoBuilder}
       onFormErrors={noop}
     />
@@ -29,7 +30,6 @@ test("should show validation errors", async () => {
   const middle_name = container.querySelector('input[name="middle_name"]');
   const dob = container.querySelector('input[name="dob"]');
   const email = container.querySelector('input[name="email"]');
-  const hoh = container.querySelector('input[name="hoh"]');
   const phno = container.querySelector('input[name="phone_number"]');
 
   fireEvent.blur(first_name);
@@ -72,6 +72,7 @@ test("should show validation errors", async () => {
 test("Testing for value binding", async () => {
   const {container,getByTestId} = render(
     <PrimaryInfoFormComponent
+      ref = {jest.fn()}
       onSelectedChild={mockPrimaryInfoBuilder}
       onFormErrors={noop}
     />
@@ -148,44 +149,4 @@ await wait(()=>{
 }); 
 });
 
-test('checking if handleError function binded properly',()=>{
-  const {container,getByTestId} = render(
-    <PrimaryInfoFormComponent
-     ref = {jest.fn()}
-      onSelectedChild={mockPrimaryInfoBuilder}
-      onFormErrors={noop}
-    />
-  );
-
-// Generate fake data
-  // const fakeEmail = fake((f) => f.internet.email()).generate(1);
-  // const fakeDOB = '2019-03-29';
-  const fakeFname = fake((f) => f.name.firstName()).generate(1);
-  // const fakeLname = fake((f) => f.name.lastName()).generate(1);
-  // const fakeMname = fake((f) => f.name.lastName()).generate(1);
-  // const fakeSuffix = oneOf('Jr','Sr').generate(1);
-  // const fakeHoh = oneOf('Yes','No').generate(1);
-  // const fakePhno = '123456789';
-  // const fakeChk = oneOf('true','false').generate(1);
-  // const fakeComPref = oneOf('Email','Phone').generate(1);
-
-
-
-
-
-  const fname = container.querySelector('input[name="first_name"]');
-  // const last_name = container.querySelector('input[name="last_name"]');
-  // const middle_name = container.querySelector('input[name="middle_name"]');
-  // const dob = container.querySelector('input[type="date"]');
-  // const email = container.querySelector('input[name="email"]');
-  // const suffix = container.querySelector('select[name="Suffix"]');
-  // const hoh = container.querySelector('select[name="hoh"]');
-  // const phno = container.querySelector('input[name="phone_number"]');
-  // const phnoChk = container.querySelector('input[name="phone_number_checkbox"]');
-  // const comPref = container.querySelector('select[name="communication_preference"]');
-
-  fireEvent.blur(fname,{ target: { value: fakeFname } });
-  
-  
-
-});
+// Pending -> triggerErrors() and handleErrors() functions

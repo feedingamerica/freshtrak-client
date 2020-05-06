@@ -74,36 +74,38 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     }
 
     return (
-        <div className="form-fields pt-50">
+        <div className="form-fields pt-50" data-testid="password-form">
             <div className="form-title">
                 Create FresTrak Account
             </div>
             <div className="form-text mb-2">
                 Input a password to create a FreshTrak account and easily register with one click in the future.
             </div>
-            <div className="form-group">
+            <div className="form-group" >
                 <label>Password</label>
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password" id="password" required/>
-                <div> {passwordFieldError && (
+                <div data-testid="password"> {passwordError && (
                     <span className="validationError"> Required</span>
                 )}
                 </div>
             </div>
 
-            <div className="form-group">
+            <div className="form-group" >
                 <label>Confirm Password</label>
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="passwordConfirm" id="passwordConfirm" required/>
 
-                <div> {passwordConfirmFieldError && (
+                <div data-testid = "password-confirm"> {passwordConfirmFieldError && (
                     <span className="validationError">Required</span>
                 )}
                 </div>
             </div>
-            {passwordError &&(
-                <div>
-                   <span className="validationError" >Password must be same </span>
+            
+                <div data-testid="pwdSameError">
+                {passwordError &&(
+                   <span className="validationError"  >Password must be same</span>
+                )}
                 </div>
-            )}
+                
         </div>
     )
 });
