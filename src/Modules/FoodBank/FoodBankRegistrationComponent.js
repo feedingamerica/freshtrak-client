@@ -82,9 +82,9 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
                         <span className="validationError">{errors.address}</span>
                  	)}
 				</div>
-				<div className="form-group ml-2">
+				<div className="form-group ml-2"  data-testid="suite-blg">
 					<label>Suite/Blg</label>
-					<input type="text" name="suiteblg" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors}/>
+					<input type="text" name="suiteblg" className="form-control" onChange={buildOrganizationForm}/>
 				</div>
 			</div>
 			<div className="form-group" data-testid="zip-code">

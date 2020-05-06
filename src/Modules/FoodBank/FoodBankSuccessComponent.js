@@ -26,7 +26,7 @@ const FoodBankSuccessComponent = () => {
                             </h1>
                         	{/*<MainHeadingComponent text="We’re all in this together." />*/}
                         </div>
-                        <div className="medium-title font-weight-bold mb-3 mt-3">Thank you for registering your organization! </div>
+                        <div className="medium-title font-weight-bold mb-3 mt-3" >Thank you for registering your organization! </div>
                         <div className="caption-text">
                             <p>A FreshTrak team member will reach out to you shortly to get you started.</p>
                         </div>

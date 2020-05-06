@@ -13,9 +13,6 @@ const FoodBankRegistrationContainer = (props) => {
 	let history = useHistory();
 	let formError = {};
 	let registrationData = {};
-	/*const handleClick = (e) =>{
-    	history.push('/foodbank/success');
-	}*/  
 	const buildRegistrationData = (data) => {
 		if(Object.keys(data)[0]){
             let dataKey = Object.keys(data)[0];
@@ -32,10 +29,10 @@ const FoodBankRegistrationContainer = (props) => {
             contactInfoFormRef.current.triggerErrors());
 		if( componentErrors.includes(true) || Object.keys(formError).length !== 0){			
 			return false;
-		}
+		}		
 		handleSubmitConfirm();
 	};
-	const handleSubmitConfirm = () => {
+	const handleSubmitConfirm = () => {		
 	    let title = "Are you sure you want to proceed?";
 	    confirm(title, handleSubmit);
   	};
