@@ -2,8 +2,8 @@ import React, { useState, useEffect, Fragment } from 'react';
 import EventListComponent from './EventListComponent';
 import { EventHandler } from '../../Utils/EventHandler';
 import { API_URL } from '../../Utils/Urls';
+import SpinnerComponent from '../General/SpinnerComponent';
 import axios from 'axios';
-import './event-styles.css'
 
 const EventListContainer = ({ searchData }) => {
   const [agencyResponse, setAgencyResponse] = useState(false);
@@ -51,13 +51,7 @@ const EventListContainer = ({ searchData }) => {
   return (
     <Fragment>
       {!loading && <EventList />}
-      {loading && (
-        <div className="d-flex justify-content-center">
-          <div className="spinner-border loading-spinner-height" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
-      )}
+      {loading && <SpinnerComponent />}
     </Fragment>
   );
 };
