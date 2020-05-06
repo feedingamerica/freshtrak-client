@@ -14,6 +14,7 @@ const PasswordInfoFormComponent = forwardRef(({ register, errors, getValues }, r
           className="form-control"
           name="email"
           id="email"
+          autoComplete="off"
           ref={register({ required: true })}
         />
         <small className="text-muted">
@@ -29,6 +30,7 @@ const PasswordInfoFormComponent = forwardRef(({ register, errors, getValues }, r
           className="form-control"
           name="password"
           id="password"
+          autoComplete="new-password"
           ref={register({ required: true })}
         />
         {errors.password && <span className="text-danger">This field is required</span>}
@@ -40,6 +42,7 @@ const PasswordInfoFormComponent = forwardRef(({ register, errors, getValues }, r
           className="form-control"
           name="password_confirm"
           id="password_confirm"
+          autoComplete="new-password"
           ref={register({
             required: 'Please confirm password',
             validate: {
