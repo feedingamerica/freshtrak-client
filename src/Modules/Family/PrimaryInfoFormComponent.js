@@ -43,9 +43,9 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
             case 'phone_number':
                 setFunction=setPhoneNumber;
                 break;
-            case 'phone_number_checkbox':
-                setFunction=setPhoneNumberCheckBOx;
-                break;
+            // case 'phone_number_checkbox':
+            //     setFunction=setPhoneNumberCheckBOx;
+            //     break;
             case 'email':
                 setFunction=setEmail;
                 break;
@@ -118,7 +118,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
             </div>
             <div className="form-group" data-testid="first-name">
                 <label>First Name</label>
-                <input type="text" className="form-control" onChange={buildNameForm} name="first_name" id="first_name"
+                <input type="text" className="form-control" data-value ={firstName} onChange={buildNameForm} name="first_name" id="first_name"
                        onBlur={handleErrors}  />
                 <div> {errors.first_name && (
                     <span className="validationError" >{errors.first_name}</span>
@@ -145,7 +145,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
                 </div>
             </div>
 
-            <div className="form-group">
+            <div className="form-group" data-testid="suffix">
                 <label>Suffix</label>
                 <select  id="suffix" name="Suffix" className="form-control"  defaultValue="Jr" onChange={buildNameForm}>
                     <option value="Jr">Jr</option>
@@ -164,7 +164,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
 
 
 
-            <div className="form-group">
+            <div className="form-group" data-testid="hoh">
                 <label>Head of Household</label>
                 <select id="hoh" name="hoh"  onChange={buildNameForm}  className="form-control">
                     <option value="Yes">Yes</option>
@@ -172,15 +172,15 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
                 </select>
             </div>
 
-            {phoneDisable && (<div className="form-group">
+            {phoneDisable && (<div className="form-group" >
                 <label>Phone Number</label>
-                <input type="number" className="form-control" onChange={buildNameForm} disabled={true} name="phone_number" id="phone_number"
+                <input type="number" className="form-control" data-testid="phno-disabled" onChange={buildNameForm} disabled={true} name="phone_number" id="phone_number"
                        onBlur={handleErrors} required />
             </div>)}
 
-            {!phoneDisable && (<div className="form-group">
+            {!phoneDisable && (<div className="form-group" data-testid="phno">
                 <label>Phone Number</label>
-                <input type="number" className="form-control" onChange={buildNameForm}  name="phone_number" id="phone_number"
+                <input type="number" className="form-control" onChange={buildNameForm} data-testid="phno-not-disabled" name="phone_number" id="phone_number"
                        onBlur={handleErrors} required />
 
                 <div> {errors.phone_number && (
@@ -189,13 +189,13 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
                 </div>
             </div>)}
 
-            <div className="form-group">
+            <div className="form-group" data-testid="phno-chk">
                 <label className="custom-checkbox">
                     <input type="checkbox" className="checkbox"  name="phone_number_checkbox"  id ="phone_number_checkbox"  onChange={phoneDisableFunction}/>
                     <span>No Phone Available</span>
                 </label>
             </div>
-            <div className="form-group">
+            <div className="form-group" data-testid = "email">
                 <label>Email Address</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="email" id="email" onBlur={handleErrors} />
                 <small className="text-muted">
@@ -207,7 +207,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
                 </div>
             </div>
 
-            <div className="form-group">
+            <div className="form-group" data-testid="com-pref">
                 <label >Communication Preference</label>
                 <select  id='communication_preference' name='communication_preference' defaultValue="Email" onChange={buildNameForm} className="form-control">
                     <option value="Email" >Email</option>
