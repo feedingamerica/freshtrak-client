@@ -70,7 +70,6 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
         }
     }));
 
-
     return (
         <div>
             <div className="form-title">
@@ -89,7 +88,7 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
                 </select>
             </div>
 
-            <div className="form-group">
+            <div className="form-group" data-testid="street-address">
                 <label>Street Address</label>
                 <input type="text" className="form-control" onChange={buildAddressForm} name="street_address" id="street_address"
                        onBlur={handleErrors} required/>
@@ -100,18 +99,18 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
             </div>
 
             <div className="d-flex">
-                <div className="form-group">
+                <div className="form-group" data-testid="apt-no" >
                     <label>Unit or Apt.</label>
-                    <input type="text" className="form-control" onChange={buildAddressForm} name="apt_no" id="apt_no"  onBlur={handleErrors} required/>
+                    <input type="text" className="form-control" onChange={buildAddressForm} name="apt_no" id="apt_no"  onBlur={handleErrors}  required/>
                     <div> {errors.apt_no && (
                         <span className="validationError">{errors.apt_no}</span>
                     )}
                 </div>
 
                 </div>
-                <div className="form-group ml-2">
+                <div className="form-group ml-2"  data-testid="zip-code">
                     <label>ZIP Code</label>
-                    <input type="number" className="form-control"  onChange={buildAddressForm} name="zip_code" id="zip_code"  onBlur={handleErrors} required/>
+                    <input type="number" className="form-control"   name="zip_code" id="zip_code"  onChange={buildAddressForm}  onBlur={handleErrors} required/>
                     <div> {errors.zip_code && (
                         <span className="validationError">{errors.zip_code}</span>
                     )}

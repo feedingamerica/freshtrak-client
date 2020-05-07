@@ -1,9 +1,13 @@
 import React from 'react';
-import { render,fireEvent } from '@testing-library/react';
+import { render,fireEvent,  waitForElement, wait} from '@testing-library/react';
 import HouseHoldFormComponent from '../HouseHoldFormComponent';
-import { noop,mockPickUpBuilder } from '../../../Testing';
+import { noop, mockPasswordBuilder } from '../../../Testing';
+import { shallow, configure,mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import {fake,oneOf} from 'test-data-bot'
 
-let HouseHoldData=''
+configure({adapter: new Adapter()});
+
 
 test('should render', () => {
   expect(() => {
@@ -18,7 +22,7 @@ test('should render', () => {
 
 
 
-test('should render HouseHoldFormComponent with data provided', () => {
+test('should render HouseHoldFormComponent with no data ', () => {
   expect(() => {
     render(
     <HouseHoldFormComponent
@@ -30,40 +34,89 @@ test('should render HouseHoldFormComponent with data provided', () => {
 });
 
 
-test('It should put a value to the street_address', () => {
-  const { input } = setup_street_adress()
-  fireEvent.change(input, { target: { value: 'test house' } })
-  expect(input.value).toBe('test house')
-})
-test('It should put letter to  zip value to the zip', () => {
-  const { input } = setup_zip()
-  fireEvent.change(input, { target: { value: 'aaaa aaa ' } })
-  expect(input.value).toBe('')
-})
+test('should have proper binding onChange',()=>{
+    const {container,getByTestId,queryByTestId,} = render(
+        <HouseHoldFormComponent
+            onSelectedChild={noop}
+            onFormErrors={noop}
+        />);
 
 
+let hType = container.querySelector('select[name="housing_type"]');
+let zipValue = container.querySelector('input[name="zip_code"]');
+let aptValue = container.querySelector('input[name="apt_no"]');
+let streetValue = container.querySelector('input[name="street_address"]');
 
-const setup_zip = () => {
-  const utils =render(
+let fakeHType = oneOf('Apartment','Mobile home or house trailer', 'Military housing','Student housing','Temporary','Prefer not to answer').generate(1);
+
+
+    // for checking binding
+
+  fireEvent.change(hType,{target:{value:fakeHType}});
+  expect(hType.value).toBe(fakeHType);
+
+  fireEvent.change(zipValue,{target:{value:''}});
+  expect(zipValue.value).toBe('');
+
+  fireEvent.change(zipValue,{target:{value:'123'}});
+  expect(zipValue.value).toBe('123');
+
+
+  fireEvent.change(zipValue,{target:{value:'abc'}});
+  expect(zipValue.value).toBe('');
+
+  fireEvent.change(aptValue,{target:{value:''}});
+  expect(aptValue.value).toBe('');
+
+  fireEvent.change(aptValue,{target:{value:'123'}});
+  expect(aptValue.value).toBe('123');
+
+
+  fireEvent.change(aptValue,{target:{value:'abc'}});
+  expect(aptValue.value).toBe('abc');
+
+ fireEvent.change(streetValue,{target:{value:''}});
+  expect(streetValue.value).toBe('');
+
+  fireEvent.change(streetValue,{target:{value:'123'}});
+  expect(streetValue.value).toBe('123');
+
+
+  fireEvent.change(streetValue,{target:{value:'abc'}});
+  expect(streetValue.value).toBe('abc');
+
+
+});
+
+
+test("should show validation errors", async () => {
+  const { container, getByTestId, getByText } = render(
       <HouseHoldFormComponent
+          ref = {jest.fn()}
           onSelectedChild={noop}
           onFormErrors={noop}
       />
   );
-  const input = utils.getByPlaceholderText('zip_code')
-  return {
-    input, utils,
-  }
-}
-const setup_street_adress = () => {
-  const utils =render(
-      <HouseHoldFormComponent
-          onSelectedChild={noop}
-          onFormErrors={noop}
-      />
-  );
-  const input = utils.getByPlaceholderText('street_address')
-  return {
-    input, utils,
-  }
-}
+  const street_address = container.querySelector('input[name="street_address"]');
+  const apt_no = container.querySelector('input[name="apt_no"]');
+  const zip_code = container.querySelector('input[name="zip_code"]');
+
+  fireEvent.blur(street_address);
+    await wait(() => {
+    expect(getByTestId("street-address")).toHaveTextContent(
+        "This field is required"
+    );
+  });
+  fireEvent.blur(apt_no);
+    await wait(() => {
+    expect(getByTestId("apt-no")).toHaveTextContent(
+        "This field is required"
+    );
+  });
+  fireEvent.blur(zip_code);
+    await wait(() => {
+    expect(getByTestId("zip-code")).toHaveTextContent(
+        "This field is required"
+    );
+  });
+});

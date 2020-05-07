@@ -5,11 +5,13 @@ const MemberCountFormComponent = (props) => {
     const [countMiddle, setCountMiddle] = React.useState(0);
     const [countJunior, setCountJunior] = React.useState(0);
     const [value, setValue] = React.useState(0);
+    const [isChanged, setIsChanged] = React.useState('');
+
 
 
     React.useEffect(() => {
         handleChange();
-    }, [countSenior, countMiddle, countJunior]);
+    }, [countSenior, countMiddle, countJunior,isChanged]);
 
     const handleChange = () => {
         let  childFamilyData= { memberCountData :{
@@ -19,6 +21,25 @@ const MemberCountFormComponent = (props) => {
             }
         };
         props.onSelectedChild(childFamilyData);
+    };
+
+    const inputValue = (event) => {
+        event.preventDefault();
+        let name = event.target.name;
+        setIsChanged(name)
+        switch (name) {
+            case 'senior_count_input':
+                setCountSenior(event.target.value);
+                break;
+            case 'adult_count_input':
+                setCountMiddle(event.target.value);
+                break;
+            case 'junior_count_input':
+                setCountJunior(event.target.value);
+                break;
+            default:
+                break;
+        }
     };
 
     const seniorDecrementFunction=(e)=> {
@@ -72,7 +93,7 @@ const MemberCountFormComponent = (props) => {
                         <div className="member-age">Seniors (65+)</div>
                         <div className="button-wrap d-flex flex-grow-1">
                             <button onClick={seniorDecrementFunction} name="count_senior_dec" className="rounded-button" type="button"><span>-</span></button>
-                            <input type="text" name="senior_count_input" className="number member-count" value={countSenior} required></input>
+                            <input type="text" name="senior_count_input"  readOnly className="number member-count" value={countSenior} max="13" placeholder="senior_count_input" required></input>
                             <button onClick={seniorIncrementFunction} name="count_senior_inc" className="rounded-button"><span>+</span></button>
                         </div>
                     </div>
@@ -80,7 +101,7 @@ const MemberCountFormComponent = (props) => {
                         <div className="member-age">Adults (18+)</div>
                         <div className="button-wrap d-flex flex-grow-1">
                             <button onClick={adultDecrementFunction} name="count_adult_inc" className="rounded-button"><span>-</span></button>
-                            <input type="text" name="adult_count_input" className="number member-count" value={countMiddle} required ></input>
+                            <input type="text" name="adult_count_input" readOnly className="number member-count" value={countMiddle}  max="13"  placeholder="adult_count_input" required ></input>
                             <button onClick={adultIncrementFunction} name="count_adult_dec" className="rounded-button"><span>+</span></button>
                         </div>
                     </div>
@@ -88,7 +109,7 @@ const MemberCountFormComponent = (props) => {
                         <div className="member-age">Kids (Under 18)</div>
                         <div className="button-wrap d-flex flex-grow-1">
                             <button onClick={kidDecrementFunction} name="count_kids_inc" className="rounded-button"><span>-</span></button>
-                            <input type="text" name="junior_count_input" className="number member-count" value={countJunior} required ></input>
+                            <input type="text" name="junior_count_input" readOnly className="number member-count" value={countJunior} max="13" placeholder="junior_count_input"  required ></input>
                             <button onClick={kidIncrementFunction} name="count_kids_dec" className="rounded-button"><span>+</span></button>
                         </div>
                     </div>
