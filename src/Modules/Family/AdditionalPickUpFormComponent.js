@@ -18,9 +18,7 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
         let name = event.target.name;
         setIsChanged(name)
         switch (name) {
-            case 'pickup_info':
-                setpickupInfo(event.target.value);
-                break;
+            
             case 'vehicle_number_plate':
                 setPickupNumberPlate(event.target.value);
                 break;
@@ -82,12 +80,12 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     <input type="text" className="form-control" onChange={buildAddressForm} name="vehicle_number_plate" id="vehicle_number_plate" />
         </div>
         <div className="add-new-vehicle">
-        <button className="add-button" onClick={additionalBox}><img src={add} alt="my image"  className="img-fluid" /></button>
+        <button className="add-button" name="add_btn" onClick={additionalBox}><img src={add} alt="my image"  className="img-fluid" /></button>
 
         <span>Add a Vehicle </span>
     </div>
     {step &&(
-    <div className="form-group">
+    <div className="form-group" data-testid="additional-vehicle">
         <input type="text" className="form-control" onChange={buildAddressForm} name="vehicle_number_plate_two" id="vehicle_number_plate_two" />
         </div>
     )}
