@@ -1,4 +1,4 @@
-/**
+/*
  * Created by Basil on 24/04/20.
  */
 import React, {useState} from 'react';
@@ -77,7 +77,7 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
 			<div className="d-flex">
 				<div className="form-group" data-testid="address">
 					<label>Address</label>
-					<input type="text" name ="address" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors}/>
+					<input type="text" name ="address" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors} />
 					{errors.address && (
                         <span className="validationError">{errors.address}</span>
                  	)}
