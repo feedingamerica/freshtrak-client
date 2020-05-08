@@ -6,24 +6,24 @@ export const mockHouseHoldBuilder = build('HouseHold').fields({
   zip: fake(f => f.address.zipCode())
 });
 export const mockPasswordBuilder = build('Password').fields({
-  password: fake(f => f.random.word())
+  password: fake(f => f.random.word()).generate(1)
 });
 
 export const mockPickUpBuilder = build('PickUp').fields({
-  pickupInfo: fake(f => f.random.word()),
-  pickupName: fake(f => f.random.word()),
-  pickupNumberPlate: fake(f => f.random.number())
+  pickupInfo: fake(f => f.random.word()).generate(1),
+  pickupName: fake(f => f.random.word()).generate(1),
+  pickupNumberPlate: fake(f => f.random.number()).generate(1)
 });
 // console.log(fake(f=>f.date.past()).generate(1))
 export const mockPrimaryInfoBuilder = build('Primary').fields({
-  first_name: fake(f => f.name.firstName()),
-  last_name: fake(f => f.name.lastName()),
-  middle_name: fake(f => f.name.lastName()),
-  suffix: oneOf('Jr','Sr'),
-  dob: fake(f => f.date.past()),
-  hoh: fake(f => f.random.word()),
-  phoneNumber: fake(f => f.random.number()),
-  phoneNumberCheckBOx: oneOf('Yes','No'),
-  email: fake(f => f.internet.email()),
-  communicationPreference: fake(f => f.random.word())
+  first_name: fake(f => f.name.firstName()).generate(1),
+  last_name: fake(f => f.name.lastName()).generate(1),
+  middle_name: fake(f => f.name.lastName()).generate(1),
+  suffix: oneOf('Jr','Sr').generate(1),
+  dob: fake(f => f.date.past()).generate(1),
+  hoh: fake(f => f.random.word()).generate(1),
+  phoneNumber: fake(f => f.random.number()).generate(1),
+  phoneNumberCheckBOx: oneOf('Yes','No').generate(1),
+  email: fake(f => f.internet.email()).generate(1),
+  communicationPreference: fake(f => f.random.word()).generate(1)
 });

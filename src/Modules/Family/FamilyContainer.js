@@ -13,6 +13,8 @@ import '../../Assets/scss/main.scss';
 import back from '../../Assets/img/back.svg';
 import useForm from '../../Utils/UseForm';
 
+import {useHistory} from 'react-router-dom';
+
 const FamilyContainer = () => {
     let familyData = [];
     let formError = '';
@@ -21,21 +23,26 @@ const FamilyContainer = () => {
     const addressFormRef = React.useRef();
     const passwordFormRef = React.useRef();
 
+    let history = useHistory();
+
 
     const handleFormValidation = (e) => {
         e.preventDefault();
-        componentErrors.push(
+		let componentErrors = [];
+		componentErrors.push( 
             primaryFormRef.current.triggerErrors(),
             addressFormRef.current.triggerErrors(),
             passwordFormRef.current.triggerErrors());
-        if( componentErrors.includes(true) ||
-            Object.keys(formError).length !== 0){
-            showMessage('error', 'Kindly fix all errors and continue');
-            return false;
-        } else if (Object.keys(formError).length === 0 ){
-            handleSubmit();
-        }
+		if( componentErrors.includes(true) || Object.keys(formError).length !== 0){			
+			return false;
+		}		
+		handleSubmitConfirm();
     };
+
+    const handleSubmitConfirm = () => {		
+	    let title = "Are you sure you want to proceed?";
+	    confirm(title, handleSubmit);
+  	};
 
     const handleSubmit = (e) => {
         let familyDetails = {
@@ -45,8 +52,9 @@ const FamilyContainer = () => {
             memberCountData:familyData.memberCountData ? familyData.memberCountData.memberCountData:'',
             pickuptData:familyData.pickupData ? familyData.pickupData.pickupData:''
         };
-
         if(familyDetails) {
+            history.push('/')
+
         } else {
             showMessage('error', 'Something went wrong');
         }
@@ -100,7 +108,7 @@ const FamilyContainer = () => {
                                                     <HouseHoldFormComponent   ref={addressFormRef}
                                                                             onSelectedChild = {buildFamilyData}
                                                                             onFormErrors = {formErrors} />
-                                                    <MemberCountFormComponent ref={addressFormRef}
+                                                    <MemberCountFormComponent 
                                                                               onSelectedChild = {buildFamilyData}
                                                                               onFormErrors = {formErrors} />
                                         </div>
@@ -120,7 +128,7 @@ const FamilyContainer = () => {
                                                                       onFormErrors = {formErrors} />
 
                                             <div className="button-wrap mt-4">
-                                                <button className="btn custom-button">Continue</button>
+                                                <button className="btn custom-button" name="continue">Continue</button>
 
                                             </div>
                                         </div>

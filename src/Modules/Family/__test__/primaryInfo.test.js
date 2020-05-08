@@ -9,6 +9,7 @@ import { create, act } from "react-test-renderer";
 // import { shallow, configure, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 // configure({ adapter: new Adapter() });
+
 test("should render", () => {
   expect(() => {
     render(
