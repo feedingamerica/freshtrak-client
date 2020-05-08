@@ -16,10 +16,12 @@ const HeaderContainer = () => {
 
   return (
     <div>
-      {location.pathname === RENDER_URL.EVENT_CONFIRM_URL ||
-      location.pathname === RENDER_URL.ADD_FAMILY_URL ||
+      {location.pathname == RENDER_URL.EVENT_CONFIRM_URL ||
+      location.pathname == RENDER_URL.ADD_FAMILY_URL ||
+      location.pathname == RENDER_URL.FRESHTRAK_ABOUT ||
+      location.pathname == RENDER_URL.FRESHTRAK_WORKING  ||
       location.pathname == RENDER_URL.FOOD_BANK_CREATE  ||
-      location.pathname == RENDER_URL.FOOD_BANK_SUCCESS  ? (
+      location.pathname == RENDER_URL.FOOD_BANK_SUCCESS ? (
         <HeaderComponent shortHeader={shortHeader} />
       ) : (
         <header className="header">

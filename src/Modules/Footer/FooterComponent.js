@@ -4,31 +4,29 @@
 import React from 'react';
 import LogoComponent from '../General/LogoComponent';
 import { withRouter } from 'react-router';
+import { useHistory } from 'react-router-dom';
 const FooterComponent = (props) => {
+    let history = useHistory();
     return (
     	<div className="container pt-50">
                 <div className="row">
                     <LogoComponent/>
-                    {/* Out of scope */}
-                    {/* <div className="col-lg-6 col-xl-6">
+                    <div className="col-lg-6 col-xl-6">
                         <div className="row">
                             <div className="col-md-6">
-                                <span className="list-title">Find Resources</span>
+                                <span className="list-title">FIND RESOURCES</span>
                                 <ul>
-                                    <li><a>Resources Near You</a></li>
-                                    <li><a>Register with FreshTrak</a></li>
-                                    <li><a>About FreshTrak</a></li>
+                                    <li><a onClick={()=>history.push('/freshtrak-about')}>About FreshTrak</a></li>
                                 </ul>
                             </div>
                             <div className="col-md-6">
-                                <span className="list-title">Find Resources</span>
+                                <span className="list-title">FOR FOODBANKS</span>
                                 <ul>
-                                    <li><a>Working with FreshTrak</a></li>
-                                    <li><a>Register Your Foodbank</a></li>
+                                    <li><a onClick={()=>history.push('freshtrak-working')}>Working with FreshTrak</a></li>
                                 </ul>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
                 <div className="row pt-2 pb-3">
                     <div className="col-md-12">
