@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, wait,waitForElement,waitForDomChange, cleanup  } from "@testing-library/react";
 import MemberCountFormComponent from '../MemberCountFormComponent';
-import { noop, mockPickUpBuilder } from '../../../Testing';
+import { noop, mockMemberCountBuilder } from '../../../Testing';
 import { shallow, configure,mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import HouseHoldFormComponent from "../HouseHoldFormComponent";
@@ -25,7 +25,7 @@ test('should render HouseHoldFormComponent with data provided', () => {
     expect(() => {
         render(
             <MemberCountFormComponent
-                onSelectedChild={noop}
+                onSelectedChild={mockMemberCountBuilder}
                 onFormErrors={noop}
             />
         );
@@ -35,7 +35,7 @@ test('should render HouseHoldFormComponent with data provided', () => {
 test('should have proper binding onChange',async () =>{
     const {container,getByTestId,queryByTestId,} = render(
         <MemberCountFormComponent
-            onSelectedChild={noop}
+            onSelectedChild={mockMemberCountBuilder}
             onFormErrors={noop}
         />);
 

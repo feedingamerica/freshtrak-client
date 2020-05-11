@@ -42,26 +42,31 @@ test('should have proper binding onChange',()=>{
         />);
 
 
-let hType = container.querySelector('select[name="housing_type"]');
-let zipValue = container.querySelector('input[name="zip_code"]');
-let aptValue = container.querySelector('input[name="apt_no"]');
-let streetValue = container.querySelector('input[name="street_address"]');
+  const hType = container.querySelector('select[name="housing_type"]');
+  const zipValue = container.querySelector('input[name="zip_code"]');
+  const aptValue = container.querySelector('input[name="apt_no"]');
+  const streetValue = container.querySelector('input[name="street_address"]');
 
-let fakeHType = oneOf('Apartment','Mobile home or house trailer', 'Military housing','Student housing','Temporary','Prefer not to answer').generate(1);
+  const fakeHousingType = oneOf('Apartment','Mobile home or house trailer', 'Military housing','Student housing','Temporary','Prefer not to answer').generate(1);
 
-let fakeNumbers='123'
-let fakeStringValue ='abc'
+  const fakStreetAddress= fake((f) => f.address.streetAddress()).generate(1);
+  const fakeApt='Bakers A2 '
+  const fakeZip= '686503'
+  const fakeNumbers='123'
+  const fakeStringValue ='abc'
+
+
 
      // for checking binding
 
-  fireEvent.change(hType,{target:{value:fakeHType}});
-  expect(hType.value).toBe(fakeHType);
+  fireEvent.change(hType,{target:{value:fakeHousingType}});
+  expect(hType.value).toBe(fakeHousingType);
 
   fireEvent.change(zipValue,{target:{value:''}});
   expect(zipValue.value).toBe('');
 
-  fireEvent.change(zipValue,{target:{value:fakeNumbers}});
-  expect(zipValue.value).toBe(fakeNumbers);
+  fireEvent.change(zipValue,{target:{value:fakeZip}});
+  expect(zipValue.value).toBe(fakeZip);
 
 
   fireEvent.change(zipValue,{target:{value:fakeStringValue}});
@@ -74,8 +79,8 @@ let fakeStringValue ='abc'
   expect(aptValue.value).toBe(fakeNumbers);
 
 
-  fireEvent.change(aptValue,{target:{value:fakeStringValue}});
-  expect(aptValue.value).toBe(fakeStringValue);
+  fireEvent.change(aptValue,{target:{value:fakeApt}});
+  expect(aptValue.value).toBe(fakeApt);
 
  fireEvent.change(streetValue,{target:{value:''}});
   expect(streetValue.value).toBe('');
@@ -84,8 +89,8 @@ let fakeStringValue ='abc'
   expect(streetValue.value).toBe(fakeNumbers);
 
 
-  fireEvent.change(streetValue,{target:{value:fakeStringValue}});
-  expect(streetValue.value).toBe(fakeStringValue);
+  fireEvent.change(streetValue,{target:{value:fakStreetAddress}});
+  expect(streetValue.value).toBe(fakStreetAddress);
 
 
 });
@@ -95,7 +100,7 @@ test("should show validation errors", async () => {
   const { container, getByTestId, getByText } = render(
       <HouseHoldFormComponent
           ref = {jest.fn()}
-          onSelectedChild={noop}
+          onSelectedChild={mockHouseHoldBuilder}
           onFormErrors={noop}
       />
   );
