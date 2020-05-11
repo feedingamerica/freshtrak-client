@@ -75,14 +75,14 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
 			<div className="form-title">
 				Contact Information
 			</div>
-			<div className="form-group">
+			<div className="form-group" data-testid="first-name">
 				<label>First Name</label>
 				<input type="text" name="first_name" className="form-control" onChange={buildContactInfoForm} onBlur={handleErrors} />
 				{errors.first_name && (
                     <span className="validationError">{errors.first_name}</span>
                 )}
 			</div>			
-			<div className="form-group">
+			<div className="form-group" data-testid="last-name">
 				<label>Last Name</label>
 				<input type="text" name="last_name" className="form-control"  onChange={buildContactInfoForm} onBlur={handleErrors} />
 				{errors.last_name && (
@@ -97,14 +97,14 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
                     <option>Sr</option>
 				</select>
 			</div>
-			<div className="form-group">
+			<div className="form-group" data-testid='phone-number'>
 				<label>Phone Number</label>
 				<input type="text" name="phone_number" className="form-control"  onChange={buildContactInfoForm} onBlur={handleErrors} />
 				{errors.phone_number && (
                     <span className="validationError">{errors.phone_number}</span>
                 )}
 			</div>
-			<div className="form-group">
+			<div className="form-group" data-testid="contact-email">
 				<label>Email Address</label>
 				<input type="text" name="contact_email" className="form-control"  onChange={buildContactInfoForm} onBlur={handleErrors} />
 				{errors.contact_email && (
