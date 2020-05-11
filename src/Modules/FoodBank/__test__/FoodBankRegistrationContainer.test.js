@@ -5,6 +5,7 @@ import FoodBankRegistrationContainer from './../FoodBankRegistrationContainer';
 import ReactDOM from 'react-dom';
 import { noop, mockFoodBankRegisterBuilder, mockFoodBankContactBuilder} from '../../../Testing';
 import {fake} from 'test-data-bot';
+
 test('should render', () => {
 	expect(() => {
 		render(
@@ -15,7 +16,7 @@ test('should render', () => {
 	}).not.toThrowError();
 });
 
-test ("Checking the validation in button click Event" ,async () => {
+test ("Should show the validation erros on button click" ,async () => {
 	const {container, getByText,getByTestId } = render(<Router><FoodBankRegistrationContainer /></Router>);
     const zip_ode = container.querySelector('input[name="zipcode"]');
 	const contact_email = container.querySelector('input[name="contact_email"]');
@@ -40,7 +41,7 @@ test ("Checking the validation in button click Event" ,async () => {
 	});
 });
 
-test("Successful save in button click",async()=>{
+test("Data saving successful in button click",async()=>{
 	let mockContact  = mockFoodBankContactBuilder();
 	let mockRegister = mockFoodBankRegisterBuilder();
 	const {container, getByText } = render(<Router><FoodBankRegistrationContainer /></Router>);
@@ -76,4 +77,13 @@ test("Successful save in button click",async()=>{
     await wait(() =>{		
 		expect(getByText(/Contact information/i));
 	});
+},10000);
+
+test("Data saving Failed in button click",async()=>{
+	let mockRegister = mockFoodBankRegisterBuilder();
+	const {container, getByText,getByTestId } = render(<Router><FoodBankRegistrationContainer /></Router>);
+	fireEvent.click(getByText(/Continue/i));
+	await wait(() =>{		
+		expect(getByTestId('org-name')).toHaveTextContent(/Organization Name/i);
+	});	
 },10000)
