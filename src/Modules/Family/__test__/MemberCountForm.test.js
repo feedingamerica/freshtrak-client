@@ -1,10 +1,11 @@
 import React from 'react';
-import { render, fireEvent, wait,waitForElement,waitForDomChange, cleanup  } from "@testing-library/react";
+import { render, fireEvent,waitForDomChange,  } from "@testing-library/react";
 import MemberCountFormComponent from '../MemberCountFormComponent';
 import { noop, mockMemberCountBuilder } from '../../../Testing';
 
 
-test('should render', () => {
+
+test('should render without data', () => {
     expect(() => {
         render(
             <MemberCountFormComponent
@@ -16,7 +17,7 @@ test('should render', () => {
 });
 
 
-test('should render HouseHoldFormComponent with data provided', () => {
+test('should render with mockMemberCountBuilder  data provided', () => {
     expect(() => {
         render(
             <MemberCountFormComponent
@@ -90,13 +91,12 @@ test('should have proper binding onChange',async () =>{
 
     fireEvent.click(add_senior_inc);
     waitForDomChange(()=>{
-        expect(add_senior_inc.value).toBe("1");
+        expect(add_senior_inc.value).toBe("2");
     })
 
     fireEvent.click(add_senior_dec);
     waitForDomChange(()=>{
         expect(add_senior_dec.value).toBe("0");
     })
-
 
 });

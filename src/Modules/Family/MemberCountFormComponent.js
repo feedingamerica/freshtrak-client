@@ -4,14 +4,10 @@ const MemberCountFormComponent = (props) => {
     const [countSenior, setCountSenior] = React.useState(0);
     const [countMiddle, setCountMiddle] = React.useState(0);
     const [countJunior, setCountJunior] = React.useState(0);
-    const [value, setValue] = React.useState(0);
-    const [isChanged, setIsChanged] = React.useState('');
-
-
 
     React.useEffect(() => {
         handleChange();
-    }, [countSenior, countMiddle, countJunior,isChanged]);
+    }, [countSenior, countMiddle, countJunior,]);
 
     const handleChange = () => {
         let  childFamilyData= { memberCountData :{
@@ -21,25 +17,6 @@ const MemberCountFormComponent = (props) => {
             }
         };
         props.onSelectedChild(childFamilyData);
-    };
-
-    const inputValue = (event) => {
-        event.preventDefault();
-        let name = event.target.name;
-        setIsChanged(name)
-        switch (name) {
-            case 'senior_count_input':
-                setCountSenior(event.target.value);
-                break;
-            case 'adult_count_input':
-                setCountMiddle(event.target.value);
-                break;
-            case 'junior_count_input':
-                setCountJunior(event.target.value);
-                break;
-            default:
-                break;
-        }
     };
 
     const seniorDecrementFunction=(e)=> {

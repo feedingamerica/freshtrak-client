@@ -129,7 +129,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
 
             <div className="form-group" data-testid="middle-name">
                 <label>Middle Name</label>
-                <input type="text" className="form-control" onChange={buildNameForm} name="middle_name" id="middle_name"  onBlur={handleErrors}  required />
+                <input type="text" className="form-control" onChange={buildNameForm} name="middle_name" id="middle_name"  onBlur={handleErrors}   />
                 <div> {errors.middle_name && (
                     <span className="validationError" >{errors.middle_name}</span>
                 )}
@@ -139,7 +139,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
             <div className="form-group" data-testid="last-name">
                 <label>Last Name</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="last_name" id="last_name"
-                       onBlur={handleErrors} required  />
+                       onBlur={handleErrors}   />
                 <div> {errors.last_name && (
                     <span className="validationError" >{errors.last_name}</span>
                 )}
@@ -156,7 +156,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
 
             <div className="form-group" data-testid="dob">
                 <label>Date of Birth</label>
-                <input type="date" className="form-control"  name="dob" id="dob" min="1900-01-02" onChange={buildNameForm}  onBlur={handleErrors}  required />
+                <input type="date" className="form-control"  name="dob" id="dob" min="1900-01-02" onChange={buildNameForm}  onBlur={handleErrors}   />
                 <div> {errors.dob && (
                     <span className="validationError">{errors.dob}</span>
                 )}
@@ -175,12 +175,16 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
 
             {phoneDisable && (<div className="form-group" >
                 <label>Phone Number</label>
+
+
                 <input type="number" className="form-control" data-testid="phno-disabled" onChange={buildNameForm} disabled={true} name="phone_number" id="phone_number"
                        onBlur={handleErrors} required />
+
             </div>)}
 
             {!phoneDisable && (<div className="form-group" data-testid="phno">
                 <label>Phone Number</label>
+>
                 <input type="number" className="form-control" onChange={buildNameForm} data-testid="phno-not-disabled" name="phone_number" id="phone_number"
                        onBlur={handleErrors} required />
 
