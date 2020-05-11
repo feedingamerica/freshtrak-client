@@ -2,12 +2,7 @@ import React from 'react';
 import { render,fireEvent,  waitForElement, wait} from '@testing-library/react';
 import HouseHoldFormComponent from '../HouseHoldFormComponent';
 import { noop, mockHouseHoldBuilder } from '../../../Testing';
-import { shallow, configure,mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import {fake,oneOf} from 'test-data-bot'
-
-configure({adapter: new Adapter()});
-
+import {fake,oneOf} from 'test-data-bot';
 
 test('should render', () => {
   expect(() => {
@@ -26,7 +21,7 @@ test('should render HouseHoldFormComponent with no data ', () => {
   expect(() => {
     render(
     <HouseHoldFormComponent
-    onSelectedChild={mockHouseHoldBuilder}
+    onSelectedChild={noop}
     onFormErrors={noop}
     />
   );
@@ -100,7 +95,7 @@ test("should show validation errors", async () => {
   const { container, getByTestId, getByText } = render(
       <HouseHoldFormComponent
           ref = {jest.fn()}
-          onSelectedChild={mockHouseHoldBuilder}
+          onSelectedChild={noop}
           onFormErrors={noop}
       />
   );

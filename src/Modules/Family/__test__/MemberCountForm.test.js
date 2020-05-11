@@ -2,11 +2,6 @@ import React from 'react';
 import { render, fireEvent, wait,waitForElement,waitForDomChange, cleanup  } from "@testing-library/react";
 import MemberCountFormComponent from '../MemberCountFormComponent';
 import { noop, mockMemberCountBuilder } from '../../../Testing';
-import { shallow, configure,mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import HouseHoldFormComponent from "../HouseHoldFormComponent";
-import {oneOf} from "test-data-bot";
-configure({adapter: new Adapter()});
 
 
 test('should render', () => {

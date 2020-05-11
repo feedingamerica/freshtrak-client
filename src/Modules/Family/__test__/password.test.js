@@ -2,7 +2,6 @@ import React from 'react';
 import { render, fireEvent, getByTestId,wait, waitForElement,waitForDomChange, cleanup } from '@testing-library/react';
 import PasswordRegistrationFormComponent from '../PasswordRegistrationFormComponent';
 import { noop, mockPasswordBuilder } from '../../../Testing';
-import {fake} from 'test-data-bot';
 
 describe('PasPasswordRegistrationFormComponents',()=>{
   test('should render without data', () => {
@@ -22,7 +21,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
       render(
         <PasswordRegistrationFormComponent
         ref={jest.fn()}
-          onSelectedChild={mockPasswordBuilder}
+          onSelectedChild={noop}
           onFormErrors={noop}
         />
       );
@@ -34,7 +33,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
       const {container} = render(
         <PasswordRegistrationFormComponent
         ref={jest.fn()}
-          onSelectedChild={mockPasswordBuilder}
+          onSelectedChild={noop}
           onFormErrors={noop}
         />
       );
@@ -71,7 +70,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
     const {container,} = render(
       <PasswordRegistrationFormComponent
       ref={jest.fn()}
-        onSelectedChild={mockPasswordBuilder}
+        onSelectedChild={noop}
         onFormErrors={noop}
       />
     );
@@ -80,7 +79,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
     const password = container.querySelector('input[name="password"]');
     const passwordConfirm = container.querySelector('input[name="passwordConfirm"]');
     // fake Data
-    const fakePwd = fake(f=>f.random.word()).generate(1);
+    const fakePwd = mockPasswordBuilder.password;
 
 
     fireEvent.change(password,{target:{value:'aa'}})
