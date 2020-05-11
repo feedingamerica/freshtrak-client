@@ -17,7 +17,7 @@ test('should render without data', () => {
 });
 
 
-test('should render with data provided', () => {
+test('should render with mockMemberCountBuilder  data provided', () => {
     expect(() => {
         render(
             <MemberCountFormComponent

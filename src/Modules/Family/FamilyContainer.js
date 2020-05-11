@@ -6,7 +6,6 @@ import PasswordRegistrationFormComponent from './PasswordRegistrationFormCompone
 import AdditionalPickUpFormComponent from './AdditionalPickUpFormComponent';
 import RegistrationTextComponent from './RegistrationTextComponent';
 import {confirm, showMessage} from '../../Utils/Util';
-import HeaderComponent from "../Header/HeaderComponent";
 import EventDescriptionFormComponent from "../Events/EventDescriptionFormComponent";
 import '../../Assets/scss/main.scss';
 import ButtonComponent from '../General/ButtonComponent';
@@ -30,8 +29,6 @@ const FamilyContainer = () => {
     };
     const handleFormValidation = async (e) => {
         e.preventDefault();
-        console.log('passwordStatus',passwordFlag)
-        console.log('passwordStatus',familyData.passwordStatus)
         let componentErrors = [];
         componentErrors.push(
             await primaryFormRef.current.triggerErrors(),
