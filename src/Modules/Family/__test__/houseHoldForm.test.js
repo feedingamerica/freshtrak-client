@@ -1,8 +1,8 @@
 import React from 'react';
-import { render,fireEvent,  waitForElement, wait} from '@testing-library/react';
+import { render,fireEvent, wait} from '@testing-library/react';
 import HouseHoldFormComponent from '../HouseHoldFormComponent';
 import { noop, mockHouseHoldBuilder } from '../../../Testing';
-import { shallow, configure,mount } from 'enzyme';
+import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import {fake,oneOf} from 'test-data-bot'
 
@@ -91,7 +91,6 @@ test('should have proper binding onChange',()=>{
 
   fireEvent.change(streetValue,{target:{value:fakStreetAddress}});
   expect(streetValue.value).toBe(fakStreetAddress);
-
 
 });
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef}  from "react";
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import HouseHoldFormComponent from './HouseHoldFormComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
@@ -11,7 +11,7 @@ import HeaderComponent from "../Header/HeaderComponent";
 import EventDescriptionFormComponent from "../Events/EventDescriptionFormComponent";
 import '../../Assets/scss/main.scss';
 import back from '../../Assets/img/back.svg';
-import useForm from '../../Utils/UseForm';
+import ButtonComponent from '../General/ButtonComponent';
 
 const FamilyContainer = () => {
     let familyData = [];
@@ -20,24 +20,24 @@ const FamilyContainer = () => {
     const primaryFormRef = React.useRef();
     const addressFormRef = React.useRef();
     const passwordFormRef = React.useRef();
+    const [passwordStatus, setPasswordStatus] = React.useState(false);
 
 
-    const handleFormValidation = (e) => {
+    const handleFormValidation = async (e) => {
         e.preventDefault();
         componentErrors.push(
             primaryFormRef.current.triggerErrors(),
             addressFormRef.current.triggerErrors(),
             passwordFormRef.current.triggerErrors());
-        if( componentErrors.includes(true) ||
-            Object.keys(formError).length !== 0){
-            showMessage('error', 'Kindly fix all errors and continue');
+        if( (componentErrors.includes(true) ||
+            Object.keys(formError).length !== 0) ){
             return false;
-        } else if (Object.keys(formError).length === 0 ){
-            handleSubmit();
         }
-    };
+        };
+
 
     const handleSubmit = (e) => {
+        console.log('handle submit')
         let familyDetails = {
             familyMemberData:familyData.primaryData ? familyData.primaryData.primaryData:'',
             HouseHoldData:familyData.addressData ? familyData.addressData.addressData:'',
@@ -56,6 +56,7 @@ const FamilyContainer = () => {
     const buildFamilyData = (childFamilyData) => {
         let dataKey = Object.keys(childFamilyData)[0];
         familyData[dataKey] = childFamilyData;
+        setPasswordStatus(familyData.passwordStatus?familyData.passwordStatus:false)
     };
 
     const formErrors = (errors) => {
@@ -94,7 +95,7 @@ const FamilyContainer = () => {
                             </div>
                             <div className="col-lg-4 col-md-6">
                                 <RegistrationTextComponent/>
-                                <form onSubmit={handleFormValidation}>
+                                <form >
                                     <div className="content-wrapper pt-100">
                                         <div className="form-fields">
                                                     <HouseHoldFormComponent   ref={addressFormRef}
@@ -118,11 +119,10 @@ const FamilyContainer = () => {
                                             <AdditionalPickUpFormComponent
                                                                       onSelectedChild = {buildFamilyData}
                                                                       onFormErrors = {formErrors} />
-
                                             <div className="button-wrap mt-4">
-                                                <button className="btn custom-button">Continue</button>
-
+                                                <ButtonComponent type ='submit' name="savefamily" dataid= '' id="save-family" value="Continue" className = 'btn custom-button' onClickfunction={handleFormValidation}  />
                                             </div>
+
                                         </div>
                                     </div>
                                 </form>
@@ -131,7 +131,6 @@ const FamilyContainer = () => {
                     </div>
                 </section>
                 </div>
-            <FooterContainer/>
         </div>
     )
 };
