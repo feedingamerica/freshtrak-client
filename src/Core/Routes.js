@@ -12,9 +12,9 @@ const DashBoardContainer = lazy(() =>
   import("../Modules/Dashboard/DashBoardContainer")
 );
 const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
-const WrapperComponent = lazy(() =>
-  import("../Modules/General/WrapperComponent")
-);
+const WrapperComponent = lazy(() => import("../Modules/General/WrapperComponent"));
+const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
+
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
@@ -44,6 +44,12 @@ const Routes = () => {
               path={RENDER_URL.FRESHTRAK_ABOUT}
               component={StaticPageContainer}
             />
+            <Route
+              exact
+              path={RENDER_URL.ADD_FAMILY_URL}
+              component={FamilyContainer}
+            />
+
             <Route
               path={"*"}
               render={(props) => <Redirect to="/" {...props} />}
