@@ -5,10 +5,9 @@ import EventContext from "../../Store/ContextApi/EventContext";
 import ImageViewModal from "../General/ImageViewModal";
 
 const EventDetailsComponent = () => {
-  const { event, showEventDetails } = useContext(EventContext);
+  const { event, showEventDetails,setShowImage } = useContext(EventContext);
   const [images, setImages] = useState([]);
 
-  const [showImage, setShowImage] = useState(false);
 
   useEffect(() => {
     const eventImages = ["/pantry1.jpg"];
@@ -79,12 +78,7 @@ const EventDetailsComponent = () => {
         </div>
       </div>
 
-      {showImage == true && (
-        <ImageViewModal
-          src={"/pantry1.jpg"}
-          close={() => setShowImage(false)}
-        />
-      )}
+      
     </div>
   );
 };

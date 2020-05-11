@@ -17,11 +17,8 @@ const EventContainer = props => {
     let [searchDetails,setSearchDetails] = useState({});
     const [serverError, setServerError] = useState(false);
     const [loading, setLoading] = useState(false);
-    
-    const [showEventDetails, toggleEventDetails] = useState(false);
-    const[eventDetails,setEventDetails] = useState({});
-    // Context
-    const eventContext = useContext(EventContext);
+    let {eventDetails} = useContext(EventContext);
+
     useEffect(() => {
         let isSearchData = !!props.location.state;
         if (isSearchData){
@@ -73,11 +70,7 @@ const EventContainer = props => {
     };
 
     return (
-        <EventProvider value={{
-            setCurrentEvent: setEventDetails,
-            event:eventDetails,
-            showEventDetails:toggleEventDetails
-        }}>
+        
         <div className="h-100">
             <div className="h-100 d-flex flex-column">
                 <div className="sa-input-wrap text-left">
@@ -96,17 +89,15 @@ const EventContainer = props => {
                         <img src={MapImage} className="img-fluid" />
                     </div>
                     
-                   {showEventDetails? <EventDetailsComponent/>
+                   {eventDetails? <EventDetailsComponent/>
                    :  
                    <EventListContainer searchData={searchDetails} />}
 
                    
                 </div>
-                {/* sa-content-wrapper */}
             </div>
 
         </div>
-        </EventProvider>
     )
 
 };
