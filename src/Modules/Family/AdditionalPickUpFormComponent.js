@@ -60,27 +60,8 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             setStep(true)
         }
     };
-
-    const dataToParent = () => {
-        props.onSelectedChild(childFamilyData);
-    };
-
     
-    const { errors, handleErrors } =
-        useForm(props, {
-            'pickup_type' : ['min:1'],
-            'pickup_name' : ['min:0'],
-            'vehicle_number_plate_two' : ['min:0'],
-            'vehicle_number_plate': ['min:0']
-        }, dataToParent);
 
-    React.useImperativeHandle(ref, () => ({
-
-        triggerErrors(){
-            handleChange();
-            return handleErrors(data.pickupData);
-        }
-    }));
 
     return (
         <div className="form-fields pt-50">

@@ -17,29 +17,39 @@ import {useHistory} from 'react-router-dom';
 
 const FamilyContainer = () => {
     let familyData = [];
-    let formError = '';
+    
+	let formError = {};
     let componentErrors = [];
     const primaryFormRef = React.useRef();
     const addressFormRef = React.useRef();
     const passwordFormRef = React.useRef();
-    const pickUpFormRef = React.useRef();
 
     let history = useHistory();
 
-
-    const handleFormValidation = (e) => {
-        e.preventDefault();
-		let componentErrors = [];
-		componentErrors.push( 
-            primaryFormRef.current.triggerErrors(),
-            addressFormRef.current.triggerErrors(),
-            passwordFormRef.current.triggerErrors(),
-            pickUpFormRef.current.triggerErrors());
-		if( componentErrors.includes(true) || Object.keys(formError).length !== 0){			
-			return false;
-		}		
-		handleSubmitConfirm();
+    const buildFamilyData = (childFamilyData) => {
+        let dataKey = Object.keys(childFamilyData)[0];
+        familyData[dataKey] = childFamilyData;
     };
+
+    const formErrors = (errors) => {
+        formError = errors;
+    };
+    const handleFormValidation = async (e) => {
+        e.preventDefault();
+        let componentErrors = [];
+		componentErrors.push( 
+           await primaryFormRef.current.triggerErrors(),
+           await addressFormRef.current.triggerErrors(),
+          await  passwordFormRef.current.triggerErrors());
+        
+            
+            if( componentErrors.includes(true) || Object.keys(formError).length !== 0){			
+                return false;   
+            }
+            handleSubmitConfirm();
+    };
+
+ 
 
     const handleSubmitConfirm = () => {		
 	    let title = "Are you sure you want to proceed?";
@@ -63,19 +73,12 @@ const FamilyContainer = () => {
 
     };
 
-    const buildFamilyData = (childFamilyData) => {
-        let dataKey = Object.keys(childFamilyData)[0];
-        familyData[dataKey] = childFamilyData;
-    };
 
-    const formErrors = (errors) => {
-        formError = errors;
-    };
+
 
     return (
 
         <div>
-            <HeaderComponent shortHeader={'navbar-green'} />
             <div className="main-wrapper">
                 <section>
                     <div className="container pt-100 pb-100 register-confirmation">
@@ -125,12 +128,12 @@ const FamilyContainer = () => {
                                                                                onSelectedChild = {buildFamilyData}
                                                                                onFormErrors = {formErrors} />
 
-                                            <AdditionalPickUpFormComponent ref = {pickUpFormRef}
+                                            <AdditionalPickUpFormComponent
                                                                       onSelectedChild = {buildFamilyData}
                                                                       onFormErrors = {formErrors} />
 
                                             <div className="button-wrap mt-4">
-                                            <ButtonComponent type ='submit' name="savefoodbank" dataid= '' id="save-food-bank" value="Continue" className = 'btn custom-button' onClickfunction={handleFormValidation} />
+                                            <ButtonComponent type ='submit' name="savefamily" dataid= '' id="save-family" value="Continue" className = 'btn custom-button' onClickfunction={handleFormValidation} />
 
                                             </div>
                                         </div>

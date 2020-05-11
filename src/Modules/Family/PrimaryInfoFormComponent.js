@@ -60,10 +60,6 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
         }
     };
 
-    React.useEffect(() => {
-        handleChange();
-    }, [isChanged]);
-
     const handleChange = () => {
         data = { primaryData :{
                 first_name: firstName,
@@ -80,6 +76,11 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
         };
         props.onSelectedChild(data);
     };
+
+    React.useEffect(() => {
+        handleChange();
+    }, [isChanged]);
+
 
     const dataToParent = () => {
         props.onSelectedChild(childFamilyData);
@@ -119,7 +120,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
             <div className="form-group" data-testid="first-name">
                 <label>First Name</label>
                 <input type="text" className="form-control" data-value ={firstName} onChange={buildNameForm} name="first_name" id="first_name"
-                       onBlur={handleErrors}  />
+                       onBlur={handleErrors}  required/>
                 <div> {errors.first_name && (
                     <span className="validationError" >{errors.first_name}</span>
                 )}
