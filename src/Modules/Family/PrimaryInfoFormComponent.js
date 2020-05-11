@@ -145,7 +145,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
 
 
     return (
-        <div>
+        <div className="pb-50">
 
 
                 <div className="form-title">

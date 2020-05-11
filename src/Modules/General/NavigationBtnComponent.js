@@ -2,8 +2,8 @@
  * Button Component - Can be used for back Navigation
  */
 import React from 'react';
-import backBtn from '../../Assets/img/back.svg';
 import {useHistory} from 'react-router-dom';
+import backBtn from '../../Assets/img/back.svg';
 const NavigationBtnComponent = (props) => {
     let history = useHistory();
     return (
