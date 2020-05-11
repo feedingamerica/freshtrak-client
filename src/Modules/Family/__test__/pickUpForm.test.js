@@ -19,7 +19,7 @@ test('should render AdditionalPickUpFormComponent with data provided', () => {
   expect(() => {
     render(
       <AdditionalPickUpFormComponent
-        onSelectedChild={mockPickUpBuilder}
+        onSelectedChild={noop}
         onFormErrors={noop}
       />
     );
@@ -29,7 +29,7 @@ test('should render AdditionalPickUpFormComponent with data provided', () => {
 test('should have proper binding onChange',()=>{
 const {container,getByTestId,queryByTestId} = render(
   <AdditionalPickUpFormComponent
-    onSelectedChild={mockPickUpBuilder}
+    onSelectedChild={noop}
     onFormErrors={noop}
   />);
 
@@ -38,8 +38,8 @@ const {container,getByTestId,queryByTestId} = render(
   let numPlate = container.querySelector('input[name="vehicle_number_plate"]');
   let add_btn = container.querySelector('button[name="add_btn"]');
 
-  let fakePType = oneOf('Me','Some one Else').generate(1);
-  let fakeName = fake(f=>f.name.firstName()).generate(1);
+  let fakePType = mockPickUpBuilder.pickupType;
+  let fakeName = mockPickUpBuilder.pickupName;
   let fakeNumPlate = 'KL-01-1995';
   let fakeNumPlate2 = 'MH-04-1990';
 

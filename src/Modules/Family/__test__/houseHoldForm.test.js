@@ -20,7 +20,7 @@ test('should render HouseHoldFormComponent with mockHouseHoldBuilder', () => {
   expect(() => {
     render(
     <HouseHoldFormComponent
-    onSelectedChild={mockHouseHoldBuilder}
+    onSelectedChild={noop}
     onFormErrors={noop}
     />
   );
@@ -93,7 +93,7 @@ test("should show validation errors", async () => {
   const { container, getByTestId, getByText } = render(
       <HouseHoldFormComponent
           ref = {jest.fn()}
-          onSelectedChild={mockHouseHoldBuilder}
+          onSelectedChild={noop}
           onFormErrors={noop}
       />
   );

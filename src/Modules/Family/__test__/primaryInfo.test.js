@@ -1,15 +1,8 @@
 import React from "react";
 
-import { fake,oneOf } from "test-data-bot";
 import { render, fireEvent, wait } from "@testing-library/react";
 import PrimaryInfoFormComponent from "../PrimaryInfoFormComponent";
 import { noop, mockPrimaryInfoBuilder } from "../../../Testing";
-
-import { create, act } from "react-test-renderer";
-// import { shallow, configure, mount } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-// configure({ adapter: new Adapter() });
-
 test("should render", () => {
   expect(() => {
     render(
@@ -22,7 +15,7 @@ test("should show validation errors", async () => {
   const { container, getByTestId, getByText } = render(
     <PrimaryInfoFormComponent
       ref = {jest.fn()}
-      onSelectedChild={mockPrimaryInfoBuilder}
+      onSelectedChild={noop}
       onFormErrors={noop}
     />
   );
@@ -74,22 +67,21 @@ test("Testing for value binding", async () => {
   const {container,getByTestId} = render(
     <PrimaryInfoFormComponent
       ref = {jest.fn()}
-      onSelectedChild={mockPrimaryInfoBuilder}
+      onSelectedChild={noop}
       onFormErrors={noop}
     />
   );
-
 // Generate fake data
-  const fakeEmail = fake((f) => f.internet.email()).generate(1);
-  const fakeDOB = '2019-03-29';
-  const fakeFname = fake((f) => f.name.firstName()).generate(1);
-  const fakeLname = fake((f) => f.name.lastName()).generate(1);
-  const fakeMname = fake((f) => f.name.lastName()).generate(1);
-  const fakeSuffix = oneOf('Jr','Sr').generate(1);
-  const fakeHoh = oneOf('Yes','No').generate(1);
-  const fakePhno = '123456789';
-  const fakeChk = oneOf('true','false').generate(1);
-  const fakeComPref = oneOf('Email','Phone').generate(1);
+  const fakeEmail = mockPrimaryInfoBuilder.email;
+  const fakeDOB = '1990-12-12';
+  const fakeFname = mockPrimaryInfoBuilder.firstName;
+  const fakeLname = mockPrimaryInfoBuilder.lastName;
+  const fakeMname = mockPrimaryInfoBuilder.middleName;
+  const fakeSuffix = mockPrimaryInfoBuilder.suffix;
+  const fakeHoh = mockPrimaryInfoBuilder.hoh;
+  const fakePhno = mockPrimaryInfoBuilder.phoneNumber;
+  const fakeChk = mockPrimaryInfoBuilder.firstName;
+  const fakeComPref = mockPrimaryInfoBuilder.comPref
 
 
 
@@ -106,7 +98,7 @@ test("Testing for value binding", async () => {
   const phnoChk = container.querySelector('input[name="phone_number_checkbox"]');
   const comPref = container.querySelector('select[name="communication_preference"]');
   
-  fireEvent.change(first_name, { target: { value: fakeFname } })
+  fireEvent.change(first_name, { target: { value: `${fakeFname}` } })
   expect(first_name.value).toBe(fakeFname);
 
   fireEvent.change(last_name, { target: { value: fakeLname } })
@@ -136,7 +128,7 @@ test("Testing for value binding", async () => {
   
 
   fireEvent.change(phno, { target: { value:fakePhno  } })
-  expect(phno.value).toBe(fakePhno);
+  expect(phno.value).toBe(`${fakePhno}`);
 
 //  checking whether disable phone option toggles both divs.
 fireEvent.click(phnoChk);
