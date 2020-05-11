@@ -2,13 +2,10 @@ import React from 'react';
 import { render, fireEvent,waitForDomChange,  } from "@testing-library/react";
 import MemberCountFormComponent from '../MemberCountFormComponent';
 import { noop, mockMemberCountBuilder } from '../../../Testing';
-import {configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
-configure({adapter: new Adapter()});
 
 
-test('should render', () => {
+
+test('should render without data', () => {
     expect(() => {
         render(
             <MemberCountFormComponent
@@ -20,7 +17,7 @@ test('should render', () => {
 });
 
 
-test('should render HouseHoldFormComponent with data provided', () => {
+test('should render with data provided', () => {
     expect(() => {
         render(
             <MemberCountFormComponent
@@ -101,6 +98,5 @@ test('should have proper binding onChange',async () =>{
     waitForDomChange(()=>{
         expect(add_senior_dec.value).toBe("0");
     })
-
 
 });

@@ -921,16 +921,25 @@ body {
             padding-bottom: 50px;
         }
     }
-
-    .validationError {
-        font-size: .7rem;
-        position: absolute;
-        color: #ff0000;
-
-        .color-green {
-            color: $primaryColor;
+    .color-green{
+       color: $primaryColor; 
+    }
+    .custom-list{
+        margin:1rem 0 0;
+        padding: 0;
+        list-style: none;
+        li{
+            margin-bottom: .5rem;
         }
-
+        .validationError {
+            font-size: .7rem;
+            position: absolute;
+            color: #ff0000;
+    
+            .color-green {
+                color: $primaryColor;
+            }
+        }
         .custom-list {
             margin: 1rem 0 0;
             padding: 0;
@@ -969,12 +978,5 @@ body {
             }
 
         }
-    }
-
-    // Added for fixing Search button
-    .validationError {
-        font-size: .7rem;
-        position: absolute;
-        color: #ff0000;
     }
 }

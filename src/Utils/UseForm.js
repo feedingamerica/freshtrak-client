@@ -102,7 +102,6 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
                 delete errors[keys]
             }
         }
-
         if(Object.keys(errors).length === 0){
             callback();
         }

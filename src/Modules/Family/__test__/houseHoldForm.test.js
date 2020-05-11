@@ -2,14 +2,10 @@ import React from 'react';
 import { render,fireEvent, wait} from '@testing-library/react';
 import HouseHoldFormComponent from '../HouseHoldFormComponent';
 import { noop, mockHouseHoldBuilder } from '../../../Testing';
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import {fake,oneOf} from 'test-data-bot'
 
-configure({adapter: new Adapter()});
 
-
-test('should render', () => {
+test('should render HouseHoldFormComponent with no data', () => {
   expect(() => {
     render(
       <HouseHoldFormComponent
@@ -20,9 +16,7 @@ test('should render', () => {
   }).not.toThrowError();
 });
 
-
-
-test('should render HouseHoldFormComponent with no data ', () => {
+test('should render HouseHoldFormComponent with mockHouseHoldBuilder', () => {
   expect(() => {
     render(
     <HouseHoldFormComponent

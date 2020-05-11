@@ -12,13 +12,12 @@ const DashBoardContainer = lazy(() =>
   import("../Modules/Dashboard/DashBoardContainer")
 );
 const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
-
 const WrapperComponent = lazy(() => import("../Modules/General/WrapperComponent"));
 const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 
-
-const StaticPageContainer = lazy(() => import("../Modules/StaticPages/StaticPageContainer"));
-
+const StaticPageContainer = lazy(() =>
+  import("../Modules/StaticPages/StaticPageContainer")
+);
 const Routes = () => {
   React.useEffect(() => {}, []);
 
