@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, wait,waitForElement,waitForDomChange, cleanup  } from "@testing-library/react";
 import MemberCountFormComponent from '../MemberCountFormComponent';
-import { noop, mockPasswordBuilder } from '../../../Testing';
+import { noop, mockPickUpBuilder } from '../../../Testing';
 import { shallow, configure,mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import HouseHoldFormComponent from "../HouseHoldFormComponent";

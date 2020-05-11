@@ -1,7 +1,7 @@
 import React from 'react';
 import { render,fireEvent,  waitForElement, wait} from '@testing-library/react';
 import HouseHoldFormComponent from '../HouseHoldFormComponent';
-import { noop, mockPasswordBuilder } from '../../../Testing';
+import { noop, mockHouseHoldBuilder } from '../../../Testing';
 import { shallow, configure,mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import {fake,oneOf} from 'test-data-bot'
@@ -26,7 +26,7 @@ test('should render HouseHoldFormComponent with no data ', () => {
   expect(() => {
     render(
     <HouseHoldFormComponent
-    onSelectedChild={noop}
+    onSelectedChild={mockHouseHoldBuilder}
     onFormErrors={noop}
     />
   );
@@ -49,8 +49,10 @@ let streetValue = container.querySelector('input[name="street_address"]');
 
 let fakeHType = oneOf('Apartment','Mobile home or house trailer', 'Military housing','Student housing','Temporary','Prefer not to answer').generate(1);
 
+let fakeNumbers='123'
+let fakeStringValue ='abc'
 
-    // for checking binding
+     // for checking binding
 
   fireEvent.change(hType,{target:{value:fakeHType}});
   expect(hType.value).toBe(fakeHType);
@@ -58,32 +60,32 @@ let fakeHType = oneOf('Apartment','Mobile home or house trailer', 'Military hous
   fireEvent.change(zipValue,{target:{value:''}});
   expect(zipValue.value).toBe('');
 
-  fireEvent.change(zipValue,{target:{value:'123'}});
-  expect(zipValue.value).toBe('123');
+  fireEvent.change(zipValue,{target:{value:fakeNumbers}});
+  expect(zipValue.value).toBe(fakeNumbers);
 
 
-  fireEvent.change(zipValue,{target:{value:'abc'}});
+  fireEvent.change(zipValue,{target:{value:fakeStringValue}});
   expect(zipValue.value).toBe('');
 
   fireEvent.change(aptValue,{target:{value:''}});
   expect(aptValue.value).toBe('');
 
-  fireEvent.change(aptValue,{target:{value:'123'}});
-  expect(aptValue.value).toBe('123');
+  fireEvent.change(aptValue,{target:{value:fakeNumbers}});
+  expect(aptValue.value).toBe(fakeNumbers);
 
 
-  fireEvent.change(aptValue,{target:{value:'abc'}});
-  expect(aptValue.value).toBe('abc');
+  fireEvent.change(aptValue,{target:{value:fakeStringValue}});
+  expect(aptValue.value).toBe(fakeStringValue);
 
  fireEvent.change(streetValue,{target:{value:''}});
   expect(streetValue.value).toBe('');
 
-  fireEvent.change(streetValue,{target:{value:'123'}});
-  expect(streetValue.value).toBe('123');
+  fireEvent.change(streetValue,{target:{value:fakeNumbers}});
+  expect(streetValue.value).toBe(fakeNumbers);
 
 
-  fireEvent.change(streetValue,{target:{value:'abc'}});
-  expect(streetValue.value).toBe('abc');
+  fireEvent.change(streetValue,{target:{value:fakeStringValue}});
+  expect(streetValue.value).toBe(fakeStringValue);
 
 
 });
