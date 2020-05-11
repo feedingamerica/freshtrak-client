@@ -23,6 +23,9 @@ const EditAccountComponent = lazy(() =>
   import("../Modules/UserAccount/EditAccountComponent")
 );
 
+const StaticPageContainer = lazy(() =>
+  import("../Modules/StaticPages/StaticPageContainer")
+);
 const Routes = () => {
   React.useEffect(() => {}, []);
 
@@ -50,6 +53,14 @@ const Routes = () => {
               exact
               path={RENDER_URL.ACCOUNT_EDIT_URL}
               component={EditAccountComponent}
+              />
+              <Route exact
+              path={RENDER_URL.FRESHTRAK_WORKING}
+              component={StaticPageContainer}
+            />
+            <Route
+              path={RENDER_URL.FRESHTRAK_ABOUT}
+              component={StaticPageContainer}
             />
             <Route
               path={"*"}

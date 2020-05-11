@@ -4,8 +4,7 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 import backBtn from '../../Assets/img/back.svg';
-
-const NavigationBtnComponent = () => {
+const NavigationBtnComponent = (props) => {
     let history = useHistory();
     return (
         <div className="back-button" onClick={()=>history.goBack()}>
