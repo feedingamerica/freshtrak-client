@@ -16,7 +16,7 @@ export const mockPickUp = build('PickUp').fields({
   pickupName: fake(f => f.name.firstName()),
   pickupNumberPlate: fake(f => f.random.number())
 });
-// console.log(fake(f=>f.date.past()).generate(1))
+
  const mockPrimary = build('Primary').fields({
   firstName: fake(f => f.name.firstName()),
   lastName: fake(f => f.name.lastName()),

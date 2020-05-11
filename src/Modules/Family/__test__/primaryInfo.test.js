@@ -1,5 +1,4 @@
 import React from "react";
-
 import { render, fireEvent, wait } from "@testing-library/react";
 import PrimaryInfoFormComponent from "../PrimaryInfoFormComponent";
 import { noop, mockPrimaryInfoBuilder } from "../../../Testing";
@@ -12,7 +11,7 @@ test("should render", () => {
 });
 
 test("should show validation errors", async () => {
-  const { container, getByTestId, getByText } = render(
+  const { container, getByTestId } = render(
     <PrimaryInfoFormComponent
       ref = {jest.fn()}
       onSelectedChild={noop}
@@ -56,8 +55,6 @@ test("should show validation errors", async () => {
   await wait(() => {
     expect(getByTestId("phno")).toHaveTextContent("This field is required");
   });
-
-  // Validation testing still pending
 });
 
 
@@ -98,7 +95,7 @@ test("Testing for value binding", async () => {
   const phnoChk = container.querySelector('input[name="phone_number_checkbox"]');
   const comPref = container.querySelector('select[name="communication_preference"]');
   
-  fireEvent.change(first_name, { target: { value: `${fakeFname}` } })
+  fireEvent.change(first_name, { target: { value:fakeFname } })
   expect(first_name.value).toBe(fakeFname);
 
   fireEvent.change(last_name, { target: { value: fakeLname } })
@@ -140,6 +137,12 @@ fireEvent.click(phnoChk);
 await wait(()=>{
   expect(getByTestId('phno-not-disabled').disabled).toBeFalsy();
 }); 
-});
 
-// Pending -> triggerErrors() and handleErrors() functions
+// Checking default switch case
+
+fireEvent.change(first_name, { target: { name:'asdasd',value:fakeFname } });
+expect(first_name.value).toBe(fakeFname );
+
+
+
+});

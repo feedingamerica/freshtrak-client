@@ -64,12 +64,9 @@ const FamilyContainer = () => {
             memberCountData:familyData.memberCountData ? familyData.memberCountData.memberCountData:'',
             pickuptData:familyData.pickupData ? familyData.pickupData.pickupData:''
         };
-        if(familyDetails) {
-            history.push('/')
 
-        } else {
-            showMessage('error', 'Something went wrong');
-        }
+        // Deleted a condition check as it seemed unnecessary and has unreachable code
+        history.push('/');
 
     };
 
