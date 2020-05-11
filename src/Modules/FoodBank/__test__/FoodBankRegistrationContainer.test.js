@@ -3,7 +3,7 @@ import { render, fireEvent,wait,waitForElement} from '@testing-library/react';
 import {BrowserRouter as Router,useHistory} from 'react-router-dom';
 import FoodBankRegistrationContainer from './../FoodBankRegistrationContainer';
 import ReactDOM from 'react-dom';
-import { noop } from '../../../Testing';
+import { noop, mockFoodBankRegisterBuilder, mockFoodBankContactBuilder} from '../../../Testing';
 import {fake} from 'test-data-bot';
 test('should render', () => {
 	expect(() => {
@@ -41,6 +41,8 @@ test ("Checking the validation in button click Event" ,async () => {
 });
 
 test("Successful save in button click",async()=>{
+	let mockContact  = mockFoodBankContactBuilder();
+	let mockRegister = mockFoodBankRegisterBuilder();
 	const {container, getByText } = render(<Router><FoodBankRegistrationContainer /></Router>);
 	const org_name = container.querySelector('input[name="org_name"]');
 	const address = container.querySelector('input[name="address"]');
@@ -50,25 +52,15 @@ test("Successful save in button click",async()=>{
 	const last_name = container.querySelector('input[name="last_name"]');
 	const phone_number = container.querySelector('input[name="phone_number"]');
 	const contact_email = container.querySelector('input[name="contact_email"]');
-
-	let orgName = fake(f=>f.company.companyName()).generate(1);	
-	let streetAddress = fake(f => f.address.streetAddress()).generate(1);	
-	let zipCode = fake(f => f.address.zipCode()).generate(1);
-	
-	let firstName = fake(f=>f.name.firstName()).generate(1);	
-	let lastName = fake(f=>f.name.lastName()).generate(1);
-	let phoneNumber = fake(f=>f.phone.phoneNumber()).generate(1);
-	let contactEmail = fake(f => f.internet.email()).generate(1);
     
-    fireEvent.change(org_name, {target: {value: orgName}});
+    fireEvent.change(org_name, {target: {value: mockRegister.orgName}});
+    fireEvent.change(address, {target: {value: mockRegister.streetAddress}});
+	fireEvent.change(zip_code, {target: {value: mockRegister.zipCode}});
 
-    fireEvent.change(address, {target: {value: streetAddress}});
-
-	fireEvent.change(zip_code, {target: {value: zipCode}});
-	fireEvent.change(first_name, {target: {value: firstName}});	
-    fireEvent.change(last_name, {target: {value: lastName}});	
-	fireEvent.change(phone_number, {target: {value: phoneNumber}});
-	fireEvent.change(contact_email, {target: {value: contactEmail}});
+	fireEvent.change(first_name, {target: {value: mockContact.firstName}});	
+    fireEvent.change(last_name, {target: {value: mockContact.lastName}});	
+	fireEvent.change(phone_number, {target: {value: mockContact.phoneNumber}});
+	fireEvent.change(contact_email, {target: {value: mockContact.contactEmail}});
 	
 	fireEvent.click(getByText(/Continue/i));
 	await wait(() =>{		

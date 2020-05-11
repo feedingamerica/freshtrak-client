@@ -21,6 +21,7 @@ export const mockFoodBankRegisterBuilder = build('Register').fields({
   zipCode: fake(f => f.address.zipCode()),
   suiteBlg: fake(f => f.random.word()),
 });
+
 export const mockFoodBankContactBuilder = build('ContactInfo').fields({
   firstName: fake(f => f.name.firstName()),
   lastName: fake(f => f.name.lastName()),
