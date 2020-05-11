@@ -15,10 +15,12 @@ const EventListComponent = props => {
 
   return (
     <div className="search-results-list">
-      <div className="row m-0">
-        <h2 className="font-weight-bold mobile-text-left">
-          Resource Events in Your Area
-        </h2>
+        <div className="row align-items-end">
+            <div className="col-12">
+                <h2 className="font-weight-bold mobile-text-left mt-2">
+                    Resource Events in Your Area
+                </h2>
+            </div>
         {/* Out of scope */}
         {/* <div className="col-lg-4 col-xl-4 d-none-xs d-none-sm">
           <div className="switch-view d-flex justify-content-center">
@@ -39,8 +41,8 @@ const EventListComponent = props => {
       </div>
       {Object.keys(events).length === 0 && <h3>No Events Currently Scheduled</h3>}
       {Object.keys(events).length > 0 && Object.entries(events).map(([date, event]) => (
-        <div key={date} className="row mt-5">
-          <div className="col-md-12">
+        <div key={date} className="row mt-3">
+          <div className="col-12">
             <div className="day-view">
               <div className="row">
                 <div className="col-md-12">

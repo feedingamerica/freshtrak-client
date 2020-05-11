@@ -1,5 +1,5 @@
 
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import SearchComponent from '../General/SearchComponent';
 import ResourceListComponent from './ResourceListComponent';
 import EventListContainer from './EventListContainer';
@@ -7,6 +7,9 @@ import { ProgressBar } from 'react-bootstrap';
 import {API_URL} from '../../Utils/Urls';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
+import MapImage from '../../Assets/img/map.jpg';
+import EventDetailsComponent from './EventDetailsComponent';
+import EventContext, { EventProvider } from '../../Store/ContextApi/EventContext';
 
 const EventContainer = props => {
     const [foodBankResponse, setFoodBankResponse] = useState(false);
@@ -15,11 +18,15 @@ const EventContainer = props => {
     const [serverError, setServerError] = useState(false);
     const [loading, setLoading] = useState(false);
     
+    const [showEventDetails, toggleEventDetails] = useState(false);
+    const[eventDetails,setEventDetails] = useState({});
+    // Context
+    const eventContext = useContext(EventContext);
     useEffect(() => {
         let isSearchData = !!props.location.state;
         if (isSearchData){
             buildSearchData(props.location.state.searchData);
-            props.history.replace({ state: null });
+            // props.history.replace({ state: null });
         }
     });
 
@@ -66,23 +73,40 @@ const EventContainer = props => {
     };
 
     return (
-        <div>
-            <section className="gray-bg">
-                <div className="container pt-150 pb-150">
-                    <div className="search-area text-left">
-                        <SearchComponent onSelectedChild = {buildSearchData}
-                                         dataToChild = {searchDetails}/>
-                        {loading && 
-                            <div className="pt-4">
-                                <ProgressBar animated now={100} data-testid="loading" />
-                            </div>
-                        }
-                        {!loading && <ResourceList />}
+        <EventProvider value={{
+            setCurrentEvent: setEventDetails,
+            event:eventDetails,
+            showEventDetails:toggleEventDetails
+        }}>
+        <div className="h-100">
+            <div className="h-100 d-flex flex-column">
+                <div className="sa-input-wrap text-left">
+                    
+                    <SearchComponent onSelectedChild={buildSearchData}
+                                     dataToChild={searchDetails} />
+                    {loading &&
+                    <div className="pt-4">
+                        <ProgressBar animated now={100} data-testid="loading" />
                     </div>
-                    <EventListContainer searchData={searchDetails} />
+                    }
+                    {!loading && <ResourceList />}
                 </div>
-            </section>
+                <div className="sa-input-result-wrap text-left">
+                    <div className="map-mobile mb-2" >
+                        <img src={MapImage} className="img-fluid" />
+                    </div>
+                    
+                   {showEventDetails? <EventDetailsComponent/>
+                   :  
+                   <EventListContainer searchData={searchDetails} />}
+
+                   
+                </div>
+                {/* sa-content-wrapper */}
+            </div>
+
         </div>
+        </EventProvider>
     )
 
 };
