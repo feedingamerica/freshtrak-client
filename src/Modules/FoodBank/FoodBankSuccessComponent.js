@@ -4,7 +4,7 @@
 import React from 'react';
 import NavigationBtnComponent from '../General/NavigationBtnComponent';
 import {useHistory} from 'react-router-dom';
-/*import MainHeadingComponent from '../General/MainHeadingComponent';*/
+import MainHeadingComponent from '../General/MainHeadingComponent';
 import ButtonComponent from '../General/ButtonComponent';
 const FoodBankSuccessComponent = () => {
     let history = useHistory();
@@ -19,14 +19,9 @@ const FoodBankSuccessComponent = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12">
-                        <div className="title-wrap">
-                            <h1 className="big-title mt-5 mb-5 mobile-mb">
-                                We’re all in this together.
-                            </h1>
-                        	{/*<MainHeadingComponent text="We’re all in this together." />*/}
-                        </div>
-                        <div className="medium-title font-weight-bold mb-3 mt-3" >Thank you for registering your organization! </div>
+                    <div className="col-12">                        
+                        <MainHeadingComponent text="We’re all in this together." />
+                        <div className="medium-title font-weight-bold mb-3 mt-3">Thank you for registering your organization! </div>
                         <div className="caption-text">
                             <p>A FreshTrak team member will reach out to you shortly to get you started.</p>
                         </div>
