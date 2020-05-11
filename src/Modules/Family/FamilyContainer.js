@@ -6,7 +6,6 @@ import PasswordRegistrationFormComponent from './PasswordRegistrationFormCompone
 import AdditionalPickUpFormComponent from './AdditionalPickUpFormComponent';
 import RegistrationTextComponent from './RegistrationTextComponent';
 import {confirm, showMessage} from '../../Utils/Util';
-import FooterContainer from "../Footer/FooterContainer";
 import HeaderComponent from "../Header/HeaderComponent";
 import EventDescriptionFormComponent from "../Events/EventDescriptionFormComponent";
 import '../../Assets/scss/main.scss';
@@ -142,7 +141,6 @@ const FamilyContainer = () => {
                     </div>
                 </section>
                 </div>
-            <FooterContainer/>
         </div>
     )
 };
