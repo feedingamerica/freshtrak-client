@@ -10,6 +10,7 @@ import FooterContainer from "../Footer/FooterContainer";
 import HeaderComponent from "../Header/HeaderComponent";
 import EventDescriptionFormComponent from "../Events/EventDescriptionFormComponent";
 import '../../Assets/scss/main.scss';
+import ButtonComponent from '../General/ButtonComponent';
 import back from '../../Assets/img/back.svg';
 import useForm from '../../Utils/UseForm';
 
@@ -22,6 +23,7 @@ const FamilyContainer = () => {
     const primaryFormRef = React.useRef();
     const addressFormRef = React.useRef();
     const passwordFormRef = React.useRef();
+    const pickUpFormRef = React.useRef();
 
     let history = useHistory();
 
@@ -32,7 +34,8 @@ const FamilyContainer = () => {
 		componentErrors.push( 
             primaryFormRef.current.triggerErrors(),
             addressFormRef.current.triggerErrors(),
-            passwordFormRef.current.triggerErrors());
+            passwordFormRef.current.triggerErrors(),
+            pickUpFormRef.current.triggerErrors());
 		if( componentErrors.includes(true) || Object.keys(formError).length !== 0){			
 			return false;
 		}		
@@ -123,12 +126,12 @@ const FamilyContainer = () => {
                                                                                onSelectedChild = {buildFamilyData}
                                                                                onFormErrors = {formErrors} />
 
-                                            <AdditionalPickUpFormComponent
+                                            <AdditionalPickUpFormComponent ref = {pickUpFormRef}
                                                                       onSelectedChild = {buildFamilyData}
                                                                       onFormErrors = {formErrors} />
 
                                             <div className="button-wrap mt-4">
-                                                <button className="btn custom-button" name="continue">Continue</button>
+                                            <ButtonComponent type ='submit' name="savefoodbank" dataid= '' id="save-food-bank" value="Continue" className = 'btn custom-button' onClickfunction={handleFormValidation} />
 
                                             </div>
                                         </div>
