@@ -28,7 +28,7 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
                     ? ""
                     : `Enter a valid address`;
             case "numeric":
-                const validNumeric = new RegExp('^-?[0-9]\d*\.?\d*$'); 
+                const validNumeric = new RegExp('^[0-9-]*$'); 
                 let errors_numeric = validNumeric.test(value); 
                 return errors_numeric ?
                       "" : `Enter a numeric value`;
