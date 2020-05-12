@@ -27,20 +27,43 @@ test('should render', () => {
 
 // });
 
-test('should load correct page when props are passed', async()=>{
+test('should load Your Info page when props are passed', async()=>{
 
     const {container,getByText,queryByText,queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
 		page: "your-info",
 		title: "Edit Your Info",
 		btntext: "Save Changes",
 	  } }}/></Router>);
-	
 	expect(queryByTestId('title')).toHaveTextContent('Edit Your Info');
-	
-    
 });
 
+test('should load Pickup Info page when props are passed', async()=>{
 
+    const {container,getByText,queryByText,queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
+		page: "pickup-info",
+		title: "Your Pickup Info",
+		btntext: "Continue",
+	  } }}/></Router>);
+	expect(queryByTestId('title')).toHaveTextContent('Your Pickup Info');
+});
+test('should load HouseHold page when props are passed', async()=>{
+
+    const {container,getByText,queryByText,queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
+		page: "house-info",
+		title: "Household Members",
+		btntext: "Save Changes",
+	  } }}/></Router>);
+	expect(queryByTestId('title')).toHaveTextContent('Household Members');
+});
+test('should load Password page when props are passed', async()=>{
+
+    const {container,getByText,queryByText,queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
+		page: "login-info",
+		title: "Change Password",
+		btntext: "Save New Password",
+	  } }}/></Router>);
+	expect(queryByTestId('title')).toHaveTextContent('Change Password');
+});
 
 test('should not show popup on clicking save details btn', async()=>{
 
@@ -49,16 +72,6 @@ test('should not show popup on clicking save details btn', async()=>{
 		title: "Edit Your Info",
 		btntext: "Save Changes",
 	  } }}/></Router>);
-	
-	//   fireEvent.change(container.querySelector('input[name="first_name"]'),{target:{value:mockPrimaryInfoBuilder.firstName}});
-	//   fireEvent.change(container.querySelector('input[name="last_name"]'),{target:{value:mockPrimaryInfoBuilder.lastName}});
-	//   fireEvent.change(container.querySelector('input[name="middle_name"]'),{target:{value:mockPrimaryInfoBuilder.middleName}});
-	//   fireEvent.change(container.querySelector('input[name="dob"]'),{target:{value:'1990-12-12'}});
-	//   fireEvent.change(container.querySelector('input[name="email"]'),{target:{value:mockPrimaryInfoBuilder.email}});
-	//   fireEvent.change(container.querySelector('input[name="street_address"]'),{target:mockPickUpBuilder.streetAddress});
-	//   fireEvent.change(container.querySelector('input[name="apt_no"]'),{target:{value:mockPickUpBuilder.aptNo}});
-	//   fireEvent.change(container.querySelector('input[name="zip_code"]'),{target:{value:mockPickUpBuilder.zip}});
-	
 	  
 	fireEvent.click(queryByText('Save Changes'));
 	await wait(()=>{
