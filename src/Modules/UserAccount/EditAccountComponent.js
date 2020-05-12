@@ -6,7 +6,7 @@ import HouseHoldFormComponent from '../Family/HouseHoldFormComponent';
 import ChangePasswordComponent from './ChangePasswordComponent';
 import ButtonComponent from '../General/ButtonComponent';
 import {useHistory} from 'react-router-dom';
-import { confirm,showMessage } from "../../Utils/Util";
+import { confirm } from "../../Utils/Util";
 import MemberCountFormComponent from '../Family/MemberCountFormComponent';
 const EditAccountComponent = (props) => {
 
@@ -147,7 +147,6 @@ const EditAccountComponent = (props) => {
         history.push('/');
     }
     const commonHandler = () => {
-        // setCurrentPage(page); 
         switch (page) {
             case 'your-info': return (<React.Fragment><HouseHoldFormComponent ref={houseHoldRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} /><PrimaryInfoFormComponent ref={primaryInfoRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} /></React.Fragment>);
 

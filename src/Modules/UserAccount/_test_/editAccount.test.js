@@ -14,19 +14,6 @@ test('should render', () => {
 	}).not.toThrowError();
 });
 
-// test('should call handleNoStateError function', () => {
-	
-// 		const component = render(
-// 			<Router>
-// 				<EditAccountComponent />
-// 			</Router>
-// 		)
-// 		console.log(component)
-
-
-
-// });
-
 test('should load Your Info page when props are passed', async()=>{
 
     const {container,getByText,queryByText,queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
@@ -39,7 +26,7 @@ test('should load Your Info page when props are passed', async()=>{
 
 test('should load Pickup Info page when props are passed', async()=>{
 
-    const {container,getByText,queryByText,queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
+    const {queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
 		page: "pickup-info",
 		title: "Your Pickup Info",
 		btntext: "Continue",
@@ -48,7 +35,7 @@ test('should load Pickup Info page when props are passed', async()=>{
 });
 test('should load HouseHold page when props are passed', async()=>{
 
-    const {container,getByText,queryByText,queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
+    const {queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
 		page: "house-info",
 		title: "Household Members",
 		btntext: "Save Changes",
@@ -57,7 +44,7 @@ test('should load HouseHold page when props are passed', async()=>{
 });
 test('should load Password page when props are passed', async()=>{
 
-    const {container,getByText,queryByText,queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
+    const {,queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
 		page: "login-info",
 		title: "Change Password",
 		btntext: "Save New Password",
@@ -67,12 +54,12 @@ test('should load Password page when props are passed', async()=>{
 
 test('should not show popup on clicking save details btn', async()=>{
 
-    const {container,getByText,queryByText} = render(<Router><EditAccountComponent  location={{ state:{
+    const {queryByText} = render(<Router><EditAccountComponent  location={{ state:{
 		page: "your-info",
 		title: "Edit Your Info",
 		btntext: "Save Changes",
 	  } }}/></Router>);
-	  
+
 	fireEvent.click(queryByText('Save Changes'));
 	await wait(()=>{
 		expect(queryByText(/Are you sure you want to proceed/)).toBeNull();

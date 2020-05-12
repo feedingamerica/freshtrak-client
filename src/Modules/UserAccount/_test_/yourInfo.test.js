@@ -5,7 +5,7 @@ import AccountOverviewContainer from '../AccountOverviewContainer';
 
 test('should be able to click Edit button', async() => {
 
-		const {container,getByTestId} = render(
+		const {getByTestId} = render(
 			<Router>
 				<AccountOverviewContainer />
 			</Router>
