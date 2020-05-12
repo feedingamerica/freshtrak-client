@@ -16,7 +16,7 @@ test('should render', () => {
 });
 
 
-test('should render HouseHoldFormComponent with data provided', () => {
+test('should render MemberCountFormComponent with data provided', () => {
     expect(() => {
         render(
             <MemberCountFormComponent
@@ -27,17 +27,18 @@ test('should render HouseHoldFormComponent with data provided', () => {
     }).not.toThrowError();
 });
 
-test('should have proper binding onChange',async () =>{
+test('checking whether the member count working correctly',async () =>{
     const {container,getByTestId,queryByTestId,} = render(
         <MemberCountFormComponent
             onSelectedChild={mockMemberCountBuilder}
             onFormErrors={noop}
         />);
 
-    let junior_count_input=container.querySelector('input[name="junior_count_input"]');
-    let adult_count_input=container.querySelector('input[name="adult_count_input"]');
-    let senior_count_input=container.querySelector('input[name="senior_count_input"]');
-
+    let kids_count_input = container.querySelector('input[name="kids_count_input"]');
+    let adult_count_input = container.querySelector('input[name="adult_count_input"]');
+    let senior_count_input = container.querySelector('input[name="senior_count_input"]');
+    
+    
     let add_kids_inc = container.querySelector('button[name="count_kids_inc"]');
     let add_kids_dec = container.querySelector('button[name="count_kids_dec"]');
 
@@ -47,56 +48,37 @@ test('should have proper binding onChange',async () =>{
     let add_senior_inc = container.querySelector('button[name="count_senior_inc"]');
     let add_senior_dec = container.querySelector('button[name="count_senior_dec"]');
 
-    fireEvent.change(junior_count_input, { target: { value: 1 } })
-    expect(junior_count_input.value).toBe("0")
+    fireEvent.click(add_kids_inc);    
+    await wait(()=>{
+        expect(kids_count_input).toHaveValue("1");
+    });
 
-    fireEvent.change(junior_count_input, { target: { value: 0 } })
-    expect(junior_count_input.value).toBe("0")
+    fireEvent.click(add_kids_dec);    
+    await wait(()=>{
+        expect(kids_count_input.value).toBe("0");
+    });
 
-    fireEvent.change(adult_count_input, { target: { value: 1 } })
-    expect(adult_count_input.value).toBe("0")
-
-    fireEvent.change(adult_count_input, { target: { value: 0 } })
-    expect(adult_count_input.value).toBe("0")
-
-   fireEvent.change(senior_count_input, { target: { value: 1 } })
-    expect(senior_count_input.value).toBe("0")
-
-    fireEvent.change(senior_count_input, { target: { value: 0 } })
-    expect(senior_count_input.value).toBe("0")
-
-
-
-    fireEvent.click(add_kids_inc);
-    waitForDomChange(()=>{
-        expect(junior_count_input.value).toBe("1");
-    })
-
-     fireEvent.click(add_kids_dec);
-    waitForDomChange(()=>{
-        expect(add_kids_dec.value).toBe("0");
-    })
-
+    fireEvent.click(add_adults_inc);    
     fireEvent.click(add_adults_inc);
-        waitForDomChange(()=>{
-            expect(add_adults_inc.value).toBe("1");
-        })
+    await wait(()=>{
+        expect(adult_count_input).toHaveValue("2");
+    });
 
-         fireEvent.click(add_adults_dec);
-        waitForDomChange(()=>{
-            expect(add_adults_dec.value).toBe("0");
-        })
+    fireEvent.click(add_adults_dec);    
+    await wait(()=>{
+        expect(adult_count_input.value).toBe("1");
+    });
 
-
+    fireEvent.click(add_senior_inc);    
     fireEvent.click(add_senior_inc);
-    waitForDomChange(()=>{
-        expect(add_senior_inc.value).toBe("1");
-    })
+    fireEvent.click(add_senior_inc);
+    await wait(()=>{
+        expect(senior_count_input).toHaveValue("3");
+    });
 
-    fireEvent.click(add_senior_dec);
-    waitForDomChange(()=>{
-        expect(add_senior_dec.value).toBe("0");
-    })
-
+    fireEvent.click(add_senior_dec);    
+    await wait(()=>{
+        expect(senior_count_input.value).toBe("2");
+    });
 
 });
