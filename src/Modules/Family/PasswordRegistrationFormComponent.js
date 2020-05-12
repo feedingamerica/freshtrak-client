@@ -30,16 +30,25 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
 
     const handleChange = () => {
         data = {
-            passwordStatus:passwordStatus,
             passwordData: {
-                password: password,
-                passwordConfirmFieldError:passwordConfirmFieldError
+                password: password
             }
         };props.onSelectedChild(data);
     };
     React.useEffect(() => {
         handleChange();
     }, [isChanged]);
+
+    React.useEffect(() => {
+        passwordCheckFunction();
+    }, [passwordStatus]);
+
+    const passwordCheckFunction = () => {
+      let  passwordData = {
+            passwordStatus:passwordStatus
+            }; props.getPasswordStatus(passwordData);
+        };
+
 
     const dataToParent = () => {
         props.onSelectedChild(childFamilyData);
@@ -63,16 +72,27 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
             setPasswordError(false)
             setPasswordConfirmFieldError(false)
             setPasswordStatus(true)
-        } else if ( password === ''){
+            setPasswordFieldError(false)
+        } else if ( password === ''&& passwordConfirm ==='') {
             setPasswordError(true)
             setPasswordConfirmFieldError(true)
+            setPasswordStatus(false)
+            setPasswordFieldError(true)
+        }else if ( password === ''){
+            setPasswordError(true)
+            setPasswordConfirmFieldError(false)
+            setPasswordStatus(false)
+            setPasswordFieldError(true)
         }else if(passwordConfirm ===''){
-            setPasswordError(true)
+            setPasswordError(false)
             setPasswordConfirmFieldError(true)
+            setPasswordStatus(false)
+            setPasswordFieldError(true)
         }else if (password!==passwordConfirm){
-            setPasswordError(true)
-            setPasswordConfirmFieldError(true)
-
+            setPasswordFieldError(true)
+            setPasswordError(false)
+            setPasswordConfirmFieldError(false)
+            setPasswordStatus(false)
         }
     }
 
@@ -105,7 +125,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
                 </div>
             </div>
                 <div data-testid="pwdSameError">
-                {passwordError &&(
+                {passwordFieldError &&(
                    <span className="validationError"  >Password must be same</span>
                 )}
                 </div>

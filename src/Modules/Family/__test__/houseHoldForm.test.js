@@ -37,18 +37,6 @@ test('should have proper binding onChange',()=>{
         />);
 
 
-  /*const hType = container.querySelector('select[name="housing_type"]');*/
-  /*const zipValue = container.querySelector('input[name="zip_code"]');*/
-  /*const aptValue = container.querySelector('input[name="apt_no"]');*/
-  /*const streetValue = container.querySelector('input[name="street_address"]');*/
-
-  /*const fakeHousingType = oneOf('Apartment','Mobile home or house trailer', 'Military housing','Student housing','Temporary','Prefer not to answer').generate(1);*/
-
-  /*const fakStreetAddress= fake((f) => f.address.streetAddress()).generate(1);
-  const fakeApt='Bakers A2 '
-  const fakeZip= '686503'
-  const fakeNumbers='123'
-  const fakeStringValue ='abc';*/
 
   const housing_type = container.querySelector('select[name="housing_type"]');
   const street_address = container.querySelector('input[name="street_address"]');
@@ -67,42 +55,6 @@ test('should have proper binding onChange',()=>{
   fireEvent.change(zip_code,{target:{value:mockData.zip}});
   expect(zip_code.value).toBe(mockData.zip);
 
-  /*console.log(mockData.zip);*/
-
-     // for checking binding
-
-  /*fireEvent.change(hType,{target:{value:fakeHousingType}});
-  expect(hType.value).toBe(fakeHousingType);*/
-
-  /*fireEvent.change(zipValue,{target:{value:''}});
-  expect(zipValue.value).toBe('');*/
-
- /* fireEvent.change(zipValue,{target:{value:fakeZip}});
-  expect(zipValue.value).toBe(fakeZip);
-
-
-  fireEvent.change(zipValue,{target:{value:fakeStringValue}});
-  expect(zipValue.value).toBe('');
-
-  fireEvent.change(aptValue,{target:{value:''}});
-  expect(aptValue.value).toBe('');
-
-  fireEvent.change(aptValue,{target:{value:fakeNumbers}});
-  expect(aptValue.value).toBe(fakeNumbers);
-
-
-  fireEvent.change(aptValue,{target:{value:fakeApt}});
-  expect(aptValue.value).toBe(fakeApt);
-
- fireEvent.change(streetValue,{target:{value:''}});
-  expect(streetValue.value).toBe('');
-
-  fireEvent.change(streetValue,{target:{value:fakeNumbers}});
-  expect(streetValue.value).toBe(fakeNumbers);*/
-
-
- /* fireEvent.change(streetValue,{target:{value:fakStreetAddress}});
-  expect(streetValue.value).toBe(fakStreetAddress);*/
 
 });
 
