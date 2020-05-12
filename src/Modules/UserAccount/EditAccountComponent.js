@@ -6,18 +6,30 @@ import HouseHoldFormComponent from '../Family/HouseHoldFormComponent';
 import ChangePasswordComponent from './ChangePasswordComponent';
 import ButtonComponent from '../General/ButtonComponent';
 import {useHistory} from 'react-router-dom';
+import { confirm,showMessage } from "../../Utils/Util";
+import MemberCountFormComponent from '../Family/MemberCountFormComponent';
 const EditAccountComponent = (props) => {
     let page =props?.location?.state?.page 
     let title = props?.location?.state?.title 
     let btnText = props?.location?.state?.btntext  
     let history = useHistory();
-    const handleSubmit = () => {
-        // handle Save Changes/Continue btn handling here
-        // Routing back to Account Overview page tempoararily.
+    const primaryInfoRef = React.useRef();
+    const houseHoldRef = React.useRef();
+    const pickUpInfoRef = React.useRef();
+    const passwordRef = React.useRef();
+    const memberCountRef = React.useRef();
+ 
+    let familyData = [];
+    let formError = {};
+    
+    
+    // const handleSubmit = () => {
+    //     // handle Save Changes/Continue btn handling here
+    //     // Routing back to Account Overview page tempoararily.
         
-        history.goBack();
+    //     history.goBack();
 
-    }
+    // }
 
     useEffect(()=>{
         if (props.location.state === undefined){
@@ -25,6 +37,121 @@ const EditAccountComponent = (props) => {
         }
     });
     
+
+    const handleFormValidation = async(e) => {
+        e.preventDefault();
+        let componentErrors = [];
+        componentErrors.push(
+            await houseHoldRef.current.triggerErrors(),
+            await primaryInfoRef.current.triggerErrors()
+           
+        //    await pickUpInfoRef.current.triggerErrors(),
+        //    await passwordRef.current.triggerErrors(),
+        //    await memberCountRef.current.triggerErrors()
+
+        );
+            console.log(formError)
+        setTimeout(()=>{
+            if (componentErrors.includes(true) || Object.keys(formError).length !== 0) {
+                return false;
+              }
+              handleSubmitConfirm();
+        },2000)
+     
+      };
+    
+      const handleSubmitConfirm = () => {
+        let title = "Are you sure you want to proceed?";
+        confirm(title, handleSubmit);
+      };
+    
+      const handleSubmit = () => {
+        let familyDetails = {
+          familyMemberData: {
+            first_name: familyData.nameData
+              ? familyData.nameData.nameData.first_name
+              : "",
+            last_name: familyData.nameData
+              ? familyData.nameData.nameData.last_name
+              : "",
+            middle_name: familyData.nameData
+              ? familyData.nameData.nameData.middle_name
+              : "",
+            hoh: familyData.nameData ? familyData.nameData.nameData.hoh : "",
+            dob: familyData.nameData ? familyData.nameData.nameData.dob : "",
+            suffix: familyData.nameData ? familyData.nameData.nameData.suffix : "",
+            phoneNumber: familyData.nameData
+              ? familyData.nameData.nameData.phoneNumber
+              : "",
+            phoneNumberCheckBOx: familyData.nameData
+              ? familyData.nameData.nameData.phoneNumberCheckBOx
+              : "",
+            email: familyData.nameData ? familyData.nameData.nameData.email : "",
+            communicationPreference: familyData.nameData
+              ? familyData.nameData.nameData.communicationPreference
+              : "",
+          },
+    
+          HouseHoldData: {
+            address: familyData.addressData
+              ? familyData.addressData.addressData.streetAddress
+              : "",
+            apt_number: familyData.addressData
+              ? familyData.addressData.addressData.aptNo
+              : "",
+            zipcode: familyData.zipData ? familyData.zipData.zipData.zip : "",
+          },
+    
+          passwordData: {
+            password: familyData.passwordData
+              ? familyData.passwordData.passwordData.password
+              : "",
+          },
+    
+          memberCountData: {
+            countSenior: familyData.memberCountData
+              ? familyData.memberCountData.memberCountData.countSenior
+              : "",
+            countMiddle: familyData.memberCountData
+              ? familyData.memberCountData.memberCountData.countMiddle
+              : "",
+            countJunior: familyData.memberCountData
+              ? familyData.memberCountData.memberCountData.countMiddle
+              : "",
+          },
+    
+          pickuptData: {
+            pickupInfo: familyData.pickupData
+              ? familyData.pickupData.pickupData.pickupInfo
+              : "",
+            pickupName: familyData.pickupData
+              ? familyData.pickupData.pickupData.pickupName
+              : "",
+            pickupNumberPlate: familyData.pickupData
+              ? familyData.pickupData.pickupData.pickupNumberPlate
+              : "",
+          },
+        };
+    
+        if (familyDetails) {
+        } else {
+          showMessage("error", "Something went wrong");
+        }
+      };
+    
+      const buildFamilyData = (childFamilyData) => {
+        let dataKey = Object.keys(childFamilyData)[0];
+        familyData[dataKey] = childFamilyData;
+      };
+    
+      const formErrors = (errors) => {
+        formError = errors;
+      };
+
+      
+
+
+
     // go to home page in case of missing state
     const handleNoStateError = ()=> {
         history.push('/');
@@ -32,13 +159,13 @@ const EditAccountComponent = (props) => {
     const commonHandler = () => {
         
         switch (page) {
-            case 'your-info': return (<React.Fragment><HouseHoldFormComponent onSelectedChild={() => { }} onFormErrors={() => { }} /><PrimaryInfoFormComponent onSelectedChild={() => { }} onFormErrors={() => { }} /></React.Fragment>);
+            case 'your-info': return (<React.Fragment><HouseHoldFormComponent ref={houseHoldRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} /><PrimaryInfoFormComponent ref={primaryInfoRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} /></React.Fragment>);
 
-            case 'pickup-info':  return (<AdditionalPickUpFormComponent onSelectedChild={() => { }} onFormErrors={() => { }} />);
+            case 'pickup-info':  return (<AdditionalPickUpFormComponent ref={pickUpInfoRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
             
             // Adding HouseHoldComponent for now, as Members component is not yet merged with the code.
-            case 'house-info':  return (<HouseHoldFormComponent onSelectedChild={() => { }} onFormErrors={() => { }} />);
-            case 'login-info':  return (<ChangePasswordComponent onSelectedChild={() => { }} onFormErrors={() => { }} />);
+            case 'house-info':  return (<MemberCountFormComponent ref = {memberCountRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
+            case 'login-info':  return (<ChangePasswordComponent ref = {passwordRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
 
             default: return 'Somethings wrong'; 
         }
@@ -72,7 +199,7 @@ const EditAccountComponent = (props) => {
                                 {commonHandler(page)}
                                 
                                 <div className="button-wrap mt-4">
-                                    <ButtonComponent type='button' name='submit' dataid='' id='submit-btn' className = "btn custom-button" value = {btnText} onClickfunction={handleSubmit} />
+                                    <ButtonComponent type='button' name='submit' dataid='' id='submit-btn' className = "btn custom-button" value = {btnText} onClickfunction={handleFormValidation} />
                                 </div>
 
                                 {/* Shows except for Pickup info */}
