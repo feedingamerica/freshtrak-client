@@ -1,10 +1,11 @@
 import React from 'react';
-import { render,fireEvent,  waitForElement, wait} from '@testing-library/react';
+import { render,fireEvent, wait} from '@testing-library/react';
 import HouseHoldFormComponent from '../HouseHoldFormComponent';
 import { noop, mockHouseHoldBuilder } from '../../../Testing';
-import {fake,oneOf} from 'test-data-bot';
+import {fake,oneOf} from 'test-data-bot'
 
-test('should render', () => {
+
+test('should render HouseHoldFormComponent with no data', () => {
   expect(() => {
     render(
       <HouseHoldFormComponent
@@ -15,9 +16,7 @@ test('should render', () => {
   }).not.toThrowError();
 });
 
-
-
-test('should render HouseHoldFormComponent with no data ', () => {
+test('should render HouseHoldFormComponent with mockHouseHoldBuilder', () => {
   expect(() => {
     render(
     <HouseHoldFormComponent
@@ -86,7 +85,6 @@ test('should have proper binding onChange',()=>{
 
   fireEvent.change(streetValue,{target:{value:fakStreetAddress}});
   expect(streetValue.value).toBe(fakStreetAddress);
-
 
 });
 

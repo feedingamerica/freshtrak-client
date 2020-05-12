@@ -1,8 +1,7 @@
 import React from 'react';
-import { render, fireEvent, waitForElement, wait } from '@testing-library/react';
+import { render, fireEvent} from '@testing-library/react';
 import AdditionalPickUpFormComponent from '../AdditionalPickUpFormComponent';
 import { noop,mockPickUpBuilder } from '../../../Testing';
-import {fake,oneOf} from 'test-data-bot';
 
 test('should render', () => {
   expect(() => {

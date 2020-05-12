@@ -6,56 +6,45 @@ import PasswordRegistrationFormComponent from './PasswordRegistrationFormCompone
 import AdditionalPickUpFormComponent from './AdditionalPickUpFormComponent';
 import RegistrationTextComponent from './RegistrationTextComponent';
 import {confirm, showMessage} from '../../Utils/Util';
-import HeaderComponent from "../Header/HeaderComponent";
 import EventDescriptionFormComponent from "../Events/EventDescriptionFormComponent";
 import '../../Assets/scss/main.scss';
 import ButtonComponent from '../General/ButtonComponent';
 import back from '../../Assets/img/back.svg';
-import useForm from '../../Utils/UseForm';
-
 import {useHistory} from 'react-router-dom';
 
 const FamilyContainer = () => {
     let familyData = [];
-    
-	let formError = {};
+    let formError = {};
     let componentErrors = [];
     const primaryFormRef = React.useRef();
     const addressFormRef = React.useRef();
     const passwordFormRef = React.useRef();
-
     let history = useHistory();
-
     const buildFamilyData = (childFamilyData) => {
         let dataKey = Object.keys(childFamilyData)[0];
         familyData[dataKey] = childFamilyData;
     };
-
     const formErrors = (errors) => {
         formError = errors;
     };
     const handleFormValidation = async (e) => {
         e.preventDefault();
         let componentErrors = [];
-		componentErrors.push( 
-           await primaryFormRef.current.triggerErrors(),
-           await addressFormRef.current.triggerErrors(),
-          await  passwordFormRef.current.triggerErrors());
-        
-            
-            if( componentErrors.includes(true) || Object.keys(formError).length !== 0){			
-                return false;   
-            }
-            handleSubmitConfirm();
+        componentErrors.push(
+            await primaryFormRef.current.triggerErrors(),
+            await addressFormRef.current.triggerErrors(),
+            await  passwordFormRef.current.triggerErrors());
+
+        if( componentErrors.includes(true) || Object.keys(formError).length !== 0){
+            return false;
+        }
+        handleSubmitConfirm();
     };
 
- 
-
-    const handleSubmitConfirm = () => {		
-	    let title = "Are you sure you want to proceed?";
-	    confirm(title, handleSubmit);
-  	};
-
+    const handleSubmitConfirm = () => {
+        let title = "Are you sure you want to proceed?";
+        confirm(title, handleSubmit);
+    };
     const handleSubmit = (e) => {
         let familyDetails = {
             familyMemberData:familyData.primaryData ? familyData.primaryData.primaryData:'',
@@ -64,20 +53,12 @@ const FamilyContainer = () => {
             memberCountData:familyData.memberCountData ? familyData.memberCountData.memberCountData:'',
             pickuptData:familyData.pickupData ? familyData.pickupData.pickupData:''
         };
-        if(familyDetails) {
-            history.push('/')
 
-        } else {
-            showMessage('error', 'Something went wrong');
-        }
+        // Deleted a condition check as it seemed unnecessary and has unreachable code
+        history.push('/');
 
     };
-
-
-
-
     return (
-
         <div>
             <div className="main-wrapper">
                 <section>
@@ -110,31 +91,25 @@ const FamilyContainer = () => {
                                 <form onSubmit={handleFormValidation}>
                                     <div className="content-wrapper pt-100">
                                         <div className="form-fields">
-                                                    <HouseHoldFormComponent   ref={addressFormRef}
-                                                                            onSelectedChild = {buildFamilyData}
-                                                                            onFormErrors = {formErrors} />
-                                                    <MemberCountFormComponent 
-                                                                              onSelectedChild = {buildFamilyData}
-                                                                              onFormErrors = {formErrors} />
+                                            <HouseHoldFormComponent   ref={addressFormRef}
+                                                                      onSelectedChild = {buildFamilyData}
+                                                                      onFormErrors = {formErrors} />
+                                            <MemberCountFormComponent
+                                                onSelectedChild = {buildFamilyData}
+                                                onFormErrors = {formErrors} />
                                         </div>
-
                                         <div className="form-fields pt-50">
-
                                             <PrimaryInfoFormComponent ref={primaryFormRef}
                                                                       onSelectedChild = {buildFamilyData}
                                                                       onFormErrors = {formErrors} />
-
                                             <PasswordRegistrationFormComponent ref={passwordFormRef}
                                                                                onSelectedChild = {buildFamilyData}
                                                                                onFormErrors = {formErrors} />
-
                                             <AdditionalPickUpFormComponent
-                                                                      onSelectedChild = {buildFamilyData}
-                                                                      onFormErrors = {formErrors} />
-
+                                                onSelectedChild = {buildFamilyData}
+                                                onFormErrors = {formErrors} />
                                             <div className="button-wrap mt-4">
-                                            <ButtonComponent type ='submit' name="savefamily" dataid= '' id="save-family" value="Continue" className = 'btn custom-button' onClickfunction={handleFormValidation} />
-
+                                                <ButtonComponent type ='submit' name="savefamily" dataid= '' id="save-family" value="Continue" className = 'btn custom-button' onClickfunction={handleFormValidation} />
                                             </div>
                                         </div>
                                     </div>
@@ -143,9 +118,8 @@ const FamilyContainer = () => {
                         </div>
                     </div>
                 </section>
-                </div>
+            </div>
         </div>
     )
 };
-
 export default FamilyContainer;

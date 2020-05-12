@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, getByTestId,wait, waitForElement,waitForDomChange, cleanup } from '@testing-library/react';
+import { render, fireEvent, getByTestId, waitForElement, cleanup } from '@testing-library/react';
 import PasswordRegistrationFormComponent from '../PasswordRegistrationFormComponent';
 import { noop, mockPasswordBuilder } from '../../../Testing';
 
@@ -42,9 +42,11 @@ describe('PasPasswordRegistrationFormComponents',()=>{
       const password = container.querySelector('input[name="password"]');
       const passwordConfirm = container.querySelector('input[name="passwordConfirm"]');
       
+      const fakePwd = mockPasswordBuilder.password;
+
       // checking Required message
       fireEvent.change(passwordConfirm,{target:{value:''}})// with empty value  for passwordConfirm
-      fireEvent.change(password,{target:{value:'as'}}) 
+      fireEvent.change(password,{target:{value:fakePwd}}) 
       fireEvent.blur(passwordConfirm);
     let showPwdConfirmError = await waitForElement(
       () =>  getByTestId(container,'password-confirm'),
@@ -53,7 +55,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
     expect(showPwdConfirmError).toHaveTextContent('Required');
 
       fireEvent.change(password,{target:{value:''}}) //with content
-      fireEvent.change(passwordConfirm,{target:{value:'aa'}})
+      fireEvent.change(passwordConfirm,{target:{value:fakePwd}})
       fireEvent.blur(passwordConfirm);
     let showPwdConfirmError2 = await waitForElement(
       () =>  getByTestId(container,'password-confirm'),
@@ -80,10 +82,11 @@ describe('PasPasswordRegistrationFormComponents',()=>{
     const passwordConfirm = container.querySelector('input[name="passwordConfirm"]');
     // fake Data
     const fakePwd = mockPasswordBuilder.password;
+    const fakePwd2 = 'randomPassword';
 
 
-    fireEvent.change(password,{target:{value:'aa'}})
-    fireEvent.change(passwordConfirm,{target:{value:'aabb'}})
+    fireEvent.change(password,{target:{value:fakePwd}})
+    fireEvent.change(passwordConfirm,{target:{value:fakePwd2}})
     fireEvent.blur(passwordConfirm);
     const samePwdError = await waitForElement(
       () =>  getByTestId(container,'pwdSameError'),

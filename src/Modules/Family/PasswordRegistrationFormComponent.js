@@ -9,6 +9,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     const [passwordFieldError, setPasswordFieldError] = React.useState(false);
     const [passwordConfirmFieldError, setPasswordConfirmFieldError] = React.useState(false);
     const [isChanged, setIsChanged] = React.useState('');
+    const [passwordStatus, setPasswordStatus] = React.useState(false);
     let data,childFamilyData ='';
 
     const buildForm = (event) => {
@@ -29,6 +30,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
 
     const handleChange = () => {
         data = {
+            passwordStatus:passwordStatus,
             passwordData: {
                 password: password,
                 passwordConfirmFieldError:passwordConfirmFieldError
@@ -60,6 +62,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         if (password !== '' && passwordConfirm !==''&& passwordConfirm===password){
             setPasswordError(false)
             setPasswordConfirmFieldError(false)
+            setPasswordStatus(true)
         } else if ( password === ''){
             setPasswordError(true)
             setPasswordConfirmFieldError(true)
@@ -83,8 +86,10 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
             </div>
             <div className="form-group" >
                 <label>Password</label>
+
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password" id="password" required/>
                 <div data-testid="password"> {passwordError && (
+
                     <span className="validationError"> Required</span>
                 )}
                 </div>
@@ -92,20 +97,18 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
 
             <div className="form-group" >
                 <label>Confirm Password</label>
-                <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="passwordConfirm" id="passwordConfirm" required/>
+                <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="passwordConfirm" id="passwordConfirm" />
 
                 <div data-testid = "password-confirm"> {passwordConfirmFieldError && (
                     <span className="validationError">Required</span>
                 )}
                 </div>
             </div>
-            
                 <div data-testid="pwdSameError">
                 {passwordError &&(
                    <span className="validationError"  >Password must be same</span>
                 )}
                 </div>
-                
         </div>
     )
 });

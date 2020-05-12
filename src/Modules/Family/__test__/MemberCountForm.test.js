@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, fireEvent, wait,waitForElement,waitForDomChange, cleanup  } from "@testing-library/react";
+import { render, fireEvent,wait } from "@testing-library/react";
 import MemberCountFormComponent from '../MemberCountFormComponent';
 import { noop, mockMemberCountBuilder } from '../../../Testing';
 
-
-test('should render', () => {
+test('should render without data', () => {
     expect(() => {
         render(
             <MemberCountFormComponent
@@ -15,8 +14,7 @@ test('should render', () => {
     }).not.toThrowError();
 });
 
-
-test('should render MemberCountFormComponent with data provided', () => {
+test('should render with mockMemberCountBuilder  data provided', () => {
     expect(() => {
         render(
             <MemberCountFormComponent
@@ -80,5 +78,6 @@ test('checking whether the member count working correctly',async () =>{
     await wait(()=>{
         expect(senior_count_input.value).toBe("2");
     });
+
 
 });
