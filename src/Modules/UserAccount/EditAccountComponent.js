@@ -45,8 +45,6 @@ const EditAccountComponent = (props) => {
             default: break;
             
         }
-     
-            console.log(formError)
             if (componentErrors.includes(true) || Object.keys(formError).length !== 0) {
                 return false;
               }
