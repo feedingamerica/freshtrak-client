@@ -109,7 +109,7 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
                 </div>
                 <div className="form-group ml-2"  data-testid="zip-code">
                     <label>ZIP Code</label>
-                    <input type="number" className="form-control"   name="zip_code" id="zip_code"  onChange={buildAddressForm}  onBlur={handleErrors} />
+                    <input type="text" className="form-control"   name="zip_code" id="zip_code"  onChange={buildAddressForm}  onBlur={handleErrors} />
                     <div> {errors.zip_code && (
                         <span className="validationError">{errors.zip_code}</span>
                     )}
