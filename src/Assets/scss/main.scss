@@ -931,15 +931,7 @@ body {
         li{
             margin-bottom: .5rem;
         }
-        .validationError {
-            font-size: .7rem;
-            position: absolute;
-            color: #ff0000;
-    
-            .color-green {
-                color: $primaryColor;
-            }
-        }
+
         .custom-list {
             margin: 1rem 0 0;
             padding: 0;
@@ -978,5 +970,16 @@ body {
             }
 
         }
+    }
+}
+
+
+.validationError {
+    font-size: .7rem;
+    position: absolute;
+    color: #ff0000;
+
+    .color-green {
+        color: $primaryColor;
     }
 }
