@@ -10,7 +10,7 @@ const YourInfoComponent = () => {
           <div className="flex-grow-1 medium-title font-weight-bold">
             Your Information
           </div>
-          <div
+          <div data-testid="your-info-edit-btn"
             className="ml-auto"
             onClick={() => {
               history.push("/account/edit", {
@@ -20,7 +20,7 @@ const YourInfoComponent = () => {
               });
             }}
           >
-            <span className="cursor text-underline">Edit</span>
+            <span className="cursor text-underline" >Edit</span>
           </div>
         </div>
         <div className="d-flex flex-column mt-3 mb-3 time-wrapper">

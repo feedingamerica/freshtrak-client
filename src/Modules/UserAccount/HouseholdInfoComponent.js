@@ -10,7 +10,7 @@ const HouseholdInfoComponent = () => {
           <div className="flex-grow-1 medium-title font-weight-bold">
             Household Info
           </div>
-          <div
+          <div data-testid="house-info-edit-btn"
             className="ml-auto"
             onClick={() => {
               history.push("/account/edit", {

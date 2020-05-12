@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavigationBtnComponent from '../General/NavigationBtnComponent';
 import PrimaryInfoFormComponent from '../Family/PrimaryInfoFormComponent';
 import AdditionalPickUpFormComponent from '../Family/AdditionalPickUpFormComponent';
@@ -9,27 +9,21 @@ import {useHistory} from 'react-router-dom';
 import { confirm,showMessage } from "../../Utils/Util";
 import MemberCountFormComponent from '../Family/MemberCountFormComponent';
 const EditAccountComponent = (props) => {
+
+    
+
     let page =props?.location?.state?.page 
     let title = props?.location?.state?.title 
     let btnText = props?.location?.state?.btntext  
     let history = useHistory();
     const primaryInfoRef = React.useRef();
     const houseHoldRef = React.useRef();
-    const pickUpInfoRef = React.useRef();
-    const passwordRef = React.useRef();
-    const memberCountRef = React.useRef();
- 
+    
+//  Currently, 'Change Password' is kept static. 
+    const [currentPage] = useState(page);
+
     let familyData = [];
     let formError = {};
-    
-    
-    // const handleSubmit = () => {
-    //     // handle Save Changes/Continue btn handling here
-    //     // Routing back to Account Overview page tempoararily.
-        
-    //     history.goBack();
-
-    // }
 
     useEffect(()=>{
         if (props.location.state === undefined){
@@ -41,22 +35,23 @@ const EditAccountComponent = (props) => {
     const handleFormValidation = async(e) => {
         e.preventDefault();
         let componentErrors = [];
-        componentErrors.push(
-            await houseHoldRef.current.triggerErrors(),
-            await primaryInfoRef.current.triggerErrors()
-           
-        //    await pickUpInfoRef.current.triggerErrors(),
-        //    await passwordRef.current.triggerErrors(),
-        //    await memberCountRef.current.triggerErrors()
 
-        );
+        switch(currentPage){
+            case 'your-info':  componentErrors.push(
+                await houseHoldRef.current.triggerErrors(),
+                await primaryInfoRef.current.triggerErrors());break;
+
+        //  cases will be defined here for password and membercountinfo component after code review.
+            default: break;
+            
+        }
+     
             console.log(formError)
-        setTimeout(()=>{
             if (componentErrors.includes(true) || Object.keys(formError).length !== 0) {
                 return false;
               }
               handleSubmitConfirm();
-        },2000)
+      
      
       };
     
@@ -157,15 +152,13 @@ const EditAccountComponent = (props) => {
         history.push('/');
     }
     const commonHandler = () => {
-        
+        // setCurrentPage(page); 
         switch (page) {
             case 'your-info': return (<React.Fragment><HouseHoldFormComponent ref={houseHoldRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} /><PrimaryInfoFormComponent ref={primaryInfoRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} /></React.Fragment>);
 
-            case 'pickup-info':  return (<AdditionalPickUpFormComponent ref={pickUpInfoRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
-            
-            // Adding HouseHoldComponent for now, as Members component is not yet merged with the code.
-            case 'house-info':  return (<MemberCountFormComponent ref = {memberCountRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
-            case 'login-info':  return (<ChangePasswordComponent ref = {passwordRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
+            case 'pickup-info':  return (<AdditionalPickUpFormComponent  onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
+            case 'house-info':  return (<MemberCountFormComponent  onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
+            case 'login-info':  return (<ChangePasswordComponent  onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
 
             default: return 'Somethings wrong'; 
         }

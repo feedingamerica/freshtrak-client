@@ -1,3 +1,6 @@
+/*  This Component is having a static form as of now.
+Logic and testing codes will be written after first Code Review.
+*/
 import React from "react";
 const ChangePasswordComponent = () => {
     

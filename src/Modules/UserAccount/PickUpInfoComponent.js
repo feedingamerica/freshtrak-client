@@ -10,7 +10,7 @@ const PickUpInfoComponent = () => {
           <div className="flex-grow-1 medium-title font-weight-bold">
             Pickup Information
           </div>
-          <div
+          <div data-testid="pickup-info-edit-btn"
             className="ml-auto"
             onClick={() => {
               history.push("/account/edit", {
@@ -20,7 +20,7 @@ const PickUpInfoComponent = () => {
               });
             }}
           >
-            <span className="cursor text-underline">Edit</span>
+            <span className="cursor text-underline" >Edit</span>
           </div>
         </div>
         <div className="d-flex flex-column mt-3 mb-3 time-wrapper">

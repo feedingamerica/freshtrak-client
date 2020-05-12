@@ -17,7 +17,7 @@ const HouseholdInfoComponent = () => {
             <div>s*******@gmail.com</div>
           </div>
           <div className="col-xl-4 col-lg-4 col-sm-4 col-4 text-right">
-            <span
+            <span data-testid="login-info-edit-btn"
               onClick={() => {
                 history.push("/account/edit", {
                   page: "login-info",
