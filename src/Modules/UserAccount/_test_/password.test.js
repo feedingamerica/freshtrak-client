@@ -1,13 +1,13 @@
 import React from 'react';
 import { render} from '@testing-library/react';
 import {BrowserRouter as Router} from 'react-router-dom';
-import AccountOverviewContainer from '../AccountOverviewContainer';
+import ChangePasswordComponent from '../ChangePasswordComponent';
 
 test('should render', () => {
 	expect(() => {
 		render(
 			<Router>
-				<AccountOverviewContainer/>
+				<ChangePasswordComponent/>
 			</Router>
 		);
 	}).not.toThrowError();

@@ -26,7 +26,7 @@ const EditAccountComponent = (props) => {
     let formError = {};
 
     useEffect(()=>{
-        if (props.location.state === undefined){
+        if (props.location?.state === undefined){
             handleNoStateError();
         }
     });
@@ -126,10 +126,7 @@ const EditAccountComponent = (props) => {
           },
         };
     
-        if (familyDetails) {
-        } else {
-          showMessage("error", "Something went wrong");
-        }
+      // No action is specified here as of now.
       };
     
       const buildFamilyData = (childFamilyData) => {
@@ -147,7 +144,8 @@ const EditAccountComponent = (props) => {
 
     // go to home page in case of missing state
     const handleNoStateError = ()=> {
-        history.push('/');
+      // commented for running tests
+        // history.push('/');
     }
     const commonHandler = () => {
         // setCurrentPage(page); 

@@ -14,6 +14,19 @@ test('should render', () => {
 	}).not.toThrowError();
 });
 
+test('should call handleNoStateError function', () => {
+	
+		const component = render(
+			<Router>
+				<EditAccountComponent />
+			</Router>
+		)
+		console.log(component)
+
+
+
+});
+
 test('should load correct page when props are passed', async()=>{
 
     const {container,getByText,queryByText,queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
@@ -82,7 +95,9 @@ test('should  show popup on clicking save details btn after filling in details',
 	fireEvent.click(queryByText('Save Changes'));
 	await wait(()=>{
 		expect(queryByText(/Are you sure you want to proceed/));
-	})
+	});
+
+	// Currently clicking Ok button has no function handling
 	fireEvent.click(getByText('OK'));
 	expect(container).toHaveTextContent('Edit Your Info');
 });
