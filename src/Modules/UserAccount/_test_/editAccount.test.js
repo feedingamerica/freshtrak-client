@@ -14,18 +14,18 @@ test('should render', () => {
 	}).not.toThrowError();
 });
 
-test('should call handleNoStateError function', () => {
+// test('should call handleNoStateError function', () => {
 	
-		const component = render(
-			<Router>
-				<EditAccountComponent />
-			</Router>
-		)
-		console.log(component)
+// 		const component = render(
+// 			<Router>
+// 				<EditAccountComponent />
+// 			</Router>
+// 		)
+// 		console.log(component)
 
 
 
-});
+// });
 
 test('should load correct page when props are passed', async()=>{
 

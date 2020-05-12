@@ -144,8 +144,7 @@ const EditAccountComponent = (props) => {
 
     // go to home page in case of missing state
     const handleNoStateError = ()=> {
-      // commented for running tests
-        // history.push('/');
+        history.push('/');
     }
     const commonHandler = () => {
         // setCurrentPage(page); 
