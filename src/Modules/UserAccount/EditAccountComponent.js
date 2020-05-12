@@ -175,7 +175,7 @@ const EditAccountComponent = (props) => {
                     <div className ="row">
                         <div className="col-12">
                             <div className="title-wrap">
-                                <h1 className="big-title mt-5 mb-5 mobile-mb">
+                                <h1 className="big-title mt-5 mb-5 mobile-mb" data-testid="title">
                                     {title}
                             </h1>
                             </div>
@@ -186,7 +186,7 @@ const EditAccountComponent = (props) => {
                             <p className="d-none d-lg-block d-xl-block">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
                             <p className="d-none d-lg-block d-xl-block">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
                         </div>
-                        <div className="col-xl-4 col-lg-4 col-sm-12 col-12 edit-account">
+                        <div className="col-xl-4 col-lg-4 col-sm-12 col-12 edit-account" >
                             <form>
                                 
                                 {commonHandler(page)}
