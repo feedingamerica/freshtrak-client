@@ -4,11 +4,10 @@ const MemberCountFormComponent = (props) => {
     const [countSenior, setCountSenior] = React.useState(0);
     const [countAdult, setCountAdult] = React.useState(0);
     const [countKids, setCountKids] = React.useState(0);
-    const [isChanged, setIsChanged] = React.useState('');
-    
+
     React.useEffect(() => {
         handleChange();
-    }, [isChanged]);
+    }, [countSenior,countAdult,countKids]);
 
 
     const handleChange = () => {
@@ -24,7 +23,6 @@ const MemberCountFormComponent = (props) => {
     const handleClick = (event) => {
         event.preventDefault();
         let name = event.target.name;
-        setIsChanged(name);
         switch (name) {
             case 'count_senior_inc' :   if(countSenior < 13) 
                                             setCountSenior(countSenior + 1);  

@@ -20,9 +20,13 @@ const FamilyContainer = () => {
     const addressFormRef = React.useRef();
     const passwordFormRef = React.useRef();
     let history = useHistory();
+    const [passwordFlag, setPasswordFlag] = React.useState(false);
+
+
     const buildFamilyData = (childFamilyData) => {
         let dataKey = Object.keys(childFamilyData)[0];
         familyData[dataKey] = childFamilyData;
+        console.log(familyData)
     };
     const formErrors = (errors) => {
         formError = errors;
@@ -30,15 +34,19 @@ const FamilyContainer = () => {
     const handleFormValidation = async (e) => {
         e.preventDefault();
         let componentErrors = [];
+        console.log(passwordFlag)
         componentErrors.push(
             await primaryFormRef.current.triggerErrors(),
             await addressFormRef.current.triggerErrors(),
             await  passwordFormRef.current.triggerErrors());
 
         if( componentErrors.includes(true) || Object.keys(formError).length !== 0){
+            console.log(false)
             return false;
+        }if (passwordFlag===true) {
+            console.log('passwordFlag===true')
+            handleSubmit();
         }
-        handleSubmitConfirm();
     };
 
     const handleSubmitConfirm = () => {
@@ -53,11 +61,18 @@ const FamilyContainer = () => {
             memberCountData:familyData.memberCountData ? familyData.memberCountData.memberCountData:'',
             pickuptData:familyData.pickupData ? familyData.pickupData.pickupData:''
         };
+        console.log('familyDetails->',familyDetails)
 
         // Deleted a condition check as it seemed unnecessary and has unreachable code
         history.push('/');
 
     };
+
+    const getPasswordStatus = (passwordData) => {
+        setPasswordFlag(passwordData.passwordStatus)
+    };
+
+
     return (
         <div>
             <div className="main-wrapper">
@@ -104,7 +119,7 @@ const FamilyContainer = () => {
                                                                       onFormErrors = {formErrors} />
                                             <PasswordRegistrationFormComponent ref={passwordFormRef}
                                                                                onSelectedChild = {buildFamilyData}
-                                                                               onFormErrors = {formErrors} />
+                                                                               onFormErrors = {formErrors}  getPasswordStatus={getPasswordStatus}/>
                                             <AdditionalPickUpFormComponent
                                                 onSelectedChild = {buildFamilyData}
                                                 onFormErrors = {formErrors} />
