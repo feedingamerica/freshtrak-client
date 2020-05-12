@@ -78,6 +78,4 @@ test('checking whether the member count working correctly',async () =>{
     await wait(()=>{
         expect(senior_count_input.value).toBe("2");
     });
-
-
 });

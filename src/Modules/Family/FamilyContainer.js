@@ -19,6 +19,7 @@ const FamilyContainer = () => {
     const primaryFormRef = React.useRef();
     const addressFormRef = React.useRef();
     const passwordFormRef = React.useRef();
+    const memberCountFormRef = React.useRef();
     let history = useHistory();
     const [passwordFlag, setPasswordFlag] = React.useState(false);
 
@@ -26,7 +27,6 @@ const FamilyContainer = () => {
     const buildFamilyData = (childFamilyData) => {
         let dataKey = Object.keys(childFamilyData)[0];
         familyData[dataKey] = childFamilyData;
-        console.log(familyData)
     };
     const formErrors = (errors) => {
         formError = errors;
@@ -34,19 +34,14 @@ const FamilyContainer = () => {
     const handleFormValidation = async (e) => {
         e.preventDefault();
         let componentErrors = [];
-        console.log(passwordFlag)
         componentErrors.push(
             await primaryFormRef.current.triggerErrors(),
             await addressFormRef.current.triggerErrors(),
             await  passwordFormRef.current.triggerErrors());
 
-        if( componentErrors.includes(true) || Object.keys(formError).length !== 0){
-            console.log(false)
+        if( componentErrors.includes(true) || Object.keys(formError).length !== 0 || passwordFlag===false ){
             return false;
-        }if (passwordFlag===true) {
-            console.log('passwordFlag===true')
-            handleSubmit();
-        }
+        }handleSubmitConfirm();
     };
 
     const handleSubmitConfirm = () => {
@@ -58,14 +53,11 @@ const FamilyContainer = () => {
             familyMemberData:familyData.primaryData ? familyData.primaryData.primaryData:'',
             HouseHoldData:familyData.addressData ? familyData.addressData.addressData:'',
             passwordData:familyData.passwordData ? familyData.passwordData.passwordData:'',
-            memberCountData:familyData.memberCountData ? familyData.memberCountData.memberCountData:'',
-            pickuptData:familyData.pickupData ? familyData.pickupData.pickupData:''
+            memberCountData:familyData ? familyData:'',
+            pickupData:familyData.pickupData ? familyData.pickupData.pickupData:''
         };
-        console.log('familyDetails->',familyDetails)
-
         // Deleted a condition check as it seemed unnecessary and has unreachable code
         history.push('/');
-
     };
 
     const getPasswordStatus = (passwordData) => {
@@ -110,6 +102,7 @@ const FamilyContainer = () => {
                                                                       onSelectedChild = {buildFamilyData}
                                                                       onFormErrors = {formErrors} />
                                             <MemberCountFormComponent
+                                                ref={memberCountFormRef}
                                                 onSelectedChild = {buildFamilyData}
                                                 onFormErrors = {formErrors} />
                                         </div>
@@ -124,7 +117,7 @@ const FamilyContainer = () => {
                                                 onSelectedChild = {buildFamilyData}
                                                 onFormErrors = {formErrors} />
                                             <div className="button-wrap mt-4">
-                                                <ButtonComponent type ='submit' name="savefamily" dataid= '' id="save-family" value="Continue" className = 'btn custom-button' onClickfunction={handleFormValidation} />
+                                                <ButtonComponent type ='submit' name="savefamily" dataid= 'savefamily' id="save-family" value="Continue" className = 'btn custom-button' onClickfunction={handleFormValidation} />
                                             </div>
                                         </div>
                                     </div>

@@ -11,7 +11,6 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     const [pickupType, setPickupType] =  React.useState('Me');
     const [step, setStep] =  React.useState(false);
     const [isChanged, setIsChanged] =  React.useState('');
-    const [childFamilyData, setChildFamilyData] = React.useState('');
     let data= '';
 
     const buildAddressForm = (event) => {

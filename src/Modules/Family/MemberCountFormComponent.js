@@ -1,14 +1,13 @@
 import React from "react";
 
-const MemberCountFormComponent = (props) => {
+const MemberCountFormComponent=React.forwardRef((props, ref)=> {
     const [countSenior, setCountSenior] = React.useState(0);
     const [countAdult, setCountAdult] = React.useState(0);
     const [countKids, setCountKids] = React.useState(0);
 
     React.useEffect(() => {
         handleChange();
-    }, [countSenior,countAdult,countKids]);
-
+    }, [countSenior, countAdult, countKids]);
 
     const handleChange = () => {
         let  childFamilyData= { memberCountData :{
@@ -24,71 +23,28 @@ const MemberCountFormComponent = (props) => {
         event.preventDefault();
         let name = event.target.name;
         switch (name) {
-            case 'count_senior_inc' :   if(countSenior < 13) 
-                                            setCountSenior(countSenior + 1);  
-                                        break;
+            case 'count_senior_inc' :   if(countSenior < 13)
+                setCountSenior(countSenior + 1);
+                break;
             case 'count_senior_dec' :   if (countSenior > 0)
-                                            setCountSenior(countSenior - 1);
-                                        break;
+                 setCountSenior(countSenior - 1);
+                break;
 
-            case 'count_adult_inc'  :   if(countAdult < 13) 
-                                            setCountAdult(countAdult + 1);  
-                                        break;
+            case 'count_adult_inc'  :   if(countAdult < 13)
+                setCountAdult(countAdult + 1);
+                break;
             case 'count_adult_dec'  :   if (countAdult > 0)
-                                            setCountAdult(countAdult - 1);
-                                        break;
-            case 'count_kids_inc'   :   if(countKids < 13) 
-                                            setCountKids(countKids + 1);  
-                                        break;
+                setCountAdult(countAdult - 1);
+                break;
+            case 'count_kids_inc'   :   if(countKids < 13)
+                setCountKids(countKids + 1);
+                break;
             case 'count_kids_dec'   :   if (countKids > 0)
-                                            setCountKids(countKids - 1);
-                                        break;
+                setCountKids(countKids - 1);
+                break;
             default                 :   break;
         }
     };
-
-    /*
-    const seniorDecrementFunction=(e)=> {
-        e.preventDefault();
-        if (countSenior) {
-            setCountSenior(countSenior - 1)
-        }
-    };*/
-    /*const seniorIncrementFunction=(e)=> {
-        e.preventDefault();
-
-        if (countSenior<13) {
-            setCountSenior(countSenior + 1)
-        }
-    };*/
-    /*const adultDecrementFunction=(e)=> {
-        e.preventDefault();
-        if (countMiddle) {
-            setCountMiddle(countMiddle - 1)
-        }
-    };
-
-    const adultIncrementFunction=(e)=> {
-        e.preventDefault();
-
-        if (countMiddle<13) {
-            setCountMiddle(countMiddle + 1)
-        }
-    };*/
-    /*const kidDecrementFunction=(e)=> {
-        e.preventDefault();
-        if (countJunior) {
-            setCountJunior(countJunior - 1)
-        }
-    };
-
-    const kidIncrementFunction=(e)=> {
-        e.preventDefault();
-
-        if (countJunior<13) {
-            setCountJunior(countJunior + 1)
-        }
-    };*/
 
     return (
         <div>
@@ -122,5 +78,7 @@ const MemberCountFormComponent = (props) => {
                 </div>
             </div>
         </div>
-    )};
+    )
+});
+
 export default MemberCountFormComponent;
