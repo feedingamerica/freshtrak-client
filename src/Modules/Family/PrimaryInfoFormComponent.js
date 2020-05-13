@@ -93,7 +93,6 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
             'middle_name' : ['required'],
             'dob' : ['required'],
             'email' : ['required'],
-            'phoneNumber':['required']
         }, dataToParent);
 
     React.useImperativeHandle(ref, () => ({
@@ -163,8 +162,6 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
                 </div>
             </div>
 
-
-
             <div className="form-group" data-testid="hoh">
                 <label>Head of Household</label>
                 <select id="hoh" name="hoh"  onChange={buildNameForm}  className="form-control">
@@ -175,7 +172,7 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
 
             {phoneDisable && (<div className="form-group" >
                 <label>Phone Number</label>
-                <input type="number" className="form-control" data-testid="phno-disabled" onChange={buildNameForm} disabled={true} name="phone_number" id="phone_number"
+                <input type="text" className="form-control" data-testid="phno-disabled" onChange={buildNameForm} disabled={true} name="phone_number" id="phone_number"
                        onBlur={handleErrors} />
 
               
