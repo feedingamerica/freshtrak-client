@@ -38,7 +38,6 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
             let count = 0;
             
             for(let key in data){
-                debugger;
                 // get index and check for last index and set true
                 let keyExists = key in validations;
                 if(keyExists){
