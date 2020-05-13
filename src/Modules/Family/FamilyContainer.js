@@ -5,6 +5,7 @@ import MemberCountFormComponent from './MemberCountFormComponent';
 import PasswordRegistrationFormComponent from './PasswordRegistrationFormComponent';
 import AdditionalPickUpFormComponent from './AdditionalPickUpFormComponent';
 import RegistrationTextComponent from './RegistrationTextComponent';
+import NavigationBtnComponent from '../General/NavigationBtnComponent'
 import {confirm, showMessage} from '../../Utils/Util';
 import EventDescriptionFormComponent from "../Events/EventDescriptionFormComponent";
 import '../../Assets/scss/main.scss';
@@ -64,14 +65,7 @@ const FamilyContainer = () => {
                     <div className="container pt-100 pb-100 register-confirmation">
                         <div className="row">
                             <div className="col-md-12">
-                                <div className="back-button">
-                            <span className="back-arrow">
-                                <Link to="/">
-                                    <img src={back} />
-                                </Link>
-                            </span>
-                                    <span className="font-weight-bold text-uppercase ml-2">Back</span>
-                                </div>
+                                <NavigationBtnComponent />
                             </div>
                         </div>
                         <div className="row">
