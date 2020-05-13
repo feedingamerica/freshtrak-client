@@ -18,9 +18,7 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
         let name = event.target.name;
         setIsChanged(name)
         switch (name) {
-            case 'pickup_info':
-                setpickupInfo(event.target.value);
-                break;
+
             case 'vehicle_number_plate':
                 setPickupNumberPlate(event.target.value);
                 break;
@@ -33,6 +31,7 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             case 'pickup_type':
                 setPickupType(event.target.value);
                 break;
+            default:break;
         }
     };
 
@@ -61,40 +60,42 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
         }
     };
 
+
+
     return (
         <div className="form-fields pt-50">
-        <div className="form-title">
-        Additional Pickup Information (Optional)
-    </div>
-    <div className="form-group">
-        <label>Who’s Picking up?</label>
-    <select  className="form-control" onChange={buildAddressForm} name="pickup_type" id="pickup_type">
-        <option value="Me">Me</option>
-        <option value="Some one Else">Some one Else</option>
-    </select>
-    </div>
-    <div className="form-group">
-        <label>Name</label>
-        <input type="text" className="form-control" onChange={buildAddressForm} name="pickup_name" id="pickup_name"/>
-        </div>
-        <div className="form-group">
-        <label>Vehicle License Plate Number</label>
-    <input type="text" className="form-control" onChange={buildAddressForm} name="vehicle_number_plate" id="vehicle_number_plate" />
-        </div>
-        <div className="add-new-vehicle">
-        <button className="add-button" onClick={additionalBox}><img src={add} alt="my image"  className="img-fluid" /></button>
+            <div className="form-title">
+                Additional Pickup Information (Optional)
+            </div>
+            <div className="form-group">
+                <label>Who’s Picking up?</label>
+                <select  className="form-control" onChange={buildAddressForm} name="pickup_type" id="pickup_type">
+                    <option value="Me">Me</option>
+                    <option value="Some one Else">Some one Else</option>
+                </select>
+            </div>
+            <div className="form-group">
+                <label>Name</label>
+                <input type="text" className="form-control" onChange={buildAddressForm} name="pickup_name" id="pickup_name"/>
+            </div>
+            <div className="form-group">
+                <label>Vehicle License Plate Number</label>
+                <input type="text" className="form-control" onChange={buildAddressForm} name="vehicle_number_plate" id="vehicle_number_plate" />
+            </div>
+            <div className="add-new-vehicle">
+                <button className="add-button" name="add_btn" onClick={additionalBox}><img src={add} alt="my image"  className="img-fluid" /></button>
 
-        <span>Add a Vehicle </span>
-    </div>
-    {step &&(
-    <div className="form-group">
-        <input type="text" className="form-control" onChange={buildAddressForm} name="vehicle_number_plate_two" id="vehicle_number_plate_two" />
+                <span>Add a Vehicle </span>
+            </div>
+            {step &&(
+                <div className="form-group" data-testid="additional-vehicle">
+                    <input type="text" className="form-control" onChange={buildAddressForm} name="vehicle_number_plate_two" id="vehicle_number_plate_two" />
+                </div>
+            )}
+            <div className="form-text">
+                Where possible, when you arrive we’ll look for your vehicle and bring your goods to you. See event details for more info.
+            </div>
         </div>
-    )}
-<div className="form-text">
-        Where possible, when you arrive we’ll look for your vehicle and bring your goods to you. See event details for more info.
-    </div>
-    </div>
-)});
+    )});
 
 export default AdditionalPickUpFormComponent;

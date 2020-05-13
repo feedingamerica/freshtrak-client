@@ -25,7 +25,6 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
             case 'zip_code':
                 setZip(event.target.value);
                 break;
-
             case 'housing_type':
                 setHousingType(event.target.value);
                 break;
@@ -37,9 +36,9 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
     const handleChange = () => {
         data = {
             addressData: {
-                streetAddress: streetAddress,
-                aptNo: aptNo,
-                zipCode: zip,
+                street_address: streetAddress,
+                apt_no: aptNo,
+                zip_code: zip,
                 housingType: housingType,
             }
         };
@@ -59,7 +58,7 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
         useForm(props, {
             'street_address' : ['required', 'min:1'],
             'apt_no' : ['required'],
-            'zip_code' : ['required','number'],
+            'zip_code' : ['required','number']
         }, dataToParent);
 
     React.useImperativeHandle(ref, () => ({
@@ -69,7 +68,6 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
             return handleErrors(data.addressData);
         }
     }));
-
 
     return (
         <div>
@@ -89,10 +87,10 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
                 </select>
             </div>
 
-            <div className="form-group">
+            <div className="form-group" data-testid="street-address">
                 <label>Street Address</label>
                 <input type="text" className="form-control" onChange={buildAddressForm} name="street_address" id="street_address"
-                       onBlur={handleErrors} required/>
+                       onBlur={handleErrors} />
                 <div> {errors.street_address && (
                     <span className="validationError">{errors.street_address}</span>
                 )}
@@ -100,18 +98,18 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
             </div>
 
             <div className="d-flex">
-                <div className="form-group">
+                <div className="form-group" data-testid="apt-no" >
                     <label>Unit or Apt.</label>
-                    <input type="text" className="form-control" onChange={buildAddressForm} name="apt_no" id="apt_no"  onBlur={handleErrors} required/>
+                    <input type="text" className="form-control" onChange={buildAddressForm} name="apt_no" id="apt_no"  onBlur={handleErrors}  />
                     <div> {errors.apt_no && (
                         <span className="validationError">{errors.apt_no}</span>
                     )}
-                </div>
+                    </div>
 
                 </div>
-                <div className="form-group ml-2">
+                <div className="form-group ml-2"  data-testid="zip-code">
                     <label>ZIP Code</label>
-                    <input type="number" className="form-control"  onChange={buildAddressForm} name="zip_code" id="zip_code"  onBlur={handleErrors} required/>
+                    <input type="text" className="form-control"   name="zip_code" id="zip_code"  onChange={buildAddressForm}  onBlur={handleErrors} />
                     <div> {errors.zip_code && (
                         <span className="validationError">{errors.zip_code}</span>
                     )}
