@@ -9,17 +9,16 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
     const [dob, setDob] = React.useState('');
     const [hoh, setHoh] = React.useState('Yes');
     const [phoneNumber, setPhoneNumber] = React.useState('');
-    const [phoneNumberCheckBOx, setPhoneNumberCheckBOx] = React.useState(false);
     const [email, setEmail] = React.useState('Email');
     const [communicationPreference, setCommunicationPreference] = React.useState('Email');
     const [childFamilyData, setChildFamilyData] = React.useState('');
     const [phoneDisable, setPhoneDisable] = React.useState(false);
-    const [isChanged, setIsChanged] = React.useState('');
+
+    // variable used to store complete object to be returned
     let data = '';
 
     const buildNameForm = (e) => {
         let { name, value } = e.target;
-        setIsChanged(name)
         let setFunction = '';
         switch (name) {
             case 'first_name':
@@ -43,9 +42,6 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
             case 'phone_number':
                 setFunction=setPhoneNumber;
                 break;
-            // case 'phone_number_checkbox':
-            //     setFunction=setPhoneNumberCheckBOx;
-            //     break;
             case 'email':
                 setFunction=setEmail;
                 break;
@@ -60,29 +56,23 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
         }
     };
 
-    const handleChange = () => {
-        data = { primaryData :{
-                first_name: firstName,
-                last_name: lastName,
-                middle_name: middleName,
-                suffix: suffix,
-                dob : dob,
-                hoh : hoh,
-                phoneNumber : phoneNumber,
-                phoneNumberCheckBOx : phoneNumberCheckBOx,
-                email : email,
-                communicationPreference : communicationPreference,
-            }
-        };
-        props.onSelectedChild(data);
-    };
-
-    React.useEffect(() => {
-        handleChange();
-    }, [isChanged]);
-
-
+const buildChildData = ()=>{
+    data = { primaryData :{
+        first_name: firstName,
+        last_name: lastName,
+        middle_name: middleName,
+        suffix: suffix,
+        dob : dob,
+        hoh : hoh,
+        phone_number : phoneNumber,
+        email : email,
+        communicationPreference : communicationPreference
+        }
+    }
+    setChildFamilyData(data);
+}
     const dataToParent = () => {
+        buildChildData();
         props.onSelectedChild(childFamilyData);
     };
 
@@ -92,13 +82,15 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
             'last_name' : ['required'],
             'middle_name' : ['required'],
             'dob' : ['required'],
-            'email' : ['required'],
+            'email' : ['required','is_address'],
+            'phone_number' : ['required','is_phone']
         }, dataToParent);
 
     React.useImperativeHandle(ref, () => ({
 
         triggerErrors(){
-            handleChange();
+            
+            buildChildData();
             return handleErrors(data.primaryData);
         }}));
 
@@ -186,8 +178,8 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
 
                 <input type="number" className="form-control" onChange={buildNameForm} data-testid="phno-not-disabled" name="phone_number" id="phone_number"
                        onBlur={handleErrors} />
-     <div data-testid="phno"> {errors.phoneNumber && (
-                    <span className="validationError" >{errors.phoneNumber}</span>
+     <div data-testid="phno"> {errors.phone_number && (
+                    <span className="validationError" >{errors.phone_number}</span>
                 )}
                 </div>
             </div>)}

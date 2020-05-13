@@ -6,13 +6,11 @@ import PasswordRegistrationFormComponent from './PasswordRegistrationFormCompone
 import AdditionalPickUpFormComponent from './AdditionalPickUpFormComponent';
 import RegistrationTextComponent from './RegistrationTextComponent';
 import NavigationBtnComponent from '../General/NavigationBtnComponent'
-import {confirm, showMessage} from '../../Utils/Util';
+import {confirm} from '../../Utils/Util';
 import EventDescriptionFormComponent from "../Events/EventDescriptionFormComponent";
 import '../../Assets/scss/main.scss';
 import ButtonComponent from '../General/ButtonComponent';
-import back from '../../Assets/img/back.svg';
 import {useHistory} from 'react-router-dom';
-import { Link } from 'react-router-dom'
 
 const FamilyContainer = () => {
     let familyData = [];
