@@ -26,7 +26,6 @@ const FamilyContainer = () => {
     const buildFamilyData = (childFamilyData) => {
         let dataKey = Object.keys(childFamilyData)[0];
         if(dataKey!==undefined) familyData[dataKey] = childFamilyData;
-        console.log(dataKey,familyData)
     };
     const formErrors = (errors) => {
         formError = errors;
