@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 const MemberCountFormComponent=React.forwardRef((props, ref)=> {
     const [countSenior, setCountSenior] = React.useState(0);
     const [countAdult, setCountAdult] = React.useState(0);
     const [countKids, setCountKids] = React.useState(0);
-
-    React.useEffect(() => {
-        handleChange();
-    }, [countSenior, countAdult, countKids]);
-
-    const handleChange = () => {
-        let  childFamilyData= { memberCountData :{
+    const [childFamilyData,setChildFamilyData] = React.useState({memberCountData :{
+        countSenior: 0,
+        countAdult: 0,
+        countKids: 0,
+    }});
+    // useCallback(()=>buildChildData(),[countSenior, countAdult, countKids]);
+  
+   
+    const buildChildData = () => {
+        let  data= { memberCountData :{
                 countSenior: countSenior,
                 countAdult: countAdult,
                 countKids: countKids,
             }
         };
+        setChildFamilyData(data);
         props.onSelectedChild(childFamilyData);
     };
 
@@ -44,8 +48,12 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
                 break;
             default                 :   break;
         }
+        buildChildData();
     };
-
+    React.useImperativeHandle(ref, () => ({
+        triggerErrors(){
+            buildChildData();
+        }}));
     return (
         <div>
             <div className="form-sub-title font-weight-bold">

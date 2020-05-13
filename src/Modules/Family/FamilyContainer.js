@@ -25,7 +25,8 @@ const FamilyContainer = () => {
 
     const buildFamilyData = (childFamilyData) => {
         let dataKey = Object.keys(childFamilyData)[0];
-        familyData[dataKey] = childFamilyData;
+        if(dataKey!==undefined) familyData[dataKey] = childFamilyData;
+        console.log(dataKey,familyData)
     };
     const formErrors = (errors) => {
         formError = errors;
@@ -36,7 +37,8 @@ const FamilyContainer = () => {
         componentErrors.push(
             await addressFormRef.current.triggerErrors(),
             await primaryFormRef.current.triggerErrors(),
-            await  passwordFormRef.current.triggerErrors()
+            await  passwordFormRef.current.triggerErrors(),
+            await memberCountFormRef.current.triggerErrors()
             );
             if( componentErrors.includes(true) || Object.keys(formError).length !== 0 || passwordFlag===false ){
                 return false;
@@ -52,8 +54,10 @@ const FamilyContainer = () => {
             familyMemberData:familyData.primaryData ? familyData.primaryData.primaryData:'',
             HouseHoldData:familyData.addressData ? familyData.addressData.addressData:'',
             passwordData:familyData.passwordData ? familyData.passwordData.passwordData:'',
-            pickupData:familyData.pickupData ? familyData.pickupData.pickupData:''
+            pickupData:familyData.pickupData ? familyData.pickupData.pickupData:'',
+            memberCountData:familyData.memberCountData ? familyData.memberCountData.memberCountData:''
         };
+        
         // Deleted a condition check as it seemed unnecessary and has unreachable code
         history.push('/');
     };

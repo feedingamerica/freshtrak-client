@@ -5,9 +5,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
 
     const [password, setPassword] = React.useState('');
     const [passwordConfirm, setPasswordConfirm] = React.useState('');
-    const [passwordError, setPasswordError] = React.useState(false);
     const [passwordFieldError, setPasswordFieldError] = React.useState(false);
-    const [passwordConfirmFieldError, setPasswordConfirmFieldError] = React.useState(false);
     const [passwordStatus, setPasswordStatus] = React.useState(false);
     const [childFamilyData, setChildFamilyData] = React.useState('');
     let data='';
@@ -67,29 +65,16 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     const passwordCheck=(e)=>{
 
         if (password !== '' && passwordConfirm !==''&& passwordConfirm===password){
-            setPasswordError(false)
-            setPasswordConfirmFieldError(false)
             setPasswordStatus(true)
             setPasswordFieldError(false)
         } else if ( password === ''&& passwordConfirm ==='') {
-            setPasswordError(true)
-            setPasswordConfirmFieldError(true)
             setPasswordStatus(false)
             setPasswordFieldError(true)
-        }else if ( password === ''){
-            setPasswordError(true)
-            setPasswordConfirmFieldError(false)
-            setPasswordStatus(false)
-            setPasswordFieldError(true)
-        }else if(passwordConfirm ===''){
-            setPasswordError(false)
-            setPasswordConfirmFieldError(true)
+        }else if ( password === '' || passwordConfirm ===''){
             setPasswordStatus(false)
             setPasswordFieldError(true)
         }else if (password!==passwordConfirm){
             setPasswordFieldError(true)
-            setPasswordError(false)
-            setPasswordConfirmFieldError(false)
             setPasswordStatus(false)
         }
         handleErrors(e);

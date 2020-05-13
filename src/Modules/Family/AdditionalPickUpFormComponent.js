@@ -1,22 +1,18 @@
-import React, {useState} from 'react';
-import useForm from '../../Utils/UseForm';
+import React from 'react';
 import add from '../../Assets/img/add.svg';
 
 const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
-
-    const [pickupInfo, setpickupInfo] = React.useState('');
     const [pickupName, setpickupName] = React.useState('');
     const [pickupNumberPlate, setPickupNumberPlate] = React.useState('');
     const [pickupNumberPlateTwo, setPickupNumberPlateTwo] = React.useState('');
     const [pickupType, setPickupType] =  React.useState('Me');
     const [step, setStep] =  React.useState(false);
-    const [isChanged, setIsChanged] =  React.useState('');
     let data= '';
 
     const buildAddressForm = (event) => {
         event.preventDefault();
         let name = event.target.name;
-        setIsChanged(name)
+        buildChildData();
         switch (name) {
             
             case 'vehicle_number_plate':
@@ -34,8 +30,8 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             default:break;
         }
     };
-
-    const handleChange = () => {
+// triggers on each form field change
+    const buildChildData = () => {
         data = {
             pickupData: {
                 pickupName: pickupName,
@@ -46,10 +42,6 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
         };
         props.onSelectedChild(data);
     };
-
-    React.useEffect(() => {
-        handleChange();
-    }, [isChanged]);
 
     const additionalBox=(e)=> {
         e.preventDefault();
