@@ -44,7 +44,7 @@ test('should load HouseHold page when props are passed', async()=>{
 });
 test('should load Password page when props are passed', async()=>{
 
-    const {,queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
+    const {queryByTestId} = render(<Router><EditAccountComponent  location={{ state:{
 		page: "login-info",
 		title: "Change Password",
 		btntext: "Save New Password",
