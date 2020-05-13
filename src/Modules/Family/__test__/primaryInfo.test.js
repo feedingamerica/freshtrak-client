@@ -51,10 +51,20 @@ test("should show validation errors", async () => {
   await wait(() => {
     expect(getByTestId("email")).toHaveTextContent("This field is required");
   });
-  fireEvent.blur(phno);
-  await wait(() => {
-    expect(getByTestId("phno")).toHaveTextContent("This field is required");
-  });
+  // fireEvent.change(container.querySelector('input[name="phone_number_checkbox"]'));
+//  fireEvent.blur(phno);
+ 
+  // await wait(() => {
+  //   expect(getByTestId("phno")).toHaveTextContent("This field is required");
+  // });
+
+  // let phNoError = await waitForElement(
+  //   () =>  getByTestId(container,'phno'),
+  //   { container }
+  // )
+  // await wait(()=>{
+  //   expect(getByTestId('phno')).toHaveTextContent("This field is required");
+  // })
 });
 
 

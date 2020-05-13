@@ -36,9 +36,9 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
     const handleChange = () => {
         data = {
             addressData: {
-                streetAddress: streetAddress,
-                aptNo: aptNo,
-                zipCode: zip,
+                street_address: streetAddress,
+                apt_no: aptNo,
+                zip_code: zip,
                 housingType: housingType,
             }
         };
@@ -58,7 +58,7 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
         useForm(props, {
             'street_address' : ['required', 'min:1'],
             'apt_no' : ['required'],
-            'zip_code' : ['required','number'],
+            'zip_code' : ['required','number']
         }, dataToParent);
 
     React.useImperativeHandle(ref, () => ({
