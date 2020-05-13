@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
 
 const initToasterContainer = () => {
-    this.options = {
+    let options = {
         hideProgressBar: true,
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
@@ -13,6 +13,7 @@ const initToasterContainer = () => {
         showMethod: "fadeIn",
         hideMethod: "fadeOut"
     };
+    return options;
 };
 
 export const showMessage = (type, message) => {

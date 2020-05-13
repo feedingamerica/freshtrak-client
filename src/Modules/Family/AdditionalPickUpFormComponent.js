@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import useForm from '../../Utils/UseForm';
 import add from '../../Assets/img/add.svg';
-
 const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
-
     const [pickupInfo, setpickupInfo] = React.useState('');
     const [pickupName, setpickupName] = React.useState('');
     const [pickupNumberPlate, setPickupNumberPlate] = React.useState('');
@@ -12,7 +10,6 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     const [step, setStep] =  React.useState(false);
     const [isChanged, setIsChanged] =  React.useState('');
     let data= '';
-
     const buildAddressForm = (event) => {
         event.preventDefault();
         let name = event.target.name;
@@ -34,7 +31,6 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             default:break;
         }
     };
-
     const handleChange = () => {
         data = {
             pickupData: {
@@ -46,11 +42,9 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
         };
         props.onSelectedChild(data);
     };
-
     React.useEffect(() => {
         handleChange();
     }, [isChanged]);
-
     const additionalBox=(e)=> {
         e.preventDefault();
         if (step===true) {
@@ -59,8 +53,6 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             setStep(true)
         }
     };
-
-
 
     return (
         <div className="form-fields pt-50">
@@ -84,7 +76,6 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             </div>
             <div className="add-new-vehicle">
                 <button className="add-button" name="add_btn" onClick={additionalBox}><img src={add} alt="my image"  className="img-fluid" /></button>
-
                 <span>Add a Vehicle </span>
             </div>
             {step &&(
@@ -97,5 +88,4 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             </div>
         </div>
     )});
-
 export default AdditionalPickUpFormComponent;

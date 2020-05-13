@@ -12,7 +12,6 @@ import ButtonComponent from '../General/ButtonComponent';
 import back from '../../Assets/img/back.svg';
 import {useHistory} from 'react-router-dom';
 import { Link } from 'react-router-dom'
-
 const FamilyContainer = () => {
     let familyData = [];
     let formError = {};
@@ -22,8 +21,6 @@ const FamilyContainer = () => {
     const memberCountFormRef = React.useRef();
     let history = useHistory();
     const [passwordFlag, setPasswordFlag] = React.useState(false);
-
-
     const buildFamilyData = (childFamilyData) => {
         let dataKey = Object.keys(childFamilyData)[0];
         familyData[dataKey] = childFamilyData;
@@ -43,7 +40,6 @@ const FamilyContainer = () => {
             return false;
         }handleSubmitConfirm();
     };
-
     const handleSubmitConfirm = () => {
         let title = "Are you sure you want to proceed?";
         confirm(title, handleSubmit);
@@ -55,15 +51,13 @@ const FamilyContainer = () => {
             passwordData:familyData.passwordData ? familyData.passwordData.passwordData:'',
             pickupData:familyData.pickupData ? familyData.pickupData.pickupData:''
         };
-        console.log('familyDetails',familyDetails)
+        console.log(familyDetails)
         // Deleted a condition check as it seemed unnecessary and has unreachable code
         history.push('/');
     };
-
     const getPasswordStatus = (passwordData) => {
         setPasswordFlag(passwordData.passwordStatus)
     };
-
     return (
         <div>
             <div className="main-wrapper">

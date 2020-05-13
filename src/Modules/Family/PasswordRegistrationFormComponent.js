@@ -1,8 +1,6 @@
 import React from 'react';
 import useForm from '../../Utils/UseForm';
-
 const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
-
     const [password, setPassword] = React.useState('');
     const [passwordConfirm, setPasswordConfirm] = React.useState('');
     const [passwordError, setPasswordError] = React.useState(false);
@@ -11,7 +9,6 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     const [isChanged, setIsChanged] = React.useState('');
     const [passwordStatus, setPasswordStatus] = React.useState(false);
     let data,childFamilyData ='';
-
     const buildForm = (event) => {
         event.preventDefault();
         let name = event.target.name;
@@ -27,7 +24,6 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
                 break;
         }
     };
-
     const handleChange = () => {
         data = {
             passwordData: {
@@ -38,35 +34,27 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     React.useEffect(() => {
         handleChange();
     }, [isChanged]);
-
     React.useEffect(() => {
         passwordCheckFunction();
     }, [passwordStatus]);
-
     const passwordCheckFunction = () => {
         let  passwordData = {
             passwordStatus:passwordStatus
         }; props.getPasswordStatus(passwordData);
     };
-
-
     const dataToParent = () => {
         props.onSelectedChild(childFamilyData);
     };
-
     const { errors, handleErrors } =
         useForm(props, {
             'password' : ['required']
         }, dataToParent);
-
     React.useImperativeHandle(ref, () => ({
         triggerErrors(){
             handleChange();
             return handleErrors(data.passwordData);
         }}));
-
     const passwordCheck=()=>{
-
         if (password !== '' && passwordConfirm !==''&& passwordConfirm===password){
             setPasswordError(false)
             setPasswordConfirmFieldError(false)
@@ -94,7 +82,6 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
             setPasswordStatus(false)
         }
     }
-
     return (
         <div className="form-fields pt-50" data-testid="password-form">
             <div className="form-title">
@@ -105,19 +92,15 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
             </div>
             <div className="form-group" >
                 <label>Password</label>
-
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password" id="password" required/>
                 <div data-testid="password"> {passwordError && (
-
                     <span className="validationError">This field is required</span>
                 )}
                 </div>
             </div>
-
             <div className="form-group" >
                 <label>Confirm Password</label>
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="passwordConfirm" id="passwordConfirm" />
-
                 <div data-testid = "password-confirm"> {passwordConfirmFieldError && (
                     <span className="validationError">This field is required</span>
                 )}

@@ -36,6 +36,7 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
         if (typeof e.target === "undefined") {
             let data = e;
             let count = 0;
+            
             for(let key in data){
                 // get index and check for last index and set true
                 let keyExists = key in validations;
@@ -66,7 +67,7 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
         let validator;
         let limit;
         let count = 0;
-
+        
         for (let i = 0; i < validate.length; i++) {
             count++;
             let splitKey = validate[i].split(':');
@@ -102,11 +103,9 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
                 delete errors[keys]
             }
         }
-
         if(Object.keys(errors).length === 0){
             callback();
         }
-
         if(!errorToComponent){
             props.onFormErrors(errors);
         }

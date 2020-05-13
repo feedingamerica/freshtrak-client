@@ -1,14 +1,11 @@
 import React from "react";
-
 const MemberCountFormComponent=React.forwardRef((props, ref)=> {
     const [countSenior, setCountSenior] = React.useState(0);
     const [countAdult, setCountAdult] = React.useState(0);
     const [countKids, setCountKids] = React.useState(0);
-
     React.useEffect(() => {
         handleChange();
     }, [countSenior, countAdult, countKids]);
-
     const handleChange = () => {
         let  childFamilyData= { memberCountData :{
                 countSenior: countSenior,
@@ -18,7 +15,6 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
         };
         props.onSelectedChild(childFamilyData);
     };
-
     const handleClick = (event) => {
         event.preventDefault();
         let name = event.target.name;
@@ -29,7 +25,6 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
             case 'count_senior_dec' :   if (countSenior > 0)
                 setCountSenior(countSenior - 1);
                 break;
-
             case 'count_adult_inc'  :   if(countAdult < 13)
                 setCountAdult(countAdult + 1);
                 break;
@@ -45,7 +40,6 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
             default                 :   break;
         }
     };
-
     return (
         <div>
             <div className="form-sub-title font-weight-bold">
@@ -80,5 +74,4 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
         </div>
     )
 });
-
 export default MemberCountFormComponent;
