@@ -110,7 +110,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password" id="password" required/>
                 <div data-testid="password"> {passwordError && (
 
-                    <span className="validationError"> Required</span>
+                    <span className="validationError">This field is required</span>
                 )}
                 </div>
             </div>
@@ -120,7 +120,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="passwordConfirm" id="passwordConfirm" />
 
                 <div data-testid = "password-confirm"> {passwordConfirmFieldError && (
-                    <span className="validationError">Required</span>
+                    <span className="validationError">This field is required</span>
                 )}
                 </div>
             </div>
