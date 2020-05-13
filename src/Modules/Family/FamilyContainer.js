@@ -51,7 +51,6 @@ const FamilyContainer = () => {
             passwordData:familyData.passwordData ? familyData.passwordData.passwordData:'',
             pickupData:familyData.pickupData ? familyData.pickupData.pickupData:''
         };
-        console.log(familyDetails)
         // Deleted a condition check as it seemed unnecessary and has unreachable code
         history.push('/');
     };
