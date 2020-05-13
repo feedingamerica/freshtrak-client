@@ -15,7 +15,6 @@ import {useHistory} from 'react-router-dom';
 const FamilyContainer = () => {
     let familyData = [];
     let formError = {};
-    let componentErrors = [];
     const primaryFormRef = React.useRef();
     const addressFormRef = React.useRef();
     const passwordFormRef = React.useRef();
@@ -35,13 +34,15 @@ const FamilyContainer = () => {
         e.preventDefault();
         let componentErrors = [];
         componentErrors.push(
-            await primaryFormRef.current.triggerErrors(),
             await addressFormRef.current.triggerErrors(),
-            await  passwordFormRef.current.triggerErrors());
-
-        if( componentErrors.includes(true) || Object.keys(formError).length !== 0 || passwordFlag===false ){
-            return false;
-        }handleSubmitConfirm();
+            await primaryFormRef.current.triggerErrors(),
+            await  passwordFormRef.current.triggerErrors()
+            );
+            if( componentErrors.includes(true) || Object.keys(formError).length !== 0 || passwordFlag===false ){
+                return false;
+            }handleSubmitConfirm();
+          
+  
     };
 
     const handleSubmitConfirm = () => {
@@ -117,7 +118,7 @@ const FamilyContainer = () => {
                                                 onSelectedChild = {buildFamilyData}
                                                 onFormErrors = {formErrors} />
                                             <div className="button-wrap mt-4">
-                                                <ButtonComponent type ='submit' name="savefamily" dataid= 'savefamily' id="save-family" value="Continue" className = 'btn custom-button' onClickfunction={handleFormValidation} />
+                                                <ButtonComponent type ='submit' data-testid="savefamily" name="savefamily" dataid= 'savefamily' id="save-family" value="Continue" className = 'btn custom-button' onClickfunction={handleFormValidation} />
                                             </div>
                                         </div>
                                     </div>

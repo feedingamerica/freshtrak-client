@@ -37,6 +37,7 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
             let data = e;
             let count = 0;
             for(let key in data){
+                
                 // get index and check for last index and set true
                 let keyExists = key in validations;
                 if(keyExists){
@@ -105,7 +106,6 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
         if(Object.keys(errors).length === 0){
             callback();
         }
-
         if(!errorToComponent){
             props.onFormErrors(errors);
         }

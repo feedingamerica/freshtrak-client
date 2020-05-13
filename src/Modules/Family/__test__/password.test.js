@@ -11,6 +11,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
         ref = {noop}
           onSelectedChild={noop}
           onFormErrors={noop}
+          getPasswordStatus={jest.fn()}
         />
       );
     }).not.toThrowError();
@@ -23,6 +24,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
         ref={jest.fn()}
           onSelectedChild={noop}
           onFormErrors={noop}
+          getPasswordStatus={jest.fn()}
         />
       );
     }).not.toThrowError();
@@ -35,6 +37,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
         ref={jest.fn()}
           onSelectedChild={noop}
           onFormErrors={noop}
+          getPasswordStatus={jest.fn()}
         />
       );
 
@@ -58,7 +61,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
       fireEvent.change(passwordConfirm,{target:{value:fakePwd}})
       fireEvent.blur(passwordConfirm);
     let showPwdConfirmError2 = await waitForElement(
-      () =>  getByTestId(container,'password-confirm'),
+      () =>  getByTestId(container,'password'),
       { container }
     )
     expect(showPwdConfirmError2).toHaveTextContent('Required');
@@ -74,6 +77,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
       ref={jest.fn()}
         onSelectedChild={noop}
         onFormErrors={noop}
+        getPasswordStatus={jest.fn()}
       />
     );
 

@@ -99,7 +99,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     return (
         <div className="form-fields pt-50" data-testid="password-form">
             <div className="form-title">
-                Create FresTrak Account
+                Create FreshTrak Account
             </div>
             <div className="form-text mb-2">
                 Input a password to create a FreshTrak account and easily register with one click in the future.
