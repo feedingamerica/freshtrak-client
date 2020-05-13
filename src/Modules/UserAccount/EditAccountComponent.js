@@ -6,7 +6,7 @@ import HouseHoldFormComponent from '../Family/HouseHoldFormComponent';
 import ChangePasswordComponent from './ChangePasswordComponent';
 import ButtonComponent from '../General/ButtonComponent';
 import {useHistory} from 'react-router-dom';
-import { confirm } from "../../Utils/Util";
+import { confirm,showMessage } from "../../Utils/Util";
 import MemberCountFormComponent from '../Family/MemberCountFormComponent';
 const EditAccountComponent = (props) => {
 
@@ -31,15 +31,19 @@ const EditAccountComponent = (props) => {
         }
     });
     
+const checkForErrors = async(componentErrors)=>{
+  let houseErr = await houseHoldRef.current.triggerErrors();
+  let primaryErr = await primaryInfoRef.current.triggerErrors();
+  componentErrors =[...componentErrors,houseErr,primaryErr];
+  return componentErrors;
 
+}
     const handleFormValidation = async(e) => {
         e.preventDefault();
         let componentErrors = [];
 
         switch(currentPage){
-            case 'your-info':  componentErrors.push(
-                await houseHoldRef.current.triggerErrors(),
-                await primaryInfoRef.current.triggerErrors());break;
+            case 'your-info': await checkForErrors(componentErrors);break;
 
         //  cases will be defined here for password and membercountinfo component after code review.
             default: break;

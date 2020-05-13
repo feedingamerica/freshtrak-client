@@ -87,14 +87,14 @@ test('should  show popup on clicking save details btn after filling in details',
 	  
 	fireEvent.click(queryByText('Save Changes'));
 	await wait(()=>{
-		expect(queryByText(/Are you sure you want to proceed/));
+		expect(getByText(/Are you sure you want to proceed/));
 	})
 	fireEvent.click(getByText('Cancel'));
 	expect(container).toHaveTextContent('Edit Your Info');
 
-	fireEvent.click(queryByText('Save Changes'));
+	fireEvent.click(getByText('Save Changes'));
 	await wait(()=>{
-		expect(queryByText(/Are you sure you want to proceed/));
+		expect(getByText(/Are you sure you want to proceed/));
 	});
 
 	// Currently clicking Ok button has no function handling

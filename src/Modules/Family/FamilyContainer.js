@@ -27,14 +27,20 @@ const FamilyContainer = () => {
     const formErrors = (errors) => {
         formError = errors;
     };
+
+    const checkForErrors = async(componentErrors)=>{
+        let primaryErr = await primaryFormRef.current.triggerErrors();
+        let addressErr = await addressFormRef.current.triggerErrors();
+        let passwordErr = await passwordFormRef.current.triggerErrors()
+        componentErrors =[...componentErrors,primaryErr,addressErr,passwordErr];
+        return componentErrors;
+      
+      }
     const handleFormValidation = async (e) => {
         e.preventDefault();
         let componentErrors = [];
-        componentErrors.push(
-            await primaryFormRef.current.triggerErrors(),
-            await addressFormRef.current.triggerErrors(),
-            await  passwordFormRef.current.triggerErrors());
-
+        componentErrors = await checkForErrors(componentErrors);
+       
         if( componentErrors.includes(true) || Object.keys(formError).length !== 0){
             return false;
         }

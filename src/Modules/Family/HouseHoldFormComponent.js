@@ -36,9 +36,9 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
     const handleChange = () => {
         data = {
             addressData: {
-                streetAddress: streetAddress,
-                aptNo: aptNo,
-                zipCode: zip,
+                street_address: streetAddress,
+                apt_no: aptNo,
+                zip_code: zip,
                 housingType: housingType,
             }
         };
