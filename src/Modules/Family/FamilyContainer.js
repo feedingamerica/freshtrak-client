@@ -11,6 +11,7 @@ import '../../Assets/scss/main.scss';
 import ButtonComponent from '../General/ButtonComponent';
 import back from '../../Assets/img/back.svg';
 import {useHistory} from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 const FamilyContainer = () => {
     let familyData = [];
@@ -41,8 +42,6 @@ const FamilyContainer = () => {
             if( componentErrors.includes(true) || Object.keys(formError).length !== 0 || passwordFlag===false ){
                 return false;
             }handleSubmitConfirm();
-          
-  
     };
 
     const handleSubmitConfirm = () => {
@@ -74,7 +73,9 @@ const FamilyContainer = () => {
                             <div className="col-md-12">
                                 <div className="back-button">
                             <span className="back-arrow">
-                                <img src={back} />
+                                <Link to="/">
+                                    <img src={back} />
+                                </Link>
                             </span>
                                     <span className="font-weight-bold text-uppercase ml-2">Back</span>
                                 </div>
