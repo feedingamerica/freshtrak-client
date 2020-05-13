@@ -56,8 +56,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
 
     const { errors, handleErrors } =
         useForm(props, {
-            'password' : ['required'],
-            'passwordConfirm' : ['required'],
+            'password' : ['required']
         }, dataToParent);
 
     React.useImperativeHandle(ref, () => ({

@@ -55,7 +55,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
       () =>  getByTestId(container,'password-confirm'),
       { container }
     )
-    expect(showPwdConfirmError).toHaveTextContent('Required');
+    expect(showPwdConfirmError).toHaveTextContent('This field is required');
 
       fireEvent.change(password,{target:{value:''}}) //with content
       fireEvent.change(passwordConfirm,{target:{value:fakePwd}})
@@ -64,7 +64,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
       () =>  getByTestId(container,'password'),
       { container }
     )
-    expect(showPwdConfirmError2).toHaveTextContent('Required');
+    expect(showPwdConfirmError2).toHaveTextContent('This field is required');
 
     // pending checking switch default statement
     cleanup()
