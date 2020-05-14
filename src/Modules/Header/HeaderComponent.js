@@ -9,6 +9,7 @@ import navBarIcon from "../../Assets/img/menu.svg";
 import userIcon from "../../Assets/img/Mask.svg";
 import { Link } from "react-router-dom";
 import CustomModalComponent from "../General/CustomModalComponent";
+import closeIcon from '../../Assets/img/close.svg';
 import {
   Nav,
   NavDropdown,
@@ -22,9 +23,11 @@ const HeaderComponent = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const shortHeader = props.shortHeader || "";
   const [modalShow, setModalShow] = React.useState(false);
+  
+  let history = useHistory();
 
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
-
+  const [showMobileMenu, setMobileMenu] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") !== null) {
       setIsLoggedIn(true);
@@ -61,13 +64,15 @@ const HeaderComponent = (props) => {
                 type="button"
                 data-toggle="collapse"
                 data-target="#navbarCollapse"
+                onClick={() => setMobileMenu(true)}
               >
                 <span className="navbar-toggler-icon">
                   <img src={navBarIcon} alt="UserLogo" className="img-fluid" />
                 </span>
               </button>
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            {/* Commented to restrict triggering bootstrap dropdown */}
+            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
             <Navbar.Collapse
               id="navbarCollapse"
               className="justify-content-end"
@@ -77,18 +82,18 @@ const HeaderComponent = (props) => {
                   title="Find Resources"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item className="dropdown-item" href="#1">
-                    Find Resources
+                  <NavDropdown.Item className="dropdown-item" onSelect={()=>{history.push('/freshtrak-about')}}>
+                    About Freshtrak
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
               <Nav className="navbar-nav small  main-menu align-items-center">
                 <NavDropdown
-                  title="For Food Banks"
+                  title="For Foodbanks"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item className="dropdown-item" href="#4">
-                    For Food Banks
+                  <NavDropdown.Item className="dropdown-item" onSelect={()=>{history.push('/freshtrak-working')}}>
+                    Working with Freshtrak
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
@@ -138,6 +143,58 @@ const HeaderComponent = (props) => {
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
+
+            {/* Menu popup div */}
+
+            {
+                showMobileMenu && <div id="menuSlider" className="mobile-menu fadeIn">
+                    <div className="d-flex h-100 justify-content-end flex-column">
+                        <div className="mobile-menu-items">
+                            <div className="menu-item-title">FIND RESOURCES</div>
+                                <ul className="mt-2">
+                                    <li><a onClick={()=>{setMobileMenu(false);history.push('/freshtrak-about')}}>About FreshTrak</a></li>
+                                </ul>
+                            </div>
+                            <div className="mobile-menu-items mt-4 mb-4">
+                            <div className="menu-item-title">FOR FOODBANKS</div>
+                                <ul className="mt-2">
+                                    <li><a onClick={()=>{setMobileMenu(false);history.push('/freshtrak-working')}}>Working with FreshTrak</a></li>
+                                </ul>
+                            </div>
+                            <hr></hr>
+                            {/* Out of Scope */}
+                            {/* <div className="status-info"> */}
+                            {/* {isLoggedIn ? */}
+                            {/* <div className="user-avatar">
+                                <NavDropdown title={
+                                    <div className="d-flex align-items-center">
+                                        <span>
+                                        <img className="thumbnail-image" src={userIcon} alt="user pic" />
+                                    </span>
+                                    <span className="text-uppercase ml-2">MANAGE YOUR ACCOUNT</span>
+                                    </div> */}
+                                {/* }> */}
+                                    {/* <DropdownItem eventKey={1.3} onClick={(() => { localStorage.removeItem('isLoggedIn', false); setIsLoggedIn(false); window.location.reload(); })}>
+                                        <i className="fa fa-sign-out"></i> Logout
+                                    </DropdownItem>
+                                </NavDropdown> */}
+                                {/* <div className="user-avatar">
+                                {isLoggedIn == false ? <LoggedInComponent/> : <SignInComponent/>} */}
+{/* 
+                            </div>
+                            :
+
+                            <button className="sign-in-button" onClick={() => setModalShow(true)}>
+                                Sign In
+                                </button>}
+                            </div> */}
+                        </div>
+                        
+                    <button className="mobile-close" onClick={() => setMobileMenu(false)}>
+                        <img src={closeIcon}/>
+                    </button>
+                </div>
+            }
     </React.Fragment>
   );
 };
