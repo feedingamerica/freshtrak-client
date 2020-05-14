@@ -55,11 +55,11 @@ describe('PasPasswordRegistrationFormComponents',()=>{
       () =>  getByTestId(container,'password-confirm'),
       { container }
     )
-    expect(showPwdConfirmError).toHaveTextContent('This field is required');
+    expect(showPwdConfirmError).toHaveTextContent('');
 
       fireEvent.change(password,{target:{value:''}}) //with content
       fireEvent.change(passwordConfirm,{target:{value:fakePwd}})
-      fireEvent.blur(passwordConfirm);
+      fireEvent.blur(password);
     let showPwdConfirmError2 = await waitForElement(
       () =>  getByTestId(container,'password'),
       { container }

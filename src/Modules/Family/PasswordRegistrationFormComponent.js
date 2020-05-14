@@ -7,8 +7,8 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     const [passwordConfirm, setPasswordConfirm] = React.useState('');
     const [passwordFieldError, setPasswordFieldError] = React.useState(false);
     const [passwordStatus, setPasswordStatus] = React.useState(false);
-    const [childFamilyData, setChildFamilyData] = React.useState('');
-    let data='';
+    const [childFamilyData, setChildFamilyData] = React.useState({});
+    let data={};
 
     const buildForm = (event) => {
         event.preventDefault();
@@ -46,20 +46,24 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         };
 
 
-    const dataToParent = () => {
-        buildChildData();
-        props.onSelectedChild(childFamilyData);
-    };
+    // const dataToParent = () => {
+
+    //     buildChildData();
+    //     props.onSelectedChild(childFamilyData);
+    // };
 
     const { errors, handleErrors } =
         useForm(props, {
             'password' : ['required']
-        }, dataToParent);
+        }, ()=>buildChildData());
 
     React.useImperativeHandle(ref, () => ({
+        getCurrentData(){
+            return childFamilyData
+        },
         triggerErrors(){
-            buildChildData();
-            return handleErrors(data.passwordData);
+            if(!childFamilyData['passwordData']) {buildChildData()};
+            return handleErrors(childFamilyData['passwordData']);
         }}));
 
     const passwordCheck=(e)=>{

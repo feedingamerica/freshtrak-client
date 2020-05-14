@@ -7,6 +7,7 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     const [pickupNumberPlateTwo, setPickupNumberPlateTwo] = React.useState('');
     const [pickupType, setPickupType] =  React.useState('Me');
     const [step, setStep] =  React.useState(false);
+    const [childFamilyData,setChildFamilyData] = React.useState({})
     let data= '';
 
     const buildAddressForm = (event) => {
@@ -40,7 +41,7 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
                 pickupType: pickupType,
             }
         };
-        props.onSelectedChild(data);
+        setChildFamilyData(data)
     };
 
     const additionalBox=(e)=> {
@@ -51,7 +52,11 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             setStep(true)
         }
     };
-    
+    React.useImperativeHandle(ref, () => ({
+        getCurrentData(){
+            return childFamilyData
+        }
+    }));
 
 
     return (

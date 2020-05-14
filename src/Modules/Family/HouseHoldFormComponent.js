@@ -7,8 +7,8 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
     const [aptNo, setAptNo] = React.useState('');
     const [zip, setZip] = React.useState('');
     const [housingType, setHousingType] = React.useState('Apartment');
-    const [childFamilyData, setChildFamilyData] = React.useState([]);
-    let data='';
+    const [childFamilyData, setChildFamilyData] = React.useState({});
+    let data={};
 
     const buildAddressForm = (event) => {
         event.preventDefault();
@@ -43,23 +43,23 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
         setChildFamilyData(data);
     };
 
-    const dataToParent = () => {
-        buildChildData();
-        props.onSelectedChild(childFamilyData);
-    };
+
 
     const { errors, handleErrors } =
         useForm(props, {
             'street_address' : ['required', 'min:1'],
             'apt_no' : ['required'],
             'zip_code' : ['required','number']
-        }, dataToParent);
+        }, ()=>{buildChildData()});
 
     React.useImperativeHandle(ref, () => ({
 
+        getCurrentData(){
+            return childFamilyData
+        },
         triggerErrors(){
-            buildChildData();
-            return handleErrors(data.addressData);
+            if(!childFamilyData['addressData']) {buildChildData()};
+            return handleErrors(childFamilyData['addressData']);
         }
     }));
 

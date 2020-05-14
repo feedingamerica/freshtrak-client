@@ -1,6 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useEffect } from "react";
 
 const MemberCountFormComponent=React.forwardRef((props, ref)=> {
+    let  data= '';
     const [countSenior, setCountSenior] = React.useState(0);
     const [countAdult, setCountAdult] = React.useState(0);
     const [countKids, setCountKids] = React.useState(0);
@@ -9,18 +10,16 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
         countAdult: 0,
         countKids: 0,
     }});
-    // useCallback(()=>buildChildData(),[countSenior, countAdult, countKids]);
   
-   
+
     const buildChildData = () => {
-        let  data= { memberCountData :{
+        data= { memberCountData :{
                 countSenior: countSenior,
                 countAdult: countAdult,
                 countKids: countKids,
             }
         };
         setChildFamilyData(data);
-        props.onSelectedChild(childFamilyData);
     };
 
     const handleClick = (event) => {
@@ -51,8 +50,11 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
         buildChildData();
     };
     React.useImperativeHandle(ref, () => ({
+        getCurrentData(){
+            return childFamilyData
+        },
         triggerErrors(){
-            buildChildData();
+        buildChildData();
         }}));
     return (
         <div>

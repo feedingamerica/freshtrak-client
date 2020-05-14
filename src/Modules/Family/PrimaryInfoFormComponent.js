@@ -11,11 +11,11 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
     const [phoneNumber, setPhoneNumber] = React.useState('');
     const [email, setEmail] = React.useState('Email');
     const [communicationPreference, setCommunicationPreference] = React.useState('Email');
-    const [childFamilyData, setChildFamilyData] = React.useState('');
+    const [childFamilyData, setChildFamilyData] = React.useState({});
     const [phoneDisable, setPhoneDisable] = React.useState(false);
 
     // variable used to store complete object to be returned
-    let data = '';
+    let data = {};
 
     const buildNameForm = (e) => {
         let { name, value } = e.target;
@@ -71,10 +71,7 @@ const buildChildData = ()=>{
     }
     setChildFamilyData(data);
 }
-    const dataToParent = () => {
-        buildChildData();
-        props.onSelectedChild(childFamilyData);
-    };
+
 
     const { errors, handleErrors } =
         useForm(props, {
@@ -84,14 +81,16 @@ const buildChildData = ()=>{
             'dob' : ['required'],
             'email' : ['required','is_address'],
             'phone_number' : ['required','is_phone']
-        }, dataToParent);
+        }, ()=>buildChildData());
 
     React.useImperativeHandle(ref, () => ({
-
+        getCurrentData(){
+            return childFamilyData
+        },
         triggerErrors(){
             
-            buildChildData();
-            return handleErrors(data.primaryData);
+            if(data.length===0){ buildChildData()};
+            return handleErrors(childFamilyData['primaryData']);
         }}));
 
     const phoneDisableFunction=()=>{
