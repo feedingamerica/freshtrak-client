@@ -8,7 +8,7 @@ const NavigationBtnComponent = (props) => {
     let history = useHistory();
     return (
         <div className="back-button" onClick={()=>history.goBack()}>
-            <span className="back-arrow">
+            <span data-testid="back-btn" className="back-arrow">
                 <img src={backBtn} />
             </span>
             <span className="font-weight-bold text-uppercase ml-2" >Back</span>

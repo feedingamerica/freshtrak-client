@@ -16,7 +16,7 @@ const FooterComponent = (props) => {
                             <div className="col-md-6">
                                 <span className="list-title">FIND RESOURCES</span>
                                 <ul>
-                                    <li><a onClick={()=>history.push('/freshtrak-about')}>About FreshTrak</a></li>
+                                    <li><a data-testid="about" onClick={()=>history.push('/freshtrak-about')}>About FreshTrak</a></li>
                                 </ul>
                             </div>
                             <div className="col-md-6">
