@@ -40,9 +40,10 @@ const FamilyContainer = () => {
             await memberCountFormRef.current.triggerErrors()
             );
         }
-            if( componentErrors.includes(true) || Object.keys(formError).length !== 0 || passwordFlag===false ){
-                return false;
-            }handleSubmitConfirm();
+        if( componentErrors.includes(true) || Object.keys(formError).length !== 0 || passwordFlag===false ){
+            return false;
+        }
+        handleSubmitConfirm();
     };
 
     const handleSubmitConfirm = () => {
@@ -58,7 +59,7 @@ const FamilyContainer = () => {
             memberCountData:memberCountFormRef.current.getCurrentData().memberCountData ? memberCountFormRef.current.getCurrentData().memberCountData:''
         };
         // Deleted a condition check as it seemed unnecessary and has unreachable code
-        // history.push('/');
+        history.push('/');
     };
 
     const getPasswordStatus = (passwordData) => {
