@@ -28,5 +28,5 @@ export const mockFoodBankContactBuilder = build('ContactInfo').fields({
   suffx: oneOf('Jr','Sr'),
   phoneNumber: fake(f => f.phone.phoneNumber()),
   contactEmail: fake(f => f.internet.email()),
-  commPreferenct: oneOf('Phone','email')
+  commPreference: oneOf('Phone','Email')
 });

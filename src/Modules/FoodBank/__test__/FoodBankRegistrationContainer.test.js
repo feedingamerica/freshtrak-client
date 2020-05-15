@@ -1,10 +1,9 @@
 import React from 'react';
 import { render, fireEvent,wait,waitForElement} from '@testing-library/react';
-import {BrowserRouter as Router,useHistory} from 'react-router-dom';
+import {BrowserRouter as Router} from 'react-router-dom';
 import FoodBankRegistrationContainer from './../FoodBankRegistrationContainer';
-import ReactDOM from 'react-dom';
 import { noop, mockFoodBankRegisterBuilder, mockFoodBankContactBuilder} from '../../../Testing';
-import {fake} from 'test-data-bot';
+
 
 test('should render', () => {
 	expect(() => {
@@ -21,21 +20,19 @@ test ("Should show the validation erros on button click" ,async () => {
     const zip_ode = container.querySelector('input[name="zipcode"]');
 	const contact_email = container.querySelector('input[name="contact_email"]');
 	const submitButton = container.querySelector('input[name="savefoodbank"]');
-
-	let zipCode = fake(f=>f.random.word()).generate(1);
-	let contactEmail = fake(f=>f.random.word()).generate(1);
+	let mockContact  = mockFoodBankContactBuilder();
 
 	fireEvent.click(getByText(/Continue/i))
 	await wait(() =>{
 		expect(getByTestId('registr-data')).toHaveTextContent('This field is required');
 	});	
 
-	fireEvent.blur(zip_ode, {target: {value: zipCode}});	
+	fireEvent.blur(zip_ode, {target: {value: mockContact.firstName}});	
 	await wait(() =>{
 		expect(getByTestId('zip-code')).toHaveTextContent('Enter a numeric value');
 	});
 
-	fireEvent.blur(contact_email, {target: {value: contactEmail}});	
+	fireEvent.blur(contact_email, {target: {value: mockContact.firstName}});	
 	await wait(() =>{
 		expect(getByTestId('contact-email')).toHaveTextContent('Enter a valid email address');
 	});

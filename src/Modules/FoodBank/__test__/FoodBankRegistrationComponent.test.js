@@ -1,10 +1,7 @@
 import React from 'react';
 import { render, fireEvent,wait} from '@testing-library/react';
-import { useHistory } from 'react-router-dom';
 import FoodBankRegistrationComponent from './../FoodBankRegistrationComponent';
-import ReactDOM from 'react-dom';
 import { noop, mockFoodBankRegisterBuilder} from '../../../Testing';
-import {fake} from 'test-data-bot';
 
 test('should render', () => {
 	expect(() => {
@@ -36,9 +33,7 @@ test ("Checking whether the validations are working properly" ,async () => {
 	const address = container.querySelector('input[name="address"]');
 	const zip_ode = container.querySelector('input[name="zipcode"]');
 	const suiteblg = container.querySelector('input[name="suiteblg"]');
-
-	let zipCode = fake(f=>f.random.word()).generate(1);
-	let suiteBlg = fake(f => f.random.word()).generate(1);
+    let mockFoodBankData = mockFoodBankRegisterBuilder();
 
 	fireEvent.blur(org_name);
 	await wait(() =>{
@@ -55,12 +50,12 @@ test ("Checking whether the validations are working properly" ,async () => {
 		expect(getByTestId('zip-code')).toHaveTextContent('This field is required');
 	});
     
-    fireEvent.change(suiteblg, {target: {value: suiteBlg}});
+    fireEvent.change(suiteblg, {target: {value: mockFoodBankData.suiteBlg}});
 	await wait(() =>{
-		expect(suiteblg).toHaveValue(suiteBlg);
+		expect(suiteblg).toHaveValue(mockFoodBankData.suiteBlg);
 	});
    
-	fireEvent.blur(zip_ode, {target: {value: zipCode}});	
+	fireEvent.blur(zip_ode, {target: {value: mockFoodBankData.suiteBlg}});	
 	await wait(() =>{
 		expect(getByTestId('zip-code')).toHaveTextContent('Enter a numeric value');
 	});
