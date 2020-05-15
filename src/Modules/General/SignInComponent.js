@@ -8,9 +8,12 @@ import useForm from '../../Utils/UseForm';
 const SignInComponent =()=> {
 
   const [signInForm,setSignInForm] = useState({username:'',password:''});
-  const handleSubmit = () => {
-    localStorage.setItem("isLoggedIn", true);
-    window.location.reload();
+  const handleSubmit = async() => {
+    let isError = await handleErrors(signInForm);
+    if (!isError) {
+      localStorage.setItem("isLoggedIn", true);
+      window.location.reload();
+    }
   };
 
 // binding data to state
@@ -26,7 +29,7 @@ const SignInComponent =()=> {
 
 
   return (
-    <div className="form-fields sign-in-form">
+    <div className="form-fields sign-in-form" data-testid='signin-form'>
       <div className="form-title">
         <h1>Sign In</h1>
       </div>
@@ -37,7 +40,7 @@ const SignInComponent =()=> {
           your account.
         </div>
       </div>
-      <div className="form-group">
+      <div className="form-group" data-testid="username">
         <label>Username or Email Address</label>
         <input
           type="text"
@@ -49,7 +52,7 @@ const SignInComponent =()=> {
         />
         {errors.username? errors.username :''}
       </div>
-      <div className="form-group">
+      <div className="form-group" data-testid="password">
         <label>Password</label>
         <input
           type="password"
