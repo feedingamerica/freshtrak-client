@@ -18,6 +18,8 @@ const EditAccountComponent = (props) => {
     let history = useHistory();
     const primaryInfoRef = React.useRef();
     const houseHoldRef = React.useRef();
+    const passwordRef = React.useRef();
+    const pickupInfoRef = React.useRef();
     
 //  Currently, 'Change Password' is kept static. 
     const [currentPage] = useState(page);
@@ -31,20 +33,19 @@ const EditAccountComponent = (props) => {
         }
     });
     
-const checkForErrors = async(componentErrors)=>{
-  let houseErr = await houseHoldRef.current.triggerErrors();
-  let primaryErr = await primaryInfoRef.current.triggerErrors();
-  componentErrors =[...componentErrors,houseErr,primaryErr];
-  return componentErrors;
 
-}
     const handleFormValidation = async(e) => {
         e.preventDefault();
         let componentErrors = [];
 
         switch(currentPage){
-            case 'your-info': await checkForErrors(componentErrors);break;
-
+            case 'your-info': componentErrors =[...componentErrors,
+                              await houseHoldRef.current.triggerErrors(),
+                              await primaryInfoRef.current.triggerErrors()];
+            break;
+            case 'login-info': componentErrors =[...componentErrors,
+              await passwordRef.current.triggerErrors()];
+              break;
         //  cases will be defined here for password and membercountinfo component after code review.
             default: break;
             
@@ -64,79 +65,14 @@ const checkForErrors = async(componentErrors)=>{
     
       const handleSubmit = () => {
         let familyDetails = {
-          familyMemberData: {
-            first_name: familyData.nameData
-              ? familyData.nameData.nameData.first_name
-              : "",
-            last_name: familyData.nameData
-              ? familyData.nameData.nameData.last_name
-              : "",
-            middle_name: familyData.nameData
-              ? familyData.nameData.nameData.middle_name
-              : "",
-            hoh: familyData.nameData ? familyData.nameData.nameData.hoh : "",
-            dob: familyData.nameData ? familyData.nameData.nameData.dob : "",
-            suffix: familyData.nameData ? familyData.nameData.nameData.suffix : "",
-            phoneNumber: familyData.nameData
-              ? familyData.nameData.nameData.phoneNumber
-              : "",
-            phoneNumberCheckBOx: familyData.nameData
-              ? familyData.nameData.nameData.phoneNumberCheckBOx
-              : "",
-            email: familyData.nameData ? familyData.nameData.nameData.email : "",
-            communicationPreference: familyData.nameData
-              ? familyData.nameData.nameData.communicationPreference
-              : "",
-          },
-    
-          HouseHoldData: {
-            address: familyData.addressData
-              ? familyData.addressData.addressData.streetAddress
-              : "",
-            apt_number: familyData.addressData
-              ? familyData.addressData.addressData.aptNo
-              : "",
-            zipcode: familyData.zipData ? familyData.zipData.zipData.zip : "",
-          },
-    
-          passwordData: {
-            password: familyData.passwordData
-              ? familyData.passwordData.passwordData.password
-              : "",
-          },
-    
-          memberCountData: {
-            countSenior: familyData.memberCountData
-              ? familyData.memberCountData.memberCountData.countSenior
-              : "",
-            countMiddle: familyData.memberCountData
-              ? familyData.memberCountData.memberCountData.countMiddle
-              : "",
-            countJunior: familyData.memberCountData
-              ? familyData.memberCountData.memberCountData.countMiddle
-              : "",
-          },
-    
-          pickuptData: {
-            pickupInfo: familyData.pickupData
-              ? familyData.pickupData.pickupData.pickupInfo
-              : "",
-            pickupName: familyData.pickupData
-              ? familyData.pickupData.pickupData.pickupName
-              : "",
-            pickupNumberPlate: familyData.pickupData
-              ? familyData.pickupData.pickupData.pickupNumberPlate
-              : "",
-          },
+          familyMemberData:primaryInfoRef.current.getCurrentData().primaryData ? primaryInfoRef.current.getCurrentData().primaryData:'',
+          HouseHoldData:houseHoldRef.current.getCurrentData().addressData ? houseHoldRef.current.getCurrentData().addressData:'',
+          passwordData:passwordRef.current.getCurrentData()
         };
-    
       // No action is specified here as of now.
       };
     
-      const buildFamilyData = (childFamilyData) => {
-        let dataKey = Object.keys(childFamilyData)[0];
-        familyData[dataKey] = childFamilyData;
-      };
+   
     
       const formErrors = (errors) => {
         formError = errors;
@@ -144,19 +80,16 @@ const checkForErrors = async(componentErrors)=>{
 
       
 
-
-
     // go to home page in case of missing state
     const handleNoStateError = ()=> {
         history.push('/');
     }
     const commonHandler = () => {
         switch (page) {
-            case 'your-info': return (<React.Fragment><HouseHoldFormComponent ref={houseHoldRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} /><PrimaryInfoFormComponent ref={primaryInfoRef} onSelectedChild={buildFamilyData} onFormErrors={formErrors} /></React.Fragment>);
-
-            case 'pickup-info':  return (<AdditionalPickUpFormComponent  onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
-            case 'house-info':  return (<MemberCountFormComponent  onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
-            case 'login-info':  return (<ChangePasswordComponent  onSelectedChild={buildFamilyData} onFormErrors={formErrors} />);
+            case 'your-info': return (<React.Fragment><HouseHoldFormComponent ref={houseHoldRef} onFormErrors={formErrors} /><PrimaryInfoFormComponent ref={primaryInfoRef}  onFormErrors={formErrors} /></React.Fragment>);
+            case 'pickup-info':  return (<AdditionalPickUpFormComponent  onFormErrors={formErrors} />);
+            case 'house-info':  return (<MemberCountFormComponent  onFormErrors={formErrors} />);
+            case 'login-info':  return (<ChangePasswordComponent ref = {passwordRef} onFormErrors={formErrors} />);
 
             default: return 'Somethings wrong'; 
         }

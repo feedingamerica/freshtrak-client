@@ -1,99 +1,63 @@
 import React from "react";
 
-const MemberCountFormComponent = (props) => {
+const MemberCountFormComponent=React.forwardRef((props, ref)=> {
+    let  data= '';
     const [countSenior, setCountSenior] = React.useState(0);
     const [countAdult, setCountAdult] = React.useState(0);
     const [countKids, setCountKids] = React.useState(0);
-    const [isChanged, setIsChanged] = React.useState('');
-    
-    React.useEffect(() => {
-        handleChange();
-    }, [isChanged]);
+    const [childFamilyData,setChildFamilyData] = React.useState({memberCountData :{
+        countSenior: 0,
+        countAdult: 0,
+        countKids: 0,
+    }});
+  
 
-
-    const handleChange = () => {
-        let  childFamilyData= { memberCountData :{
+    const buildChildData = () => {
+        data= { memberCountData :{
                 countSenior: countSenior,
                 countAdult: countAdult,
                 countKids: countKids,
             }
         };
-        props.onSelectedChild(childFamilyData);
+        setChildFamilyData(data);
     };
 
     const handleClick = (event) => {
         event.preventDefault();
         let name = event.target.name;
-        setIsChanged(name);
         switch (name) {
-            case 'count_senior_inc' :   if(countSenior < 13) 
-                                            setCountSenior(countSenior + 1);  
-                                        break;
+            case 'count_senior_inc' :   if(countSenior < 13)
+                setCountSenior(countSenior + 1);
+                break;
             case 'count_senior_dec' :   if (countSenior > 0)
-                                            setCountSenior(countSenior - 1);
-                                        break;
+                 setCountSenior(countSenior - 1);
+                break;
 
-            case 'count_adult_inc'  :   if(countAdult < 13) 
-                                            setCountAdult(countAdult + 1);  
-                                        break;
+            case 'count_adult_inc'  :   if(countAdult < 13)
+                setCountAdult(countAdult + 1);
+                break;
             case 'count_adult_dec'  :   if (countAdult > 0)
-                                            setCountAdult(countAdult - 1);
-                                        break;
-            case 'count_kids_inc'   :   if(countKids < 13) 
-                                            setCountKids(countKids + 1);  
-                                        break;
+                setCountAdult(countAdult - 1);
+                break;
+            case 'count_kids_inc'   :   if(countKids < 13)
+                setCountKids(countKids + 1);
+                break;
             case 'count_kids_dec'   :   if (countKids > 0)
-                                            setCountKids(countKids - 1);
-                                        break;
+                setCountKids(countKids - 1);
+                break;
             default                 :   break;
         }
+        buildChildData();
     };
-
-    /*
-    const seniorDecrementFunction=(e)=> {
-        e.preventDefault();
-        if (countSenior) {
-            setCountSenior(countSenior - 1)
-        }
-    };*/
-    /*const seniorIncrementFunction=(e)=> {
-        e.preventDefault();
-
-        if (countSenior<13) {
-            setCountSenior(countSenior + 1)
-        }
-    };*/
-    /*const adultDecrementFunction=(e)=> {
-        e.preventDefault();
-        if (countMiddle) {
-            setCountMiddle(countMiddle - 1)
-        }
-    };
-
-    const adultIncrementFunction=(e)=> {
-        e.preventDefault();
-
-        if (countMiddle<13) {
-            setCountMiddle(countMiddle + 1)
-        }
-    };*/
-    /*const kidDecrementFunction=(e)=> {
-        e.preventDefault();
-        if (countJunior) {
-            setCountJunior(countJunior - 1)
-        }
-    };
-
-    const kidIncrementFunction=(e)=> {
-        e.preventDefault();
-
-        if (countJunior<13) {
-            setCountJunior(countJunior + 1)
-        }
-    };*/
-
+    React.useImperativeHandle(ref, () => ({
+        getCurrentData(){
+            return childFamilyData
+        },
+        triggerErrors(){
+        buildChildData();
+        }}));
     return (
-        <div>
+        <div class="content-wrapper">
             <div className="form-sub-title font-weight-bold">
                 Total Number of Household Members
                 <div className="mt-3 pt-1">
@@ -124,5 +88,7 @@ const MemberCountFormComponent = (props) => {
                 </div>
             </div>
         </div>
-    )};
+    )
+});
+
 export default MemberCountFormComponent;

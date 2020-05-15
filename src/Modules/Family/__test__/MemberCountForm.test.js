@@ -28,10 +28,10 @@ test('should render with mockMemberCountBuilder  data provided', () => {
 test('checking whether the member count working correctly',async () =>{
     const {container,getByTestId,queryByTestId,} = render(
         <MemberCountFormComponent
-            onSelectedChild={mockMemberCountBuilder}
+            onSelectedChild={noop}
             onFormErrors={noop}
         />);
-
+    
     let kids_count_input = container.querySelector('input[name="kids_count_input"]');
     let adult_count_input = container.querySelector('input[name="adult_count_input"]');
     let senior_count_input = container.querySelector('input[name="senior_count_input"]');
@@ -78,6 +78,8 @@ test('checking whether the member count working correctly',async () =>{
     await wait(()=>{
         expect(senior_count_input.value).toBe("2");
     });
-
-
+    fireEvent.click(add_senior_dec, { target: { name:'switch_default',value:"2" } });
+    await wait(()=>{
+        expect(senior_count_input.value).toBe("2");
+    });     
 });

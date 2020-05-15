@@ -2,6 +2,7 @@ import React from "react";
 import { render, fireEvent, wait } from "@testing-library/react";
 import PrimaryInfoFormComponent from "../PrimaryInfoFormComponent";
 import { noop, mockPrimaryInfoBuilder } from "../../../Testing";
+
 test("should render", () => {
   expect(() => {
     render(
@@ -51,13 +52,7 @@ test("should show validation errors", async () => {
   await wait(() => {
     expect(getByTestId("email")).toHaveTextContent("This field is required");
   });
-  fireEvent.blur(phno);
-  await wait(() => {
-    expect(getByTestId("phno")).toHaveTextContent("This field is required");
-  });
 });
-
-
 
 
 test("Testing for value binding", async () => {
@@ -68,21 +63,7 @@ test("Testing for value binding", async () => {
       onFormErrors={noop}
     />
   );
-// Generate fake data
-  const fakeEmail = mockPrimaryInfoBuilder.email;
-  const fakeDOB = '1990-12-12';
-  const fakeFname = mockPrimaryInfoBuilder.firstName;
-  const fakeLname = mockPrimaryInfoBuilder.lastName;
-  const fakeMname = mockPrimaryInfoBuilder.middleName;
-  const fakeSuffix = mockPrimaryInfoBuilder.suffix;
-  const fakeHoh = mockPrimaryInfoBuilder.hoh;
-  const fakePhno = mockPrimaryInfoBuilder.phoneNumber;
-  const fakeChk = mockPrimaryInfoBuilder.firstName;
-  const fakeComPref = mockPrimaryInfoBuilder.comPref
-
-
-
-
+  let mockPrimaryData = mockPrimaryInfoBuilder();
 
   const first_name = container.querySelector('input[name="first_name"]');
   const last_name = container.querySelector('input[name="last_name"]');
@@ -95,37 +76,37 @@ test("Testing for value binding", async () => {
   const phnoChk = container.querySelector('input[name="phone_number_checkbox"]');
   const comPref = container.querySelector('select[name="communication_preference"]');
   
-  fireEvent.change(first_name, { target: { value:fakeFname } })
-  expect(first_name.value).toBe(fakeFname);
+  fireEvent.change(first_name, { target: { value:mockPrimaryData.firstName } })
+  expect(first_name.value).toBe(mockPrimaryData.firstName);
 
-  fireEvent.change(last_name, { target: { value: fakeLname } })
-  expect(last_name.value).toBe(fakeLname);
+  fireEvent.change(last_name, { target: { value: mockPrimaryData.lastName } })
+  expect(last_name.value).toBe(mockPrimaryData.lastName);
 
-  fireEvent.change(middle_name, { target: { value: fakeMname } })
-  expect(middle_name.value).toBe(fakeMname);
+  fireEvent.change(middle_name, { target: { value: mockPrimaryData.middleName } })
+  expect(middle_name.value).toBe(mockPrimaryData.middleName);
 
-  fireEvent.change(dob, { target: { value: fakeDOB } })
-  expect(dob.value).toBe(fakeDOB);
+  fireEvent.change(dob, { target: { value: mockPrimaryData.dob } })
+  expect(dob.value).toBe(mockPrimaryData.dob);
 
-  fireEvent.change(email, { target: { value: fakeEmail } })
-  expect(email.value).toBe(fakeEmail);
+  fireEvent.change(email, { target: { value: mockPrimaryData.email } })
+  expect(email.value).toBe(mockPrimaryData.email);
 
-  fireEvent.change(suffix, { target: { value: fakeSuffix } })
-  expect(suffix.value).toBe(fakeSuffix);
+  fireEvent.change(suffix, { target: { value: mockPrimaryData.suffix } })
+  expect(suffix.value).toBe(mockPrimaryData.suffix);
 
-  fireEvent.change(hoh, { target: { value: fakeHoh } })
-  expect(hoh.value).toBe(fakeHoh);
+  fireEvent.change(hoh, { target: { value: mockPrimaryData.hoh } })
+  expect(hoh.value).toBe(mockPrimaryData.hoh);
 
   fireEvent.change(phnoChk);
   expect(phnoChk.value).toBe('on');
 
-  fireEvent.change(comPref,{ target: { value: fakeComPref } });
-  expect(comPref.value).toBe(fakeComPref);
+  fireEvent.change(comPref,{ target: { value: mockPrimaryData.comPref } });
+  expect(comPref.value).toBe(mockPrimaryData.comPref);
 
   
 
-  fireEvent.change(phno, { target: { value:fakePhno  } })
-  expect(phno.value).toBe(`${fakePhno}`);
+  fireEvent.change(phno, { target: { value:mockPrimaryData.phoneNumber  } })
+  expect(phno.value).toBe(mockPrimaryData.phoneNumber);
 
 //  checking whether disable phone option toggles both divs.
 fireEvent.click(phnoChk);
@@ -140,8 +121,8 @@ await wait(()=>{
 
 // Checking default switch case
 
-fireEvent.change(first_name, { target: { name:'asdasd',value:fakeFname } });
-expect(first_name.value).toBe(fakeFname );
+fireEvent.change(first_name, { target: { name:'switch_default',value:mockPrimaryData.firstName } });
+expect(first_name.value).toBe(mockPrimaryData.firstName );
 
 
 

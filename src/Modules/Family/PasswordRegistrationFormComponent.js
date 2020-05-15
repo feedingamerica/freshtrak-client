@@ -5,22 +5,19 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
 
     const [password, setPassword] = React.useState('');
     const [passwordConfirm, setPasswordConfirm] = React.useState('');
-    const [passwordError, setPasswordError] = React.useState(false);
     const [passwordFieldError, setPasswordFieldError] = React.useState(false);
-    const [passwordConfirmFieldError, setPasswordConfirmFieldError] = React.useState(false);
-    const [isChanged, setIsChanged] = React.useState('');
     const [passwordStatus, setPasswordStatus] = React.useState(false);
-    let data,childFamilyData ='';
+    const [childFamilyData, setChildFamilyData] = React.useState({});
+    let data={};
 
     const buildForm = (event) => {
         event.preventDefault();
         let name = event.target.name;
-        setIsChanged(name)
         switch (name) {
             case 'password':
                 setPassword(event.target.value);
                 break;
-            case 'passwordConfirm':
+            case 'password_confirm':
                 setPasswordConfirm(event.target.value);
                 break;
             default:
@@ -28,87 +25,91 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         }
     };
 
-    const handleChange = () => {
+    const buildChildData = () => {
         data = {
-            passwordStatus:passwordStatus,
             passwordData: {
-                password: password,
-                passwordConfirmFieldError:passwordConfirmFieldError
+                password: password
             }
-        };props.onSelectedChild(data);
+        };
+        setChildFamilyData(data);
     };
+  
     React.useEffect(() => {
-        handleChange();
-    }, [isChanged]);
+        passwordCheckFunction();
+    }, [passwordStatus]);
 
-    const dataToParent = () => {
-        props.onSelectedChild(childFamilyData);
-    };
+    const passwordCheckFunction = () => {
+      let  passwordData = {
+            passwordStatus:passwordStatus
+            }; 
+        props.getPasswordStatus(passwordData);
+        };
+
+
+    // const dataToParent = () => {
+
+    //     buildChildData();
+    //     props.onSelectedChild(childFamilyData);
+    // };
 
     const { errors, handleErrors } =
         useForm(props, {
-            'password' : ['required'],
-            'passwordConfirm' : ['required'],
-        }, dataToParent);
+            'password' : ['required']
+        }, ()=>buildChildData());
 
     React.useImperativeHandle(ref, () => ({
+        getCurrentData(){
+            return childFamilyData
+        },
         triggerErrors(){
-            handleChange();
-            return handleErrors(data.passwordData);
+            if(!childFamilyData['passwordData']) {buildChildData()};
+            return handleErrors(childFamilyData['passwordData']);
         }}));
 
-    const passwordCheck=()=>{
-
+    const passwordCheck=(e)=>{
         if (password !== '' && passwordConfirm !==''&& passwordConfirm===password){
-            setPasswordError(false)
-            setPasswordConfirmFieldError(false)
             setPasswordStatus(true)
-        } else if ( password === ''){
-            setPasswordError(true)
-            setPasswordConfirmFieldError(true)
-        }else if(passwordConfirm ===''){
-            setPasswordError(true)
-            setPasswordConfirmFieldError(true)
+            setPasswordFieldError(false)
+        } else if ( password === ''&& passwordConfirm ==='') {
+            setPasswordStatus(false)
+            setPasswordFieldError(true)
+        }else if ( password === '' || passwordConfirm ===''){
+            setPasswordStatus(false)
+            setPasswordFieldError(true)
         }else if (password!==passwordConfirm){
-            setPasswordError(true)
-            setPasswordConfirmFieldError(true)
-
+            setPasswordFieldError(true)
+            setPasswordStatus(false)
         }
+        handleErrors(e);
     }
 
     return (
-        <div className="form-fields pt-50" data-testid="password-form">
+        <div className="form-fields pt-50">
             <div className="form-title">
-                Create FresTrak Account
+                Create FreshTrak Account
             </div>
             <div className="form-text mb-2">
                 Input a password to create a FreshTrak account and easily register with one click in the future.
             </div>
-            <div className="form-group" >
+            <div className="form-group" data-testid="password">
                 <label>Password</label>
 
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password" id="password" required/>
-                <div data-testid="password"> {passwordError && (
-
-                    <span className="validationError"> Required</span>
+                {errors.password && (
+                    <span className="validationError">{errors.password}</span>
                 )}
-                </div>
             </div>
 
-            <div className="form-group" >
+            <div className="form-group" data-testid="password-confirm">
                 <label>Confirm Password</label>
-                <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="passwordConfirm" id="passwordConfirm" />
-
-                <div data-testid = "password-confirm"> {passwordConfirmFieldError && (
-                    <span className="validationError">Required</span>
-                )}
-                </div>
-            </div>
-                <div data-testid="pwdSameError">
-                {passwordError &&(
-                   <span className="validationError"  >Password must be same</span>
-                )}
-                </div>
+                <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password_confirm" id="passwordConfirm" />
+                 {errors.password && (
+                    <span className="validationError">{errors.password}</span>
+                )}  
+                {!errors.password && passwordFieldError &&(
+                   <span className="validationError">Password must be same</span>
+                )}              
+            </div>               
         </div>
     )
 });
