@@ -110,7 +110,7 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
 				{errors.contact_email && (
                     <span className="validationError">{errors.contact_email}</span>
                 )}
-				<div class="mt-2">
+				<div className="mt-2">
 					<small className="text-muted">
 						No Email? <a href="">Get one free from Google.</a>
 					</small>
