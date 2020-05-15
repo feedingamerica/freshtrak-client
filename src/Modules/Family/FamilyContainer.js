@@ -57,9 +57,8 @@ const FamilyContainer = () => {
             pickupData:pickupCountFormRef.current.getCurrentData().pickupData ? pickupCountFormRef.current.getCurrentData().pickupData:'',
             memberCountData:memberCountFormRef.current.getCurrentData().memberCountData ? memberCountFormRef.current.getCurrentData().memberCountData:''
         };
-        console.log(familyDetails);
         // Deleted a condition check as it seemed unnecessary and has unreachable code
-        history.push('/');
+        // history.push('/');
     };
 
     const getPasswordStatus = (passwordData) => {
