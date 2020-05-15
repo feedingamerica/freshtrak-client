@@ -17,7 +17,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
             case 'password':
                 setPassword(event.target.value);
                 break;
-            case 'passwordConfirm':
+            case 'password_confirm':
                 setPasswordConfirm(event.target.value);
                 break;
             default:
@@ -67,7 +67,6 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         }}));
 
     const passwordCheck=(e)=>{
-
         if (password !== '' && passwordConfirm !==''&& passwordConfirm===password){
             setPasswordStatus(true)
             setPasswordFieldError(false)
@@ -85,38 +84,32 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     }
 
     return (
-        <div className="form-fields pt-50" data-testid="password-form">
+        <div className="form-fields pt-50">
             <div className="form-title">
                 Create FreshTrak Account
             </div>
             <div className="form-text mb-2">
                 Input a password to create a FreshTrak account and easily register with one click in the future.
             </div>
-            <div className="form-group" >
+            <div className="form-group" data-testid="password">
                 <label>Password</label>
 
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password" id="password" required/>
-                <div data-testid="password"> {errors.password && (
-
+                {errors.password && (
                     <span className="validationError">{errors.password}</span>
                 )}
-                </div>
             </div>
 
-            <div className="form-group" >
+            <div className="form-group" data-testid="password-confirm">
                 <label>Confirm Password</label>
-                <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="passwordConfirm" id="passwordConfirm" />
-
-                <div data-testid = "password-confirm"> {errors.password && (
+                <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password_confirm" id="passwordConfirm" />
+                 {errors.password && (
                     <span className="validationError">{errors.password}</span>
-                )}
-                </div>
-            </div>
-                <div data-testid="pwdSameError">
-                {passwordFieldError &&(
-                   <span className="validationError"  >Password must be same</span>
-                )}
-                </div>
+                )}  
+                {!errors.password && passwordFieldError &&(
+                   <span className="validationError">Password must be same</span>
+                )}              
+            </div>               
         </div>
     )
 });

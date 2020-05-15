@@ -71,12 +71,12 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
             <div className="form-group">
                 <label>Housing Type</label>
                 <select className="form-control" name="housing_type" id="housing_type"  defaultValue="Apartment" onChange={buildAddressForm} >
-                    <option value="Home or townhouse">Home or townhouse</option>'
-                    <option value="Apartment">Apartment</option>'
+                    <option value="Home or townhouse">Home or townhouse</option>
+                    <option value="Apartment">Apartment</option>
                     <option value="Mobile home or house trailer" >Mobile home or house trailer</option>'
-                    <option value="Military housing" >Military housing</option>'
-                    <option value="Student housing" >Student housing</option>'
-                    <option value="Temporary" >Temporary</option>'
+                    <option value="Military housing" >Military housing</option>
+                    <option value="Student housing" >Student housing</option>
+                    <option value="Temporary" >Temporary</option>
                     <option value="Prefer not to answer" >Prefer not to answer</option>'
                 </select>
             </div>
@@ -85,29 +85,25 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
                 <label>Street Address</label>
                 <input type="text" className="form-control" onChange={buildAddressForm} name="street_address" id="street_address"
                        onBlur={handleErrors} />
-                <div> {errors.street_address && (
+                {errors.street_address && (
                     <span className="validationError">{errors.street_address}</span>
                 )}
-                </div>
             </div>
 
             <div className="d-flex">
                 <div className="form-group" data-testid="apt-no" >
                     <label>Unit or Apt.</label>
                     <input type="text" className="form-control" onChange={buildAddressForm} name="apt_no" id="apt_no"  onBlur={handleErrors}  />
-                    <div> {errors.apt_no && (
+                    {errors.apt_no && (
                         <span className="validationError">{errors.apt_no}</span>
                     )}
-                </div>
-
                 </div>
                 <div className="form-group ml-2"  data-testid="zip-code">
                     <label>ZIP Code</label>
                     <input type="text" className="form-control"   name="zip_code" id="zip_code"  onChange={buildAddressForm}  onBlur={handleErrors} />
-                    <div> {errors.zip_code && (
+                    {errors.zip_code && (
                         <span className="validationError">{errors.zip_code}</span>
                     )}
-                    </div>
                 </div>
             </div>
         </div>

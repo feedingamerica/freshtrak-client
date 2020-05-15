@@ -57,7 +57,7 @@ const FamilyContainer = () => {
             pickupData:pickupCountFormRef.current.getCurrentData().pickupData ? pickupCountFormRef.current.getCurrentData().pickupData:'',
             memberCountData:memberCountFormRef.current.getCurrentData().memberCountData ? memberCountFormRef.current.getCurrentData().memberCountData:''
         };
-        
+        console.log(familyDetails);
         // Deleted a condition check as it seemed unnecessary and has unreachable code
         history.push('/');
     };
@@ -89,7 +89,7 @@ const FamilyContainer = () => {
                             <div className="col-lg-8 col-md-6">
                                 <EventDescriptionFormComponent/>
                             </div>
-                            <div className="col-lg-4 col-md-6">
+                            <div className="col-lg-4 col-md-6" data-testid="family-register">
                                 <RegistrationTextComponent/>
                                 <form onSubmit={handleFormValidation}>
 `                                    <div className="content-wrapper pt-100">
@@ -102,7 +102,6 @@ const FamilyContainer = () => {
                                         </div>
                                         <div className="form-fields pt-50">
                                             <PrimaryInfoFormComponent ref={primaryFormRef}
-                                                                      
                                                                       onFormErrors = {formErrors} />
                                             <PasswordRegistrationFormComponent ref={passwordFormRef}
                                                                                

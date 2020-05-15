@@ -111,29 +111,26 @@ const buildChildData = ()=>{
                 <label>First Name</label>
                 <input type="text" className="form-control" data-value ={firstName} onChange={buildNameForm} name="first_name" id="first_name"
                        onBlur={handleErrors}  />
-                <div> {errors.first_name && (
+                {errors.first_name && (
                     <span className="validationError" >{errors.first_name}</span>
                 )}
-                </div>
             </div>
 
             <div className="form-group" data-testid="middle-name">
                 <label>Middle Name</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="middle_name" id="middle_name"  onBlur={handleErrors}   />
-                <div> {errors.middle_name && (
+                {errors.middle_name && (
                     <span className="validationError" >{errors.middle_name}</span>
                 )}
-                </div>
             </div>
 
             <div className="form-group" data-testid="last-name">
                 <label>Last Name</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="last_name" id="last_name"
                        onBlur={handleErrors}   />
-                <div> {errors.last_name && (
+                {errors.last_name && (
                     <span className="validationError" >{errors.last_name}</span>
                 )}
-                </div>
             </div>
 
             <div className="form-group" data-testid="suffix">
@@ -147,10 +144,9 @@ const buildChildData = ()=>{
             <div className="form-group" data-testid="dob">
                 <label>Date of Birth</label>
                 <input type="date" className="form-control"  name="dob" id="dob" min="1900-01-02" onChange={buildNameForm}  onBlur={handleErrors}   />
-                <div> {errors.dob && (
+                {errors.dob && (
                     <span className="validationError">{errors.dob}</span>
                 )}
-                </div>
             </div>
 
             <div className="form-group" data-testid="hoh">
@@ -168,20 +164,18 @@ const buildChildData = ()=>{
 
               
             </div>)}
-
-
             {!phoneDisable && (
 
-                <div className="form-group" >
-                <label>Phone Number</label>
+                <div className="form-group" data-testid="phno">
+                    <label>Phone Number</label>
 
-                <input type="number" className="form-control" onChange={buildNameForm} data-testid="phno-not-disabled" name="phone_number" id="phone_number"
-                       onBlur={handleErrors} />
-     <div data-testid="phno"> {errors.phone_number && (
-                    <span className="validationError" >{errors.phone_number}</span>
-                )}
+                    <input type="text" className="form-control" onChange={buildNameForm} data-testid="phno-not-disabled" name="phone_number" id="phone_number"
+                           onBlur={handleErrors} />
+                    {errors.phone_number && (
+                        <span className="validationError" >{errors.phone_number}</span>
+                    )}
                 </div>
-            </div>)}
+            )}
        
 
             <div className="form-group" data-testid="phno-chk">
@@ -193,13 +187,13 @@ const buildChildData = ()=>{
             <div className="form-group" data-testid = "email">
                 <label>Email Address</label>
                 <input type="text" className="form-control" onChange={buildNameForm} name="email" id="email" onBlur={handleErrors} />
+                {errors.email && (
+                    <span className="validationError">{errors.email}</span>
+                )}
                 <small className="text-muted">
                     No Email? <a href="">Get one free from Google.</a>
                 </small>
-                <div> {errors.email && (
-                    <span className="validationError">{errors.email}</span>
-                )}
-                </div>
+                
             </div>
 
             <div className="form-group" data-testid="com-pref">
