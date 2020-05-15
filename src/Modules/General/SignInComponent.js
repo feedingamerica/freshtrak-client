@@ -2,15 +2,28 @@
 * Sign in Component
 */
 
-import React from "react";
-import "../../Assets/scss/main.scss";
+import React, {useState} from "react";
+import useForm from '../../Utils/UseForm';
 
 const SignInComponent =()=> {
 
+  const [signInForm,setSignInForm] = useState({username:'',password:''});
   const handleSubmit = () => {
     localStorage.setItem("isLoggedIn", true);
     window.location.reload();
   };
+
+// binding data to state
+ const buildSignInFormData = (event)=>{
+  setSignInForm({...signInForm,[event.target.name] : event.target.value});
+  }
+
+  const { errors, handleErrors } =
+  useForm({}, {
+      'username' : ['required','is_address'],
+      'password' : ['required']
+  }, ()=>{});
+
 
   return (
     <div className="form-fields sign-in-form">
@@ -29,25 +42,31 @@ const SignInComponent =()=> {
         <input
           type="text"
           className="form-control"
-          name="Username"
-          id="Username"
+          onChange={buildSignInFormData}
+          onBlur={handleErrors}
+          name="username"
+          id="username"
         />
+        {errors.username? errors.username :''}
       </div>
       <div className="form-group">
         <label>Password</label>
         <input
           type="password"
           className="form-control"
-          name="Password"
-          id="Password"
+          onChange={buildSignInFormData}
+          onBlur={handleErrors}
+          name="password"
+          id="password"
         />
+         {errors.password? errors.password :''}
       </div>
       <div>
         <a>Forgot Password?</a>
       </div>
       <div className="button-wrap d-flex mt-3">
-        <button
-          className="btn primary-button flex-grow-1"
+        <button 
+          className="btn primary-button flex-grow-1" 
           onClick={handleSubmit}
         >
           Submit
