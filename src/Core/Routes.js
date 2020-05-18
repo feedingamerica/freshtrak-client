@@ -26,6 +26,9 @@ const EditAccountComponent = lazy(() =>
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
+
+const FamilyContainer = lazy(()=>
+   import("../Modules/Family/FamilyContainer"))
 const Routes = () => {
   React.useEffect(() => {}, []);
 
