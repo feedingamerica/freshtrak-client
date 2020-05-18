@@ -20,6 +20,7 @@ const EditAccountComponent = (props) => {
     const houseHoldRef = React.useRef();
     const passwordRef = React.useRef();
     const pickupInfoRef = React.useRef();
+    const membercountInfoRef = React.useRef();
     
 //  Currently, 'Change Password' is kept static. 
     const [currentPage] = useState(page);
@@ -63,11 +64,31 @@ const EditAccountComponent = (props) => {
       };
     
       const handleSubmit = () => {
+          let containsInfo = false;
+
         let familyDetails = {
-          familyMemberData:primaryInfoRef.current?.getCurrentData().primaryData ? primaryInfoRef.current.getCurrentData().primaryData:'',
-          HouseHoldData:houseHoldRef.current?.getCurrentData().addressData ? houseHoldRef.current.getCurrentData().addressData:'',
-          passwordData:passwordRef.current?.getCurrentData() ? passwordRef.current.getCurrentData():''
+            accountOverviewData:{}
         };
+
+
+        if (primaryInfoRef.current?.getCurrentData() && houseHoldRef.current?.getCurrentData()) {
+
+            familyDetails['accountOverviewData']['familyMemberData'] = primaryInfoRef.current?.getCurrentData();
+            familyDetails['accountOverviewData']['houseHoldData'] = houseHoldRef.current?.getCurrentData();
+           
+         }
+           if (passwordRef.current?.getCurrentData()) 
+                familyDetails['accountOverviewData']['passwordData'] = passwordRef.current?.getCurrentData()
+           
+           if (pickupInfoRef.current?.getCurrentData())
+                familyDetails['accountOverviewData']['pickupInfoData'] =  pickupInfoRef.current?.getCurrentData()
+
+            if (membercountInfoRef.current?.getCurrentData())
+                familyDetails['accountOverviewData']['membercountInfoData'] =  membercountInfoRef.current?.getCurrentData()
+          
+          
+
+           
       // No action is specified here as of now.
       };
     
@@ -86,8 +107,8 @@ const EditAccountComponent = (props) => {
     const commonHandler = () => {
         switch (page) {
             case 'your-info': return (<React.Fragment><HouseHoldFormComponent ref={houseHoldRef} onFormErrors={formErrors} /><PrimaryInfoFormComponent ref={primaryInfoRef}  onFormErrors={formErrors} /></React.Fragment>);
-            case 'pickup-info':  return (<AdditionalPickUpFormComponent  onFormErrors={formErrors} />);
-            case 'house-info':  return (<MemberCountFormComponent  onFormErrors={formErrors} />);
+            case 'pickup-info':  return (<AdditionalPickUpFormComponent  ref={pickupInfoRef} onFormErrors={formErrors} />);
+            case 'house-info':  return (<MemberCountFormComponent ref={membercountInfoRef} onFormErrors={formErrors} />);
             case 'login-info':  return (<ChangePasswordComponent ref = {passwordRef} onFormErrors={formErrors} />);
 
             default: return 'Somethings wrong'; 

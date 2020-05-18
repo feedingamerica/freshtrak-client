@@ -11,67 +11,23 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
     const [phoneNumber, setPhoneNumber] = React.useState('');
     const [email, setEmail] = React.useState('Email');
     const [communicationPreference, setCommunicationPreference] = React.useState('Email');
-    const [childFamilyData, setChildFamilyData] = React.useState({});
-    const [phoneDisable, setPhoneDisable] = React.useState(false);
+    const [childFamilyData, setChildFamilyData] = React.useState({
+        first_name:'',
+        last_name:'',
+        middle_name:'',
+        Suffix:'Jr',
+        dob:new Date(),
+        hoh:'Yes',
+        phone_number:'',
+        email:'',
+        communication_preference:'Email'
 
-    // variable used to store complete object to be returned
-    let data = {};
+    });
 
-    const buildNameForm = (e) => {
-        let { name, value } = e.target;
-        let setFunction = '';
-        switch (name) {
-            case 'first_name':
-                setFunction = setFirstName;
-                break;
-            case 'last_name':
-                setFunction = setLastName;
-                break;
-            case 'middle_name':
-                setFunction = setMiddleName;
-                break;
-            case 'Suffix':
-                setFunction = setSuffix;
-                break;
-            case 'dob':
-                setFunction=setDob;
-                break;
-            case 'hoh':
-                setFunction=setHoh;
-                break;
-            case 'phone_number':
-                setFunction=setPhoneNumber;
-                break;
-            case 'email':
-                setFunction=setEmail;
-                break;
-            case 'communication_preference':
-                setFunction=setCommunicationPreference;
-                break;
-            default:
-                break;
-        }
-        if (setFunction !== '') {
-            setFunction(value)
-        }
-    };
-
-const buildChildData = ()=>{
-    data = { primaryData :{
-        first_name: firstName,
-        last_name: lastName,
-        middle_name: middleName,
-        suffix: suffix,
-        dob : dob,
-        hoh : hoh,
-        phone_number : phoneNumber,
-        email : email,
-        communicationPreference : communicationPreference
-        }
+      const buildNameForm = (event)=>{
+    setChildFamilyData({...childFamilyData,[event.target.name] : event.target.value});
     }
-    setChildFamilyData(data);
-}
-
+    const [phoneDisable, setPhoneDisable] = React.useState(false);
 
     const { errors, handleErrors } =
         useForm(props, {
@@ -81,7 +37,7 @@ const buildChildData = ()=>{
             'dob' : ['required'],
             'email' : ['required','is_address'],
             'phone_number' : ['required','is_phone']
-        }, ()=>buildChildData());
+        }, ()=>{});
 
     React.useImperativeHandle(ref, () => ({
         getCurrentData(){
@@ -89,8 +45,7 @@ const buildChildData = ()=>{
         },
         triggerErrors(){
             
-            if(data.length===0){ buildChildData()};
-            return handleErrors(childFamilyData['primaryData']);
+            return handleErrors(childFamilyData);
         }}));
 
     const phoneDisableFunction=()=>{

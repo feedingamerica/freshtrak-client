@@ -7,42 +7,16 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
     const [aptNo, setAptNo] = React.useState('');
     const [zip, setZip] = React.useState('');
     const [housingType, setHousingType] = React.useState('Apartment');
-    const [childFamilyData, setChildFamilyData] = React.useState({});
-    let data={};
+    const [childFamilyData, setChildFamilyData] = React.useState({
+        street_address:'',
+        apt_no:'',
+        zip_code:'',
+        housing_type:'Apartment'
+    });
 
-    const buildAddressForm = (event) => {
-        event.preventDefault();
-        let name = event.target.name;
-        switch (name) {
-            case 'street_address':
-                setStreetAddress(event.target.value);
-                break;
-            case 'apt_no':
-                setAptNo(event.target.value);
-                break;
-            case 'zip_code':
-                setZip(event.target.value);
-                break;
-            case 'housing_type':
-                setHousingType(event.target.value);
-                break;
-            default:
-                break;
-        }
-    };
-
-    const buildChildData = () => {
-        data = {
-            addressData: {
-                street_address: streetAddress,
-                apt_no: aptNo,
-                zip_code: zip,
-                housingType: housingType,
-            }
-        };
-        setChildFamilyData(data);
-    };
-
+      const buildAddressForm = (event)=>{
+    setChildFamilyData({...childFamilyData,[event.target.name] : event.target.value});
+    }
 
 
     const { errors, handleErrors } =
@@ -50,7 +24,7 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
             'street_address' : ['required', 'min:1'],
             'apt_no' : ['required'],
             'zip_code' : ['required','number']
-        }, ()=>{buildChildData()});
+        }, ()=>{});
 
     React.useImperativeHandle(ref, () => ({
 
@@ -58,8 +32,7 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
             return childFamilyData
         },
         triggerErrors(){
-            if(!childFamilyData['addressData']) {buildChildData()};
-            return handleErrors(childFamilyData['addressData']);
+            return handleErrors(childFamilyData);
         }
     }));
 

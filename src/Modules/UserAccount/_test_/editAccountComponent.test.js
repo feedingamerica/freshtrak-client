@@ -67,7 +67,7 @@ test('should not show popup on clicking save details btn', async()=>{
     
 });
 
-test('should  show popup on clicking save details btn after filling in details', async()=>{
+test('should  show popup on clicking save details btn after filling in details in Your Info', async()=>{
 
     const {container,getByText,queryByText,baseElement} = render(<Router><EditAccountComponent  location={{ state:{
 		page: "your-info",
@@ -106,17 +106,6 @@ test('should  show popup on clicking save details btn after filling in details',
   fireEvent.blur(container.querySelector('input[name="apt_no"]')); 
   fireEvent.change(container.querySelector('input[name="zip_code"]'),{target:{value:mockHousehold.zip}});
   fireEvent.blur(container.querySelector('input[name="zip_code"]'));
-
-
-
-
-
-
-
-
-
-
-
 	fireEvent.click(queryByText('Save Changes'));
 	await wait(()=>{
 		expect(getByText(/Are you sure you want to proceed/));
@@ -132,5 +121,42 @@ test('should  show popup on clicking save details btn after filling in details',
 	// Currently clicking Ok button has no function handling
 	fireEvent.click(getByText('OK'));
 	expect(container).toHaveTextContent('Edit Your Info');
+});
+
+test('should  show popup on clicking save details btn after filling in details in Password Change', async()=>{
+
+    const {container,getByText,queryByText,baseElement} = render(<Router><EditAccountComponent  location={{ state:{
+		page: "login-info",
+		title: "Change Password",
+		btntext: "Save New Password",
+	  } }}/></Router>);
+	
+	
+  const password_current = container.querySelector('input[name="password_current"]');
+  const password_new = container.querySelector('input[name="password_new"]');
+  const password_confirm = container.querySelector('input[name="password_confirm"]');
+  let mockPass = mockPasswordBuilder();
+
+  fireEvent.change(password_current,{target:{value:mockPass.password}});
+  fireEvent.blur(password_current);
+  fireEvent.change(password_new,{target:{value:mockPass.confirmpassword}});
+  fireEvent.blur(password_new);
+  fireEvent.change(password_confirm,{target:{value:mockPass.confirmpassword}});
+  fireEvent.blur(password_confirm);
+
+	fireEvent.click(queryByText('Save New Password'));
+	await wait(()=>{
+		expect(getByText(/Are you sure you want to proceed/));
+	})
+	fireEvent.click(getByText('Cancel'));
+	expect(container).toHaveTextContent('Change Password');
+
+	fireEvent.click(getByText('Save New Password'));
+	await wait(()=>{
+		expect(getByText(/Are you sure you want to proceed/));
+	});
+
+	fireEvent.click(getByText('OK'));
+	expect(container).toHaveTextContent('Change Password');
 });
 
