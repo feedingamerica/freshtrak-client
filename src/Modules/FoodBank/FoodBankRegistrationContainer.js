@@ -12,34 +12,33 @@ const FoodBankRegistrationContainer = (props) => {
 	const contactInfoFormRef = useRef();
 	let history = useHistory();
 	let formError = {};
-	let registrationData = {};
-	const buildRegistrationData = (data) => {
-		if(Object.keys(data)[0]){
-            let dataKey = Object.keys(data)[0];
-            registrationData[dataKey] = data[dataKey];
-        }
-	};
+
 	const formErrors = (errors) => {
         formError = errors;
     };
+
 	const handleFormValidation = (e) => {
 		e.preventDefault();
 		let componentErrors = [];
-		componentErrors.push(organizationFormRef.current.triggerErrors(),
-            contactInfoFormRef.current.triggerErrors());
+		componentErrors.push(
+			organizationFormRef.current.triggerErrors(),
+            contactInfoFormRef.current.triggerErrors()
+        );
 		if( componentErrors.includes(true) || Object.keys(formError).length !== 0){			
 			return false;
 		}		
 		handleSubmitConfirm();
 	};
+
 	const handleSubmitConfirm = () => {		
 	    let title = "Are you sure you want to proceed?";
 	    confirm(title, handleSubmit);
   	};
 	const handleSubmit = () => {
 		let foodBank = {
-				organizationInfo :registrationData.organizationInfo,
-				contactInfo :registrationData.contactInfo 
+				organizationInfo :organizationFormRef.current.getCurrentData().organizationInfo ? organizationFormRef.current.getCurrentData().organizationInfo:'',
+				contactInfo :contactInfoFormRef.current.getCurrentData().contactInfo ? contactInfoFormRef.current.getCurrentData().contactInfo:''
+				
 			}
 		/*Once the api part is completed then update the request here
           Now just we redirect to succes page.
@@ -51,13 +50,11 @@ const FoodBankRegistrationContainer = (props) => {
 		<div className="col-lg-4 col-md-6">
 			<form onSubmit = {handleFormValidation}>
 				<div className="content-wrapper" data-testid="registr-data">
-					<FoodBankRegistrationComponent 
-						onSelectedChild={buildRegistrationData}
+					<FoodBankRegistrationComponent 					    
 						ref={organizationFormRef}
 						onFormErrors = {formErrors}
                         />
 					<FoodBankContactInfoComponent 
-						onSelectedChild={buildRegistrationData}
 						ref={contactInfoFormRef}
 						onFormErrors = {formErrors}
 					/>

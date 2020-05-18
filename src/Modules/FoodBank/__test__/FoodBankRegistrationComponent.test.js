@@ -6,7 +6,7 @@ import { noop, mockFoodBankRegisterBuilder} from '../../../Testing';
 test('should render', () => {
 	expect(() => {
 		render(
-			<FoodBankRegistrationComponent onSelectedChild={noop}
+			<FoodBankRegistrationComponent
 			ref={noop}
 			onFormErrors = {noop}
 			/>
@@ -14,19 +14,9 @@ test('should render', () => {
 	}).not.toThrowError();
 });
 
-test('should render FoodBankRegistrationComponent with data provided', () => {
-  expect(() => {
-    render(
-      <FoodBankRegistrationComponent
-        onSelectedChild={mockFoodBankRegisterBuilder}
-        onFormErrors={noop}
-      />
-    );
-  }).not.toThrowError();
-});
 
 test ("Checking whether the validations are working properly" ,async () => {
-	const { container,getByTestId } = render(<FoodBankRegistrationComponent onSelectedChild={noop}
+	const { container,getByTestId } = render(<FoodBankRegistrationComponent
 	ref={noop}
 	onFormErrors = {noop}/>)
 	const org_name = container.querySelector('input[name="org_name"]');

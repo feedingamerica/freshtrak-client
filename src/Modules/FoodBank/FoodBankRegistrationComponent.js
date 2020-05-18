@@ -9,12 +9,10 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
     const [address, setAddress] = useState('');
     const [suiteBlg, setSuiteBlg] = useState('');
     const [zipCode, setZipCode] = useState('');
-    const [isChanged, setIsChanged] = useState('');
     let data ={};
 	const buildOrganizationForm = (event) => {		
 		event.preventDefault();		
 		let name = event.target.name;
-		setIsChanged(name);
 		switch (name) {
 			case 'org_name'	: 	setOrganizationName(event.target.value);
 								break;
@@ -27,7 +25,8 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
 			default 		:	break;
 		}
     };
-    const handleChange = () => {
+
+    const buildChildData = () => {
         data = {
             organizationInfo: {
                 org_name: organizationName,
@@ -38,29 +37,23 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
         };  
         setOrganizationData(data);
     };	
+ 
+	const { errors, handleErrors } =
+		useForm(props, {
+		'org_name' : ['required'],
+		'address' : ['required'],
+		'zipcode' : ['required','numeric']
+	}, ()=>{buildChildData()});   
 
-    React.useEffect(() => {
-        handleChange();
-    }, [isChanged]);
-
-    const dataToParent = () => {
-        props.onSelectedChild(organazationData);
-    };
-
-    const { errors, handleErrors } =
-        useForm(props, {
-            'org_name' : ['required'],
-            'address' : ['required'],
-            'zipcode' : ['required','numeric']
-        }, dataToParent);
-
-    React.useImperativeHandle(ref, () => ({
-        triggerErrors(){
-            handleChange();
-            return handleErrors(organazationData.organizationInfo);
-        }
-
-    }));
+	React.useImperativeHandle(ref, () => ({
+		getCurrentData(){
+			return organazationData
+		},
+		triggerErrors(){
+			if(!organazationData['organizationInfo']) {buildChildData()};
+			return handleErrors(organazationData['organizationInfo']);
+		}
+	}));
 
 	return (
 		<div className="form-fields">
