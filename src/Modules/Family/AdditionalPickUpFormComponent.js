@@ -59,7 +59,7 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     }));
 
     return (
-        <div className="form-fields pt-50">
+        <div className="form-fields pt-50 content-wrapper">
             <div className="form-title">
                 Additional Pickup Information (Optional)
             </div>
