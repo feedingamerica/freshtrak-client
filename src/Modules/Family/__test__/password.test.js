@@ -3,7 +3,7 @@ import { render, fireEvent,  waitForElement, cleanup,wait } from '@testing-libra
 import PasswordRegistrationFormComponent from '../PasswordRegistrationFormComponent';
 import { noop, mockPasswordBuilder } from '../../../Testing';
 
-describe('PasPasswordRegistrationFormComponents',()=>{
+describe('PasswordRegistrationFormComponents',()=>{
     test('should render without data', () => {
         expect(() => {
             render(
@@ -15,7 +15,21 @@ describe('PasPasswordRegistrationFormComponents',()=>{
                 />
             );
         }).not.toThrowError();
-    });    
+    });
+
+    test('should render with data provided', () => {
+        expect(() => {
+            render(
+                <PasswordRegistrationFormComponent
+                ref={jest.fn()}
+                onSelectedChild={mockPasswordBuilder}
+                onFormErrors={noop}
+                getPasswordStatus={jest.fn()}
+                />
+            );
+        }).not.toThrowError();
+        cleanup();
+    });
 
     test('should have working input field validations', async () => {
         const {container,getByTestId} = render(
@@ -53,7 +67,7 @@ describe('PasPasswordRegistrationFormComponents',()=>{
             expect(getByTestId('password-confirm')).toHaveTextContent('Password must be same');
         });        
     });
-    test('Proper binding on change functionality', async () => {
+     test('Proper binding on change functionality', async () => {
         const {container,getByTestId} = render(
             <PasswordRegistrationFormComponent
             ref={noop}

@@ -1,12 +1,15 @@
 import React from 'react';
 import useForm from '../../Utils/UseForm';
+
 const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
+
     const [password, setPassword] = React.useState('');
     const [passwordConfirm, setPasswordConfirm] = React.useState('');
     const [passwordFieldError, setPasswordFieldError] = React.useState(false);
     const [passwordStatus, setPasswordStatus] = React.useState(false);
     const [childFamilyData, setChildFamilyData] = React.useState({});
     let data={};
+
     const buildForm = (event) => {
         event.preventDefault();
         let name = event.target.name;
@@ -22,7 +25,6 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         }
     };
 
-
     const buildChildData = () => {
         data = {
             passwordData: {
@@ -31,12 +33,13 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         };
         setChildFamilyData(data);
     };
-
+  
     React.useEffect(() => {
         passwordCheckFunction();
     }, [passwordStatus]);
+
     const passwordCheckFunction = () => {
-        let  passwordData = {
+      let  passwordData = {
             passwordStatus:passwordStatus
             }; 
         props.getPasswordStatus(passwordData);
@@ -53,6 +56,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         useForm(props, {
             'password' : ['required']
         }, ()=>buildChildData());
+
     React.useImperativeHandle(ref, () => ({
         getCurrentData(){
             return childFamilyData
@@ -60,8 +64,8 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         triggerErrors(){
             if(!childFamilyData['passwordData']) {buildChildData()};
             return handleErrors(childFamilyData['passwordData']);
-        }})
-    );
+        }}));
+
     const passwordCheck=(e)=>{
         if (password !== '' && passwordConfirm !==''&& passwordConfirm===password){
             setPasswordStatus(true)
@@ -78,6 +82,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         }
         handleErrors(e);
     }
+
     return (
         <div className="form-fields pt-50">
             <div className="form-title">
@@ -88,12 +93,13 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
             </div>
             <div className="form-group" data-testid="password">
                 <label>Password</label>
-                <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password" id="password" required/>
 
+                <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password" id="password" required/>
                 {errors.password && (
                     <span className="validationError">{errors.password}</span>
                 )}
             </div>
+
             <div className="form-group" data-testid="password-confirm">
                 <label>Confirm Password</label>
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password_confirm" id="passwordConfirm" />
@@ -103,7 +109,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
                 {!errors.password && passwordFieldError &&(
                    <span className="validationError">Password must be same</span>
                 )}              
-            </div>   
+            </div>               
         </div>
     )
 });

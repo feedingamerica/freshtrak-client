@@ -1,8 +1,7 @@
 import React from 'react';
 import add from '../../Assets/img/add.svg';
-const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
-    const [pickupInfo, setpickupInfo] = React.useState('');
 
+const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     const [pickupName, setpickupName] = React.useState('');
     const [pickupNumberPlate, setPickupNumberPlate] = React.useState('');
     const [pickupNumberPlateTwo, setPickupNumberPlateTwo] = React.useState('');
@@ -10,12 +9,13 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     const [step, setStep] =  React.useState(false);
     const [childFamilyData,setChildFamilyData] = React.useState({})
     let data= '';
+
     const buildAddressForm = (event) => {
         event.preventDefault();
         let name = event.target.name;
         buildChildData();
         switch (name) {
-
+            
             case 'vehicle_number_plate':
                 setPickupNumberPlate(event.target.value);
                 break;
@@ -31,7 +31,6 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             default:break;
         }
     };
-
 // triggers on each form field change
     const buildChildData = () => {
         data = {
@@ -44,6 +43,7 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
         };
         setChildFamilyData(data)
     };
+
     const additionalBox=(e)=> {
         e.preventDefault();
         if (step===true) {
@@ -59,14 +59,13 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     }));
 
     return (
-        <div className="form-fields pt-50">
+        <div className="form-fields pt-50 content-wrapper">
             <div className="form-title">
                 Additional Pickup Information (Optional)
             </div>
             <div className="form-group">
                 <label>Who’s Picking up?</label>
                 <select  className="form-control" onChange={buildAddressForm} name="pickup_type" id="pickup_type">
-
                 <option value="Me">Me</option>
                 <option value="Some one Else">Some one Else</option>
                 </select>
@@ -84,7 +83,6 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
                 <span>Add a Vehicle </span>
             </div>
             {step &&(
-
             <div className="form-group" data-testid="additional-vehicle">
                 <input type="text" className="form-control" onChange={buildAddressForm} name="vehicle_number_plate_two" id="vehicle_number_plate_two" />
             </div>
@@ -94,4 +92,5 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             </div>
         </div>
     )});
+
 export default AdditionalPickUpFormComponent;

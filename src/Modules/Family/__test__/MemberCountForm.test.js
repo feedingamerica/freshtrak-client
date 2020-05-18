@@ -14,6 +14,16 @@ test('should render without data', () => {
     }).not.toThrowError();
 });
 
+test('should render with mockMemberCountBuilder  data provided', () => {
+    expect(() => {
+        render(
+            <MemberCountFormComponent
+                onSelectedChild={mockMemberCountBuilder}
+                onFormErrors={noop}
+            />
+        );
+    }).not.toThrowError();
+});
 
 test('checking whether the member count working correctly',async () =>{
     const {container,getByTestId,queryByTestId,} = render(

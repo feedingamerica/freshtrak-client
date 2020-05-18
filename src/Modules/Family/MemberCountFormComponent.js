@@ -1,5 +1,5 @@
+import React from "react";
 
-import React, { useEffect } from "react";
 const MemberCountFormComponent=React.forwardRef((props, ref)=> {
     let  data= '';
     const [countSenior, setCountSenior] = React.useState(0);
@@ -21,6 +21,7 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
         };
         setChildFamilyData(data);
     };
+
     const handleClick = (event) => {
         event.preventDefault();
         let name = event.target.name;
@@ -29,8 +30,9 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
                 setCountSenior(countSenior + 1);
                 break;
             case 'count_senior_dec' :   if (countSenior > 0)
-                setCountSenior(countSenior - 1);
+                 setCountSenior(countSenior - 1);
                 break;
+
             case 'count_adult_inc'  :   if(countAdult < 13)
                 setCountAdult(countAdult + 1);
                 break;
@@ -47,7 +49,6 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
         }
         buildChildData();
     };
-
     React.useImperativeHandle(ref, () => ({
         getCurrentData(){
             return childFamilyData
@@ -56,7 +57,7 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
         buildChildData();
         }}));
     return (
-        <div>
+        <div className="content-wrapper">
             <div className="form-sub-title font-weight-bold">
                 Total Number of Household Members
                 <div className="mt-3 pt-1">
@@ -89,4 +90,5 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
         </div>
     )
 });
+
 export default MemberCountFormComponent;

@@ -14,19 +14,30 @@ test('should render', () => {
   }).not.toThrowError();
 });
 
+test('should render AdditionalPickUpFormComponent with data provided', () => {
+  expect(() => {
+    render(
+      <AdditionalPickUpFormComponent
+        onSelectedChild={mockPickUpBuilder}
+        onFormErrors={noop}
+      />
+    );
+  }).not.toThrowError();
+});
 
 test('should have proper binding onChange',()=>{
-  const {container,getByTestId,queryByTestId,getByAltText} = render(
-    <AdditionalPickUpFormComponent
-      onSelectedChild={mockPickUpBuilder}
-      onFormErrors={noop}
-    />);
+const {container,getByTestId,queryByTestId,getByAltText} = render(
+  <AdditionalPickUpFormComponent
+    onSelectedChild={mockPickUpBuilder}
+    onFormErrors={noop}
+  />);
 
   let pType = container.querySelector('select[name="pickup_type"]');
   let pName = container.querySelector('input[name="pickup_name"]');
   let numPlate = container.querySelector('input[name="vehicle_number_plate"]');
   let add_btn = container.querySelector('button[name="add_btn"]');
   let mockPickUpData = mockPickUpBuilder();
+ 
 
   // checking binding
   fireEvent.change(pType,{target:{value:mockPickUpData.pickupType}});
@@ -36,14 +47,20 @@ test('should have proper binding onChange',()=>{
   expect(pName.value).toBe(mockPickUpData.pickupName);
 
   fireEvent.change(numPlate,{target:{value:mockPickUpData.pickupNumberPlate}});
-  expect(numPlate.value).toBe(mockPickUpData.pickupNumberPlate);
- 
+  expect(numPlate.value).toBe(`${mockPickUpData.pickupNumberPlate}`);
+
+
+  //fireEvent.click(add_btn,{target:{value:''}});
   fireEvent.click(getByAltText(/my .*/i));
  
   let numPlate_2 = container.querySelector('input[name="vehicle_number_plate_two"]');
   fireEvent.change(numPlate_2,{target:{value:mockPickUpData.pickupNumberPlate2}});
-  expect(numPlate_2.value).toBe(mockPickUpData.pickupNumberPlate2);
-  
+  expect(numPlate_2.value).toBe(`${mockPickUpData.pickupNumberPlate2}`);
+
+
+  // triggering switch case if step=true 
+  /*fireEvent.click(add_btn,{target:{value:''}});*/
   fireEvent.click(getByAltText(/my .*/i));
   expect(queryByTestId(container,'additional-vehicle')).toBeNull();
+
 });

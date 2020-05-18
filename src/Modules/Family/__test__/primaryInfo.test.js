@@ -76,6 +76,7 @@ test("Testing for value binding", async () => {
   const phnoChk = container.querySelector('input[name="phone_number_checkbox"]');
   const comPref = container.querySelector('select[name="communication_preference"]');
   
+  let fakeDOB = '1990-12-12' 
   fireEvent.change(first_name, { target: { value:mockPrimaryData.firstName } })
   expect(first_name.value).toBe(mockPrimaryData.firstName);
 
@@ -85,8 +86,8 @@ test("Testing for value binding", async () => {
   fireEvent.change(middle_name, { target: { value: mockPrimaryData.middleName } })
   expect(middle_name.value).toBe(mockPrimaryData.middleName);
 
-  fireEvent.change(dob, { target: { value: mockPrimaryData.dob } })
-  expect(dob.value).toBe(mockPrimaryData.dob);
+  fireEvent.change(dob, { target: { value: fakeDOB } })
+  expect(dob.value).toBe(fakeDOB);
 
   fireEvent.change(email, { target: { value: mockPrimaryData.email } })
   expect(email.value).toBe(mockPrimaryData.email);
@@ -106,7 +107,7 @@ test("Testing for value binding", async () => {
   
 
   fireEvent.change(phno, { target: { value:mockPrimaryData.phoneNumber  } })
-  expect(phno.value).toBe(mockPrimaryData.phoneNumber);
+  expect(phno.value).toBe( `${mockPrimaryData.phoneNumber}`);
 
 //  checking whether disable phone option toggles both divs.
 fireEvent.click(phnoChk);

@@ -2,6 +2,7 @@ import React from 'react';
 import { render,fireEvent, wait} from '@testing-library/react';
 import HouseHoldFormComponent from '../HouseHoldFormComponent';
 import { noop, mockHouseHoldBuilder } from '../../../Testing';
+import {fake,oneOf} from 'test-data-bot'
 test('should render HouseHoldFormComponent with no data', () => {
     expect(() => {
         render(
@@ -12,8 +13,16 @@ test('should render HouseHoldFormComponent with no data', () => {
         );
     }).not.toThrowError();
 });
-
-
+test('should render HouseHoldFormComponent with Mock data', () => {
+    expect(() => {
+        render(
+            <HouseHoldFormComponent
+                onSelectedChild={mockHouseHoldBuilder}
+                onFormErrors={noop}
+            />
+        );
+    }).not.toThrowError();
+});
 test("should show validation errors", async () => {
     const { container, getByTestId, getByText } = render(
         <HouseHoldFormComponent

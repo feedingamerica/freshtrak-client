@@ -21,9 +21,60 @@ test ("Should show the validation erros on button click" ,async () => {
 		expect(getByTestId('family-register')).toHaveTextContent('This field is required');
 	});	
 });
+// test("Data saving successful in button click",async()=>{
+// 	const {container, getByText,getByTestId,baseElement } = render(<Router><FamilyContainer /></Router>);
+
+// 	let mockPrimaryData = mockPrimaryInfoBuilder();
+	
+
+// 	const first_name = container.querySelector('input[name="first_name"]');
+// 	const last_name = container.querySelector('input[name="last_name"]');
+// 	const middle_name = container.querySelector('input[name="middle_name"]');
+// 	const dob = container.querySelector('input[name="dob"]');
+// 	const email = container.querySelector('input[name="email"]');
+// 	const phno = container.querySelector('input[name="phone_number"]');
+
+//     const fakePhno = 123456789;
+// 	fireEvent.change(first_name, {target: {value: mockPrimaryData.firstName}});
+// 	fireEvent.blur(first_name);
+// 	await wait(()=>{
+//         expect(first_name.value).toBe(mockPrimaryData.firstName);
+// 	});
+	
+// 	fireEvent.change(last_name, {target: {value: mockPrimaryData.lastName}});
+// 	fireEvent.blur(last_name);
+// 	await wait(()=>{
+//         expect(last_name.value).toBe(mockPrimaryData.lastName);
+//     });		
+// 	fireEvent.change(middle_name, {target: {value: mockPrimaryData.middleName}});
+// 	fireEvent.blur(middle_name);	
+// 	await wait(()=>{
+//         expect(middle_name.value).toBe(mockPrimaryData.middleName);
+//     });	
+// 	fireEvent.change(dob, {target: {value: mockPrimaryData.dob}});
+// 	fireEvent.blur(dob);
+// 	await wait(()=>{
+//         expect(dob.value).toBe(mockPrimaryData.dob);
+//     });	
+// 	fireEvent.change(email, {target: {value: mockPrimaryData.email}});
+// 	fireEvent.blur(email);
+// 	await wait(()=>{
+//         expect(email.value).toBe(mockPrimaryData.email);
+//     });		
+// 	fireEvent.change(phno, {target: {value: fakePhno}});
+// 	fireEvent.blur(phno);
+// 	await wait(()=>{
+//         expect(phno.value).toBe(`${fakePhno}`);
+//     });
+// 	fireEvent.click(getByText(/Continue/));
+// 	await wait(() =>{		
+// 		expect(getByTestId('family-register')).toHaveTextContent('This field is required');
+// 	});
+
+// });
 
 test ("Checking with values" ,async () => {
-  let {container,getByText} = render(<Router><FamilyContainer /></Router>);
+  let {container,getByText,getByTestId} = render(<Router><FamilyContainer /></Router>);
   const first_name = container.querySelector('input[name="first_name"]');
   const last_name = container.querySelector('input[name="last_name"]');
   const middle_name = container.querySelector('input[name="middle_name"]');
@@ -34,17 +85,19 @@ test ("Checking with values" ,async () => {
   let mockHousehold = mockHouseHoldBuilder();
   let mockPass = mockPasswordBuilder();
 
+  let fakeDOB = '1990-12-12'
+  let fakePhNo = '9823762312'
   fireEvent.change(first_name,{target:{value:mockPrimary.firstName}});
   fireEvent.blur(first_name);
   fireEvent.change(last_name,{target:{value:mockPrimary.lastName}});
   fireEvent.blur(last_name);
   fireEvent.change(middle_name,{target:{value:mockPrimary.middleName}});
   fireEvent.blur(middle_name); 
-  fireEvent.change(dob,{target:{value:mockPrimary.dob}});
-  fireEvent.blur(dob); 
+  fireEvent.change(dob,{target:{value:fakeDOB}});
+  fireEvent.blur(dob);
   fireEvent.change(container.querySelector('input[name="email"]'),{target:{value:mockPrimary.email}});
   fireEvent.blur(email); 
-  fireEvent.change(container.querySelector('input[name="phone_number"]'),{target:{value:mockPrimary.phoneNumber}});
+  fireEvent.change(container.querySelector('input[name="phone_number"]'),{target:{value:fakePhNo}});
   fireEvent.blur(phno); 
   fireEvent.change(container.querySelector('input[name="street_address"]'),{target:{value:mockHousehold.streetAddress}});
   fireEvent.blur(container.querySelector('input[name="street_address"]')); 
@@ -56,27 +109,28 @@ test ("Checking with values" ,async () => {
   fireEvent.blur(container.querySelector('input[name="password"]')); 
   fireEvent.change(container.querySelector('input[name="password_confirm"]'),{target:{value:mockPass.password}});
   fireEvent.blur(container.querySelector('input[name="password_confirm"]'));
+     
 
 	fireEvent.click(getByText('Continue'));
+
 	await wait(() =>{		
 		expect(getByText(/Are you sure you want to proceed/i));
 	});
-
 	fireEvent.click(getByText(/Cancel/i));
-  await wait(() =>{		
-	 expect(getByText(/Register Now./i));
-  });
+	
 
-  fireEvent.click(getByText('Continue'));
-  await wait(() =>{		
-      expect(getByText(/Are you sure you want to proceed/i));
-
-  });
-
-  fireEvent.click(getByText('OK'));
-  await wait(() =>{		
-    expect(getByText(/Register Now./i));
-  });
+    await wait(() =>{		
+		expect(getByText(/Register Now./i));
+    });
+    fireEvent.click(getByText('Continue'));
+    await wait(() =>{		
+        expect(getByText(/Are you sure you want to proceed/i));
+  
+    });
+    fireEvent.click(getByText('OK'));
+    await wait(() =>{		
+      expect(getByText(/Register Now./i));
+      });
 });
 
 afterEach(cleanup)
