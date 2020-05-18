@@ -117,7 +117,7 @@ input[type="radio"].toggle {
 }
 .custom-checkbox {
     margin-bottom: 0;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     cursor: pointer;
     font-size: .8rem;

@@ -64,8 +64,8 @@ const EditAccountComponent = (props) => {
     
       const handleSubmit = () => {
         let familyDetails = {
-          familyMemberData:primaryInfoRef.current.getCurrentData().primaryData ? primaryInfoRef.current.getCurrentData().primaryData:'',
-          HouseHoldData:houseHoldRef.current.getCurrentData().addressData ? houseHoldRef.current.getCurrentData().addressData:'',
+          familyMemberData:primaryInfoRef.current?.getCurrentData().primaryData ? primaryInfoRef.current.getCurrentData().primaryData:'',
+          HouseHoldData:houseHoldRef.current?.getCurrentData().addressData ? houseHoldRef.current.getCurrentData().addressData:'',
           passwordData:passwordRef.current?.getCurrentData() ? passwordRef.current.getCurrentData():''
         };
       // No action is specified here as of now.
