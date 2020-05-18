@@ -47,7 +47,7 @@ const {container,getByTestId,queryByTestId,getByAltText} = render(
   expect(pName.value).toBe(mockPickUpData.pickupName);
 
   fireEvent.change(numPlate,{target:{value:mockPickUpData.pickupNumberPlate}});
-  expect(numPlate.value).toBe(mockPickUpData.pickupNumberPlate);
+  expect(numPlate.value).toBe(`${mockPickUpData.pickupNumberPlate}`);
 
 
   //fireEvent.click(add_btn,{target:{value:''}});
@@ -55,7 +55,7 @@ const {container,getByTestId,queryByTestId,getByAltText} = render(
  
   let numPlate_2 = container.querySelector('input[name="vehicle_number_plate_two"]');
   fireEvent.change(numPlate_2,{target:{value:mockPickUpData.pickupNumberPlate2}});
-  expect(numPlate_2.value).toBe(mockPickUpData.pickupNumberPlate2);
+  expect(numPlate_2.value).toBe(`${mockPickUpData.pickupNumberPlate2}`);
 
 
   // triggering switch case if step=true 

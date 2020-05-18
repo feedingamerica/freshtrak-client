@@ -57,7 +57,7 @@ const MemberCountFormComponent=React.forwardRef((props, ref)=> {
         buildChildData();
         }}));
     return (
-        <div class="content-wrapper">
+        <div className="content-wrapper">
             <div className="form-sub-title font-weight-bold">
                 Total Number of Household Members
                 <div className="mt-3 pt-1">

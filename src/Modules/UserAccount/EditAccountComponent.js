@@ -37,14 +37,13 @@ const EditAccountComponent = (props) => {
     const handleFormValidation = async(e) => {
         e.preventDefault();
         let componentErrors = [];
-
         switch(currentPage){
             case 'your-info': componentErrors =[...componentErrors,
                               await houseHoldRef.current.triggerErrors(),
                               await primaryInfoRef.current.triggerErrors()];
             break;
             case 'login-info': componentErrors =[...componentErrors,
-              await passwordRef.current.triggerErrors()];
+              await passwordRef.current.triggerErrors(), await passwordRef.current.getPasswordCheckResult()];
               break;
         //  cases will be defined here for password and membercountinfo component after code review.
             default: break;
@@ -67,7 +66,7 @@ const EditAccountComponent = (props) => {
         let familyDetails = {
           familyMemberData:primaryInfoRef.current.getCurrentData().primaryData ? primaryInfoRef.current.getCurrentData().primaryData:'',
           HouseHoldData:houseHoldRef.current.getCurrentData().addressData ? houseHoldRef.current.getCurrentData().addressData:'',
-          passwordData:passwordRef.current.getCurrentData()
+          passwordData:passwordRef.current?.getCurrentData() ? passwordRef.current.getCurrentData():''
         };
       // No action is specified here as of now.
       };

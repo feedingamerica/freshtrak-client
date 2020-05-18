@@ -74,7 +74,7 @@ test ("Should show the validation erros on button click" ,async () => {
 // });
 
 test ("Checking with values" ,async () => {
-  let {container,getByText} = render(<Router><FamilyContainer /></Router>);
+  let {container,getByText,getByTestId} = render(<Router><FamilyContainer /></Router>);
   const first_name = container.querySelector('input[name="first_name"]');
   const last_name = container.querySelector('input[name="last_name"]');
   const middle_name = container.querySelector('input[name="middle_name"]');
@@ -85,17 +85,19 @@ test ("Checking with values" ,async () => {
   let mockHousehold = mockHouseHoldBuilder();
   let mockPass = mockPasswordBuilder();
 
+  let fakeDOB = '1990-12-12'
+  let fakePhNo = '9823762312'
   fireEvent.change(first_name,{target:{value:mockPrimary.firstName}});
   fireEvent.blur(first_name);
   fireEvent.change(last_name,{target:{value:mockPrimary.lastName}});
   fireEvent.blur(last_name);
   fireEvent.change(middle_name,{target:{value:mockPrimary.middleName}});
   fireEvent.blur(middle_name); 
-  fireEvent.change(dob,{target:{value:mockPrimary.dob}});
-  fireEvent.blur(dob); 
+  fireEvent.change(dob,{target:{value:fakeDOB}});
+  fireEvent.blur(dob);
   fireEvent.change(container.querySelector('input[name="email"]'),{target:{value:mockPrimary.email}});
   fireEvent.blur(email); 
-  fireEvent.change(container.querySelector('input[name="phone_number"]'),{target:{value:mockPrimary.phoneNumber}});
+  fireEvent.change(container.querySelector('input[name="phone_number"]'),{target:{value:fakePhNo}});
   fireEvent.blur(phno); 
   fireEvent.change(container.querySelector('input[name="street_address"]'),{target:{value:mockHousehold.streetAddress}});
   fireEvent.blur(container.querySelector('input[name="street_address"]')); 
@@ -110,7 +112,7 @@ test ("Checking with values" ,async () => {
      
 
 	fireEvent.click(getByText('Continue'));
-	
+
 	await wait(() =>{		
 		expect(getByText(/Are you sure you want to proceed/i));
 	});

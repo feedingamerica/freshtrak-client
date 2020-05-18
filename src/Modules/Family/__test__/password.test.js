@@ -3,7 +3,7 @@ import { render, fireEvent,  waitForElement, cleanup,wait } from '@testing-libra
 import PasswordRegistrationFormComponent from '../PasswordRegistrationFormComponent';
 import { noop, mockPasswordBuilder } from '../../../Testing';
 
-describe('PasPasswordRegistrationFormComponents',()=>{
+describe('PasswordRegistrationFormComponents',()=>{
     test('should render without data', () => {
         expect(() => {
             render(
