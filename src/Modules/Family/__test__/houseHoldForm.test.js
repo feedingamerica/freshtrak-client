@@ -1,8 +1,7 @@
 import React from 'react';
 import { render,fireEvent, wait} from '@testing-library/react';
 import HouseHoldFormComponent from '../HouseHoldFormComponent';
-import { noop, mockHouseHold } from '../../../Testing';
-import {fake,oneOf} from 'test-data-bot'
+import { noop, mockHouseHoldBuilder } from '../../../Testing';
 test('should render HouseHoldFormComponent with no data', () => {
     expect(() => {
         render(
@@ -13,41 +12,13 @@ test('should render HouseHoldFormComponent with no data', () => {
         );
     }).not.toThrowError();
 });
-test('should render HouseHoldFormComponent with Mock data', () => {
-    expect(() => {
-        render(
-            <HouseHoldFormComponent
-                onSelectedChild={mockHouseHold}
-                onFormErrors={noop}
-            />
-        );
-    }).not.toThrowError();
-});
-test('should have proper binding onChange',()=>{
-    let mockData = mockHouseHold();
-    const {container,getByTestId,queryByTestId,} = render(
-        <HouseHoldFormComponent
-            onSelectedChild={noop}
-            onFormErrors={noop}
-        />);
-    const housing_type = container.querySelector('select[name="housing_type"]');
-    const street_address = container.querySelector('input[name="street_address"]');
-    const apt_no = container.querySelector('input[name="apt_no"]');
-    const zip_code = container.querySelector('input[name="zip_code"]');
-    fireEvent.change(housing_type,{target:{value:mockData.housingType}});
-    expect(housing_type.value).toBe(mockData.housingType);
-    fireEvent.change(street_address,{target:{value:mockData.streetAddress}});
-    expect(street_address.value).toBe(mockData.streetAddress);
-    fireEvent.change(apt_no,{target:{value:mockData.aptNo}});
-    expect(apt_no).toHaveValue(mockData.aptNo);
-    fireEvent.change(zip_code,{target:{value:mockData.zip}});
-    expect(zip_code.value).toBe(mockData.zip);
-});
+
+
 test("should show validation errors", async () => {
     const { container, getByTestId, getByText } = render(
         <HouseHoldFormComponent
-            ref = {jest.fn()}
-            onSelectedChild={noop}
+            ref = {noop}
+            onSelectedChild={mockHouseHoldBuilder}
             onFormErrors={noop}
         />
     );
@@ -72,4 +43,37 @@ test("should show validation errors", async () => {
             "This field is required"
         );
     });
+});
+
+test('should have proper binding onChange',async()=>{
+    let mockData = mockHouseHoldBuilder();
+    const {container,getByTestId,queryByTestId,} = render(
+        <HouseHoldFormComponent
+            onSelectedChild={noop}
+            onFormErrors={noop}
+        />);
+    const housing_type = container.querySelector('select[name="housing_type"]');
+    const street_address = container.querySelector('input[name="street_address"]');
+    const apt_no = container.querySelector('input[name="apt_no"]');
+    const zip_code = container.querySelector('input[name="zip_code"]');
+    
+    fireEvent.change(housing_type,{target:{value:mockData.housingType}});
+    await wait(()=>{
+      expect(housing_type.value).toBe(mockData.housingType);
+    }); 
+    
+    fireEvent.change(street_address,{target:{value:mockData.streetAddress}});
+    await wait(()=>{
+      expect(street_address.value).toBe(mockData.streetAddress);
+    }); 
+    
+    fireEvent.change(apt_no,{target:{value:mockData.aptNo}});
+    await wait(()=>{
+      expect(apt_no).toHaveValue(mockData.aptNo);
+    }); 
+    
+    fireEvent.change(zip_code,{target:{value:mockData.zip}});
+    await wait(()=>{
+      expect(zip_code.value).toBe(mockData.zip);
+    }); 
 });

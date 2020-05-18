@@ -1,19 +1,19 @@
-import React, {useState} from 'react';
-import useForm from '../../Utils/UseForm';
+import React from 'react';
 import add from '../../Assets/img/add.svg';
 const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
     const [pickupInfo, setpickupInfo] = React.useState('');
+
     const [pickupName, setpickupName] = React.useState('');
     const [pickupNumberPlate, setPickupNumberPlate] = React.useState('');
     const [pickupNumberPlateTwo, setPickupNumberPlateTwo] = React.useState('');
     const [pickupType, setPickupType] =  React.useState('Me');
     const [step, setStep] =  React.useState(false);
-    const [isChanged, setIsChanged] =  React.useState('');
+    const [childFamilyData,setChildFamilyData] = React.useState({})
     let data= '';
     const buildAddressForm = (event) => {
         event.preventDefault();
         let name = event.target.name;
-        setIsChanged(name)
+        buildChildData();
         switch (name) {
 
             case 'vehicle_number_plate':
@@ -31,7 +31,9 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             default:break;
         }
     };
-    const handleChange = () => {
+
+// triggers on each form field change
+    const buildChildData = () => {
         data = {
             pickupData: {
                 pickupName: pickupName,
@@ -40,11 +42,8 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
                 pickupType: pickupType,
             }
         };
-        props.onSelectedChild(data);
+        setChildFamilyData(data)
     };
-    React.useEffect(() => {
-        handleChange();
-    }, [isChanged]);
     const additionalBox=(e)=> {
         e.preventDefault();
         if (step===true) {
@@ -53,6 +52,11 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             setStep(true)
         }
     };
+    React.useImperativeHandle(ref, () => ({
+        getCurrentData(){
+            return childFamilyData
+        }
+    }));
 
     return (
         <div className="form-fields pt-50">
@@ -62,8 +66,9 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
             <div className="form-group">
                 <label>Who’s Picking up?</label>
                 <select  className="form-control" onChange={buildAddressForm} name="pickup_type" id="pickup_type">
-                    <option value="Me">Me</option>
-                    <option value="Some one Else">Some one Else</option>
+
+                <option value="Me">Me</option>
+                <option value="Some one Else">Some one Else</option>
                 </select>
             </div>
             <div className="form-group">
@@ -79,9 +84,10 @@ const AdditionalPickUpFormComponent= React.forwardRef((props, ref)=> {
                 <span>Add a Vehicle </span>
             </div>
             {step &&(
-                <div className="form-group" data-testid="additional-vehicle">
-                    <input type="text" className="form-control" onChange={buildAddressForm} name="vehicle_number_plate_two" id="vehicle_number_plate_two" />
-                </div>
+
+            <div className="form-group" data-testid="additional-vehicle">
+                <input type="text" className="form-control" onChange={buildAddressForm} name="vehicle_number_plate_two" id="vehicle_number_plate_two" />
+            </div>
             )}
             <div className="form-text">
                 Where possible, when you arrive we’ll look for your vehicle and bring your goods to you. See event details for more info.
