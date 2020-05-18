@@ -1,10 +1,12 @@
 import React from 'react';
 import { render, fireEvent, cleanup} from '@testing-library/react';
-import HeaderComponent from '../HeaderComponent';
+import HeaderComponent from '../../Header/HeaderComponent';
 import { createMemoryHistory } from 'history'
 import {Router} from 'react-router-dom';
 import {mockSignin} from '../../../Testing';
+
 let history = createMemoryHistory('/');
+
 test('should show Signin popup on clicking Signin btn on header and should close on clicking close btn',async () => {
     const {getByText,baseElement,getByAltText} = render(
         <Router history={history}>
