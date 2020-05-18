@@ -51,12 +51,14 @@ const FamilyContainer = () => {
     };
     const handleSubmit = (e) => {
         let familyDetails = {
-            familyMemberData:primaryFormRef.current.getCurrentData().primaryData ? primaryFormRef.current.getCurrentData().primaryData:'',
-            HouseHoldData:addressFormRef.current.getCurrentData().addressData ? addressFormRef.current.getCurrentData().addressData:'',
-            passwordData:passwordFormRef.current.getCurrentData().passwordData ? passwordFormRef.current.getCurrentData().passwordData:'',
-            pickupData:pickupCountFormRef.current.getCurrentData().pickupData ? pickupCountFormRef.current.getCurrentData().pickupData:'',
-            memberCountData:memberCountFormRef.current.getCurrentData().memberCountData ? memberCountFormRef.current.getCurrentData().memberCountData:''
+
+            familyMemberData:primaryFormRef.current.getCurrentData() ? primaryFormRef.current.getCurrentData():'',
+            HouseHoldData:addressFormRef.current.getCurrentData() ? addressFormRef.current.getCurrentData():'',
+            passwordData:passwordFormRef.current.getCurrentData() ? passwordFormRef.current.getCurrentData():'',
+            pickupData:pickupCountFormRef.current.getCurrentData() ? pickupCountFormRef.current.getCurrentData():'',
+            memberCountData:memberCountFormRef.current.getCurrentData() ? memberCountFormRef.current.getCurrentData():''
         };
+        
         // Deleted a condition check as it seemed unnecessary and has unreachable code
         // history.push('/');
     };

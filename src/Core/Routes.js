@@ -63,6 +63,12 @@ const Routes = () => {
               component={StaticPageContainer}
             />
             <Route
+              exact
+              path={RENDER_URL.ADD_FAMILY_URL}
+              component={FamilyContainer}
+            />
+
+            <Route
               path={"*"}
               render={(props) => <Redirect to="/" {...props} />}
             />
