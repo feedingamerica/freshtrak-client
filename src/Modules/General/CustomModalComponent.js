@@ -17,7 +17,7 @@ const CustomModalComponent = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton >
     
   </Modal.Header>
       {/* <ModalHeader>

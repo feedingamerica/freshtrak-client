@@ -24,7 +24,7 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
             case "is_address":
                 const validAddress = new RegExp("^[-().,#\/a-zA-Z0-9 ]*$");
                 let errors_address = validAddress.test(value);
-                return errors_address
+                return !errors_address
                     ? ""
                     : `Enter a valid address`;
             default:
@@ -108,7 +108,7 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
         }
 
         if(!errorToComponent){
-            props.onFormErrors(errors);
+            if(props['onFormErrors'])  props.onFormErrors(errors);
         }
 
 

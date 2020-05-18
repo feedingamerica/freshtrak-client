@@ -8,6 +8,7 @@ import mainLogo from "../../Assets/img/logo.png";
 import navBarIcon from "../../Assets/img/menu.svg";
 import userIcon from "../../Assets/img/Mask.svg";
 import { Link } from "react-router-dom";
+import {useHistory} from 'react-router-dom';
 import CustomModalComponent from "../General/CustomModalComponent";
 import closeIcon from '../../Assets/img/close.svg';
 import {
@@ -149,12 +150,6 @@ const HeaderComponent = (props) => {
             {
                 showMobileMenu && <div id="menuSlider" className="mobile-menu fadeIn">
                     <div className="d-flex h-100 justify-content-end flex-column">
-                        <div className="mobile-menu-items">
-                            <div className="menu-item-title">FIND RESOURCES</div>
-                                <ul className="mt-2">
-                                    <li><a onClick={()=>{setMobileMenu(false);history.push('/freshtrak-about')}}>About FreshTrak</a></li>
-                                </ul>
-                            </div>
                             <div className="mobile-menu-items mt-4 mb-4">
                             <div className="menu-item-title">FOR FOODBANKS</div>
                                 <ul className="mt-2">
@@ -162,32 +157,29 @@ const HeaderComponent = (props) => {
                                 </ul>
                             </div>
                             <hr></hr>
-                            {/* Out of Scope */}
-                            {/* <div className="status-info"> */}
-                            {/* {isLoggedIn ? */}
-                            {/* <div className="user-avatar">
-                                <NavDropdown title={
+
+                            <div className="status-info">
+                            {isLoggedIn ?
+                            <div className="user-avatar">
                                     <div className="d-flex align-items-center">
-                                        <span>
+                                      {/* temporarily logout is set while clicking user icon */}
+                                    <span  onClick={(() => { localStorage.removeItem('isLoggedIn', false); setIsLoggedIn(false); window.location.reload(); })}>
                                         <img className="thumbnail-image" src={userIcon} alt="user pic" />
                                     </span>
                                     <span className="text-uppercase ml-2">MANAGE YOUR ACCOUNT</span>
-                                    </div> */}
-                                {/* }> */}
-                                    {/* <DropdownItem eventKey={1.3} onClick={(() => { localStorage.removeItem('isLoggedIn', false); setIsLoggedIn(false); window.location.reload(); })}>
+                                    </div>
+                                   {/* <span  onClick={(() => { localStorage.removeItem('isLoggedIn', false); setIsLoggedIn(false); window.location.reload(); })}>
                                         <i className="fa fa-sign-out"></i> Logout
-                                    </DropdownItem>
-                                </NavDropdown> */}
-                                {/* <div className="user-avatar">
-                                {isLoggedIn == false ? <LoggedInComponent/> : <SignInComponent/>} */}
-{/* 
-                            </div>
+                                    </span> */}
+                                    </div>
+                                 
                             :
 
                             <button className="sign-in-button" onClick={() => setModalShow(true)}>
                                 Sign In
                                 </button>}
-                            </div> */}
+                                  </div> 
+                        
                         </div>
                         
                     <button className="mobile-close" onClick={() => setMobileMenu(false)}>
