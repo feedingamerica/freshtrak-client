@@ -66,6 +66,7 @@ const checkPasswordFields = (e)=>{
             name="password_current"
             id="password_current"
           /> { errors.password_current? <span className="validationError">{errors.password_current}</span>:''}
+
         </div>
         <div className="form-group" data-testid="password-new">
           <label>New Password</label>
@@ -77,6 +78,7 @@ const checkPasswordFields = (e)=>{
             name="password_new"
             id="password_new"
           />{ errors.password_new? <span className="validationError">{errors.password_new}</span>:''}
+          {  !errors.password_new && passwordFormErrors.passwordSame &&(<span className="validationError">Cannot use current password as the new password</span>)}
         </div>
         <div className="form-group" data-testid="password-confirm">
           <label>Confirm New Password</label>
@@ -88,10 +90,10 @@ const checkPasswordFields = (e)=>{
             name="password_confirm"
             id="password_confirm"
           />{ errors.password_confirm? <span className="validationError">{errors.password_confirm}</span>:''}
+          {  !errors.password_confirm && passwordFormErrors.passwordMismatch &&(<span className="validationError">Password must be same</span>)}
         </div>
-         {  passwordFormErrors.passwordMismatch &&(<span className="validationError">Password must be same</span>)}
-         {  passwordFormErrors.passwordSame &&(<span className="validationError">Cannot use current password as the new password</span>)}       
-      </div>
+         
+         </div>
     </React.Fragment>
   );
 });
