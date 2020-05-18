@@ -11,12 +11,10 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
     const [commPreference, setCommmPreference] = useState('');
-    const [isChanged, setIsChanged] = useState('');
     let data ={};
     const buildContactInfoForm = (event) => {		
 		event.preventDefault();
 		let name = event.target.name;
-		setIsChanged(name);
 		switch (name) {
 			case 'first_name'		: 	setFirstName(event.target.value);
 										break;
@@ -33,7 +31,8 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
 			default 				:	break;
 		}
     };
-    const handleChange = () => {
+ 
+   const buildChildData = () => {
         data = {
             contactInfo: {
                 first_name: firstName,
@@ -46,29 +45,23 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
         };  
         setContactData(data);
     };
-    React.useEffect(() => {
-        handleChange();
-    }, [isChanged]);
-
-    const dataToParent = () => {
-        props.onSelectedChild(contactData);
-    };
-
     const { errors, handleErrors } =
-        useForm(props, {
-            'first_name' 	: ['required'],
-            'last_name' 	: ['required'],
-            'phone_number' 	: ['required'],
-            'contact_email'	: ['required','email'],
-        }, dataToParent);
-
-    React.useImperativeHandle(ref, () => ({
-        triggerErrors(){
-            handleChange();
-            return handleErrors(contactData.contactInfo);
-        }
-
-    }));
+    useForm(props, {
+        'first_name' 	: ['required'],
+        'last_name' 	: ['required'],
+        'phone_number' 	: ['required'],
+        'contact_email'	: ['required','email'],
+    }, ()=>{buildChildData()});  
+   
+	React.useImperativeHandle(ref, () => ({
+		getCurrentData(){
+		    return contactData
+		},
+		triggerErrors(){
+		    if(!contactData['contactInfo']) {buildChildData()};
+		    return handleErrors(contactData['contactInfo']);
+		}
+	}));
     
 	return (
 		<div className="form-fields pt-50">

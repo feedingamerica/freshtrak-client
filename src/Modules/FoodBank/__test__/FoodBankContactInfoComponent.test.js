@@ -6,26 +6,16 @@ import { noop, mockFoodBankContactBuilder } from '../../../Testing';
 test('should render foodbank contact info', () => {
 	expect(() => {
 		render(
-			<FoodBankContactInfoComponent onSelectedChild={noop}
+			<FoodBankContactInfoComponent 
 			ref={noop}
 			onFormErrors = {noop}
 			/>
 		);
 	}).not.toThrowError();
 });
-test('should render FoodBankContactInfoComponent with data provided', () => {
-  expect(() => {
-    render(
-      <FoodBankContactInfoComponent
-        onSelectedChild={mockFoodBankContactBuilder}
-        ref={noop}
-        onFormErrors={noop}
-      />
-    );
-  }).not.toThrowError();
-});
+
 test ("Checking the validations works properly in Contact info" ,async () => {
-	const { container,getByTestId } = render(<FoodBankContactInfoComponent onSelectedChild={noop}
+	const { container,getByTestId } = render(<FoodBankContactInfoComponent 
 	ref={noop}
 	onFormErrors = {noop}/>);
 
