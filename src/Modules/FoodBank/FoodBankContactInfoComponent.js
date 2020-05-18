@@ -12,7 +12,7 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
     const [email, setEmail] = useState('');
     const [commPreference, setCommmPreference] = useState('');
     const [isChanged, setIsChanged] = useState('');
-    let data;
+    let data ={};
     const buildContactInfoForm = (event) => {		
 		event.preventDefault();
 		let name = event.target.name;
@@ -28,7 +28,7 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
 										break;
 			case 'contact_email'	: 	setEmail(event.target.value);
 										break;
-			case 'comm_prefrencence': 	setCommmPreference(event.target.value);
+			case 'comm_preference': 	setCommmPreference(event.target.value);
 										break;										
 			default 				:	break;
 		}
@@ -41,7 +41,7 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
                 suffix: suffix,
                 phone_number: phoneNumber,
                 contact_email: email,
-                comm_prefrencence: commPreference
+                comm_preference: commPreference
             }
         };  
         setContactData(data);
@@ -91,7 +91,7 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
 			</div>
 			<div className="form-group">
 				<label>Suffix</label>
-				<select name="suffix" name="suffix" id="" className="form-control" >
+				<select name="suffix" id="" className="form-control" onChange={buildContactInfoForm}>
 					<option>--Select one--</option>
 					<option>Jr</option>
                     <option>Sr</option>
@@ -110,13 +110,15 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
 				{errors.contact_email && (
                     <span className="validationError">{errors.contact_email}</span>
                 )}
-				<small className="text-muted">
-				No Email? <a href="">Get one free from Google.</a>
-				</small>
+				<div className="mt-2">
+					<small className="text-muted">
+						No Email? <a href="">Get one free from Google.</a>
+					</small>
+				</div>
 			</div>
 			<div className="form-group">
 				<label>Communication Preference</label>
-				<select name="comm_preference" id="" className="form-control">
+				<select name="comm_preference" id="" className="form-control" onChange={buildContactInfoForm}>
 					<option>--Select one--</option>
 					<option>Email</option>
                     <option>Phone</option>

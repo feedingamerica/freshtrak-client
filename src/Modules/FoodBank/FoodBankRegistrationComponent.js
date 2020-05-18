@@ -10,7 +10,7 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
     const [suiteBlg, setSuiteBlg] = useState('');
     const [zipCode, setZipCode] = useState('');
     const [isChanged, setIsChanged] = useState('');
-    let data;
+    let data ={};
 	const buildOrganizationForm = (event) => {		
 		event.preventDefault();		
 		let name = event.target.name;

@@ -1,10 +1,7 @@
 import React from 'react';
-import { render, fireEvent,wait ,screen} from '@testing-library/react';
-import { useHistory } from 'react-router-dom';
+import { render, fireEvent,wait } from '@testing-library/react';
 import FoodBankContactInfoComponent from './../FoodBankContactInfoComponent';
-import ReactDOM from 'react-dom';
 import { noop, mockFoodBankContactBuilder } from '../../../Testing';
-import {fake} from 'test-data-bot';
 
 test('should render foodbank contact info', () => {
 	expect(() => {
@@ -27,7 +24,7 @@ test('should render FoodBankContactInfoComponent with data provided', () => {
     );
   }).not.toThrowError();
 });
-test ("Checking the validations works properly in primary info" ,async () => {
+test ("Checking the validations works properly in Contact info" ,async () => {
 	const { container,getByTestId } = render(<FoodBankContactInfoComponent onSelectedChild={noop}
 	ref={noop}
 	onFormErrors = {noop}/>);
@@ -36,8 +33,10 @@ test ("Checking the validations works properly in primary info" ,async () => {
 	const last_name = container.querySelector('input[name="last_name"]');
 	const phone_number = container.querySelector('input[name="phone_number"]');
 	const contact_email = container.querySelector('input[name="contact_email"]');
-
-	let contactEmail = fake(f=>f.random.word()).generate(1);
+	const suffix = container.querySelector('select[name="suffix"]');
+	const comm_preference = container.querySelector('select[name="comm_preference"]');
+    
+    let mockFoodbankContactData = mockFoodBankContactBuilder();
 
 	fireEvent.blur(first_name);
 	await wait(() =>{
@@ -59,8 +58,17 @@ test ("Checking the validations works properly in primary info" ,async () => {
 		expect(getByTestId('contact-email')).toHaveTextContent('This field is required');
 	});
 
-	fireEvent.blur(contact_email, {target: {value: contactEmail}});	
+	fireEvent.blur(contact_email, {target: {value: mockFoodbankContactData.firstName}});	
 	await wait(() =>{
 		expect(getByTestId('contact-email')).toHaveTextContent('Enter a valid email address');
+	});
+	fireEvent.change(suffix, {target: {value: mockFoodbankContactData.suffx}});
+	await wait(() => {
+		expect(suffix.value).toBe(mockFoodbankContactData.suffx);
+	});
+
+	fireEvent.change(comm_preference, {target: {value: mockFoodbankContactData.commPreference}});
+	await wait(() => {
+		expect(comm_preference.value).toBe(mockFoodbankContactData.commPreference);
 	});
 });
