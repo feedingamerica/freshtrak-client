@@ -92,7 +92,7 @@ const FamilyContainer = () => {
                             <div className="col-lg-4 col-md-6" data-testid="family-register">
                                 <RegistrationTextComponent/>
                                 <form onSubmit={handleFormValidation}>
-`                                    <div className="content-wrapper pt-100">
+                                    <div className="content-wrapper pt-100">
                                         <div className="form-fields">
                                             <HouseHoldFormComponent   ref={addressFormRef}
                                                                       onFormErrors = {formErrors} />
