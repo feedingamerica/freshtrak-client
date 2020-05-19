@@ -13,12 +13,35 @@ import {useHistory} from 'react-router-dom';
 const MemberContainer = () => {
     const memberCountRef = React.useRef();
     const memberInfoRef = React.useRef();
-    let memberCountData = {};
+
+    const memberData = {
+        memberData:[{
+                id:'First Adult',
+                first_name:'Adult 01',
+                last_name:'Adams',
+                middle_name:'Adams',
+                dob:'1990-12-12',
+                gender:'Male',
+                suffix:'Jr'
+            },{
+                id:'Second Adult',
+                first_name:'Mark',
+                last_name:'Simson',
+                middle_name:'Simson',
+                dob:'1990-12-12',
+                gender:'Male',
+                suffix:'Jr'
+            }]
+
+        
+    }
+
     let history = useHistory();
     
     const handleSubmit = async() => {
-        let familyData = await memberInfoRef.current.buildFamilyData()
-        console.log('container',familyData)
+        // setting the full family Object here.
+        let familyData = await memberInfoRef.current.getFamilyData();
+        goToConfirmationPage();
     };
 
 
@@ -65,8 +88,8 @@ const MemberContainer = () => {
                     <div className="col-lg-4 col-md-6 register-confirmation">
                         <div className="content-wrapper mt-0">
                         <div className="form-fields">
-                            <MemberCountFormComponent ref={memberCountRef} />
-                            <MemberInfoComponent  ref={memberInfoRef} />
+                            <MemberCountFormComponent ref={memberCountRef}  />
+                            <MemberInfoComponent  ref={memberInfoRef} memberData = {memberData}/>
                             <div className="button-wrap mt-4">
                                 <button className="btn custom-button" value="Continue" onClick={handleSubmit}>Continue</button>
                                 <small className="text-muted">
