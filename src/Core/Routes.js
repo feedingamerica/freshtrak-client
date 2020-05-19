@@ -14,10 +14,10 @@ const DashBoardContainer = lazy(() =>
 const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
 const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 const MemberContainer = lazy(() => import("../Modules/Family/MemberContainer"));
-
 const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
+
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );

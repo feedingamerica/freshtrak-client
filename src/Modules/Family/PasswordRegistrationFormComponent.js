@@ -5,8 +5,10 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
 
     const [password, setPassword] = React.useState('');
     const [passwordConfirm, setPasswordConfirm] = React.useState('');
-    const [passwordError, setPasswordError] = React.useState(false);
-    let data,childFamilyData ='';
+    const [passwordFieldError, setPasswordFieldError] = React.useState(false);
+    const [passwordStatus, setPasswordStatus] = React.useState(false);
+    const [childFamilyData, setChildFamilyData] = React.useState({});
+    let data={};
 
     const buildForm = (event) => {
         event.preventDefault();
@@ -15,7 +17,7 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
             case 'password':
                 setPassword(event.target.value);
                 break;
-            case 'passwordConfirm':
+            case 'password_confirm':
                 setPasswordConfirm(event.target.value);
                 break;
             default:
@@ -23,68 +25,91 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
         }
     };
 
-    const handleChange = () => {
+    const buildChildData = () => {
         data = {
             passwordData: {
-                password: password,
+                password: password
             }
-        };props.onSelectedChild(data);
+        };
+        setChildFamilyData(data);
     };
+  
     React.useEffect(() => {
-        handleChange();
-    }, [password,passwordConfirm]);
+        passwordCheckFunction();
+    }, [passwordStatus]);
 
-    const dataToParent = () => {
-        props.onSelectedChild(childFamilyData);
-    };
+    const passwordCheckFunction = () => {
+      let  passwordData = {
+            passwordStatus:passwordStatus
+            }; 
+        props.getPasswordStatus(passwordData);
+        };
+
+
+    // const dataToParent = () => {
+
+    //     buildChildData();
+    //     props.onSelectedChild(childFamilyData);
+    // };
 
     const { errors, handleErrors } =
         useForm(props, {
-            'password' : ['required'],
-            'password_re' : ['required'],
-        }, dataToParent);
+            'password' : ['required']
+        }, ()=>buildChildData());
 
     React.useImperativeHandle(ref, () => ({
+        getCurrentData(){
+            return childFamilyData
+        },
         triggerErrors(){
-            handleChange();
-            return handleErrors(data.passwordData);
+            if(!childFamilyData['passwordData']) {buildChildData()};
+            return handleErrors(childFamilyData['passwordData']);
         }}));
 
-    const passwordCheck=()=>{
-        if (passwordConfirm===password){
-            setPasswordError(false)
+    const passwordCheck=(e)=>{
+        if (password !== '' && passwordConfirm !==''&& passwordConfirm===password){
+            setPasswordStatus(true)
+            setPasswordFieldError(false)
+        } else if ( password === ''&& passwordConfirm ==='') {
+            setPasswordStatus(false)
+            setPasswordFieldError(true)
+        }else if ( password === '' || passwordConfirm ===''){
+            setPasswordStatus(false)
+            setPasswordFieldError(true)
+        }else if (password!==passwordConfirm){
+            setPasswordFieldError(true)
+            setPasswordStatus(false)
         }
-        else if ( (password == '')){
-
-        }else if(passwordConfirm ==''){
-            setPasswordError(true)
-
-        }else if (password!=passwordConfirm){
-            setPasswordError(true)
-        }
+        handleErrors(e);
     }
 
     return (
         <div className="form-fields pt-50">
             <div className="form-title">
-                Create FresTrak Account
+                Create FreshTrak Account
             </div>
             <div className="form-text mb-2">
                 Input a password to create a FreshTrak account and easily register with one click in the future.
             </div>
-            <div className="form-group">
+            <div className="form-group" data-testid="password">
                 <label>Password</label>
+
                 <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password" id="password" required/>
+                {errors.password && (
+                    <span className="validationError">{errors.password}</span>
+                )}
             </div>
-            <div className="form-group">
+
+            <div className="form-group" data-testid="password-confirm">
                 <label>Confirm Password</label>
-                <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="passwordConfirm" id="passwordConfirm" required/>
-            </div>
-            {passwordError &&(
-                <div>
-                   <span>Password must be same </span>
-                </div>
-            )}
+                <input type="password" className="form-control" onChange={buildForm} onBlur={passwordCheck} name="password_confirm" id="passwordConfirm" />
+                 {errors.password && (
+                    <span className="validationError">{errors.password}</span>
+                )}  
+                {!errors.password && passwordFieldError &&(
+                   <span className="validationError">Password must be same</span>
+                )}              
+            </div>               
         </div>
     )
 });

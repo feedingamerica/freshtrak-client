@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.scss';
 
 const YourInformationComponent = (props) => {
-    git
+
     return (
         <div>
         <div className="small-title font-weight-bold">Your Information</div>
