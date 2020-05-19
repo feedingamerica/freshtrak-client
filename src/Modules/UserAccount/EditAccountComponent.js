@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavigationBtnComponent from '../General/NavigationBtnComponent';
 import PrimaryInfoFormComponent from '../Family/PrimaryInfoFormComponent';
 import AdditionalPickUpFormComponent from '../Family/AdditionalPickUpFormComponent';
@@ -6,87 +6,143 @@ import HouseHoldFormComponent from '../Family/HouseHoldFormComponent';
 import ChangePasswordComponent from './ChangePasswordComponent';
 import ButtonComponent from '../General/ButtonComponent';
 import {useHistory} from 'react-router-dom';
+import { confirm,showMessage } from "../../Utils/Util";
+import MemberCountFormComponent from '../Family/MemberCountFormComponent';
 const EditAccountComponent = (props) => {
-    let page =props?.location?.state?.page 
-    let title = props?.location?.state?.title 
-    let btnText = props?.location?.state?.btntext  
-    let history = useHistory();
-    const handleSubmit = () => {
-        // handle Save Changes/Continue btn handling here
-        // Routing back to Account Overview page tempoararily.
-        
-        history.goBack();
+
+let page =props?.location?.state?.page 
+let title = props?.location?.state?.title 
+let btnText = props?.location?.state?.btntext  
+let history = useHistory();
+const primaryInfoRef = React.useRef();
+const houseHoldRef = React.useRef();
+const passwordRef = React.useRef();
+const pickupInfoRef = React.useRef();
+const membercountInfoRef = React.useRef();
+
+//  Currently, 'Change Password' is kept static. 
+const [currentPage] = useState(page);
+
+let familyData = [];
+let formError = {};
+useEffect(()=>{
+    if (props.location?.state === undefined){
+        handleNoStateError();
+    }
+});
+
+
+const handleFormValidation = async(e) => {
+    e.preventDefault();
+    let componentErrors = [];
+    switch(currentPage){
+    case 'your-info'    :   componentErrors =[...componentErrors,
+                            await houseHoldRef.current.triggerErrors(),
+                            await primaryInfoRef.current.triggerErrors()];
+                            break;
+    case 'login-info'   :   componentErrors =[...componentErrors,
+                            await passwordRef.current.triggerErrors(), await passwordRef.current.getPasswordCheckResult()];
+                            break;
+    //  cases will be defined here for password and membercountinfo component after code review.
+    default             :   break;
 
     }
-
-    useEffect(()=>{
-        if (props.location.state === undefined){
-            handleNoStateError();
-        }
-    });
-    
-    // go to home page in case of missing state
-    const handleNoStateError = ()=> {
-        history.push('/');
+    if (componentErrors.includes(true) || Object.keys(formError).length !== 0) {
+        return false;
     }
-    const commonHandler = () => {
-        
-        switch (page) {
-            case 'your-info': return (<React.Fragment><HouseHoldFormComponent onSelectedChild={() => { }} onFormErrors={() => { }} /><PrimaryInfoFormComponent onSelectedChild={() => { }} onFormErrors={() => { }} /></React.Fragment>);
+    handleSubmitConfirm();
+};
 
-            case 'pickup-info':  return (<AdditionalPickUpFormComponent onSelectedChild={() => { }} onFormErrors={() => { }} />);
-            
-            // Adding HouseHoldComponent for now, as Members component is not yet merged with the code.
-            case 'house-info':  return (<HouseHoldFormComponent onSelectedChild={() => { }} onFormErrors={() => { }} />);
-            case 'login-info':  return (<ChangePasswordComponent onSelectedChild={() => { }} onFormErrors={() => { }} />);
+const handleSubmitConfirm = () => {
+    let title = "Are you sure you want to proceed?";
+    confirm(title, handleSubmit);
+};
 
-            default: return 'Somethings wrong'; 
-        }
+const handleSubmit = () => {
+    let containsInfo = false;
+    let familyDetails = {
+        accountOverviewData:{}
+    };
+    if (primaryInfoRef.current?.getCurrentData() && houseHoldRef.current?.getCurrentData()) {
+        familyDetails['accountOverviewData']['familyMemberData'] = primaryInfoRef.current?.getCurrentData();
+        familyDetails['accountOverviewData']['houseHoldData'] = houseHoldRef.current?.getCurrentData();
     }
-    return (
-        <React.Fragment>
-            <section>
-                <div className="container pt-100 pb-100 register-confirmation">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <NavigationBtnComponent />
-                        </div>
+    if (passwordRef.current?.getCurrentData()) 
+        familyDetails['accountOverviewData']['passwordData'] = passwordRef.current?.getCurrentData()
+
+    if (pickupInfoRef.current?.getCurrentData())
+        familyDetails['accountOverviewData']['pickupInfoData'] =  pickupInfoRef.current?.getCurrentData()
+
+    if (membercountInfoRef.current?.getCurrentData())
+        familyDetails['accountOverviewData']['membercountInfoData'] =  membercountInfoRef.current?.getCurrentData()
+
+    // No action is specified here as of now.
+};
+
+
+
+const formErrors = (errors) => {
+    formError = errors;
+};
+
+
+
+// go to home page in case of missing state
+const handleNoStateError = ()=> {
+    history.push('/');
+}
+const commonHandler = () => {
+switch (page) {
+case 'your-info': return (<React.Fragment><HouseHoldFormComponent ref={houseHoldRef} onFormErrors={formErrors} /><PrimaryInfoFormComponent ref={primaryInfoRef}  onFormErrors={formErrors} /></React.Fragment>);
+case 'pickup-info':  return (<AdditionalPickUpFormComponent  ref={pickupInfoRef} onFormErrors={formErrors} />);
+case 'house-info':  return (<MemberCountFormComponent ref={membercountInfoRef} onFormErrors={formErrors} />);
+case 'login-info':  return (<ChangePasswordComponent ref = {passwordRef} onFormErrors={formErrors} />);
+
+default: return 'Somethings wrong'; 
+}
+}
+return (
+    <React.Fragment>
+        <section>
+            <div className="container pt-100 pb-100 register-confirmation">
+                <div className="row">
+                    <div className="col-md-12">
+                        <NavigationBtnComponent />
                     </div>
-                    <div className ="row">
-                        <div className="col-12">
-                            <div className="title-wrap">
-                                <h1 className="big-title mt-5 mb-5 mobile-mb">
-                                    {title}
+                </div>
+                <div className ="row">
+                    <div className="col-12">
+                        <div className="title-wrap">
+                            <h1 className="big-title mt-5 mb-5 mobile-mb" data-testid="title">
+                                {title}
                             </h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-xl-8 col-lg-8 col-md-6">
-                            <p className="d-none d-lg-block d-xl-block">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                            <p className="d-none d-lg-block d-xl-block">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                        </div>
-                        <div className="col-xl-4 col-lg-4 col-sm-12 col-12 edit-account">
-                            <form>
-                                
-                                {commonHandler(page)}
-                                
-                                <div className="button-wrap mt-4">
-                                    <ButtonComponent type='button' name='submit' dataid='' id='submit-btn' className = "btn custom-button" value = {btnText} onClickfunction={handleSubmit} />
-                                </div>
-
-                                {/* Shows except for Pickup info */}
-                                {page!=='pickup-info' && 
-                                <div className="button-wrap mt-4 text-underline">
-                                    <a onClick={()=>history.goBack()}>Cancel Changes</a>
-                                </div>}
-                        
-                            </form>
                         </div>
                     </div>
                 </div>
-            </section>
-        </React.Fragment>
+                <div className="row">
+                    <div className="col-xl-8 col-lg-8 col-md-6">
+                        <p className="d-none d-lg-block d-xl-block">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                        <p className="d-none d-lg-block d-xl-block">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                    </div>
+                    <div className="col-xl-4 col-lg-4 col-sm-12 col-12 edit-account" >
+                        <form>
+                            {commonHandler(page)}
+
+                            <div className="button-wrap mt-4">
+                                <ButtonComponent type='button' name='submit' dataid='' id='submit-btn' className = "btn custom-button" value = {btnText} onClickfunction={handleFormValidation} />
+                            </div>
+
+                            {/* Shows except for Pickup info */}
+                            {page!=='pickup-info' && 
+                            <div className="button-wrap mt-4 text-underline">
+                                <a onClick={()=>history.goBack()}>Cancel Changes</a>
+                            </div>}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </React.Fragment>
     )
 };
 

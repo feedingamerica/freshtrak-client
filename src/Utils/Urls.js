@@ -14,6 +14,7 @@ export const RENDER_URL = {
     EVENT_LIST_URL:'/events/list',
     ACCOUNT_OVERVIEW_URL:'/account',
     ACCOUNT_EDIT_URL:'/account/edit',
+    ADD_FAMILY_URL:'/family/create',
     FRESHTRAK_WORKING:'/freshtrak-working',
     FRESHTRAK_ABOUT:'/freshtrak-about'
 };

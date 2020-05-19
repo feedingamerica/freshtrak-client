@@ -2,6 +2,7 @@
  * Dash board Create Account Component
  */
 import React from 'react';
+import {useHistory} from 'react-router-dom';
 
 import BoxComponent from '../General/BoxComponent';
 import '../../Assets/scss/main.scss';
@@ -10,7 +11,9 @@ import CalenderIcon from '../../Assets/img/calendar.svg';
 import PreRegisteredIcon from '../../Assets/img/pre-register.svg';
 import FindFoodIcon from '../../Assets/img/findfood.svg';
 const DashboardCreateAccountComponent = () => {
+    let history = useHistory();
     const handleClick = (e) => {
+        history.push('/family/create')
     };
     return (
 	        

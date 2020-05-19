@@ -6,107 +6,79 @@ const HouseHoldFormComponent= React.forwardRef((props, ref)=> {
     const [streetAddress, setStreetAddress] = React.useState('');
     const [aptNo, setAptNo] = React.useState('');
     const [zip, setZip] = React.useState('');
-    let street_address_form , apt_number_form='';
-    const [childFamilyData, setChildFamilyData] = React.useState([]);
-    let data='';
+    const [housingType, setHousingType] = React.useState('Apartment');
+    const [childFamilyData, setChildFamilyData] = React.useState({
+        street_address:'',
+        apt_no:'',
+        zip_code:'',
+        housing_type:'Apartment'
+    });
 
-    const buildAddressForm = (event) => {
-        event.preventDefault();
-        let name = event.target.name;
-        switch (name) {
-            case 'street_address':
-                setStreetAddress(event.target.value);
-                break;
-            case 'apt_no':
-                setAptNo(event.target.value);
-                break;
-                case 'zip_code':
-                    setZip(event.target.value);
-                break;
-            default:
-                break;
-        }
-    };
+      const buildAddressForm = (event)=>{
+    setChildFamilyData({...childFamilyData,[event.target.name] : event.target.value});
+    }
 
-    const handleChange = () => {
-        data = {
-            addressData: {
-                streetAddress: streetAddress,
-                aptNo: aptNo,
-                zipcode: zip,
-            }
-        };
-
-        props.onSelectedChild(data);
-    };
-
-    React.useEffect(() => {
-        handleChange();
-    }, [streetAddress, aptNo,zip]);
-
-    let formDataBuildOne = props.famData ? ((street_address_form=props.famData.address))? props.famData : '' :'';
-    let formDataBuildtwo = props.famData ? ((apt_number_form=props.famData.apt_number))? props.famData : '' :'';
-
-    React.useEffect(() => {
-        if (street_address_form) {
-            setStreetAddress(street_address_form);
-            setAptNo(apt_number_form);
-        }
-    }, [street_address_form]);
-
-
-    const dataToParent = () => {
-        props.onSelectedChild(childFamilyData);
-    };
 
     const { errors, handleErrors } =
         useForm(props, {
-            'street_address' : ['required', 'min:5', 'max:20'],
+            'street_address' : ['required', 'min:1'],
             'apt_no' : ['required'],
-            'zip_code' : ['required', 'min:5', 'max:5','number'],
-        }, dataToParent);
+            'zip_code' : ['required','number']
+        }, ()=>{});
 
     React.useImperativeHandle(ref, () => ({
 
+        getCurrentData(){
+            return childFamilyData
+        },
         triggerErrors(){
-            handleChange();
-            return handleErrors(data.addressData);
+            return handleErrors(childFamilyData);
         }
-
     }));
 
-
     return (
-
-        <div className="pb-50">
+        <div>
             <div className="form-title">
-                        Household Information
+                Household Information
             </div>
             <div className="form-group">
                 <label>Housing Type</label>
-                <select className="form-control" name="housing_type" id="housing_type" >
-                    <option>Apartment</option>
+                <select className="form-control" name="housing_type" id="housing_type"  defaultValue="Apartment" onChange={buildAddressForm} >
+                    <option value="Home or townhouse">Home or townhouse</option>
+                    <option value="Apartment">Apartment</option>
+                    <option value="Mobile home or house trailer" >Mobile home or house trailer</option>'
+                    <option value="Military housing" >Military housing</option>
+                    <option value="Student housing" >Student housing</option>
+                    <option value="Temporary" >Temporary</option>
+                    <option value="Prefer not to answer" >Prefer not to answer</option>'
                 </select>
             </div>
 
-            <div className="form-group">
-                   <label>Street Address</label>
+            <div className="form-group" data-testid="street-address">
+                <label>Street Address</label>
                 <input type="text" className="form-control" onChange={buildAddressForm} name="street_address" id="street_address"
-                       onBlur={handleErrors}/>
+                       onBlur={handleErrors} />
+                {errors.street_address && (
+                    <span className="validationError">{errors.street_address}</span>
+                )}
             </div>
 
             <div className="d-flex">
-                <div className="form-group">
+                <div className="form-group" data-testid="apt-no" >
                     <label>Unit or Apt.</label>
-                    <input type="text" className="form-control" onChange={buildAddressForm} name="apt_no" id="apt_no"  onBlur={handleErrors}/>
+                    <input type="text" className="form-control" onChange={buildAddressForm} name="apt_no" id="apt_no"  onBlur={handleErrors}  />
+                    {errors.apt_no && (
+                        <span className="validationError">{errors.apt_no}</span>
+                    )}
                 </div>
-                <div className="form-group ml-2">
+                <div className="form-group ml-2"  data-testid="zip-code">
                     <label>ZIP Code</label>
-                    <input type="text" className="form-control"  onChange={buildAddressForm} name="zip_code" id="zip_code"  onBlur={handleErrors}/>
+                    <input type="text" className="form-control"   name="zip_code" id="zip_code"  onChange={buildAddressForm}  onBlur={handleErrors} />
+                    {errors.zip_code && (
+                        <span className="validationError">{errors.zip_code}</span>
+                    )}
                 </div>
             </div>
-
-
         </div>
     )
 });

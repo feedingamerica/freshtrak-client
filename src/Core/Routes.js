@@ -26,6 +26,9 @@ const EditAccountComponent = lazy(() =>
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
+
+const FamilyContainer = lazy(()=>
+   import("../Modules/Family/FamilyContainer"))
 const Routes = () => {
   React.useEffect(() => {}, []);
 
@@ -62,6 +65,12 @@ const Routes = () => {
               path={RENDER_URL.FRESHTRAK_ABOUT}
               component={StaticPageContainer}
             />
+            <Route
+              exact
+              path={RENDER_URL.ADD_FAMILY_URL}
+              component={FamilyContainer}
+            />
+
             <Route
               path={"*"}
               render={(props) => <Redirect to="/" {...props} />}

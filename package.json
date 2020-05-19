@@ -49,6 +49,9 @@
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest-enzyme": "^7.1.2",
     "test-data-bot": "^0.8.0"
   }
 }

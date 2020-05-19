@@ -1,13 +1,11 @@
 import React from 'react';
 import NavigationBtnComponent from '../General/NavigationBtnComponent';
-
 import LoginInfoComponent from './LoginInfoComponent';
 import YourInfoComponent from './YourInfoComponent';
 import PickUpInfoComponent from './PickUpInfoComponent';
 import HouseholdInfoComponent from './HouseholdInfoComponent';
 
 const AccountOverviewContainer = () => {
-
     return (
         <React.Fragment>
             <section>
@@ -40,8 +38,6 @@ const AccountOverviewContainer = () => {
                         <LoginInfoComponent />
                     </div>
                 </div>
-
-
             </div>
         </section>
         </React.Fragment>
