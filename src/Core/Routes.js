@@ -21,6 +21,10 @@ const StaticPageContainer = lazy(() =>
 const MemberContainer = lazy(() =>
   import("../Modules/Family/MemberContainer")
 );
+const ConfirmationComponent = lazy(() =>
+  import("../Modules/Family/ConfirmationComponent")
+);
+
 const Routes = () => {
 
   return (
@@ -55,6 +59,11 @@ const Routes = () => {
               exact
               path={RENDER_URL.FAMILY_ADD_MEMBER_URL}
               component={MemberContainer}
+            />
+            <Route
+              exact
+              path={RENDER_URL.REG_CONFIRM_URL}
+              component={ConfirmationComponent}
             />
 
             <Route

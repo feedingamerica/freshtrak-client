@@ -7,25 +7,27 @@ import MemberCountFormComponent from './MemberCountFormComponent';
 import NavigationBtnComponent from '../General/NavigationBtnComponent';
 import back from '../../Assets/img/back.svg';
 
+import {useHistory} from 'react-router-dom';
+
 
 const MemberContainer = () => {
     const memberCountRef = React.useRef();
     const memberInfoRef = React.useRef();
     let memberCountData = {};
+    let history = useHistory();
     
     const handleSubmit = async() => {
-        memberInfoRef.current.buildFamilyData()
         let familyData = await memberInfoRef.current.buildFamilyData()
         console.log('container',familyData)
     };
 
 
-
-    const buildFamilyData = (childFamilyData) => {
-    };
+    const goToConfirmationPage = () => {
+        history.push('/events/confirm');
+    }
 
     return (
-        <div>
+        <>
             <div className="container pt-100 pb-100 ">
                 <div className="row">
                     <div className="col-md-12">
@@ -57,7 +59,7 @@ const MemberContainer = () => {
                                     This page is optional.
                                </p>
                             </div>
-                            <button className="btn custom-button">Skip This</button>
+                            <button className="btn custom-button" onClick={goToConfirmationPage}>Skip This</button>
                         </div>
                     </div>
                     <div className="col-lg-4 col-md-6 register-confirmation">
@@ -68,7 +70,7 @@ const MemberContainer = () => {
                             <div className="button-wrap mt-4">
                                 <button className="btn custom-button" value="Continue" onClick={handleSubmit}>Continue</button>
                                 <small className="text-muted">
-                                    <a href="" className="ml-2">Skip this step </a>
+                                    <a href="" className="ml-2" onClick={goToConfirmationPage}>Skip this step </a>
                                 </small>
                             </div>
                         </div>
@@ -77,7 +79,7 @@ const MemberContainer = () => {
                 </div>
             </div>
 
-        </div>
+        </>
     )
 };
 

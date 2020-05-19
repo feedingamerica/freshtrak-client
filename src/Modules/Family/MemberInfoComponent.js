@@ -88,6 +88,7 @@ React.useImperativeHandle(ref, () => ({
         const [adultData,setAdultData] = React.useState({});
 
         const buildMemberInfo = (event,index)=>{
+            console.log(event,index)
          setAdultData({...adultData,[index]:{...adultData[index],[event.target.name] : event.target.value}});
      }
 
@@ -133,7 +134,7 @@ React.useImperativeHandle(ref, () => ({
                             </div>
                             <div className="form-group">
                                 <label>Gender</label>
-                                 <select  id={"gender_adult"+value} onChange={(e)=>buildMemberInfo(e,index)} name={"gender_adult_"+value} defaultValue="Prefer Not to Specify" className="form-control"  >
+                                 <select  id={"gender_adult"+value}  onChange={(e)=>buildMemberInfo(e,index)} name={"gender_adult_"+value} defaultValue="Prefer Not to Specify" className="form-control"  >
                                     <option>Prefer Not to Specify</option>
                                     <option>Male</option>
                                     <option>Female</option>
