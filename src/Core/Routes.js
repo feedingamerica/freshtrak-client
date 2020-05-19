@@ -18,8 +18,10 @@ const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
+const MemberContainer = lazy(() =>
+  import("../Modules/Family/MemberContainer")
+);
 const Routes = () => {
-  React.useEffect(() => {}, []);
 
   return (
     <Router basename="/">
@@ -48,6 +50,11 @@ const Routes = () => {
               exact
               path={RENDER_URL.ADD_FAMILY_URL}
               component={FamilyContainer}
+            />
+            <Route
+              exact
+              path={RENDER_URL.FAMILY_ADD_MEMBER_URL}
+              component={MemberContainer}
             />
 
             <Route
