@@ -28,6 +28,7 @@
     "build": "env-cmd -f .env.${REACT_APP_ENV} react-scripts build",
     "build:development": "REACT_APP_ENV=development yarn build",
     "build:beta": "REACT_APP_ENV=beta yarn build",
+    "build:production": "REACT_APP_ENV=production yarn build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

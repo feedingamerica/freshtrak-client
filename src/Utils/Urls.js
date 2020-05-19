@@ -11,6 +11,8 @@ export const API_URL = {
 
 export const RENDER_URL = {
     HOME_URL: '/',
-    EVENT_LIST_URL: '/events/list',
+    FRESHTRAK_WORKING:'/freshtrak-working',
+    FRESHTRAK_ABOUT:'/freshtrak-about',
+    EVENT_LIST_URL:'/events/list',
     TIME_SLOT: '/events/time-slot'
 };

@@ -16,7 +16,9 @@ const TimeSlotContainer = lazy(() => import("../Modules/Events/TimeSlotContainer
 const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
-
+const StaticPageContainer = lazy(() =>
+  import("../Modules/StaticPages/StaticPageContainer")
+);
 const Routes = () => {
   React.useEffect(() => {}, []);
 
@@ -35,7 +37,14 @@ const Routes = () => {
               path={RENDER_URL.EVENT_LIST_URL}
               component={EventContainer}
             />
-
+            <Route
+              path={RENDER_URL.FRESHTRAK_WORKING}
+              component={StaticPageContainer}
+            />
+            <Route
+              path={RENDER_URL.FRESHTRAK_ABOUT}
+              component={StaticPageContainer}
+            />
             <Route
                 exact
                 path={RENDER_URL.TIME_SLOT}

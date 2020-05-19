@@ -10,10 +10,14 @@ function main {
   if [ $STAGE == 'beta' ]; then
     deploy 'freshtrak-ui-beta-s3websitebucket-190zpkapk341b' 'E2G2PXSOKK1LMM'
   fi
+  if [ $STAGE == 'production' ]; then
+    deploy 'freshtrak-ui-s3websitebucket-5x5bno31jql4' 'E2XH4UYXPUQSS0'
+  fi
 }
 
 function verify_args {
   [ "$STAGE" == 'beta' ] \
+    || [ "$STAGE" == 'production' ] \
     || (usage && exit 1)
 }
 
