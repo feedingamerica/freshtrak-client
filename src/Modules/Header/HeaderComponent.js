@@ -103,7 +103,7 @@ const HeaderComponent = (props) => {
 
             {
                 showMobileMenu && <div id="menuSlider" className="mobile-menu fadeIn">
-                    <div className="d-flex h-100 justify-content-end flex-column">
+                    <div className="d-flex h-100 justify-content-centre flex-column">
                         <div className="mobile-menu-items">
                             <div className="menu-item-title">FIND RESOURCES</div>
                                 <ul className="mt-2">
