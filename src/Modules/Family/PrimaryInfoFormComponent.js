@@ -24,8 +24,8 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
 
     });
 
-      const buildNameForm = (event)=>{
-    setChildFamilyData({...childFamilyData,[event.target.name] : event.target.value});
+    const buildNameForm = (event)=>{
+        setChildFamilyData({...childFamilyData,[event.target.name] : event.target.value});
     }
     const [phoneDisable, setPhoneDisable] = React.useState(false);
 
@@ -49,12 +49,12 @@ const PrimaryInfoFormComponent =  React.forwardRef((props, ref) => {
         }}));
 
     const phoneDisableFunction=()=>{
-
         if (phoneDisable===true)
         { setPhoneDisable(false)
         }else {
             setPhoneDisable(true)
-        }}
+        }
+    }
 
 
     return (

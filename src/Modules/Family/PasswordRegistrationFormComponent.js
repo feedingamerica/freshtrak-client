@@ -39,19 +39,13 @@ const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
     }, [passwordStatus]);
 
     const passwordCheckFunction = () => {
-      let  passwordData = {
+        let  passwordData = {
             passwordStatus:passwordStatus
             }; 
         props.getPasswordStatus(passwordData);
-        };
+     };
 
-
-    // const dataToParent = () => {
-
-    //     buildChildData();
-    //     props.onSelectedChild(childFamilyData);
-    // };
-
+    
     const { errors, handleErrors } =
         useForm(props, {
             'password' : ['required']

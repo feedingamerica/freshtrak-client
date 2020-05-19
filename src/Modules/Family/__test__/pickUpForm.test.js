@@ -48,9 +48,7 @@ const {container,getByTestId,queryByTestId,getByAltText} = render(
 
   fireEvent.change(numPlate,{target:{value:mockPickUpData.pickupNumberPlate}});
   expect(numPlate.value).toBe(`${mockPickUpData.pickupNumberPlate}`);
-
-
-  //fireEvent.click(add_btn,{target:{value:''}});
+  
   fireEvent.click(getByAltText(/my .*/i));
  
   let numPlate_2 = container.querySelector('input[name="vehicle_number_plate_two"]');
@@ -58,8 +56,7 @@ const {container,getByTestId,queryByTestId,getByAltText} = render(
   expect(numPlate_2.value).toBe(`${mockPickUpData.pickupNumberPlate2}`);
 
 
-  // triggering switch case if step=true 
-  /*fireEvent.click(add_btn,{target:{value:''}});*/
+  // triggering switch case if step=true   
   fireEvent.click(getByAltText(/my .*/i));
   expect(queryByTestId(container,'additional-vehicle')).toBeNull();
 

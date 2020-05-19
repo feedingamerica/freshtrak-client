@@ -21,57 +21,6 @@ test ("Should show the validation erros on button click" ,async () => {
 		expect(getByTestId('family-register')).toHaveTextContent('This field is required');
 	});	
 });
-// test("Data saving successful in button click",async()=>{
-// 	const {container, getByText,getByTestId,baseElement } = render(<Router><FamilyContainer /></Router>);
-
-// 	let mockPrimaryData = mockPrimaryInfoBuilder();
-	
-
-// 	const first_name = container.querySelector('input[name="first_name"]');
-// 	const last_name = container.querySelector('input[name="last_name"]');
-// 	const middle_name = container.querySelector('input[name="middle_name"]');
-// 	const dob = container.querySelector('input[name="dob"]');
-// 	const email = container.querySelector('input[name="email"]');
-// 	const phno = container.querySelector('input[name="phone_number"]');
-
-//     const fakePhno = 123456789;
-// 	fireEvent.change(first_name, {target: {value: mockPrimaryData.firstName}});
-// 	fireEvent.blur(first_name);
-// 	await wait(()=>{
-//         expect(first_name.value).toBe(mockPrimaryData.firstName);
-// 	});
-	
-// 	fireEvent.change(last_name, {target: {value: mockPrimaryData.lastName}});
-// 	fireEvent.blur(last_name);
-// 	await wait(()=>{
-//         expect(last_name.value).toBe(mockPrimaryData.lastName);
-//     });		
-// 	fireEvent.change(middle_name, {target: {value: mockPrimaryData.middleName}});
-// 	fireEvent.blur(middle_name);	
-// 	await wait(()=>{
-//         expect(middle_name.value).toBe(mockPrimaryData.middleName);
-//     });	
-// 	fireEvent.change(dob, {target: {value: mockPrimaryData.dob}});
-// 	fireEvent.blur(dob);
-// 	await wait(()=>{
-//         expect(dob.value).toBe(mockPrimaryData.dob);
-//     });	
-// 	fireEvent.change(email, {target: {value: mockPrimaryData.email}});
-// 	fireEvent.blur(email);
-// 	await wait(()=>{
-//         expect(email.value).toBe(mockPrimaryData.email);
-//     });		
-// 	fireEvent.change(phno, {target: {value: fakePhno}});
-// 	fireEvent.blur(phno);
-// 	await wait(()=>{
-//         expect(phno.value).toBe(`${fakePhno}`);
-//     });
-// 	fireEvent.click(getByText(/Continue/));
-// 	await wait(() =>{		
-// 		expect(getByTestId('family-register')).toHaveTextContent('This field is required');
-// 	});
-
-// });
 
 test ("Checking with values" ,async () => {
   let {container,getByText,getByTestId} = render(<Router><FamilyContainer /></Router>);

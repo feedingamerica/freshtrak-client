@@ -67,7 +67,7 @@ describe('PasswordRegistrationFormComponents',()=>{
             expect(getByTestId('password-confirm')).toHaveTextContent('Password must be same');
         });        
     });
-     test('Proper binding on change functionality', async () => {
+    test('Proper binding on change functionality', async () => {
         const {container,getByTestId} = render(
             <PasswordRegistrationFormComponent
             ref={noop}
