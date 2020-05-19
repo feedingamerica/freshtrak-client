@@ -13,7 +13,6 @@ const DashBoardContainer = lazy(() =>
 );
 const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
 const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
-const MemberContainer = lazy(() => import("../Modules/Family/MemberContainer"));
 const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
@@ -21,8 +20,14 @@ const WrapperComponent = lazy(() =>
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
+const MemberContainer = lazy(() =>
+  import("../Modules/Family/MemberContainer")
+);
+const ConfirmationComponent = lazy(() =>
+  import("../Modules/Family/ConfirmationComponent")
+);
+
 const Routes = () => {
-  React.useEffect(() => {}, []);
 
   return (
     <Router basename="/">
@@ -54,8 +59,13 @@ const Routes = () => {
             />
             <Route
               exact
-              path={RENDER_URL.ADD_MEMBER_INFO}
+              path={RENDER_URL.FAMILY_ADD_MEMBER_URL}
               component={MemberContainer}
+            />
+            <Route
+              exact
+              path={RENDER_URL.REG_CONFIRM_URL}
+              component={ConfirmationComponent}
             />
 
             <Route

@@ -15,5 +15,7 @@ export const RENDER_URL = {
     ADD_FAMILY_URL:'/family/create',
     ADD_MEMBER_INFO:'/family/member',
     FRESHTRAK_WORKING:'/freshtrak-working',
-    FRESHTRAK_ABOUT:'/freshtrak-about'
+    FRESHTRAK_ABOUT:'/freshtrak-about',
+    FAMILY_ADD_MEMBER_URL: '/family/member',
+    REG_CONFIRM_URL: '/events/confirm'
 };

@@ -2,38 +2,59 @@ import React from "react";
 import { confirm, showMessage } from '../../Utils/Util';
 import FooterContainer from "../Footer/FooterContainer";
 import HeaderComponent from "../Header/HeaderComponent";
-import '../../Assets/scss/main.scss';
 import MemberInfoComponent from './MemberInfoComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
+import NavigationBtnComponent from '../General/NavigationBtnComponent';
 import back from '../../Assets/img/back.svg';
 
+import {useHistory} from 'react-router-dom';
+
+
 const MemberContainer = () => {
-    let familyData = ''
+    const memberCountRef = React.useRef();
+    const memberInfoRef = React.useRef();
 
-    const handleSubmit = () => {
-        let MemberDetails = {};
-        if (MemberDetails) {
-        } else {
-            showMessage('error', 'Something went wrong');
-        }
+    const memberData = {
+        memberData:[{
+                id:'First Adult',
+                first_name:'Adult 01',
+                last_name:'Adams',
+                middle_name:'Adams',
+                dob:'1990-12-12',
+                gender:'Male',
+                suffix:'Jr'
+            },{
+                id:'Second Adult',
+                first_name:'Mark',
+                last_name:'Simson',
+                middle_name:'Simson',
+                dob:'1990-12-12',
+                gender:'Male',
+                suffix:'Jr'
+            }]
+
+        
+    }
+
+    let history = useHistory();
+    
+    const handleSubmit = async() => {
+        // setting the full family Object here.
+        let familyData = await memberInfoRef.current.getFamilyData();
+        goToConfirmationPage();
     };
 
-    const buildFamilyData = (childFamilyData) => {
-        let dataKey = Object.keys(childFamilyData)[0];
-    };
+
+    const goToConfirmationPage = () => {
+        history.push('/events/confirm');
+    }
 
     return (
-        <div>
-            <HeaderComponent shortHeader={'navbar-green'} />
+        <>
             <div className="container pt-100 pb-100 ">
                 <div className="row">
                     <div className="col-md-12">
-                        <div className="back-button">
-                            <span className="back-arrow">
-                                <img src={back} />
-                            </span>
-                            <span className="font-weight-bold text-uppercase ml-2">Back</span>
-                        </div>
+                        <NavigationBtnComponent />
                     </div>
                 </div>
                 <div className="row">
@@ -51,39 +72,37 @@ const MemberContainer = () => {
                         <div className="content-wrapper">
                             <div className="caption-text">
                                 <p>
-                                    Would you mind telling us a little more about your
-                                    household and your living situation?
-                                    <p>This helps us
-                                    provide you with better service in the future.</p>
+                                   Would you mind telling us a little more about your
+                                   household and your living situation?
+                                  
                                 </p>
+                                 <p>This helps us
+                                   provide you with better service in the future.</p>
                                 <p className="medium-title font-weight-bold">
                                     This page is optional.
-                                </p>
+                               </p>
                             </div>
-                            <button className="btn custom-button">Skip This</button>
+                            <button className="btn custom-button" onClick={goToConfirmationPage}>Skip This</button>
                         </div>
                     </div>
                     <div className="col-lg-4 col-md-6 register-confirmation">
-                        <form>
                         <div className="content-wrapper mt-0">
                         <div className="form-fields">
-                            <MemberCountFormComponent onSelectedChild={buildFamilyData} />
-                            <MemberInfoComponent onSelectedChild={buildFamilyData} />
+                            <MemberCountFormComponent ref={memberCountRef}  />
+                            <MemberInfoComponent  ref={memberInfoRef} memberData = {memberData}/>
                             <div className="button-wrap mt-4">
-                                <button className="btn custom-button">Continue</button>
+                                <button className="btn custom-button" value="Continue" onClick={handleSubmit}>Continue</button>
                                 <small className="text-muted">
-                                    <a href="" className="ml-2">Skip this step </a>
+                                    <a href="" className="ml-2" onClick={goToConfirmationPage}>Skip this step </a>
                                 </small>
                             </div>
                         </div>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>
-            <FooterContainer />
 
-        </div>
+        </>
     )
 };
 
