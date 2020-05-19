@@ -51,11 +51,13 @@ const FamilyContainer = () => {
     };
     const handleSubmit = (e) => {
         let familyDetails = {
+
             familyMemberData:primaryFormRef.current.getCurrentData() ? primaryFormRef.current.getCurrentData():'',
             HouseHoldData:addressFormRef.current.getCurrentData() ? addressFormRef.current.getCurrentData():'',
             passwordData:passwordFormRef.current.getCurrentData() ? passwordFormRef.current.getCurrentData():'',
             pickupData:pickupCountFormRef.current.getCurrentData() ? pickupCountFormRef.current.getCurrentData():'',
             memberCountData:memberCountFormRef.current.getCurrentData() ? memberCountFormRef.current.getCurrentData():''
+
         };
 
         // Deleted a condition check as it seemed unnecessary and has unreachable code

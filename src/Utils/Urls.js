@@ -13,6 +13,7 @@ export const RENDER_URL = {
     HOME_URL: '/',
     EVENT_LIST_URL:'/events/list' ,
     ADD_FAMILY_URL:'/family/create',
+    ADD_MEMBER_INFO:'/family/member',
     FRESHTRAK_WORKING:'/freshtrak-working',
     FRESHTRAK_ABOUT:'/freshtrak-about',
     FAMILY_ADD_MEMBER_URL: '/family/member',

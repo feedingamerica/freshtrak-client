@@ -35,8 +35,7 @@ setMemberData(prevState => ({
                             </div>
                             <div className="form-group">
                                 <label>First Name</label>
-                                <input type="text" className="form-control" id={`first_name_${index}`} defaultValue={member.first_name} onChange={(e)=>buildMemberInfo(e,index)} name="first_name" 
-                                />
+                                <input type="text" className="form-control" id={`first_name_${index}`} defaultValue={member.first_name} onChange={(e)=>buildMemberInfo(e,index)} name="first_name" />
                             </div>
                             <div className="form-group">
                                 <label>Middle Name</label>
@@ -45,13 +44,13 @@ setMemberData(prevState => ({
                             </div>
                             <div className="form-group">
                                 <label>Last Name</label>
-                                <input type="text" className="form-control" defaultValue={member.last_name} onChange={(e)=>buildMemberInfo(e,index)} name={"last_name"}
-                                />
+                                <input type="text" className="form-control" defaultValue={member.last_name} onChange={(e)=>buildMemberInfo(e,index)} name={"last_name"} />
                             </div>
 
                             <div className="form-group">
                                 <label>Suffix</label>
                                 <select className="form-control" id={`suffix_${index}`} defaultValue={member.suffix} onChange={(e)=>buildMemberInfo(e,index)}  name={"suffix"}  >
+
                                     <option>Jr</option>
                                     <option>Sr</option>
                                 </select>
@@ -68,6 +67,7 @@ setMemberData(prevState => ({
                                     <option>Female</option>
                                 </select>
                              </div>
+
                         </div>
 
                     }</div>
@@ -75,5 +75,6 @@ setMemberData(prevState => ({
             </div>
     )
 });
+
 
 export default MemberInfoComponent;
