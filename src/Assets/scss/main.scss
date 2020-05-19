@@ -834,6 +834,9 @@ body {
         @include responsive(extra-large-devices) {
         }
     }
+    .color-red{
+        color:$color-red;
+    }
 }
 
 // Added for fixing Search button

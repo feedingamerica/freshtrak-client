@@ -1,13 +1,12 @@
 import React, { useState,useEffect } from 'react';
 import TimeSlotDetailsComponent from './TimeSlotDetailsComponent';
-import '../../Assets/scss/main.scss';
 import {withRouter} from 'react-router-dom';
 
 const TimeSlotContainer = props => {
     const [eventDetails, setEventDetails] = useState({});
-
+    
     useEffect(() => {
-        let isEventData = !!props.location.state;
+        let isEventData = !!props.location.state;        
         if (isEventData){
             setEventDetails(props.location.state.event);
         }
@@ -15,8 +14,8 @@ const TimeSlotContainer = props => {
 
     return (
         <div>
-            <section className="gray-bg">
-                <div className="container pt-150 pb-150">
+            <section>
+                <div className="container pt-100 pb-100">
                     <TimeSlotDetailsComponent eventDetails={eventDetails}/>
                 </div>
             </section>
