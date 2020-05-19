@@ -36,8 +36,8 @@ const FoodBankRegistrationContainer = (props) => {
   	};
 	const handleSubmit = () => {
 		let foodBank = {
-				organizationInfo :organizationFormRef.current.getCurrentData().organizationInfo ? organizationFormRef.current.getCurrentData().organizationInfo:'',
-				contactInfo :contactInfoFormRef.current.getCurrentData().contactInfo ? contactInfoFormRef.current.getCurrentData().contactInfo:''
+				organizationInfo :organizationFormRef.current.getCurrentData() ? organizationFormRef.current.getCurrentData():'',
+				contactInfo :contactInfoFormRef.current.getCurrentData()? contactInfoFormRef.current.getCurrentData():''
 				
 			}
 		/*Once the api part is completed then update the request here

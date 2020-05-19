@@ -7,12 +7,12 @@ import FoodBankDataContainer from './FoodBankDataContainer';
 
 const FoodBankContainer = () => {
     return (        
-            <section>
-                <div className="container pt-100 pb-100 register-confirmation">
-                    <FoodBankTitleContainer />
-                    <FoodBankDataContainer />
-                </div>   
-            </section>        
+        <section>
+            <div className="container pt-100 pb-100 register-confirmation">
+                <FoodBankTitleContainer />
+                <FoodBankDataContainer />
+            </div>   
+        </section>        
     )
 };
 

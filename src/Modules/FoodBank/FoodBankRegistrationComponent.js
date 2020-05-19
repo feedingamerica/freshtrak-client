@@ -4,56 +4,36 @@
 import React, {useState} from 'react';
 import useForm from '../../Utils/UseForm';
 const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
-	const [organazationData,setOrganizationData] = useState({})
 	const [organizationName, setOrganizationName] = useState('');
     const [address, setAddress] = useState('');
     const [suiteBlg, setSuiteBlg] = useState('');
-    const [zipCode, setZipCode] = useState('');
-    let data ={};
-	const buildOrganizationForm = (event) => {		
-		event.preventDefault();		
-		let name = event.target.name;
-		switch (name) {
-			case 'org_name'	: 	setOrganizationName(event.target.value);
-								break;
-			case 'address'	: 	setAddress(event.target.value);
-								break;
-			case 'suiteblg'	: 	setSuiteBlg(event.target.value);
-								break;    
-			case 'zipcode'	: 	setZipCode(event.target.value);
-								break;
-			default 		:	break;
-		}
-    };
+    const [zipCode, setZipCode] = useState('');	
+	const [organazationData,setOrganizationData] = useState({
+		org_name:'',
+        address:'',
+        suiteblg:'',
+        zipcode:''
+	});
 
-    const buildChildData = () => {
-        data = {
-            organizationInfo: {
-                org_name: organizationName,
-                address: address,
-                suiteblg: suiteBlg,
-                zipcode: zipCode,
-            }
-        };  
-        setOrganizationData(data);
-    };	
- 
+	const buildOrganizationForm = (event)=>{
+        setOrganizationData({...organazationData,[event.target.name] : event.target.value});
+    }    
+
 	const { errors, handleErrors } =
 		useForm(props, {
 		'org_name' : ['required'],
 		'address' : ['required'],
 		'zipcode' : ['required','numeric']
-	}, ()=>{buildChildData()});   
-
-	React.useImperativeHandle(ref, () => ({
-		getCurrentData(){
-			return organazationData
-		},
-		triggerErrors(){
-			if(!organazationData['organizationInfo']) {buildChildData()};
-			return handleErrors(organazationData['organizationInfo']);
-		}
-	}));
+	}, ()=>{});  
+	
+    React.useImperativeHandle(ref, () => ({
+        getCurrentData(){
+            return organazationData;
+        },
+        triggerErrors(){            
+            return handleErrors(organazationData);
+        }})
+    );
 
 	return (
 		<div className="form-fields">

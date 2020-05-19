@@ -4,65 +4,41 @@
 import React, {useState} from 'react';
 import useForm from '../../Utils/UseForm';
 const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
-	const [contactData,setContactData] = useState({})
 	const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [suffix, setSuffix] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
     const [commPreference, setCommmPreference] = useState('');
-    let data ={};
-    const buildContactInfoForm = (event) => {		
-		event.preventDefault();
-		let name = event.target.name;
-		switch (name) {
-			case 'first_name'		: 	setFirstName(event.target.value);
-										break;
-			case 'last_name'		: 	setLastName(event.target.value);
-										break;
-			case 'suffix'			: 	setSuffix(event.target.value);
-										break;    
-			case 'phone_number'		: 	setPhoneNumber(event.target.value);
-										break;
-			case 'contact_email'	: 	setEmail(event.target.value);
-										break;
-			case 'comm_preference': 	setCommmPreference(event.target.value);
-										break;										
-			default 				:	break;
-		}
-    };
- 
-   const buildChildData = () => {
-        data = {
-            contactInfo: {
-                first_name: firstName,
-                last_name: lastName,
-                suffix: suffix,
-                phone_number: phoneNumber,
-                contact_email: email,
-                comm_preference: commPreference
-            }
-        };  
-        setContactData(data);
-    };
+	const [contactData,setContactData] = useState({
+		first_name:'',
+        last_name:'',
+        suffix:'',
+        phone_number:'',
+        contact_email:'',
+        comm_preference:''
+	});
+
+    const buildContactInfoForm = (event)=>{
+        setContactData({...contactData,[event.target.name] : event.target.value});
+    }   
+
     const { errors, handleErrors } =
     useForm(props, {
         'first_name' 	: ['required'],
         'last_name' 	: ['required'],
         'phone_number' 	: ['required'],
         'contact_email'	: ['required','email'],
-    }, ()=>{buildChildData()});  
-   
+    }, ()=>{});     
+	
 	React.useImperativeHandle(ref, () => ({
-		getCurrentData(){
-		    return contactData
-		},
-		triggerErrors(){
-		    if(!contactData['contactInfo']) {buildChildData()};
-		    return handleErrors(contactData['contactInfo']);
-		}
-	}));
-    
+        getCurrentData(){
+            return contactData;
+        },
+        triggerErrors(){            
+            return handleErrors(contactData);
+        }})
+    );
 	return (
 		<div className="form-fields pt-50">
 			<div className="form-title">
