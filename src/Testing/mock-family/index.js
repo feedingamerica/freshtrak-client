@@ -38,21 +38,3 @@ export const mockPrimaryInfoBuilder = build('Primary').fields({
     email: fake(f => f.internet.email()),
     comPref:oneOf('Email','Phone')
 });
-
-export const mockMemberCountBuilder = build('Household').fields({
-    countSenior: fake(f => f.random.number()).generate(1),
-    countMiddle: fake(f => f.random.number()).generate(1),
-    countJunior: fake(f => f.random.number()).generate(1)
-});
-
-export const mockPasswordBuilder = build('Password').fields({
-    password: fake(f => f.internet.password()),
-    confirmpassword: fake(f => f.internet.password())
-});
-
-export const mockPickUpBuilder = build('PickUp').fields({
-    pickupType:oneOf('Me','Some one Else'),
-    pickupName: fake(f => f.name.firstName()),
-    pickupNumberPlate: oneOf('KL-01-1995','EL-69-3222','GL-02-1010','ML-55-8855','YZ-69-3222','WY-07-8810'),
-    pickupNumberPlate2: oneOf('KL-11-4444','EL-69-4446','GL-02-9977','ML-55-1234','YZ-69-0987','WY-07-9944')
-});
