@@ -16,10 +16,11 @@ const HeaderContainer = () => {
 
   return (
     <div>
-      {location.pathname == RENDER_URL.EVENT_CONFIRM_URL ||
-      location.pathname == RENDER_URL.ADD_FAMILY_URL ||
-      location.pathname == RENDER_URL.FRESHTRAK_ABOUT ||
-      location.pathname == RENDER_URL.FRESHTRAK_WORKING ? (
+      {location.pathname === RENDER_URL.EVENT_CONFIRM_URL ||
+      location.pathname === RENDER_URL.ADD_FAMILY_URL ||
+      location.pathname === RENDER_URL.FRESHTRAK_ABOUT ||
+      location.pathname === RENDER_URL.FRESHTRAK_WORKING ||
+      location.pathname === RENDER_URL.SIGN_IN_URL ? (
         <HeaderComponent shortHeader={shortHeader} />
       ) : (
         <header className="header">

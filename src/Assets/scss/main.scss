@@ -841,4 +841,7 @@ body {
     font-size: .7rem;
     position: absolute;
     color: #ff0000;
+    .color-green {
+        color: $primaryColor;
     }
+}

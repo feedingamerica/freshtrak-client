@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import {useHistory} from 'react-router-dom';
 import CustomModalComponent from "../General/CustomModalComponent";
 import closeIcon from '../../Assets/img/close.svg';
+import ButtonComponent from '../General/ButtonComponent';
 import {
   Nav,
   NavDropdown,
@@ -122,14 +123,8 @@ const HeaderComponent = (props) => {
                   </DropdownItem>
                 </NavDropdown>
               </div>
-            ) : (
-              <button
-                className="sign-in-button"
-                style={{ minHeight: "0px", marginLeft: "20px" }}
-                onClick={() => setModalShow(true)}
-              >
-                Sign In
-              </button>
+            ) : (              
+              <ButtonComponent type ='button' data-testid="signin" name="signin" dataid= 'signin' id="sign-in" value="Sign In" className = 'sign-in-button' onClickfunction={()=>{history.push('/account/signin')}} />
             )}
 
 
@@ -138,12 +133,7 @@ const HeaderComponent = (props) => {
         </div>
       </Nav>
 
-      {/* Common Modal */}
-      <CustomModalComponent
-        signin={"true"}
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
+      
 
             {/* Menu popup div */}
 
@@ -175,9 +165,10 @@ const HeaderComponent = (props) => {
                                  
                             :
 
-                            <button className="sign-in-button" onClick={() => setModalShow(true)}>
+                            <button className="sign-in-button" onClick={()=>{setMobileMenu(false);history.push('/account/signin')}}>
                                 Sign In
                                 </button>}
+                                
                                   </div> 
                         
                         </div>
