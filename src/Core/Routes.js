@@ -18,8 +18,10 @@ const WrapperComponent = lazy(() =>
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
+const WellnessContainer = lazy(() =>
+  import("../Modules/Assessment/Wellness/WellnessContainer")
+);
 const Routes = () => {
-  React.useEffect(() => {}, []);
 
   return (
     <Router basename="/">
@@ -43,6 +45,10 @@ const Routes = () => {
             <Route
               path={RENDER_URL.FRESHTRAK_ABOUT}
               component={StaticPageContainer}
+            />
+            <Route
+              path={RENDER_URL.WELLNESS_ASSESS_URL}
+              component={WellnessContainer}
             />
             <Route
               path={"*"}
