@@ -12,11 +12,11 @@ const SignInComponent = ()=> {
     let history = useHistory();
 
     const handleSubmit = async() => {   
-        /*let isError = await handleErrors(signInData);
+        let isError = await handleErrors(signInData);
         if (!isError) {
             localStorage.setItem("isLoggedIn", true);
             window.location.reload();
-        }*/
+        }
     };
 
     // binding data to state
@@ -82,7 +82,7 @@ const SignInComponent = ()=> {
             </div>
             <div className="button-wrap d-flex w-100 mt-3">
                 <ButtonComponent type ='button' data-testid="signin" name="sign_in" dataid= 'signin' id="sign-in" value="Submit" className = 'btn custom-button flex-grow-1' onClickfunction={handleSubmit} />
-                <ButtonComponent type ='button' data-testid="cancel" name="cancel" dataid= 'cancel' id="cancel" value="Cancel" className = 'btn default-button flex-grow-1 ml-2' onClickfunction={()=>{}}/>
+                <ButtonComponent type ='button' data-testid="cancel" name="cancel" dataid= 'cancel' id="cancel" value="Cancel" className = 'btn default-button flex-grow-1 ml-2' onClickfunction={()=>{history.push('/')}}/>
             </div>
         </div>
     );
