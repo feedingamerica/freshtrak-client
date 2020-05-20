@@ -4,9 +4,13 @@
 import React, {useState} from "react";
 import useForm from '../../Utils/UseForm';
 import ButtonComponent from '../General/ButtonComponent';
+import {useHistory} from 'react-router-dom';
+
 const SignInComponent = ()=> {
     const [signInForm,setSignInForm] = useState({username:'',password:''});
     
+    let history = useHistory();
+
     const handleSubmit = async() => {    
         let isError = await handleErrors(signInForm);
         if (!isError) {
@@ -26,9 +30,13 @@ const SignInComponent = ()=> {
                 'password' : ['required']
             }, ()=>{});
 
-    const handleForgotPassword = () =>{
+    const handleForgotPassword = ()=>{
         console.log('basil');
     }
+    const handleCancel = ()=> {
+        history.push('/');
+    }
+
     return (
         <div className="form-fields sign-in-form" data-testid='signin-form'>
             <div className="form-title">
@@ -74,7 +82,7 @@ const SignInComponent = ()=> {
             </div>
             <div className="button-wrap d-flex w-100 mt-3">
                 <ButtonComponent type ='button' data-testid="signin" name="sign_in" dataid= 'signin' id="sign-in" value="Submit" className = 'btn custom-button flex-grow-1' onClickfunction={handleSubmit} />
-                <ButtonComponent type ='button' data-testid="cancel" name="cancel" dataid= 'cancel' id="cancel" value="Cancel" className = 'btn default-button flex-grow-1 ml-2' />
+                <ButtonComponent type ='button' data-testid="cancel" name="cancel" dataid= 'cancel' id="cancel" value="Cancel" className = 'btn default-button flex-grow-1 ml-2' onClickfunction={handleCancel}/>
             </div>
         </div>
     );
