@@ -3,7 +3,7 @@ import { render, wait } from '@testing-library/react';
 import EventListContainer from '../EventListContainer';
 import axios from 'axios';
 import { mockEvent, mockEventDate, mockAgency } from "../../../Testing";
-
+import {BrowserRouter as Router} from 'react-router-dom';
 jest.mock('axios');
 
 // Suppress the moment warning. This is a consequence of using test-data-bot
@@ -26,7 +26,7 @@ test('should load without errors', () => {
 test('Successful Api with no Events dates', async() => {
   const testAgencyWithNoEventDates = { ...mockAgency, events: [{ ...mockEvent }] };
   axios.get.mockImplementation(() => Promise.resolve({ data: { agencies: [testAgencyWithNoEventDates] } }));
-  const { getByText } = render(<EventListContainer searchData={{ zip_code: mockAgency.zip} } />);
+  const { getByText } = render(<Router><EventListContainer searchData={{ zip_code: mockAgency.zip} } /></Router>);
   await wait(() => {
     getByText(/No Events Currently Scheduled/i);
   });
@@ -35,7 +35,7 @@ test('Successful Api with no Events dates', async() => {
 test('Successful Api with Events dates', async() => {
   const testAgencyWithEventDates = { ...mockAgency, events: [{ ...mockEvent, event_dates: [{ ...mockEventDate }] }] };
   axios.get.mockImplementation(() => Promise.resolve({ data: { agencies: [testAgencyWithEventDates] } }));
-  const { getByText } = render(<EventListContainer searchData={{ zip_code: mockAgency.zip} } />);
+  const { getByText } = render(<Router><EventListContainer searchData={{ zip_code: mockAgency.zip} } /></Router>);
   await wait(() => {
     getByText(`${mockEvent.name}`);
   });
