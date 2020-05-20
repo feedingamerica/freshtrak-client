@@ -13,6 +13,7 @@ test('should render without error', () => {
 		);
 	}).not.toThrowError();
 });
+
 test("Checking whether the validations are working properly",()=>{
 	const {container, getByText,getByTestId } = render(<Router>
 													<SignInComponent 
@@ -31,7 +32,8 @@ test("Checking whether the validations are working properly",()=>{
     fireEvent.change(username,{target:{value:mockSignin.randomWord}});
     fireEvent.blur(username)
     expect(getByTestId('username')).toHaveTextContent(/Enter a valid address/i);
-})
+});
+
 test("Checking the binding and data saving successful in button click",()=>{
 	const {container, queryByText,getByText,getByAltText } = render(<Router>
 													<SignInComponent 
@@ -56,5 +58,7 @@ test("Checking the binding and data saving successful in button click",()=>{
 
     fireEvent.click(getByText(/submit/i));
     expect(queryByText(/This field is required/i)).toBeNull();
+    fireEvent.click(getByText(/cancel/i));
+    expect(queryByText(/This field is required/i)).toBeNull();
 
-})
+});
