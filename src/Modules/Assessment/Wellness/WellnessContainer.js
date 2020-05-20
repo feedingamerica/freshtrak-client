@@ -1,23 +1,25 @@
 /**
  * Created by Ashik on 20/5/20.
  */
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 
 // import general components
 import ButtonComponent from '../../General/ButtonComponent';
 // import all pages.
 import BeginAssessComponent from './BeginAssessComponent';
-import MealsQstnComponent from './MealsQstnComponent';
-import MonthlyIncomeQstnComponent from './MonthlyIncomeQstnComponent';
-import AnnualIncomeQstnComponent from './AnnualIncomeQstnComponent';
+import RangeQstnComponent from './RangeQstnComponent';
+import YesOrNoQstnComponent from './YesOrNoQstnComponent';
+import CheckboxQstnComponent from './CheckboxQstnComponent'
 // import progress bar bootstrap.
 import ProgressBar from 'react-bootstrap/ProgressBar'
 // import ContextApi
-import {WellnessProvider} from './WellnessContext';
+import WellnessContext from './WellnessContext';
 
 const WellnessContainer = (props) => {
 	const [currPage, setCurrPage] = useState(0);
-
+	const wellnessContext = useContext(WellnessContext);
+	let qstns = wellnessContext.qstns;
+	let answers = wellnessContext.answers;
 	const loadPage = () => {
 
 		
@@ -25,27 +27,27 @@ const WellnessContainer = (props) => {
 		switch(currPage){
 			case 0 : return <BeginAssessComponent />
 			break;
-			case 1 : return <MealsQstnComponent />
+			case 1 : return <RangeQstnComponent content={qstns.meals} />
 			break;
-			case 2 : return <MonthlyIncomeQstnComponent />
+			case 2 : return <RangeQstnComponent content={qstns.monthlyIncome} />
 			break;
-			case 3 : return <AnnualIncomeQstnComponent />
+			case 3 : return <RangeQstnComponent content={qstns.annualIncome} />
 			break;
-			case 4 : return <MonthlyIncomeQstnComponent />
+			case 4 : return <YesOrNoQstnComponent content={qstns.covid}/>
 			break;
-			case 5 : return <MonthlyIncomeQstnComponent />
+			case 5 : return <YesOrNoQstnComponent content={qstns.jobExpect}/>
 			break;
-			case 6 : return <MonthlyIncomeQstnComponent />
+			case 6 : return <CheckboxQstnComponent  content={qstns.moneySources}/>
 			break;
-			case 7 : return <MonthlyIncomeQstnComponent />
+			case 7 : return <YesOrNoQstnComponent content={qstns.jobExpect}/>
 			break;
-			case 8 : return <MonthlyIncomeQstnComponent />
+			case 8 : return <YesOrNoQstnComponent content={qstns.jobExpect}/>
 			break;
-			case 9 : return <MonthlyIncomeQstnComponent />
+			case 9 : return <YesOrNoQstnComponent content={qstns.jobExpect}/>
 			break;
-			case 10 : return <MonthlyIncomeQstnComponent />
+			case 10 : return <YesOrNoQstnComponent content={qstns.jobExpect}/>
 			break;
-			case 11 : return <MonthlyIncomeQstnComponent />
+			case 11 : return <YesOrNoQstnComponent content={qstns.jobExpect}/>
 			break;
 			default: return;
 		}
