@@ -16,13 +16,13 @@ const FooterComponent = (props) => {
                             <div className="col-md-6">
                                 <span className="list-title">FIND RESOURCES</span>
                                 <ul>
-                                    <li><a onClick={()=>history.push('/freshtrak-about')}>About FreshTrak</a></li>
+                                    <li onClick={()=>history.push('/freshtrak-about')}>About FreshTrak</li>
                                 </ul>
                             </div>
                             <div className="col-md-6">
                                 <span className="list-title">FOR FOODBANKS</span>
                                 <ul>
-                                    <li><a onClick={()=>history.push('freshtrak-working')}>Working with FreshTrak</a></li>
+                                    <li onClick={()=>history.push('freshtrak-working')}>Working with FreshTrak</li>
                                 </ul>
                             </div>
                         </div>

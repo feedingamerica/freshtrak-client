@@ -18,6 +18,7 @@ const WrapperComponent = lazy(() =>
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
+const SignInContainer =lazy(() => import("../Modules/UserAccount/SignInContainer"));
 const Routes = () => {
   React.useEffect(() => {}, []);
 
@@ -43,6 +44,10 @@ const Routes = () => {
             <Route
               path={RENDER_URL.FRESHTRAK_ABOUT}
               component={StaticPageContainer}
+            />
+            <Route
+              path={RENDER_URL.SIGN_IN_URL}
+              component={SignInContainer}
             />
             <Route
               path={"*"}

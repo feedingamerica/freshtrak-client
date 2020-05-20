@@ -51,11 +51,15 @@
         background: none;
     }
 }
-.sign-in-form{
-    .form-control{
-        border-color: inherit;
-        color: $color-white;
+.sign-in-wrapper{
+    @include responsive(extra-smaller-devices) {
+       margin-top: 30px;
     }
+    .sign-in-form{
+        @include responsive(large-devices) {
+            max-width: 400px;
+         }
+     }
 }
 // toggle
 

@@ -7,7 +7,7 @@ import MainHeadingComponent from '../General/MainHeadingComponent';
 import NavigationBtnComponent from '../General/NavigationBtnComponent';
 import '../../Assets/scss/main.scss';
 import BoxComponent from '../General/BoxComponent';
-import ButtonComponent from '../General/ButtonComponent';
+/*import ButtonComponent from '../General/ButtonComponent';*/
 import PredictIcon from '../../Assets/img/predict.svg';
 import ServeFoodIcon from '../../Assets/img/serve-food.svg';
 import MoveQuickIcon from '../../Assets/img/move-quick.svg';
@@ -46,8 +46,8 @@ const WorkingWithFreshTrakComponent = () => {
                     </div>
                 </div>
                 <div className="info-banner">
-                    <img src={ExpectImage} className="img-fluid desktop-view" />
-                    <img src={ExpectImageMobile} className="img-fluid mobile-view" />
+                    <img src={ExpectImage} className="img-fluid desktop-view" alt="freshTrak"/>
+                    <img src={ExpectImageMobile} className="img-fluid mobile-view" alt="freshTrak"/>
                 </div>
 
             </section>

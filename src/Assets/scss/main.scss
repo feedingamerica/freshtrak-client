@@ -8,6 +8,9 @@ body {
     background: $color-white;
     font-family: $font-noto-sans;
     color: $content-text-color;
+    .pointer{
+        cursor: pointer;
+    }
     section {
         h2 {
             color: $high-light-color;
@@ -841,4 +844,7 @@ body {
     font-size: .7rem;
     position: absolute;
     color: #ff0000;
+    .color-green {
+        color: $primaryColor;
     }
+}
