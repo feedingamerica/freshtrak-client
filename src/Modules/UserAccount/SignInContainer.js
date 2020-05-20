@@ -12,9 +12,10 @@ const SigInContainer = (props) => {
 		<React.Fragment>
 			<section>
 				<div className="container pt-100 pb-100 register-confirmation">
-					<NavigationBtnComponent />
-					<SignInComponent />	        		                   
+					<div className="sign-in-wrapper"><SignInComponent />	</div>        		                   
+					<div className="mt-5">
 					<DashboardCreateAccountComponent />
+					</div>
 				</div>
 			</section>
 			<section className="gray-bg">            	
