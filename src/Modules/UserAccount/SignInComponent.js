@@ -12,6 +12,7 @@ const SignInComponent = ()=> {
     let history = useHistory();
 
     const handleSubmit = async() => {   
+        await handleErrors(signInData);
         /*let isError = await handleErrors(signInData);
         if (!isError) {
             localStorage.setItem("isLoggedIn", true);
