@@ -47,23 +47,58 @@ const WellnessContext = React.createContext({
 			id:6,
 			qstn:`Did you or did anyone in your household get money in the last month from any of the following sources? `,
 			note:`You can choose more than one.`
-		}
+		},
+		mainInsurance:{
+			id:7,
+			qstn:`What is your main insurance?`,
+			note:`Select one of the following`,
+			options:['None/Uninsured','Medicaid','CHIP Medicaid','Medicare','Other public insurance (Not CHIP)'
+					,'Other public insurance (CHIP)','Private Insurance']
+		},
+		insuranceReferral:{
+			id:8,
+			qstn:`Would you like a referral to get health insurance? `
+		},
+		currInsurer:{
+			id:9,
+			qstn:`Who is your current insurer?`,
+			note:`Select one of the following`,
+			options:['Molina','CareSource','United Healthcare','Paramount','Buckeye',`Don't Know`]
+		},
+		doctor:{
+			id:10,
+			qstn:`Do you have a doctor or other healthcare provider that you regularly see?`
+		},
+		doctorReferral:{
+			id:11,
+			qstn:`Would you like a referral to a doctor or other healthcare provider?`
+		},
+		addSupport:{
+			id:12,
+			qstn:`Would you like a referral for additional support services? `,
+		},
 
 		
 
 	},
 	answers:{
 
-		ans_1:{},
-		ans_2:{},
-		ans_3:{},
-		ans_4:{},
-		ans_5:{},
-		ans_6:{},
-		ans_7:{},
-		ans_8:{},
-		ans_9:{},
-		ans_10:{}
+		
+		
+		
+		1:{},
+		2:{},
+		3:{},
+		4:``,
+		5:``,
+		6:{},
+		7:``,
+		8:``,
+		9:``,
+		10:``,
+		11:``,
+		12:``
+		
 
 	}
 });

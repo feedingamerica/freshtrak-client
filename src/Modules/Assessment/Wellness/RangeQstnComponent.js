@@ -11,10 +11,10 @@ const RangeQstnComponent = (props) => {
 		<>
 		<div style={{marginTop:'100px',wordBreak:'break-all'}}>
 			<h2> 
-			What was the total combined income of all members of your family who are 15 years of age or older during the last month?
+			{qstn}
 			</h2>
 			<p>
-			 Please include money from things such as jobs, net income from business, pensions, social security payments, and any other money income received.
+			{note}
 			 </p>
 
 			 <h3>{money? `$${Number(currVal)} - $${Number(currVal)+step}`: currVal}</h3>
