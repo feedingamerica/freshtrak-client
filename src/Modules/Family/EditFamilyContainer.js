@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import HeaderComponent from '../Header/HeaderComponent';
-import HouseHoldFormComponent from './HouseHoldFormComponent';
+import AddressComponent from './AddressComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import SpinnerComponent from '../General/SpinnerComponent';
@@ -62,7 +62,7 @@ const EditFamilyContainer = () => {
           {!loading && (
             <div className="content-wrapper">
               <form onSubmit={handleSubmit(onSubmit)}>
-                <HouseHoldFormComponent register={register} errors={errors} />
+                <AddressComponent register={register} errors={errors} />
                 <PrimaryInfoFormComponent register={register} errors={errors} getValues={getValues} />
                 <MemberCountFormComponent register={register} errors={errors} />
                 <div className="form-group">

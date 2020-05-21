@@ -26,7 +26,9 @@ const RegistrationHeaderComponent = () => {
         <div className="col-12">
           <div className="title-wrap">
             <h1 className="big-title mt-5 mb-5 mobile-mb">
-              Register Now. Save time Later.
+              Register Now.<br />
+              Save Time.<br />
+              Stay Safe.
             </h1>
           </div>
         </div>

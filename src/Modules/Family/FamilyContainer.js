@@ -2,16 +2,18 @@ import React, { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
 import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import RegistrationTextComponent from './RegistrationTextComponent';
-import HouseHoldFormComponent from './HouseHoldFormComponent';
+import AddressComponent from './AddressComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
+import ContactInformationComponent from './ContactInformationComponent';
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
-import PasswordRegistrationFormComponent from './PasswordRegistrationFormComponent';
 
 import '../../Assets/scss/main.scss';
 
 const FamilyContainer = () => {
-  const { register, handleSubmit, errors, getValues } = useForm();
-  const onSubmit = data => { console.log(data) };
+  const { register, handleSubmit, errors, getValues, watch } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
     <Fragment>
       <div className="main-wrapper mt-4">
@@ -23,19 +25,25 @@ const FamilyContainer = () => {
             <div className="content-wrapper">
               <RegistrationTextComponent />
               <form onSubmit={handleSubmit(onSubmit)}>
-                <HouseHoldFormComponent register={register} errors={errors} />
-                <PrimaryInfoFormComponent register={register} errors={errors} getValues={getValues} />
+                <PrimaryInfoFormComponent register={register} errors={errors} />
+                <AddressComponent register={register} errors={errors} />
+                <ContactInformationComponent
+                  register={register}
+                  errors={errors}
+                  getValues={getValues}
+                  watch={watch}
+                />
                 <MemberCountFormComponent register={register} errors={errors} />
-                <PasswordRegistrationFormComponent register={register} errors={errors} getValues={getValues} />
                 <div className="button-wrap mt-4">
                   <button
                     type="submit"
                     className="btn custom-button"
                     data-testid="continue button"
-                  >Continue</button>
+                  >
+                    Continue
+                  </button>
                 </div>
               </form>
-
             </div>
           </div>
         </section>
