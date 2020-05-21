@@ -18,8 +18,8 @@ const WrapperComponent = lazy(() =>
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
-const WellnessContainer = lazy(() =>
-  import("../Modules/Assessment/Wellness/WellnessContainer")
+const TriggerAssess = lazy(() =>
+  import("../Modules/Assessment/Wellness/TriggerAssess")
 );
 const Routes = () => {
 
@@ -48,7 +48,7 @@ const Routes = () => {
             />
             <Route
               path={RENDER_URL.WELLNESS_ASSESS_URL}
-              component={WellnessContainer}
+              component={TriggerAssess}
             />
             <Route
               path={"*"}

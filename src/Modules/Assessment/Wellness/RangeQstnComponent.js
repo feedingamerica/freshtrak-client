@@ -9,22 +9,22 @@ const RangeQstnComponent = (props) => {
 	}
     return (
 		<>
-		<div style={{marginTop:'100px',wordBreak:'break-all'}}>
-			<h2> 
-			{id} -
-			{qstn}
-			</h2>
-			<p>
-			{note}
-			 </p>
-
-			 <h3>{money? `$${Number(currVal)} - $${Number(currVal)+step}`: currVal}</h3>
-			 <input type="range" onChange={(e)=>showSliderValue(e)} min={start_value} max={end_value} step={step} value={currVal} />
+		  <div className="assesment-content flex-grow-1 flex-column justify-content-between d-flex mt-3 mb-3">
+                            
+		 <div className="a-c-content flex-grow-1">
+            <span className="font-weight-bold">{qstn} </span>
+            <p className="mt-2">{note}</p>
+           </div>
+         <div className="ac-slider">
+          <h3>{money? `$${Number(currVal)} - $${Number(currVal)+step}`: currVal}</h3>
+		  <input type="range" onChange={(e)=>showSliderValue(e)} min={start_value} max={end_value} step={step} value={currVal} />
 			
-		</div>
+ 	     </div>
+ 	     </div>
+ 	     
 		</>
     )
 
-};
+};                          
 
 export default RangeQstnComponent;

@@ -16,7 +16,9 @@ import FinishAssessComponent from './FinishAssessComponent';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 // import ContextApi
 import WellnessContext from './WellnessContext';
-
+import '../../../Assets/scss/main.scss';
+import closeBtn from '../../../Assets/img/close.svg';
+import backBtn from '../../../Assets/img/back-green.svg';
 const WellnessContainer = (props) => {
 	// state to trigger rerender;
 	// Since there is no state updation for certain pages,
@@ -25,6 +27,7 @@ const WellnessContainer = (props) => {
 	// we use context.currPage to track currPage.
 	const [currPage, setCurrPage] = useState(0);
 	
+	const {closeModal} = props;
 	const context = useContext(WellnessContext);
 	const [progress,setProgress] = useState(context.currPage);
 
@@ -146,22 +149,67 @@ const WellnessContainer = (props) => {
 			return;
 	}
 
-    return (
-		<>   
-				<div style={{marginTop:'60px',padding:'100px'}}>
-				{context.currPage > 0 && <a style={{fontSize:'1rem'}} onClick={()=>handlePageTransition('prev')}>LAST QUESTION</a>}
+    return (  
+				// <div style={{marginTop:'60px',padding:'100px'}}>
+				// {context.currPage > 0 && <a style={{fontSize:'1rem'}} onClick={()=>handlePageTransition('prev')}>LAST QUESTION</a>}
 			
-					{ context.currPage >0 && <ProgressBar now={progress} label={`${progress}%`} />}
+				// 	{ context.currPage >0 && <ProgressBar now={progress} label={`${progress}%`} />}
 						
-						{loadPage()}
-					{ context.currPage!=13 && 
-						<><ButtonComponent value={context.currPage!=0?'Next Question' : 'Begin Assessment'} name="assess_btn" className = 'btn custom-button search-button' onClickfunction={()=>handlePageTransition('next')} />
-						<div style={{textAlign:'center'}}><a>Skip</a></div>
-						</>
-					}
-				</div>     		                   
-				
-		</>
+				// 		{loadPage()}
+				// 	{ context.currPage!=13 && 
+				// 		<><ButtonComponent value={context.currPage!=0?'Next Question' : 'Begin Assessment'} name="assess_btn" className = 'btn custom-button search-button' onClickfunction={()=>handlePageTransition('next')} />
+				// 		<div style={{textAlign:'center'}}><a>Skip</a></div>
+				// 		</>
+				// 	}
+				// </div>     		    
+<>
+
+	<div className="modal1 assessment-modal h-100 w-100" id="assessment" style={{zIndex:1100,position:'absolute',top:0}}>
+        <div className="modal-dialog h-100" role="document">
+            <div className="modal-content h-100">
+                <div className="modal-header">
+                    <div className="modal-title d-flex" id="assessment" onClick={()=>handlePageTransition('prev')}>
+                        <span className="back-arrow"><img src={backBtn} className="img-fluid" /></span>
+                        <span className="text-uppercase ml-2">Last Question</span>
+                    </div>
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src={closeBtn} className="img-fluid"  onClick={closeModal}/>
+                        </span>
+                    </button>
+                </div>
+                <div className="modal-body d-flex flex-column h-100">
+                    <div className="assessment-title">
+                        Wellness Assessment
+                    </div>
+
+                  
+
+             		<div className="assessment-content-wrap flex-grow-1">
+	                    	 <div className="a-c-item h-100">
+	                    	  { context.currPage >0 && <div className="progress-bar mt-2 mb-2">
+                      			 <div className=""><ProgressBar now={progress} label={`${progress}%`} /></div>
+			                    </div>
+			                  }
+			                    {loadPage()}
+
+			                  
+	                         
+
+	                        </div>
+                    </div> 
+                </div>
+              { context.currPage!=13 &&  <div className="modal-footer">
+                    <div className="d-flex flex-column align-items-center w-100">
+                      <button className="btn w-100 btn-green pl-4 pr-4" onClick={()=>handlePageTransition('next')}>{context.currPage!=0?'Next Question' : 'Begin Assessment'}</button>
+                        <div className="mt-2 text-uppercase">Skip</div>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>
+    </div>               
+			</>	
     )
 
 };

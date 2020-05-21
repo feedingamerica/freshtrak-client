@@ -765,6 +765,34 @@ body {
             }
         }
     }
+
+       .modal-content {
+        @include border-radius(0px);
+        background-color: $secondary-color;
+        color: $color-white;
+        font-size: 0.8rem;
+        .modal-header {
+            @include border-all(0px, solid, transparent);
+            padding-bottom: 0;
+            .close {
+                font-size: 2rem;
+                padding: 0.8rem 1, 2rem 0 0;
+                line-height: 1rem;
+                color: $color-white;
+                text-shadow: none;
+                opacity: 1;
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+        .modal-content-address {
+            max-width: 160px;
+        }
+        .modal-content-title {
+            font-size: 1rem;
+        }
+    }
     @include responsive(extra-smaller-devices) {
         .mobile-text-left {
             text-align: left !important;
@@ -796,6 +824,13 @@ body {
             padding-bottom: 50px;
         }
     }
+
+
+
+
+
+
+
     .color-green{
        color: $primaryColor; 
     }
@@ -836,9 +871,173 @@ body {
     }
 }
 
+
 // Added for fixing Search button
 .validationError {
     font-size: .7rem;
     position: absolute;
     color: #ff0000;
     }
+    
+// Added for Wellness Assessment
+.wellness-assessment {
+    @include border-radius(8px);
+    background: $primaryColor url(../img/banner-bg.png);
+    @include box-shadow(0px, 4px, 8px, $shadow-color);
+    margin-bottom: 15px;
+    background-size: cover;
+    h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        padding: 0 0 0.2rem 0;
+        color: $secondary-color;
+        max-width: 170px;
+    }
+}
+.assessment-modal{
+    .modal-dialog{
+        margin: 0 auto;
+        .modal-body{
+            overflow: auto;
+        }
+    }
+    .back-arrow{
+        width: 16px;
+        height: 16px;
+        background: $color-white;
+        @include border-radius(50%);
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-title{
+        font-size: .7rem;
+    }
+    .modal-footer{
+        border: 0;
+    }
+    .assessment-title{
+        font-weight: bold;
+        font-size: 1.5rem;
+        line-height: 30px;
+        text-transform: capitalize;
+    }
+    .a-c-item{
+        display: flex;
+        flex-direction: column;
+        .assesment-content{
+            font-size: 1.1rem;
+            letter-spacing: 0.15px;
+            p{
+                font-size: .9rem;
+            }
+        }
+    }
+    
+}
+.radio-button-wrapper{
+    margin: 1.5rem 0;
+    label{
+        &.radio{
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 1rem;
+            margin-left: 0;
+            &:last-child{
+                margin-bottom: 0;
+            }
+            input{
+                position: absolute;
+                top: 0;
+                left: 0;
+                visibility: hidden;
+                pointer-events: none;
+                &:checked + span{
+                    background-color: $text-color;
+                    color: $secondary-color;
+                    @include border-all(2px, solid, $text-color);
+                }
+            }
+            span{
+                padding: .7rem;
+                @include border-all(2px, solid, $color-white);
+                display: inline-block;
+                color: $color-white;
+                @include border-radius(3px);
+                text-transform: uppercase;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+}
+.checkbox-wrapper{
+    .form-group{
+        label{
+            margin-left: 0;
+        }
+    }
+    .custom-checkbox {
+        margin-bottom: 0;
+        display: inline-flex;
+        align-items: flex-start;
+        cursor: pointer;
+        font-size: .9rem;
+        line-height: normal;
+        .ui-chkbox{
+          .ui-chkbox-box{
+            @include border-radius(0);
+            &.ui-state-active, &.ui-state-active:not(.ui-state-disabled):hover{
+              background:$text-color;
+              border-color: $text-color;
+            }
+          }
+        }
+        .checkbox {
+          position: relative;
+          margin: 0 1.3rem 0 0;
+          cursor: pointer;
+          &:before {
+            @include transition(transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75));
+            @include transform(rotate(-45deg) scale(0, 0));
+            content: "";
+            position: absolute;
+            z-index: 1;
+            width: 11px;
+            height: 7px;
+            border: 2px solid $color-white;
+            border-top-style: none;
+            border-right-style: none;
+            left: 5px;
+          }
+          &:checked {
+            &:before {
+              @include transform(rotate(#{-45}deg) scale(1, 1));
+            }
+          }
+          &:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 22px;
+            height: 22px;
+            background: $secondary-color;
+            @include border-all(2px, solid, $text-color);
+            cursor: pointer;
+            @include border-radius(3px)
+          }
+          &:checked{
+            &:after {
+                background: $text-color;
+            }
+          }
+        }
+    }
+}
+.btn-green{
+    background: $list-header-bg;
+    border-color: $list-header-bg;
+    color: $color-white;
+}

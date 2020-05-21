@@ -15,12 +15,27 @@ Object.keys(context.answers).map((value,index)=>{
 }
     return (
 		<>
-			<h2 style={{marginTop:'100px',wordBreak:'break-all'}}> {id} - {qstn} </h2>
-			
-				  <input onChange={setValue} type="radio" id="yes" name="yesorno" value="yes" />
-				  <label htmlFor="yes">Yes</label>
-				  <input onChange={setValue} type="radio" id="no" name="yesorno" value="no" />
-				  <label htmlFor="no">No</label>
+                            <div className="assesment-content flex-grow-1 flex-column justify-content-between d-flex mt-3 mb-3">
+                                <div className="a-c-content flex-grow-1">
+                                    <span className="font-weight-bold">{qstn}</span>
+                                    <div className="radio-button-wrapper">
+                                        <div className="form-group">
+                                            <label htmlFor="yes" className="radio">
+                                                <input onChange={setValue} type="radio" id="yes" name="yesorno" value="yes" />
+                                                <span>Yes</span>
+                                              </label>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="no" className="radio">
+                                                <input onChange={setValue} type="radio" id="no" name="yesorno" value="no" />
+                                                <span>No</span>
+                                              </label> 
+                                        </div>
+                                        
+                                                                                   
+                                    </div>
+                                </div>
+                            </div>				  
 			
 		</>
     )
