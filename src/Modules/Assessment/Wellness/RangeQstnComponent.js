@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 
 const RangeQstnComponent = (props) => {
-	let {qstn,note,start_value,end_value,money,step} = props.content;
+	let {qstn,note,id, start_value,end_value,money,step} = props.content;
 	const [currVal,setCurrVal] = useState(start_value);
 
 	const showSliderValue = (e)=>{
@@ -11,6 +11,7 @@ const RangeQstnComponent = (props) => {
 		<>
 		<div style={{marginTop:'100px',wordBreak:'break-all'}}>
 			<h2> 
+			{id} -
 			{qstn}
 			</h2>
 			<p>

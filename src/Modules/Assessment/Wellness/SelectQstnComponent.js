@@ -10,12 +10,11 @@ const setValue = (e) =>{
 Object.keys(context.answers).map((value,index)=>{
 	if(value == id) context.answers[value] = e.target.value
 })
-console.log(context.answers)
 }
 
     return (
 		<>
-			<h2 style={{marginTop:'100px',wordBreak:'break-all'}}> {qstn} </h2>
+			<h2 style={{marginTop:'100px',wordBreak:'break-all'}}> {id} - {qstn} </h2>
 
 		{options.map((value,index)=>{
 

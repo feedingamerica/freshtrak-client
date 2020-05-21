@@ -2,10 +2,10 @@
 import React from 'react';
 import ButtonComponent from '../../General/ButtonComponent'
 const CheckboxQstnComponent = (props) => {
-let {qstn} = props.content;
+let {qstn,id} = props.content;
     return (
 		<>
-			<h2 style={{marginTop:'100px',wordBreak:'break-all'}}> {qstn} </h2>
+			<h2 style={{marginTop:'100px',wordBreak:'break-all'}}> {id} - {qstn} </h2>
 
 		<div><input type="checkbox"  />Working for pay full-time   (30 hours per week or more)</div>
 		<div><input type="checkbox"  />Working for pay part-time  (Less than 30 hours per week)</div> 

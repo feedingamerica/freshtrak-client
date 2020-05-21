@@ -1,7 +1,7 @@
 /**
  * Created by Ashik on 20/5/20.
  */
-import React, {useState,useContext} from 'react';
+import React, {useState,useContext,useEffect} from 'react';
 
 // import general components
 import ButtonComponent from '../../General/ButtonComponent';
@@ -18,16 +18,23 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import WellnessContext from './WellnessContext';
 
 const WellnessContainer = (props) => {
+	// state to trigger rerender;
+	// Since there is no state updation for certain pages,
+	// we might have to trigger updation.
+	// check handleProgress() function.
+	// we use context.currPage to track currPage.
 	const [currPage, setCurrPage] = useState(0);
-	const [prevPage,setPrevPage] = useState(0);
-	const [progress,setProgress] = useState(0);
-	const wellnessContext = useContext(WellnessContext);
-	let qstns = wellnessContext.qstns;
-	let answers = wellnessContext.answers;
+	
+	const context = useContext(WellnessContext);
+	const [progress,setProgress] = useState(context.currPage);
+
+	let qstns = context.qstns;
+	let answers = context.answers;
+
 	const loadPage = () => {
+			
 
-
-		switch(currPage){
+		switch(context.currPage){
 			case 0 : return <BeginAssessComponent />
 			break;
 			case 1 : return <RangeQstnComponent content={qstns.meals} />
@@ -58,23 +65,31 @@ const WellnessContainer = (props) => {
 			break;
 			default: return;
 		}
+	
 	}
 
 
 	const handleProgress = () =>{
-		switch(currPage){
-					case 5: setProgress(40);
-					break;
-					case 8: setProgress(70);
-					break;
-					case 9: setProgress(70);
-					break;
-					case 11: setProgress(90);
-					break;
-					case 12: setProgress(90);
-					break;
-					default:setProgress(10*currPage)
+
+		setCurrPage(context.currPage)
+		switch(context.currPage){
+			case 5: return ;
+			break;
+			case 8: return ;
+			break;
+			case 9: return ;
+			break;
+			case 10:return  setProgress(90);
+			break;
+			case 11: return ;
+			break;
+			case 12: return ;
+			break;
+			case 13: return setProgress(100);
+			break;
+			default: return setProgress(10*context.currPage);
 				}
+				
 	}
 	const handlePageTransition = (type) => {
 
@@ -86,58 +101,61 @@ const WellnessContainer = (props) => {
 			case 'prev': goToPrevPage();
 						break;
 		}
-		
-
-	}
-
-
-	const goToNextPage = ()=>{
-		if(currPage ===4 && (answers[currPage]=='no' || answers[currPage]=='')) 
-			{
-				setCurrPage(6);
-				setPrevPage(4);
-				return;
-			}
-
-		if(currPage ===7 && (answers[currPage]!== qstns.mainInsurance.options[0] || answers[currPage] === '')) 
-			{
-				setCurrPage(10);
-				setPrevPage(7);
-				return;
-			}
-
-		if(currPage ===10 && (answers[currPage]=== 'no' || answers[currPage]=== '')) 
-			{
-				setCurrPage(13);
-				setPrevPage(10);
-				return;
-			}
-		setCurrPage((prevState)=>prevState+1);
-		setPrevPage(0);
 		handleProgress();
+
 	}
 
-	const goToPrevPage = () => {
-		if(prevPage!=0){
-			setCurrPage(prevPage);
-			setPrevPage(0)
+
+	const goToNextPage = async()=>{
+
+
+
+		if(context.currPage ===4 && (answers[context.currPage]=='no' || answers[context.currPage]=='')) 
+			{
+				 context.currPage = 6 ;
+				 context.prevPage = 4 ;
+				return;
+			}
+
+		if(context.currPage ===7 && (answers[context.currPage]!== qstns.mainInsurance.options[0] || answers[context.currPage] === '')) 
+			{
+				context.currPage = 10 ;
+				 context.prevPage = 7 ;
+				return;
+			}
+
+		if(context.currPage ===10 && (answers[context.currPage]=== 'yes' || answers[context.currPage]=== '')) 
+			{
+				context.currPage = 13 ;
+				 context.prevPage = 10 ;
+				return;
+			}
+			context.currPage += 1 ;
+			context.prevPage = 0 ;
+			return;
+	}
+
+	const goToPrevPage = async () => {
+		if(context.prevPage!=0){
+			context.currPage = context.prevPage ;
+				 context.prevPage = 0 ;
 			return;
 		}
-		setCurrPage((prevState)=>prevState-1);
-		setPrevPage(0);
-		handleProgress(); 
+		context.currPage -= 1 ;
+			context.prevPage = 0 ;
+			return;
 	}
 
     return (
 		<>   
 				<div style={{marginTop:'60px',padding:'100px'}}>
-				{currPage > 0 && <a style={{fontSize:'1rem'}} onClick={()=>handlePageTransition('prev')}>LAST QUESTION</a>}
+				{context.currPage > 0 && <a style={{fontSize:'1rem'}} onClick={()=>handlePageTransition('prev')}>LAST QUESTION</a>}
 			
-					{ currPage >0 && <ProgressBar now={progress} label={`${progress}%`} />}
+					{ context.currPage >0 && <ProgressBar now={progress} label={`${progress}%`} />}
 						
 						{loadPage()}
-					{ currPage!=13 && 
-						<><ButtonComponent value={currPage!=0?'Next Question' : 'Begin Assessment'} name="assess_btn" className = 'btn custom-button search-button' onClickfunction={()=>handlePageTransition('next')} />
+					{ context.currPage!=13 && 
+						<><ButtonComponent value={context.currPage!=0?'Next Question' : 'Begin Assessment'} name="assess_btn" className = 'btn custom-button search-button' onClickfunction={()=>handlePageTransition('next')} />
 						<div style={{textAlign:'center'}}><a>Skip</a></div>
 						</>
 					}
