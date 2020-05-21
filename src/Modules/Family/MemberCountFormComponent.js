@@ -47,8 +47,9 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
 
   return (
     <Fragment>
-      <div className="form-sub-title font-weight-bold">
-        Total Number of Household Members (Including You)
+      <div className="form-sub-title font-weight-bold mt-2">
+        <h2>Tell us about your family</h2>
+        Total Number of Household Members (Do not Include Yourself)
         <div className="mt-3 pt-1">
           <div className="d-flex align-items-center pt-2 pb-2">
             <div className="member-age">Seniors (65+)</div>
@@ -146,6 +147,19 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
             </button>
           </div>
         </div>
+      </div>
+      <div className="form-group">
+        <label htmlFor="license_plate">License Plate</label>
+        <input
+          type="text"
+          className="form-control"
+          name="license_plate"
+          id="license_plate"
+          ref={register}
+        />
+        <small>
+          If you will arrive at the distribution in a vehicle and know the license plate, please include it here. Sharing your license plate enables expedited check-in at some distributions.
+        </small>
       </div>
     </Fragment>
   );
