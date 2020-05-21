@@ -42,7 +42,8 @@ const Routes = () => {
               component={FamilyContainer}
             />
 
-            <Route
+            {/* Out of Scope */}
+            {/* <Route
               exact path={RENDER_URL.EDIT_FAMILY_URL}
               component={EditFamilyContainer}
             />
@@ -50,7 +51,7 @@ const Routes = () => {
             <Route
               exact path={RENDER_URL.SIGN_IN}
               component={SignInContainer}
-            />
+            /> */}
 
             <Route
               path={"*"}
