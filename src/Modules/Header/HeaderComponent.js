@@ -111,7 +111,10 @@ const HeaderComponent = (props) => {
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse> */}
-            {!isLoggedIn && (
+
+            {/* Out of Scope */}
+
+            {/* {!isLoggedIn && (
               <LinkContainer to={RENDER_URL.SIGN_IN}>
                 <Nav.Link href="" className="header-sign-in">
                     SIGN IN
@@ -126,7 +129,7 @@ const HeaderComponent = (props) => {
                 >
                   LOG OUT
                 </button>
-            )}
+            )} */}
           </Navbar>
         </div>
       </Nav>
