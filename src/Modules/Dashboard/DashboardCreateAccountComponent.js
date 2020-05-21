@@ -15,7 +15,7 @@ const DashboardCreateAccountComponent = () => {
     return (
 	        
             <div>
-                    <h2 className="mb-5 font-weight-bold mobile-text-left text-center">FreshTrak is here to help!</h2>
+                    
                     <div className="row text-center">
                         <BoxComponent title = "Stay Up to Date" content = "Make a FreshTrak account to stay up to date on local food access events." imageUrl = {CalenderIcon} className ="stay-up-to-date"/>
                         <BoxComponent title = "Pre-Register" content = "Make a FreshTrak account to stay up to date on local food access events." imageUrl ={PreRegisteredIcon} className ="pre-register"/>

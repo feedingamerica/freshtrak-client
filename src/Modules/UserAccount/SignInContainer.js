@@ -13,8 +13,9 @@ const SigInContainer = (props) => {
 					<div className="sign-in-wrapper">
 						<SignInComponent />	
 					</div>        		                   
-					<div className="mt-5">
-						<DashboardCreateAccountComponent />
+					<div className="mt-5">						
+                		<h2 className="mb-5 font-weight-bold mobile-text-left text-center">Haven’t Registered Yet?</h2>
+                		<DashboardCreateAccountComponent />
 					</div>
 				</div>
 			</section>

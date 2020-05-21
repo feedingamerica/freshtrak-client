@@ -27,8 +27,8 @@ const DashBoardDataComponent = (props) => {
         <div className="container pt-150 pb-150">
             <div className="search-area text-left">
                 <SearchComponent onSelectedChild = {handleSubmit} />
-            </div>
-
+            </div>             
+            <h2 className="mb-5 font-weight-bold mobile-text-left text-center">FreshTrak is here to help!</h2>              
             <DashboardCreateAccountComponent />
         </div>
     )
