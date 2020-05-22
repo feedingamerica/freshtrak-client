@@ -60,7 +60,7 @@ const EventContainer = props => {
             return <ResourceListComponent dataToChild = {foodBankData} /> ;
         }
         if (serverError) {
-            return <h2>Something went wrong</h2>
+            return <h2 aria-live="polite">Something went wrong</h2>
         }
         return null;
     };

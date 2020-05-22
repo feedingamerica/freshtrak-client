@@ -41,10 +41,10 @@ const HeaderComponent = (props) => {
     };
   }, [localIsLoggedIn, isLoggedIn]);
 
-  const logOut = () => {
-    localStorage.setItem('isLoggedIn', false);
-    setIsLoggedIn(false);
-  }
+  // const logOut = () => {
+  //   localStorage.setItem('isLoggedIn', false);
+  //   setIsLoggedIn(false);
+  // }
   
   return (
     <Fragment>
@@ -65,7 +65,7 @@ const HeaderComponent = (props) => {
                 </Link>
               </span>
               {/* Out of Scope */}
-              {/* <button
+              <button
                 className="navbar-toggler mr-2"
                 type="button"
                 data-toggle="collapse"
@@ -75,7 +75,7 @@ const HeaderComponent = (props) => {
                 <span className="navbar-toggler-icon">
                   <img src={navBarIcon} alt="UserLogo" className="img-fluid" />
                 </span>
-              </button> */}
+              </button>
             </Navbar.Brand>
             {/* Commented to restrict triggering bootstrap dropdown */}
             {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
@@ -88,7 +88,11 @@ const HeaderComponent = (props) => {
                   title="Find Resources"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item className="dropdown-item" onSelect={()=>{history.push('/freshtrak-about')}}>
+                  <NavDropdown.Item
+                    tag={Link}
+                    to={RENDER_URL.FRESHTRAK_ABOUT}
+                    className="dropdown-item"
+                  >
                     About Freshtrak
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -134,11 +138,9 @@ const HeaderComponent = (props) => {
               <div className="menu-item-title">FIND RESOURCES</div>
               <ul className="mt-2">
                 <li>
-                  <a onClick={
-                    ()=>{setMobileMenu(false);history.push('/freshtrak-about')}}
-                  >
+                  <Link to={RENDER_URL.FRESHTRAK_ABOUT}>
                     About FreshTrak
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -146,11 +148,9 @@ const HeaderComponent = (props) => {
               <div className="menu-item-title">FOR FOODBANKS</div>
               <ul className="mt-2">
                 <li>
-                  <a onClick={
-                    ()=>{setMobileMenu(false);history.push('/freshtrak-working')}}
-                  >
+                  <Link to={RENDER_URL.FRESHTRAK_WORKING}>
                     Working with FreshTrak
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -183,7 +183,7 @@ const HeaderComponent = (props) => {
             </div> */}
           </div>
           <button className="mobile-close" onClick={() => setMobileMenu(false)}>
-            <img src={closeIcon}/>
+            <img alt="close menu" src={closeIcon}/>
           </button>
         </div>
       )}

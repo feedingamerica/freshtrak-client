@@ -9,7 +9,7 @@ const NavigationBtnComponent = (props) => {
     return (
         <div className="back-button" onClick={()=>history.goBack()}>
             <span className="back-arrow">
-                <img src={backBtn} />
+                <img alt="back arrow" src={backBtn} />
             </span>
             <span className="font-weight-bold text-uppercase ml-2" >Back</span>
         </div>

@@ -16,8 +16,9 @@ const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
 const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
-const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
-const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
+// Out of scope
+// const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
+// const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
 
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")

@@ -6,7 +6,7 @@ import React from "react";
 import MainHeadingComponent from "../General/MainHeadingComponent";
 import NavigationBtnComponent from "../General/NavigationBtnComponent";
 import "../../Assets/scss/main.scss";
-import ButtonComponent from "../General/ButtonComponent";
+// import ButtonComponent from "../General/ButtonComponent";
 import ExpectImage from "../../Assets/img/freshTrak.jpg";
 import ExpectImageMobile from "../../Assets/img/freshTrak-mobile.jpg";
 
@@ -44,8 +44,8 @@ const AboutFreshTrakComponent = () => {
           </div>
         </div>
         <div className="info-banner">
-          <img src={ExpectImage}  className="img-fluid desktop-view"/>
-          <img src={ExpectImageMobile}  className="img-fluid mobile-view"/>
+          <img alt="Info" src={ExpectImage}  className="img-fluid desktop-view"/>
+          <img alt="Info" src={ExpectImageMobile}  className="img-fluid mobile-view"/>
         </div>
        </section>
         <section className="gray-bg">
@@ -90,7 +90,12 @@ const AboutFreshTrakComponent = () => {
               like to know more about the Mid-Ohio Foodbank and our mission,
               please visit us at{" "}
               <span>
-                <a className="color-green">www.midohiofoodbank.org</a>
+                <a
+                  href="http://www.midohiofoodbank.com"
+                  className="color-green"
+                >
+                  www.midohiofoodbank.org
+                </a>
               </span>
               .
             </p>
