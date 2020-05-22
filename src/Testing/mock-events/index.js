@@ -23,6 +23,7 @@ export const mockEventsBuilder = build('Events').fields({
   agency_id: fake(f => f.random.number()),
   name: fake(f => f.random.word()),
   service: fake(f => f.random.word()),
+  event_details: fake(f => f.random.word()),
   event_dates: [],
 });
 
@@ -82,4 +83,5 @@ export const preformattedEventData = {
   agencyName: agency1.name,
   eventName: event1.name,
   eventService: event1.service,
+  eventDetails: event1.event_details,
 };
