@@ -40,10 +40,10 @@ const HeaderComponent = (props) => {
     };
   }, [localIsLoggedIn, isLoggedIn]);
 
-  const logOut = () => {
-    localStorage.setItem('isLoggedIn', false);
-    setIsLoggedIn(false);
-  }
+  // const logOut = () => {
+  //   localStorage.setItem('isLoggedIn', false);
+  //   setIsLoggedIn(false);
+  // }
   
   return (
     <Fragment>
@@ -64,7 +64,7 @@ const HeaderComponent = (props) => {
                 </Link>
               </span>
               {/* Out of Scope */}
-              {/* <button
+              <button
                 className="navbar-toggler mr-2"
                 type="button"
                 data-toggle="collapse"
@@ -74,7 +74,7 @@ const HeaderComponent = (props) => {
                 <span className="navbar-toggler-icon">
                   <img src={navBarIcon} alt="UserLogo" className="img-fluid" />
                 </span>
-              </button> */}
+              </button>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             {/* Out of Scope */}
@@ -87,7 +87,7 @@ const HeaderComponent = (props) => {
                   title="Find Resources"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item 
+                  <NavDropdown.Item
                     tag={Link}
                     to={RENDER_URL.FRESHTRAK_ABOUT}
                     className="dropdown-item"
@@ -133,67 +133,63 @@ const HeaderComponent = (props) => {
           </Navbar>
         </div>
       </Nav>
+      {/* Menu popup div */}
+      {showMobileMenu && (
+        <div id="menuSlider" className="mobile-menu fadeIn">
+          <div className="d-flex h-100 justify-content-end flex-column">
+            <div className="mobile-menu-items">
+              <div className="menu-item-title">FIND RESOURCES</div>
+              <ul className="mt-2">
+                <li>
+                  <Link to={RENDER_URL.FRESHTRAK_ABOUT}>
+                    About FreshTrak
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div className="mobile-menu-items mt-4 mb-4">
+              <div className="menu-item-title">FOR FOODBANKS</div>
+              <ul className="mt-2">
+                <li>
+                  <Link to={RENDER_URL.FRESHTRAK_WORKING}>
+                    Working with FreshTrak
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <hr></hr>
+            {/* Out of Scope */}
+            {/* <div className="status-info"> */}
+            {/* {isLoggedIn ? */}
+            {/* <div className="user-avatar">
+                <NavDropdown title={
+                    <div className="d-flex align-items-center">
+                        <span>
+                        <img className="thumbnail-image" src={userIcon} alt="user pic" />
+                    </span>
+                    <span className="text-uppercase ml-2">MANAGE YOUR ACCOUNT</span>
+                    </div> */}
+                {/* }> */}
+                    {/* <DropdownItem eventKey={1.3} onClick={(() => { localStorage.removeItem('isLoggedIn', false); setIsLoggedIn(false); window.location.reload(); })}>
+                        <i className="fa fa-sign-out"></i> Logout
+                    </DropdownItem>
+                </NavDropdown> */}
+                {/* <div className="user-avatar">
+                {isLoggedIn == false ? <LoggedInComponent/> : <SignInComponent/>} */}
+            {/* 
+            </div>
+            :
 
-
-            {/* Menu popup div */}
-
-            {
-                showMobileMenu && <div id="menuSlider" className="mobile-menu fadeIn">
-                    <div className="d-flex h-100 justify-content-end flex-column">
-                        <div className="mobile-menu-items">
-                            <div className="menu-item-title">FIND RESOURCES</div>
-                                <ul className="mt-2">
-                                    <li>
-                                      <Link to={RENDER_URL.FRESHTRAK_ABOUT}>
-                                        About FreshTrak
-                                      </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="mobile-menu-items mt-4 mb-4">
-                            <div className="menu-item-title">FOR FOODBANKS</div>
-                                <ul className="mt-2">
-                                    <li>
-                                      <Link to={RENDER_URL.FRESHTRAK_WORKING}>
-                                        Working with FreshTrak
-                                      </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                            <hr></hr>
-                            {/* Out of Scope */}
-                            {/* <div className="status-info"> */}
-                            {/* {isLoggedIn ? */}
-                            {/* <div className="user-avatar">
-                                <NavDropdown title={
-                                    <div className="d-flex align-items-center">
-                                        <span>
-                                        <img className="thumbnail-image" src={userIcon} alt="user pic" />
-                                    </span>
-                                    <span className="text-uppercase ml-2">MANAGE YOUR ACCOUNT</span>
-                                    </div> */}
-                                {/* }> */}
-                                    {/* <DropdownItem eventKey={1.3} onClick={(() => { localStorage.removeItem('isLoggedIn', false); setIsLoggedIn(false); window.location.reload(); })}>
-                                        <i className="fa fa-sign-out"></i> Logout
-                                    </DropdownItem>
-                                </NavDropdown> */}
-                                {/* <div className="user-avatar">
-                                {isLoggedIn == false ? <LoggedInComponent/> : <SignInComponent/>} */}
-{/* 
-                            </div>
-                            :
-
-                            <button className="sign-in-button" onClick={() => setModalShow(true)}>
-                                Sign In
-                                </button>}
-                            </div> */}
-                        </div>
-                        
-                    <button className="mobile-close" onClick={() => setMobileMenu(false)}>
-                        <img aria-hidden="true" alt="close" src={closeIcon}/>
-                    </button>
-                </div>
-            }
+            <button className="sign-in-button" onClick={() => setModalShow(true)}>
+                Sign In
+                </button>}
+            </div> */}
+          </div>
+          <button className="mobile-close" onClick={() => setMobileMenu(false)}>
+            <img alt="close menu" src={closeIcon}/>
+          </button>
+        </div>
+      )}
     </Fragment>
   );
 };

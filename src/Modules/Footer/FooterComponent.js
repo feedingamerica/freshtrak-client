@@ -6,6 +6,7 @@ import LogoComponent from '../General/LogoComponent';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
+
 const FooterComponent = () => (
   <div className="container pt-50">
     <div className="row">

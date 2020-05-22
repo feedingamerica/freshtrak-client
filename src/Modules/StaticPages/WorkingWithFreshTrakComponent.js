@@ -46,8 +46,8 @@ const WorkingWithFreshTrakComponent = () => {
                     </div>
                 </div>
                 <div className="info-banner">
-                    <img alt="Ending Hunger" src={ExpectImage} className="img-fluid desktop-view" />
-                    <img alt="Ending Hunger" src={ExpectImageMobile} className="img-fluid mobile-view" />
+                    <img src={ExpectImage} alt="Shopping at store" className="img-fluid desktop-view" />
+                    <img src={ExpectImageMobile} alt="Shopping at store" className="img-fluid mobile-view" />
                 </div>
 
             </section>
