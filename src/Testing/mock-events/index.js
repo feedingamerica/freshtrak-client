@@ -9,6 +9,7 @@ export const mockAgencyBuilder = build('Agencies').fields({
   phone: fake(f => f.phone.phoneNumber()),
   name: fake(f => f.random.word()),
   nickname: fake(f => f.random.word()),
+  estimated_distance: fake(f => f.random.number()),
   events: [],
 });
 
