@@ -58,7 +58,6 @@ const EventCardComponent = (props) => {
               {eventDetails}
             </p>
           </div>}
-          {/* Out of scope */}
           <div className="day-view-item-detail-footer d-flex mt-3">
            {eventDetails.length > 0 && <button className="btn default-button flex-grow-1"
            onClick={()=>{
