@@ -93,3 +93,10 @@
   text-overflow: ellipsis;
 }
 
+// crossbrowser
+@mixin crossBrowser($property, $val){
+  -webkit-#{$property}: $val;
+  -moz-#{$property}: $val;
+  -ms-#{$property}: $val;
+  #{$property}: $val;
+}

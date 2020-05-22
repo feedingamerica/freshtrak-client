@@ -913,6 +913,7 @@ body {
     }
     .modal-title{
         font-size: .7rem;
+        cursor: pointer;
     }
     .modal-footer{
         border: 0;
@@ -933,8 +934,21 @@ body {
                 font-size: .9rem;
             }
         }
+        .ac-slider{
+            h3{
+                text-align: center;
+                font-size: 3rem;
+                font-weight: 600;
+            }
+        }
     }
-    
+    .progress{
+        height: .3rem;
+        .progress-bar{
+        background-color: $list-header-bg;
+        text-indent: -1000px;
+        }
+    }    
 }
 .radio-button-wrapper{
     margin: 1.5rem 0;
@@ -1010,6 +1024,7 @@ body {
             border-top-style: none;
             border-right-style: none;
             left: 5px;
+            top: 5px;
           }
           &:checked {
             &:before {
