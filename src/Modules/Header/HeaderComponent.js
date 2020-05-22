@@ -2,16 +2,16 @@
  * Created by Basil on 04/04/20.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 
 import mainLogo from "../../Assets/img/logo.png";
-// import navBarIcon from "../../Assets/img/menu.svg";
-import { Link } from "react-router-dom";
-import { LinkContainer } from 'react-router-bootstrap';
+import navBarIcon from "../../Assets/img/menu.svg";
+import closeIcon from '../../Assets/img/close.svg';
+import { Link, useHistory } from "react-router-dom";
 import {
   Nav,
-  // NavDropdown,
-  Navbar,
+  NavDropdown,
+  Navbar
 } from "react-bootstrap";
 
 import { RENDER_URL } from "../../Utils/Urls";
@@ -19,9 +19,11 @@ const HeaderComponent = (props) => {
   const [navbarShrink, setNavbarShrink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const shortHeader = props.shortHeader || "";
+  
+  let history = useHistory();
 
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
-
+  const [showMobileMenu, setMobileMenu] = useState(false);
   useEffect(() => {
     let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
     if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
@@ -45,7 +47,7 @@ const HeaderComponent = (props) => {
   }
   
   return (
-    <React.Fragment>
+    <Fragment>
       <Nav
         className={`navbar navbar-expand-md navbar-light fixed-top ${navbarShrink} ${shortHeader}`}
         id="mainNav"
@@ -68,15 +70,16 @@ const HeaderComponent = (props) => {
                 type="button"
                 data-toggle="collapse"
                 data-target="#navbarCollapse"
+                onClick={() => setMobileMenu(true)}
               >
                 <span className="navbar-toggler-icon">
                   <img src={navBarIcon} alt="UserLogo" className="img-fluid" />
                 </span>
               </button> */}
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            {/* Out of Scope */}
-            {/* <Navbar.Collapse
+            {/* Commented to restrict triggering bootstrap dropdown */}
+            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
+            <Navbar.Collapse
               id="navbarCollapse"
               className="justify-content-end"
             >
@@ -85,22 +88,22 @@ const HeaderComponent = (props) => {
                   title="Find Resources"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item className="dropdown-item" href="#1">
-                    Find Resources
+                  <NavDropdown.Item className="dropdown-item" onSelect={()=>{history.push('/freshtrak-about')}}>
+                    About Freshtrak
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
               <Nav className="navbar-nav small  main-menu align-items-center">
                 <NavDropdown
-                  title="For Food Banks"
+                  title="For Foodbanks"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item className="dropdown-item" href="#4">
-                    For Food Banks
+                  <NavDropdown.Item className="dropdown-item" onSelect={()=>{history.push('/freshtrak-working')}}>
+                    Working with Freshtrak
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
-            </Navbar.Collapse> */}
+            </Navbar.Collapse>
 
             {/* Out of Scope */}
 
@@ -123,8 +126,68 @@ const HeaderComponent = (props) => {
           </Navbar>
         </div>
       </Nav>
+      {/* Menu popup div */}
+      {showMobileMenu && (
+        <div id="menuSlider" className="mobile-menu fadeIn">
+          <div className="d-flex h-100 justify-content-end flex-column">
+            <div className="mobile-menu-items">
+              <div className="menu-item-title">FIND RESOURCES</div>
+              <ul className="mt-2">
+                <li>
+                  <a onClick={
+                    ()=>{setMobileMenu(false);history.push('/freshtrak-about')}}
+                  >
+                    About FreshTrak
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="mobile-menu-items mt-4 mb-4">
+              <div className="menu-item-title">FOR FOODBANKS</div>
+              <ul className="mt-2">
+                <li>
+                  <a onClick={
+                    ()=>{setMobileMenu(false);history.push('/freshtrak-working')}}
+                  >
+                    Working with FreshTrak
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <hr></hr>
+            {/* Out of Scope */}
+            {/* <div className="status-info"> */}
+            {/* {isLoggedIn ? */}
+            {/* <div className="user-avatar">
+                <NavDropdown title={
+                    <div className="d-flex align-items-center">
+                        <span>
+                        <img className="thumbnail-image" src={userIcon} alt="user pic" />
+                    </span>
+                    <span className="text-uppercase ml-2">MANAGE YOUR ACCOUNT</span>
+                    </div> */}
+                {/* }> */}
+                    {/* <DropdownItem eventKey={1.3} onClick={(() => { localStorage.removeItem('isLoggedIn', false); setIsLoggedIn(false); window.location.reload(); })}>
+                        <i className="fa fa-sign-out"></i> Logout
+                    </DropdownItem>
+                </NavDropdown> */}
+                {/* <div className="user-avatar">
+                {isLoggedIn == false ? <LoggedInComponent/> : <SignInComponent/>} */}
+            {/* 
+            </div>
+            :
 
-    </React.Fragment>
+            <button className="sign-in-button" onClick={() => setModalShow(true)}>
+                Sign In
+                </button>}
+            </div> */}
+          </div>
+          <button className="mobile-close" onClick={() => setMobileMenu(false)}>
+            <img src={closeIcon}/>
+          </button>
+        </div>
+      )}
+    </Fragment>
   );
 };
 
