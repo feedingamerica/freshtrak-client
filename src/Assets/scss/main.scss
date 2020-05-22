@@ -986,71 +986,56 @@ body {
         }
     }
 }
-.checkbox-wrapper{
-    .form-group{
-        label{
-            margin-left: 0;
-        }
-    }
-    .custom-checkbox {
+  .checkbox-custom {
+    display: block;
+    margin-bottom: 15px;
+    input {
+        padding: 0;
+        height: initial;
+        width: initial;
         margin-bottom: 0;
-        display: inline-flex;
-        align-items: flex-start;
+        display: none;
         cursor: pointer;
-        font-size: .9rem;
-        line-height: normal;
-        .ui-chkbox{
-          .ui-chkbox-box{
-            @include border-radius(0);
-            &.ui-state-active, &.ui-state-active:not(.ui-state-disabled):hover{
-              background:$text-color;
-              border-color: $text-color;
-            }
+        &:checked + label:before{
+            background: $list-header-bg;
+            border-color: $list-header-bg;
           }
-        }
-        .checkbox {
-          position: relative;
-          margin: 0 1.3rem 0 0;
-          cursor: pointer;
-          &:before {
-            @include transition(transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75));
-            @include transform(rotate(-45deg) scale(0, 0));
-            content: "";
+          &:checked + label:after {
+            content: '';
+            display: block;
             position: absolute;
-            z-index: 1;
-            width: 11px;
-            height: 7px;
-            border: 2px solid $color-white;
-            border-top-style: none;
-            border-right-style: none;
-            left: 5px;
-            top: 5px;
+            top: 3px;
+            left: -21px;
+            width: 6px;
+            height: 14px;
+            border: solid $color-white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
           }
-          &:checked {
-            &:before {
-              @include transform(rotate(#{-45}deg) scale(1, 1));
-            }
-          }
-          &:after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 22px;
-            height: 22px;
-            background: $secondary-color;
-            @include border-all(2px, solid, $text-color);
+      }
+      label {
+        position: relative;
+        cursor: pointer;
+        margin-left: 30px;
+        &:before {
+            content:'';
+            -webkit-appearance: none;
+            background-color: transparent;
+            @include border-all(2px, solid, $color-white);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+            padding: 10px;
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
             cursor: pointer;
-            @include border-radius(3px)
+            margin-right: 5px;
+            background: $secondary-color;
+            @include border-radius(2px);
+            margin-left:-30px ;
           }
-          &:checked{
-            &:after {
-                background: $text-color;
-            }
-          }
-        }
-    }
-}
+      }
+  }
+  
 .btn-green{
     background: $list-header-bg;
     border-color: $list-header-bg;
