@@ -822,6 +822,7 @@ body {
                 }
                 .desktop-view{
                     display: block;
+                    margin: 0 auto;
                     }
         }
         @include responsive(medium-devices) {

@@ -14,7 +14,7 @@ const EventListComponent = props => {
   const { events } = props;
 
   return (
-    <div className="search-results-list">
+    <div className="search-results-list" aria-live="polite">
       <div className="row m-0">
         <h2 className="font-weight-bold mobile-text-left">
           Resource Events in Your Area
