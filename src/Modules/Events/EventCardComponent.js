@@ -19,6 +19,7 @@ const EventCardComponent = (props) => {
       agencyName,
       eventName,
       eventService,
+      acceptReservations
     },
   } = props;
 
@@ -49,14 +50,14 @@ const EventCardComponent = (props) => {
             {phoneNumber}
           </div>
           {/* Out of scope */}
-          {/* <div className="day-view-item-detail-footer d-flex mt-3">
+          { <div className="day-view-item-detail-footer d-flex mt-3">
             <button className="btn default-button flex-grow-1">
               View Details
             </button>
-            <button className="btn custom-button ml-1 flex-grow-1">
+            <button className="btn custom-button ml-1 flex-grow-1" hidden={!acceptReservations}>
               Reserve Time
             </button>
-          </div> */}
+          </div> }
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ test('should return an array of events', () => {
     {
       id: eventDate1.id,
       eventId: eventDate1.event_id,
+      acceptReservations: eventDate1.accept_reservations,
       startTime: eventDate1.start_time,
       endTime: eventDate1.end_time,
       date: eventDate1.date,
@@ -41,6 +42,7 @@ test('should return an array of events with mulitple agencies and one with no ev
     {
       id: eventDate1.id,
       eventId: eventDate1.event_id,
+      acceptReservations: eventDate1.accept_reservations,
       startTime: eventDate1.start_time,
       endTime: eventDate1.end_time,
       date: eventDate1.date,
@@ -72,6 +74,7 @@ test('should return an array of events with multiple agencies and multiple event
     {
       id: eventDate1.id,
       eventId: eventDate1.event_id,
+      acceptReservations: eventDate1.accept_reservations,
       startTime: eventDate1.start_time,
       endTime: eventDate1.end_time,
       date: eventDate1.date,
@@ -87,6 +90,7 @@ test('should return an array of events with multiple agencies and multiple event
     {
       id: eventDate2.id,
       eventId: eventDate2.event_id,
+      acceptReservations: eventDate2.accept_reservations,
       startTime: eventDate2.start_time,
       endTime: eventDate2.end_time,
       date: eventDate2.date,
@@ -119,6 +123,7 @@ test('should sort events into dates', () => {
       {
         id: eventDate1.id,
         eventId: eventDate1.event_id,
+        acceptReservations: eventDate1.accept_reservations,
         startTime: eventDate1.start_time,
         endTime: eventDate1.end_time,
         date: eventDate1.date,
@@ -134,6 +139,7 @@ test('should sort events into dates', () => {
       {
         id: eventDate2.id,
         eventId: eventDate2.event_id,
+        acceptReservations: eventDate2.accept_reservations,
         startTime: eventDate2.start_time,
         endTime: eventDate2.end_time,
         date: eventDate1.date,
@@ -171,6 +177,7 @@ test(`should return a final object sorted by events_date's date`, () => {
         eventAddress: mockEvent.address,
         eventCity: mockEvent.city,
         eventId: mockEventDate.event_id,
+        acceptReservations: mockEventDate.accept_reservations,
         eventName: mockEvent.name,
         eventService: mockEvent.service,
         eventState: mockEvent.state,
@@ -188,6 +195,7 @@ test(`should return a final object sorted by events_date's date`, () => {
         eventAddress: mockEvent.address,
         eventCity: mockEvent.city,
         eventId: mockEventDate.event_id,
+        acceptReservations: mockEventDate.accept_reservations,
         eventName: mockEvent.name,
         eventService: mockEvent.service,
         eventState: mockEvent.state,
