@@ -25,7 +25,7 @@ const EventCardComponent = (props) => {
   } = props;
 
   return (
-    <div className="col-lg-4 col-xl-4">
+    <div className="col-lg-4 col-xl-4 mb-3">
       <div className="day-view-item">
         <div className="day-view-item-header">
           <div className="day-view-header-title">{agencyName}</div>
@@ -34,7 +34,7 @@ const EventCardComponent = (props) => {
             <div className="day-view-item-name">{eventService}</div>
           </div>
         </div>
-        <div className="day-view-item-details">
+        <div className="day-view-item-details d-flex flex-column justify-content-between">
           {/* <div className="registration-required">
               <span className="registration-required-label">Registration Required</span>
             </div> */}
