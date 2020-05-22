@@ -24,11 +24,12 @@ const DashBoardFoodBankComponent = () => {
                 <BoxComponent title = "Serve Food" content = "You post food access “events” in your community—anything from daily pantry hours to pop-up food events—and neighbors enter their zip code to get connected to them." imageUrl = {ServeFoodIcon} className =""/>
                 <BoxComponent title = "Move Quickly" content = "Remove the bottleneck from distribution with online customer pre-registration. Serve more customers, safely!" imageUrl = {MoveQuickIcon} className =""/>
             </div>
-            <div className="row mt-5 text-center">
+            {/* Out of scope */}
+            {/* <div className="row mt-5 text-center">
                 <div className="col-12">
                     <ButtonComponent type ='button' name="registerfoodbank" dataid= '' id="register-food-bank" value="Register Food Bank" className = 'btn custom-button' onClickfunction={handleClick} />
                 </div> 
-            </div>            
+            </div> */}
         </div>
     )
 };
