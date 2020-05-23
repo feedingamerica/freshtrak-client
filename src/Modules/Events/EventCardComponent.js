@@ -54,9 +54,9 @@ const EventCardComponent = (props) => {
             <button className="btn default-button flex-grow-1">
               View Details
             </button>
-            <button className="btn custom-button ml-1 flex-grow-1" hidden={!acceptReservations}>
+            { !acceptReservations || <button className="btn custom-button ml-1 flex-grow-1" hidden={!acceptReservations}>
               Reserve Time
-            </button>
+            </button> }
           </div> }
         </div>
       </div>
