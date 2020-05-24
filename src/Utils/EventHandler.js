@@ -3,7 +3,7 @@ import moment from 'moment';
 export const EventHandler = agencies => EventDateSorterByDate(EventObjectBuilder(AgencyHandler(agencies)));
 
 const EventDateSortByDistance = arrayOfEvents => arrayOfEvents
-  .sort((a,b) => a.estimated_distance - b.estimated_distance);
+  .sort((a,b) => (a.estimated_distance? a.estimated_distance: Infinity) - (b.estimated_distance? b.estimated_distance: Infinity));
 
 export const EventDateSorterByDate = eventObj => {
   const eventOrderByDate = {};
