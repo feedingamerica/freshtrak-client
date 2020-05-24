@@ -26,6 +26,7 @@ test('should return an array of events', () => {
       eventName: event1.name,
       eventService: event1.service,
       estimated_distance: agency1.estimated_distance,
+      eventDetails: event1.event_details,
     }
   ];
   const testData = [{ ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }] }] }];
@@ -54,6 +55,7 @@ test('should return an array of events with mulitple agencies and one with no ev
       eventName: event1.name,
       eventService: event1.service,
       estimated_distance: agency1.estimated_distance,
+      eventDetails: event1.event_details,
     }
   ];
   const testData = [
@@ -86,6 +88,7 @@ test('should return an array of events with multiple agencies and multiple event
       eventName: event1.name,
       eventService: event1.service,
       estimated_distance: agency1.estimated_distance,
+      eventDetails: event1.event_details,
     },
     {
       id: eventDate2.id,
@@ -102,6 +105,7 @@ test('should return an array of events with multiple agencies and multiple event
       eventName: event2.name,
       eventService: event2.service,
       estimated_distance: agency2.estimated_distance,
+      eventDetails: event2.event_details,
     }
   ];
   const testData = [
@@ -135,6 +139,7 @@ test('should sort events into dates', () => {
         eventName: event1.name,
         eventService: event1.service,
         estimated_distance: agency1.estimated_distance,
+        eventDetails: event1.event_details,
       },
       {
         id: eventDate2.id,
@@ -151,6 +156,7 @@ test('should sort events into dates', () => {
         eventName: event2.name,
         eventService: event2.service,
         estimated_distance: agency2.estimated_distance,
+        eventDetails: event2.event_details,
       }
     ]
   };
@@ -210,6 +216,7 @@ test(`should return a final object sorted by events_date's date and distance`, (
         eventId: mockEventDate.event_id,
         eventName: mockEvent.name,
         eventService: mockEvent.service,
+        eventDetails: mockEvent.event_details,
         eventState: mockEvent.state,
         eventZip: mockEvent.zip,
         id: mockEventDate.id,
@@ -244,6 +251,7 @@ test(`should return a final object sorted by events_date's date and distance`, (
         eventId: mockEventDate.event_id,
         eventName: mockEvent.name,
         eventService: mockEvent.service,
+        eventDetails: mockEvent.event_details,
         eventState: mockEvent.state,
         eventZip: mockEvent.zip,
         id: mockEventDate.id,

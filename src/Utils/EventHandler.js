@@ -47,6 +47,7 @@ const eventDateMapper = (event, phone, name, estimated_distance) => {
         eventName: event.name,
         eventService: event.service,
         estimated_distance,
+        eventDetails: event.event_details,
       }
     });
   } else {
