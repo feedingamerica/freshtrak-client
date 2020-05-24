@@ -235,6 +235,7 @@ test(`should return a final object sorted by events_date's date and distance`, (
         eventId: mockEventDate.event_id,
         eventName: mockEvent.name,
         eventService: mockEvent.service,
+        eventDetails: mockEvent.event_details,
         eventState: mockEvent.state,
         eventZip: mockEvent.zip,
         id: mockEventDate.id,
