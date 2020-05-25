@@ -4,7 +4,7 @@
 import React from 'react';
 import LogoComponent from '../General/LogoComponent';
 import { withRouter } from 'react-router';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link} from 'react-router-dom';
 const FooterComponent = (props) => {
     let history = useHistory();
     return (
@@ -16,13 +16,13 @@ const FooterComponent = (props) => {
                             <div className="col-md-6">
                                 <span className="list-title">FIND RESOURCES</span>
                                 <ul>
-                                    <li onClick={()=>history.push('/freshtrak-about')}>About FreshTrak</li>
+                                    <li><Link to ="freshtrak-about">About FreshTrak</Link></li>
                                 </ul>
                             </div>
                             <div className="col-md-6">
                                 <span className="list-title">FOR FOODBANKS</span>
                                 <ul>
-                                    <li onClick={()=>history.push('freshtrak-working')}>Working with FreshTrak</li>
+                                    <li><Link to ="freshtrak-working">Working with FreshTrak</Link></li>
                                 </ul>
                             </div>
                         </div>
