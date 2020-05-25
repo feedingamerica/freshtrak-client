@@ -9,7 +9,7 @@ let context = useContext(WellnessContext);
 const setValue = (e) =>{
 Object.keys(context.answers).map((value,index)=>{
 	if(value == id) context.answers[value] = e.target.value
-})
+});
 }
 
     return (
