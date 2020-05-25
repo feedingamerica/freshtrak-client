@@ -5,7 +5,7 @@ const FinishAssessComponent = (props) => {
 
     return (
 		<>
-			<h2 style={{marginTop:'100px'}}> Thank you</h2>
+			<h2> Thank you</h2>
 		</>
     )
 

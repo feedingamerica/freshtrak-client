@@ -182,6 +182,10 @@ select{
     background: $secondary-color;
     color: $color-white;
     padding: 1.2rem 1.2rem 2rem;
+    &.bg-green{
+        background: $list-header-bg;
+        
+    }
     .modal-header{
         border: none;
         padding: 0;

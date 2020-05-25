@@ -191,7 +191,7 @@ const WellnessContainer = (props) => {
               { context.currPage!=13 &&  <div className="modal-footer">
                     <div className="d-flex flex-column align-items-center w-100">
                       <button className="btn w-100 btn-green pl-4 pr-4" onClick={()=>handlePageTransition('next')}>{context.currPage!=0?'Next Question' : 'Begin Assessment'}</button>
-                        <div className="mt-2 text-uppercase" onClick={()=>handlePageTransition('next')}>Skip</div>
+                        <div className="mt-2 text-uppercase pointer" onClick={()=>handlePageTransition('next')}>Skip</div>
                     </div>
                 </div>
             }
