@@ -52,6 +52,10 @@ const WellnessContext = React.createContext({
 			id:6,
 			qstn:`Did you or did anyone in your household get money in the last month from any of the following sources? `,
 			note:`You can choose more than one.`,
+			options:[`Working for pay part-time  (Less than 30 hours per week)`,`Working for pay full-time   (30 hours per week or more)`,
+			`Pension`,`Social Security`,`Unemployment compensation`,`Disability (SSDI), workman’s compensation, or Supplemental Security Income (SSI)`,
+			`General assistance`,`Temporary Assistance to Needy Families also called TANF, formally AFDC`,`Government assistance with child care costs`,
+			`Child support or alimony`],
 			goToId:7
 		},
 		mainInsurance:{

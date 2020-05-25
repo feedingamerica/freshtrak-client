@@ -43,6 +43,7 @@ const eventDateMapper = (event, phone, name) => {
         agencyName: name,
         eventName: event.name,
         eventService: event.service,
+        eventDetails: event.event_details,
       }
     });
   } else {

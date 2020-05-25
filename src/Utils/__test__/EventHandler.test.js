@@ -25,6 +25,7 @@ test('should return an array of events', () => {
       agencyName: agency1.name,
       eventName: event1.name,
       eventService: event1.service,
+      eventDetails: event1.event_details,
     }
   ];
   const testData = [{ ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }] }] }];
@@ -52,6 +53,7 @@ test('should return an array of events with mulitple agencies and one with no ev
       agencyName: agency1.name,
       eventName: event1.name,
       eventService: event1.service,
+      eventDetails: event1.event_details,
     }
   ];
   const testData = [
@@ -83,6 +85,7 @@ test('should return an array of events with multiple agencies and multiple event
       agencyName: agency1.name,
       eventName: event1.name,
       eventService: event1.service,
+      eventDetails: event1.event_details,
     },
     {
       id: eventDate2.id,
@@ -98,6 +101,7 @@ test('should return an array of events with multiple agencies and multiple event
       agencyName: agency2.name,
       eventName: event2.name,
       eventService: event2.service,
+      eventDetails: event2.event_details,
     }
   ];
   const testData = [
@@ -130,6 +134,7 @@ test('should sort events into dates', () => {
         agencyName: agency1.name,
         eventName: event1.name,
         eventService: event1.service,
+        eventDetails: event1.event_details,
       },
       {
         id: eventDate2.id,
@@ -145,6 +150,7 @@ test('should sort events into dates', () => {
         agencyName: agency2.name,
         eventName: event2.name,
         eventService: event2.service,
+        eventDetails: event2.event_details,
       }
     ]
   };
@@ -173,6 +179,7 @@ test(`should return a final object sorted by events_date's date`, () => {
         eventId: mockEventDate.event_id,
         eventName: mockEvent.name,
         eventService: mockEvent.service,
+        eventDetails: mockEvent.event_details,
         eventState: mockEvent.state,
         eventZip: mockEvent.zip,
         id: mockEventDate.id,
@@ -190,6 +197,7 @@ test(`should return a final object sorted by events_date's date`, () => {
         eventId: mockEventDate.event_id,
         eventName: mockEvent.name,
         eventService: mockEvent.service,
+        eventDetails: mockEvent.event_details,
         eventState: mockEvent.state,
         eventZip: mockEvent.zip,
         id: mockEventDate.id,
