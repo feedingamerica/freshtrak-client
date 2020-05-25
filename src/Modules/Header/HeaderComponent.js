@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import mainLogo from "../../Assets/img/logo.png";
 import navBarIcon from "../../Assets/img/menu.svg";
 import userIcon from "../../Assets/img/Mask.svg";
-import {useHistory} from 'react-router-dom';
+import {useHistory,Link} from 'react-router-dom';
 import closeIcon from '../../Assets/img/close.svg';
 import ButtonComponent from '../General/ButtonComponent';
 import {
@@ -49,12 +49,14 @@ import { RENDER_URL } from "../../Utils/Urls";
                 <div className="container">
                     <Navbar expand="md" className="w-100">
                         <Navbar.Brand className="my-auto mobile-view">
-                            <span className="my-auto mobile-view" onClick={()=>{history.push(RENDER_URL.HOME_URL)}}>               
+                            <span className="my-auto mobile-view">               
+                                <Link to={RENDER_URL.HOME_URL}>
                                 <img
                                 src={mainLogo}
                                 alt="FreshTrak"
                                 className="d-inline-block"
                                 />
+                                </Link>
                             </span>
                             <button
                                 className="navbar-toggler mr-2"
@@ -128,12 +130,18 @@ import { RENDER_URL } from "../../Utils/Urls";
             showMobileMenu && <div id="menuSlider" className="mobile-menu fadeIn">
                 <div className="d-flex h-100 justify-content-end flex-column">
                     <div className="mobile-menu-items mt-4 mb-4">
-                        <div className="menu-item-title">FOR FOODBANKS</div>
-                            <ul className="mt-2">
-                                <li onClick={()=>{setMobileMenu(false);history.push('/freshtrak-working')}}>Working with FreshTrak</li>
-                            </ul>
-                        </div>
-                        <hr></hr>
+                      <div className="menu-item-title">FIND RESOURCES</div>
+                                <ul className="mt-2">
+                                    <li><Link to ="/freshtrak-about">About FreshTrak</Link></li>
+                                </ul>
+                            </div>
+                            <div className="mobile-menu-items mt-4 mb-4">
+                            <div className="menu-item-title">FOR FOODBANKS</div>
+                                <ul className="mt-2">
+                                    <li><Link to ="/freshtrak-working">About FreshTrak</Link></li>
+                                </ul>
+                            </div>
+                            <hr></hr>
 
                         <div className="status-info">
                             {isLoggedIn ?
