@@ -686,7 +686,7 @@ body {
             @include border-radius(8px);
             background: $color-white;
             @include box-shadow(0px, 4px, 8px, $shadow-color);
-            margin-bottom: 15px;
+            min-height: 100%;
             .custom-button,
             .default-button {
                 padding-left: inherit;
@@ -723,6 +723,7 @@ body {
             }
             .day-view-item-details {
                 padding: 1rem;
+                min-height: 280px;
 
                 .registration-required {
                     margin: 5px 0;
