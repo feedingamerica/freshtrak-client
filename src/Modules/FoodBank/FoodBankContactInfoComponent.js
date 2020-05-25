@@ -2,14 +2,9 @@
  * Created by Basil on 24/04/20.
  */
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import useForm from '../../Utils/UseForm';
 const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
-	const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [suffix, setSuffix] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [email, setEmail] = useState('');
-    const [commPreference, setCommmPreference] = useState('');
 	const [contactData,setContactData] = useState({
 		first_name:'',
         last_name:'',
@@ -81,7 +76,7 @@ const FoodBankContactInfoComponent = React.forwardRef((props, ref) => {
                 )}
 				<div className="mt-2">
 					<small className="text-muted">
-						No Email? <a href="">Get one free from Google.</a>
+						No Email? <Link to="">Get one free from Google.</Link>
 					</small>
 				</div>
 			</div>

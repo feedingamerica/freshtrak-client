@@ -2,7 +2,6 @@
  * Created by Basil on 24/04/20.
  */
 import React from 'react';
-import FoodBankTitleContainer from './FoodBankTitleContainer';
 
 const FoodBankTextComponent = () => {
 	return (        

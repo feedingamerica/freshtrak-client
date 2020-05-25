@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import FoodBankRegistrationComponent from './FoodBankRegistrationComponent';
 import FoodBankContactInfoComponent from './FoodBankContactInfoComponent';
 import ButtonComponent from '../General/ButtonComponent';
-import {confirm, showMessage} from '../../Utils/Util';
+import {confirm} from '../../Utils/Util';
 const FoodBankRegistrationContainer = (props) => {	
 	const organizationFormRef = useRef();
 	const contactInfoFormRef = useRef();
@@ -40,6 +40,7 @@ const FoodBankRegistrationContainer = (props) => {
 				contactInfo :contactInfoFormRef.current.getCurrentData()? contactInfoFormRef.current.getCurrentData():''
 				
 			}
+			console.log(foodBank);
 		/*Once the api part is completed then update the request here
           Now just we redirect to succes page.
 		*/

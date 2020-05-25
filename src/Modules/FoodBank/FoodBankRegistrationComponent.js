@@ -4,10 +4,6 @@
 import React, {useState} from 'react';
 import useForm from '../../Utils/UseForm';
 const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
-	const [organizationName, setOrganizationName] = useState('');
-    const [address, setAddress] = useState('');
-    const [suiteBlg, setSuiteBlg] = useState('');
-    const [zipCode, setZipCode] = useState('');	
 	const [organazationData,setOrganizationData] = useState({
 		org_name:'',
         address:'',
@@ -22,7 +18,7 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
 	const { errors, handleErrors } =
 		useForm(props, {
 		'org_name' : ['required'],
-		'address' : ['required'],
+		'address' : ['required','is_address'],
 		'zipcode' : ['required','numeric']
 	}, ()=>{});  
 	
