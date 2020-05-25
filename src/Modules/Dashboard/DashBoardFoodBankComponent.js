@@ -4,17 +4,12 @@
  */
 
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import BoxComponent from '../General/BoxComponent';
-import ButtonComponent from '../General/ButtonComponent';
 import PredictIcon from '../../Assets/img/predict.svg';
 import ServeFoodIcon from '../../Assets/img/serve-food.svg';
 import MoveQuickIcon from '../../Assets/img/move-quick.svg';
-const DashBoardFoodBankComponent = () => {
-    let history = useHistory();	 
-    const handleClick = (e) => {        
-        history.push('/foodbank/create');
-    };
+const DashBoardFoodBankComponent = () => {    
     return (
     	<div className="container pt-150 pb-150">
             <div className="text-uppercase mobile-text-left text-center">For Foodbanks</div>
@@ -29,7 +24,7 @@ const DashBoardFoodBankComponent = () => {
             </div>
             <div className="row mt-5 text-center">
                 <div className="col-12">
-                    <ButtonComponent type ='button' name="registerfoodbank" dataid= '' id="register-food-bank" value="Register Food Bank" className = 'btn custom-button' onClickfunction={handleClick} />
+                    <Link to="foodbank/create" className="btn custom-button d-inline-flex align-items-center">Register Food Bank</Link>
                 </div> 
             </div>            
         </div>
