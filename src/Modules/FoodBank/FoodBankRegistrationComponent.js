@@ -1,36 +1,9 @@
 /*
  * Created by Basil on 24/04/20.
  */
-import React, {useState} from 'react';
-import useForm from '../../Utils/UseForm';
-const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
-	const [organazationData,setOrganizationData] = useState({
-		org_name:'',
-        address:'',
-        suiteblg:'',
-        zipcode:''
-	});
+import React, { forwardRef } from 'react';
 
-	const buildOrganizationForm = (event)=>{
-        setOrganizationData({...organazationData,[event.target.name] : event.target.value});
-    }    
-
-	const { errors, handleErrors } =
-		useForm(props, {
-		'org_name' : ['required'],
-		'address' : ['required','is_address'],
-		'zipcode' : ['required','numeric']
-	}, ()=>{});  
-	
-    React.useImperativeHandle(ref, () => ({
-        getCurrentData(){
-            return organazationData;
-        },
-        triggerErrors(){            
-            return handleErrors(organazationData);
-        }})
-    );
-
+const FoodBankRegistrationComponent = React.forwardRef(({ register, errors }, ref) => {
 	return (
 		<div className="form-fields">
 			<div className="form-title">
@@ -38,29 +11,39 @@ const FoodBankRegistrationComponent = React.forwardRef((props, ref) => {
 			</div>
 			<div className="form-group" data-testid="org-name">
 				<label>Organization Name</label>
-				<input type="text" name="org_name" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors} />
-				{errors.org_name && (
-                    <span className="validationError">{errors.org_name}</span>
-                )}
+				<input type="text" 
+					name="org_name" 
+					className="form-control" 
+					ref={register({ required: true })}
+				/>
+				{errors.org_name && (<span className="validationError">This field is required</span> )}
 			</div>
 			<div className="d-flex">
 				<div className="form-group" data-testid="address">
 					<label>Address</label>
-					<input type="text" name ="address" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors} />
-					{errors.address && (
-                        <span className="validationError">{errors.address}</span>
+					<input type="text" 
+						name ="address" 
+						className="form-control"  
+						ref={register({ required: true })}
+					/>
+					{errors.address && (<span className="validationError">This field is required</span>
                  	)}
 				</div>
 				<div className="form-group ml-2"  data-testid="suite-blg">
 					<label>Suite/Blg</label>
-					<input type="text" name="suiteblg" className="form-control" onChange={buildOrganizationForm}/>
+					<input type="text" 
+						name="suiteblg" className="form-control" 
+						ref={register}
+					/>
 				</div>
 			</div>
 			<div className="form-group" data-testid="zip-code">
 				<label>Zipcode</label>
-				<input type="text" name="zipcode" className="form-control" onChange={buildOrganizationForm} onBlur={handleErrors}/>
-				{errors.zipcode && (
-                    <span className="validationError">{errors.zipcode}</span>
+				<input type="text" name="zipcode" className="form-control" 
+				ref={register({ required:true, pattern: /^[0-9]{5}$/  })}/>
+				{errors.zipcode && errors.zipcode.type ==='required' && (<span className="validationError">This field is required</span>
+                )}
+                {errors.zipcode && errors.zipcode.type ==='pattern' && (<span className="validationError">The Zipcode is not valid</span>
                 )}
 			</div>
 		</div>
