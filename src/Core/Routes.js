@@ -18,6 +18,13 @@ const WrapperComponent = lazy(() =>
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
+const FoodBankContainer = lazy(() => 
+  import("../Modules/FoodBank/FoodBankContainer")
+);
+const FoodBankSuccessContainer = lazy(() => 
+  import("../Modules/FoodBank/FoodBankSuccessContainer")
+);
+
 const Routes = () => {
   React.useEffect(() => {}, []);
 
@@ -43,6 +50,14 @@ const Routes = () => {
             <Route
               path={RENDER_URL.FRESHTRAK_ABOUT}
               component={StaticPageContainer}
+            />
+            <Route
+              path={RENDER_URL.FOOD_BANK_CREATE}
+              component={FoodBankContainer}
+            />
+            <Route
+              path={RENDER_URL.FOOD_BANK_SUCCESS}
+              component={FoodBankSuccessContainer}
             />
             <Route
               path={"*"}

@@ -22,11 +22,21 @@ const UseForm = (props, validations, callback, errorToComponent = false) => {
                     ? ""
                     : `This value cannot be more than ${limit} characters`;
             case "is_address":
-                const validAddress = new RegExp("^[-().,#\/a-zA-Z0-9 ]*$");
+                const validAddress = new RegExp("^[-().,/a-zA-Z0-9 ]*$");
                 let errors_address = validAddress.test(value);
                 return errors_address
                     ? ""
                     : `Enter a valid address`;
+            case "numeric":
+                const validNumeric = new RegExp('^[0-9-]*$'); 
+                let errors_numeric = validNumeric.test(value); 
+                return errors_numeric ?
+                      "" : `Enter a numeric value`;
+            case "email" :
+                const validEmail = new RegExp(/^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]{2,})+\.[a-zA-Z]{2,4}$/);
+                let errors_email = validEmail.test(value); 
+                return errors_email ?
+                      "" : `Enter a valid email address`;
             default:
                 return "";
         }
