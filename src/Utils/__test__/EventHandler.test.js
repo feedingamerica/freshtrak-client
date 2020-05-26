@@ -204,7 +204,22 @@ test(`should return a final object sorted by events_date's date and distance`, (
       }
     ]
   };
-  const testData = [shouldBeThird, shouldBeSecond, shouldBeFirst];
+
+  const shouldBeForth = {
+    ...mockAgency,
+    name: 'should be forth',
+    // test a null estimated distance
+    estimated_distance: '',
+    events: [
+      { ...mockEvent,
+        event_dates: [
+          { ...mockEventDate, date: '2020-04-15' }
+        ]
+      }
+    ]
+  }
+
+  const testData = [shouldBeForth, shouldBeThird, shouldBeSecond, shouldBeFirst];
   const expected = {
     [shouldBeFirst.events[0].event_dates[0].date]: [
       {
@@ -259,6 +274,23 @@ test(`should return a final object sorted by events_date's date and distance`, (
         phoneNumber: mockAgency.phone,
         startTime: mockEventDate.start_time,
         estimated_distance: shouldBeThird.estimated_distance,
+      },
+      {
+        agencyName: 'should be forth',
+        date: "2020-04-15",
+        endTime: mockEventDate.end_time,
+        eventAddress: mockEvent.address,
+        eventCity: mockEvent.city,
+        eventId: mockEventDate.event_id,
+        eventName: mockEvent.name,
+        eventService: mockEvent.service,
+        eventDetails: mockEvent.event_details,
+        eventState: mockEvent.state,
+        eventZip: mockEvent.zip,
+        id: mockEventDate.id,
+        phoneNumber: mockAgency.phone,
+        startTime: mockEventDate.start_time,
+        estimated_distance: shouldBeForth.estimated_distance,
       },
     ],
   }
