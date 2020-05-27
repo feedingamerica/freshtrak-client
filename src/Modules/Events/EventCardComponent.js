@@ -1,11 +1,12 @@
 /**
  * Event Card Component
  */
-import React from 'react';
+import React , {useState} from 'react';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import '../../Assets/scss/main.scss';
 
 const EventCardComponent = (props) => {
+  const [showDetails, setShowDetails] = useState(false);
   const {
     event: {
       startTime,
@@ -19,6 +20,7 @@ const EventCardComponent = (props) => {
       agencyName,
       eventName,
       eventService,
+      eventDetails,
     },
   } = props;
 
@@ -32,7 +34,7 @@ const EventCardComponent = (props) => {
             <div className="day-view-item-name">{eventService}</div>
           </div>
         </div>
-        <div className="day-view-item-details">
+        <div className="day-view-item-details d-flex flex-column justify-content-between">
           {/* <div className="registration-required">
               <span className="registration-required-label">Registration Required</span>
             </div> */}
@@ -47,16 +49,25 @@ const EventCardComponent = (props) => {
             <br />
             {eventCity} {eventState} {eventZip}<br />
             {phoneNumber}
+            <br /><br />
           </div>
-          {/* Out of scope */}
-          {/* <div className="day-view-item-detail-footer d-flex mt-3">
-            <button className="btn default-button flex-grow-1">
-              View Details
-            </button>
+          {showDetails && <div className="">
+            <p>
+              <b> Information </b>
+              <br />
+              {eventDetails}
+            </p>
+          </div>}
+          <div className="day-view-item-detail-footer d-flex mt-3">
+           {eventDetails.length > 0 && <button className="btn default-button flex-grow-1"
+           onClick={()=>{
+            setShowDetails(!showDetails)}}>
+              {!showDetails? 'View Details': 'Hide details'}
+            </button>}
             <button className="btn custom-button ml-1 flex-grow-1">
               Reserve Time
             </button>
-          </div> */}
+          </div>
         </div>
       </div>
     </section>
