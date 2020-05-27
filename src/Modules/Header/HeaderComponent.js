@@ -2,12 +2,12 @@
  * Created by Basil on 04/04/20.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 
 import mainLogo from "../../Assets/img/logo.png";
 import navBarIcon from "../../Assets/img/menu.svg";
 import closeIcon from '../../Assets/img/close.svg';
-import { Link,useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Nav,
   NavDropdown,
@@ -19,8 +19,6 @@ const HeaderComponent = (props) => {
   const [navbarShrink, setNavbarShrink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const shortHeader = props.shortHeader || "";
-  
-  let history = useHistory();
 
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
   const [showMobileMenu, setMobileMenu] = useState(false);
@@ -38,7 +36,7 @@ const HeaderComponent = (props) => {
   }, [localIsLoggedIn, isLoggedIn]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Nav
         className={`navbar navbar-expand-md navbar-light fixed-top ${navbarShrink} ${shortHeader}`}
         id="mainNav"
@@ -78,7 +76,11 @@ const HeaderComponent = (props) => {
                   title="Find Resources"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item className="dropdown-item" onSelect={()=>{history.push('/freshtrak-about')}}>
+                  <NavDropdown.Item 
+                    tag={Link}
+                    to={RENDER_URL.FRESHTRAK_ABOUT}
+                    className="dropdown-item"
+                  >
                     About Freshtrak
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -88,7 +90,11 @@ const HeaderComponent = (props) => {
                   title="For Foodbanks"
                   aria-labelledby="dropdown01"
                 >
-                  <NavDropdown.Item className="dropdown-item" onSelect={()=>{history.push('/freshtrak-working')}}>
+                  <NavDropdown.Item
+                    tag={Link}
+                    to={RENDER_URL.FRESHTRAK_WORKING}
+                    className="dropdown-item"
+                  >
                     Working with Freshtrak
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -107,13 +113,21 @@ const HeaderComponent = (props) => {
                         <div className="mobile-menu-items">
                             <div className="menu-item-title">FIND RESOURCES</div>
                                 <ul className="mt-2">
-                                    <li><a onClick={()=>{setMobileMenu(false);history.push('/freshtrak-about')}}>About FreshTrak</a></li>
+                                    <li>
+                                      <Link to={RENDER_URL.FRESHTRAK_ABOUT}>
+                                        About FreshTrak
+                                      </Link>
+                                    </li>
                                 </ul>
                             </div>
                             <div className="mobile-menu-items mt-4 mb-4">
                             <div className="menu-item-title">FOR FOODBANKS</div>
                                 <ul className="mt-2">
-                                    <li><a onClick={()=>{setMobileMenu(false);history.push('/freshtrak-working')}}>Working with FreshTrak</a></li>
+                                    <li>
+                                      <Link to={RENDER_URL.FRESHTRAK_WORKING}>
+                                        Working with FreshTrak
+                                      </Link>
+                                    </li>
                                 </ul>
                             </div>
                             <hr></hr>
@@ -146,11 +160,11 @@ const HeaderComponent = (props) => {
                         </div>
                         
                     <button className="mobile-close" onClick={() => setMobileMenu(false)}>
-                        <img src={closeIcon}/>
+                        <img aria-hidden="true" alt="close" src={closeIcon}/>
                     </button>
                 </div>
             }
-    </React.Fragment>
+    </Fragment>
   );
 };
 
