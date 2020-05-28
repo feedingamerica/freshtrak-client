@@ -850,6 +850,11 @@ body {
     }
 }
 
+.loading-spinner-height {
+    height: 10em;
+    width: 10em;
+  }
+  
 // Added for fixing Search button
 .validationError {
     font-size: .7rem;
@@ -860,5 +865,4 @@ body {
 .loading-spinner-height {
     height: 10em;
     width: 10em;
-  }
-  
+}

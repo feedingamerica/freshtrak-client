@@ -15,6 +15,11 @@ const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
 const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
+const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
+// Out of scope
+// const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
+// const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
+
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
@@ -42,6 +47,21 @@ const Routes = () => {
               path={RENDER_URL.EVENT_LIST_URL}
               component={EventContainer}
             />
+            <Route
+              exact path={RENDER_URL.ADD_FAMILY_URL}
+              component={FamilyContainer}
+            />
+
+            {/* Out of Scope */}
+            {/* <Route
+              exact path={RENDER_URL.EDIT_FAMILY_URL}
+              component={EditFamilyContainer}
+            />
+
+            <Route
+              exact path={RENDER_URL.SIGN_IN}
+              component={SignInContainer}
+            /> */}
             <Route
               path={RENDER_URL.FRESHTRAK_WORKING}
               component={StaticPageContainer}

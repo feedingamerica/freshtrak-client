@@ -13,11 +13,11 @@ export const API_URL = {
 
 export const RENDER_URL = {
     HOME_URL: '/',
-    FRESHTRAK_WORKING:'/freshtrak-working',
-    FRESHTRAK_ABOUT:'/freshtrak-about',
     EVENT_LIST_URL:'/events/list',
-    EVENT_REGISTRATION_URL: '/events/register',
     ADD_FAMILY_URL: '/family/create',
     SIGN_IN: '/family/sign-in',
     EDIT_FAMILY_URL: '/family/edit',
+    FRESHTRAK_WORKING:'/freshtrak-working',
+    FRESHTRAK_ABOUT:'/freshtrak-about',
+    EVENT_REGISTRATION_URL: '/events/register',
 };
