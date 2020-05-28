@@ -49,7 +49,7 @@ const FoodBankContactInfoComponent = React.forwardRef(({register,errors}, ref) =
 			<div className="form-group" data-testid="contact-email">
 				<label>Email Address</label>
 				<input type="text" name="contact_email" className="form-control"  
-					ref={register({ required: true, pattern: /^[a-zA-Z0-9.]+@([a-zA-Z0-9]{2,})+\.[a-zA-Z]{2,4}$/ })}
+					ref={register({ required: true, pattern: /^[a-zA-Z0-9._]+@([a-zA-Z0-9]{2,})+\.[a-zA-Z]{2,4}$/ })}
 				/>
 				{errors.contact_email && errors.contact_email.type ==='required' && (
                     <span className="validationError">This field is required</span>
