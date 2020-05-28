@@ -1,17 +1,12 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import BoxComponent from '../General/BoxComponent';
-import ButtonComponent from '../General/ButtonComponent';
+// import ButtonComponent from '../General/ButtonComponent';
 import CalenderIcon from '../../Assets/img/calendar.svg';
-import PreRegisteredIcon from '../../Assets/img/pre-register.svg';
+// import PreRegisteredIcon from '../../Assets/img/pre-register.svg';
 import FindFoodIcon from '../../Assets/img/findfood.svg';
-import { RENDER_URL } from '../../Utils/Urls';
+// import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
 const DashboardCreateAccountComponent = () => {
-  const history = useHistory();
-  const handleClick = e => {
-    history.push(RENDER_URL.ADD_FAMILY_URL);
-  };
   return (
     <div>
       <h2 className="mb-5 font-weight-bold mobile-text-left text-center">
@@ -48,7 +43,6 @@ const DashboardCreateAccountComponent = () => {
             id="search-resource"
             value="Create an Account"
             className="btn custom-button"
-            onClickfunction={handleClick}
           />
         </div>
       </div> */}
