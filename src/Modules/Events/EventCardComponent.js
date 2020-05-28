@@ -1,11 +1,11 @@
 /**
  * Event Card Component
  */
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import '../../Assets/scss/main.scss';
 
-const EventCardComponent = (props) => {
+const EventCardComponent = props => {
   const [showDetails, setShowDetails] = useState(false);
   const {
     event: {
@@ -35,7 +35,7 @@ const EventCardComponent = (props) => {
             <div className="day-view-item-name">{eventService}</div>
           </div>
         </div>
-        <div className="day-view-item-details d-flex flex-column justify-content-between">
+        <div className="day-view-item-details mb-3 d-flex flex-column justify-content-between">
           {/* <div className="registration-required">
               <span className="registration-required-label">Registration Required</span>
             </div> */}
@@ -48,26 +48,40 @@ const EventCardComponent = (props) => {
           <div className="address-wrap">
             {eventAddress}
             <br />
-            {eventCity} {eventState} {eventZip}<br />
+            {eventCity} {eventState} {eventZip}
+            <br />
             {phoneNumber}
-            <br /><br />
+            <br />
+            <br />
           </div>
-          {showDetails && <div className="">
-            <p>
-              <b> Information </b>
-              <br />
-              {eventDetails}
-            </p>
-          </div>}
+          {showDetails && (
+            <div className="">
+              <p>
+                <b> Information </b>
+                <br />
+                {eventDetails}
+              </p>
+            </div>
+          )}
           <div className="day-view-item-detail-footer d-flex mt-3">
-           {eventDetails.length > 0 && <button className="btn default-button flex-grow-1"
-           onClick={()=>{
-            setShowDetails(!showDetails)}}>
-              {!showDetails? 'View Details': 'Hide details'}
-            </button>}
-            { !acceptReservations || <button className="btn custom-button ml-1 flex-grow-1" hidden={!acceptReservations}>
-              Reserve Time
-           </button> }
+            {eventDetails.length > 0 && (
+              <button
+                className="btn default-button flex-grow-1"
+                onClick={() => {
+                  setShowDetails(!showDetails);
+                }}
+              >
+                {!showDetails ? 'View Details' : 'Hide details'}
+              </button>
+            )}
+            {!acceptReservations || (
+              <button
+                className="btn custom-button ml-1 flex-grow-1"
+                hidden={!acceptReservations}
+              >
+                Reserve Time
+              </button>
+            )}
           </div>
         </div>
       </div>
