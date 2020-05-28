@@ -9,6 +9,7 @@ export const mockAgencyBuilder = build('Agencies').fields({
   phone: fake(f => f.phone.phoneNumber()),
   name: fake(f => f.random.word()),
   nickname: fake(f => f.random.word()),
+  estimated_distance: fake(f => f.random.number()),
   events: [],
 });
 
@@ -30,6 +31,7 @@ export const mockEventsBuilder = build('Events').fields({
 export const mockEventDatesBuilder = build('EventDates').fields({
   id: fake(f => f.random.number()),
   event_id: fake(f => f.random.number()),
+  accept_reservations: 1,
   start_time: '08:00 AM',
   end_time: '11:00 AM',
   date: fake(f => f.date.future()),
@@ -72,6 +74,7 @@ export const testDataWithMultiple = [
 export const preformattedEventData = {
   id: eventDate1.id,
   eventId: eventDate1.event_id,
+  acceptReservations: eventDate1.accept_reservations,
   startTime: eventDate1.start_time,
   endTime: eventDate1.end_time,
   date: eventDate1.date,
