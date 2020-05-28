@@ -39,7 +39,7 @@ const FoodBankRegistrationComponent = React.forwardRef(({ register, errors }, re
 			</div>
 			<div className="form-group" data-testid="zip-code">
 				<label>Zipcode</label>
-				<input type="text" name="zipcode" className="form-control" 
+				<input type="text" name="zipcode" id ="zipcode" className="form-control" 
 				ref={register({ required:true, pattern: /^[0-9]{5}$/  })}/>
 				{errors.zipcode && errors.zipcode.type ==='required' && (<span className="validationError">This field is required</span>
                 )}
