@@ -52,7 +52,7 @@ const Routes = () => {
             />
 
             <Route
-              path={RENDER_URL.EVENT_REGISTRATION_URL}
+              path={`${RENDER_URL.EVENT_REGISTRATION_URL}/:eventId`}
               component={RegistrationContainer}
             />
 

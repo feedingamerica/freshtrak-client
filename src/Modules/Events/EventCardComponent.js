@@ -2,7 +2,9 @@
  * Event Card Component
  */
 import React, { useState } from 'react';
+import { LinkContainer } from 'react-router-bootstrap'
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
+import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
 
 const EventCardComponent = props => {
@@ -20,10 +22,12 @@ const EventCardComponent = props => {
       agencyName,
       eventName,
       eventService,
-      acceptReservations,
+      // acceptReservations,
       eventDetails,
     },
   } = props;
+
+  const acceptReservations = true;
 
   return (
     <section className="col-lg-4 col-xl-4" tabIndex="0">
@@ -75,12 +79,15 @@ const EventCardComponent = props => {
               </button>
             )}
             {!acceptReservations || (
-              <button
-                className="btn custom-button ml-1 flex-grow-1"
-                hidden={!acceptReservations}
-              >
-                Reserve Time
-              </button>
+              <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/123`}>
+                <button
+                  type="button"
+                  className="btn custom-button ml-1 flex-grow-1"
+                  hidden={!acceptReservations}
+                >
+                  Reserve Time
+                </button>
+              </LinkContainer>
             )}
           </div>
         </div>
