@@ -3,7 +3,7 @@
  */
 import React, { forwardRef } from 'react';
 
-const FoodBankRegistrationComponent = React.forwardRef(({ register, errors }, ref) => {
+const FoodBankRegistrationComponent = forwardRef(({ register, errors }, ref) => {
 	return (
 		<div className="form-fields">
 			<div className="form-title">

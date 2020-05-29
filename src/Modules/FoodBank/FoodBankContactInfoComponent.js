@@ -4,7 +4,7 @@
 import React, { forwardRef } from 'react';
 import {Link} from 'react-router-dom';
 
-const FoodBankContactInfoComponent = React.forwardRef(({register,errors}, ref) => {
+const FoodBankContactInfoComponent = forwardRef(({register,errors}, ref) => {
 	return (
 		<div className="form-fields pt-50">
 			<div className="form-title">
