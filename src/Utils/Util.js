@@ -38,7 +38,7 @@ export const confirm = (title, successFn, object) => {
         showCancelButton: true
     }).then((result) => {
         if (result.value) {
-            successFn(result.value, object);
+            successFn(object, result.value);
         } else {
             response = false;
         }

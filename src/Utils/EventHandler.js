@@ -2,12 +2,15 @@ import moment from 'moment';
 
 export const EventHandler = agencies => EventDateSorterByDate(EventObjectBuilder(AgencyHandler(agencies)));
 
+const EventDateSortByDistance = arrayOfEvents => arrayOfEvents
+  .sort((a,b) => (a.estimated_distance? a.estimated_distance: Infinity) - (b.estimated_distance? b.estimated_distance: Infinity));
+
 export const EventDateSorterByDate = eventObj => {
   const eventOrderByDate = {};
   Object.keys(eventObj).sort((a, b) => {
     return moment(a, 'YYYY/MM/DD').toDate() - moment(b, 'YYYY/MM/DD').toDate();
   }).forEach(key => {
-    eventOrderByDate[key] = eventObj[key];
+    eventOrderByDate[key] = EventDateSortByDistance(eventObj[key]);
   });
   return eventOrderByDate;
 }
@@ -24,14 +27,15 @@ export const EventObjectBuilder = events => {
   return eventSortedByDate;
 }
 
-const eventDateMapper = (event, phone, name) => {
+const eventDateMapper = (event, phone, name, estimated_distance) => {
   const { event_dates } = event;
   if (event_dates && event_dates.length > 0) {
     return event_dates.map(dateOfEvent => {
-      const { id, event_id, start_time, end_time, date } = dateOfEvent;
+      const { id, event_id, accept_reservations, start_time, end_time, date } = dateOfEvent;
       return {
         id,
         eventId: event_id,
+        acceptReservations: accept_reservations,
         startTime: start_time,
         endTime: end_time,
         date,
@@ -43,6 +47,7 @@ const eventDateMapper = (event, phone, name) => {
         agencyName: name,
         eventName: event.name,
         eventService: event.service,
+        estimated_distance,
         eventDetails: event.event_details,
       }
     });
@@ -58,10 +63,10 @@ export const AgencyHandler = agencies => {
   const eventDates = [];
 
   agencies.forEach(agency => {
-    const { events, phone, name } = agency;
+    const { events, phone, name, estimated_distance } = agency;
     if (events && events.length > 0) {
       events.forEach(event => {
-        eventDateMapper(event, phone, name).forEach(x => eventDates.push(x));
+        eventDateMapper(event, phone, name, estimated_distance).forEach(x => eventDates.push(x));
       });
     }
   });

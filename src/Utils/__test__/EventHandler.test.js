@@ -14,6 +14,7 @@ test('should return an array of events', () => {
     {
       id: eventDate1.id,
       eventId: eventDate1.event_id,
+      acceptReservations: eventDate1.accept_reservations,
       startTime: eventDate1.start_time,
       endTime: eventDate1.end_time,
       date: eventDate1.date,
@@ -25,6 +26,7 @@ test('should return an array of events', () => {
       agencyName: agency1.name,
       eventName: event1.name,
       eventService: event1.service,
+      estimated_distance: agency1.estimated_distance,
       eventDetails: event1.event_details,
     }
   ];
@@ -42,6 +44,7 @@ test('should return an array of events with mulitple agencies and one with no ev
     {
       id: eventDate1.id,
       eventId: eventDate1.event_id,
+      acceptReservations: eventDate1.accept_reservations,
       startTime: eventDate1.start_time,
       endTime: eventDate1.end_time,
       date: eventDate1.date,
@@ -53,6 +56,7 @@ test('should return an array of events with mulitple agencies and one with no ev
       agencyName: agency1.name,
       eventName: event1.name,
       eventService: event1.service,
+      estimated_distance: agency1.estimated_distance,
       eventDetails: event1.event_details,
     }
   ];
@@ -74,6 +78,7 @@ test('should return an array of events with multiple agencies and multiple event
     {
       id: eventDate1.id,
       eventId: eventDate1.event_id,
+      acceptReservations: eventDate1.accept_reservations,
       startTime: eventDate1.start_time,
       endTime: eventDate1.end_time,
       date: eventDate1.date,
@@ -85,11 +90,13 @@ test('should return an array of events with multiple agencies and multiple event
       agencyName: agency1.name,
       eventName: event1.name,
       eventService: event1.service,
+      estimated_distance: agency1.estimated_distance,
       eventDetails: event1.event_details,
     },
     {
       id: eventDate2.id,
       eventId: eventDate2.event_id,
+      acceptReservations: eventDate2.accept_reservations,
       startTime: eventDate2.start_time,
       endTime: eventDate2.end_time,
       date: eventDate2.date,
@@ -101,6 +108,7 @@ test('should return an array of events with multiple agencies and multiple event
       agencyName: agency2.name,
       eventName: event2.name,
       eventService: event2.service,
+      estimated_distance: agency2.estimated_distance,
       eventDetails: event2.event_details,
     }
   ];
@@ -123,6 +131,7 @@ test('should sort events into dates', () => {
       {
         id: eventDate1.id,
         eventId: eventDate1.event_id,
+        acceptReservations: eventDate1.accept_reservations,
         startTime: eventDate1.start_time,
         endTime: eventDate1.end_time,
         date: eventDate1.date,
@@ -134,11 +143,13 @@ test('should sort events into dates', () => {
         agencyName: agency1.name,
         eventName: event1.name,
         eventService: event1.service,
+        estimated_distance: agency1.estimated_distance,
         eventDetails: event1.event_details,
       },
       {
         id: eventDate2.id,
         eventId: eventDate2.event_id,
+        acceptReservations: eventDate2.accept_reservations,
         startTime: eventDate2.start_time,
         endTime: eventDate2.end_time,
         date: eventDate1.date,
@@ -150,6 +161,7 @@ test('should sort events into dates', () => {
         agencyName: agency2.name,
         eventName: event2.name,
         eventService: event2.service,
+        estimated_distance: agency2.estimated_distance,
         eventDetails: event2.event_details,
       }
     ]
@@ -164,19 +176,66 @@ test('should sort events into dates', () => {
   ).toEqual(expected);
 });
 
-test(`should return a final object sorted by events_date's date`, () => {
-  const shouldBeFirst = { ...mockAgency, events: [{ ...mockEvent , event_dates: [{ ...mockEventDate, date: '2020-04-01' }] }] };
-  const shouldBeSecond = { ...mockAgency, events: [{ ...mockEvent , event_dates: [{ ...mockEventDate, date: '2020-04-15' }] }] };
-  const testData = [shouldBeSecond, shouldBeFirst];
+test(`should return a final object sorted by events_date's date and distance`, () => {
+  const shouldBeFirst = {
+    ...mockAgency,
+    name: "should be first",
+    events: [
+      { ...mockEvent,
+        event_dates: [{ ...mockEventDate, date: '2020-04-01' }]
+      }
+    ]
+  };
+  const shouldBeSecond = {
+    ...mockAgency,
+    name: "should be second",
+    estimated_distance: 10.31,
+    events: [
+      { ...mockEvent,
+        event_dates: [
+          { ...mockEventDate, date: '2020-04-15' }
+        ]
+      }
+    ]
+  };
+  const shouldBeThird = {
+    ...mockAgency,
+    name: "should be third",
+    estimated_distance: 15.31,
+    events: [
+      { ...mockEvent,
+        event_dates: [
+          { ...mockEventDate, date: '2020-04-15' }
+        ]
+      }
+    ]
+  };
+
+  const shouldBeForth = {
+    ...mockAgency,
+    name: 'should be forth',
+    // test a null estimated distance
+    estimated_distance: '',
+    events: [
+      { ...mockEvent,
+        event_dates: [
+          { ...mockEventDate, date: '2020-04-15' }
+        ]
+      }
+    ]
+  }
+
+  const testData = [shouldBeForth, shouldBeThird, shouldBeSecond, shouldBeFirst];
   const expected = {
     [shouldBeFirst.events[0].event_dates[0].date]: [
       {
-        agencyName: mockAgency.name,
+        agencyName: 'should be first',
         date: "2020-04-01",
         endTime: mockEventDate.end_time,
         eventAddress: mockEvent.address,
         eventCity: mockEvent.city,
         eventId: mockEventDate.event_id,
+        acceptReservations: mockEventDate.accept_reservations,
         eventName: mockEvent.name,
         eventService: mockEvent.service,
         eventDetails: mockEvent.event_details,
@@ -185,11 +244,12 @@ test(`should return a final object sorted by events_date's date`, () => {
         id: mockEventDate.id,
         phoneNumber: mockAgency.phone,
         startTime: mockEventDate.start_time,
+        estimated_distance: shouldBeFirst.estimated_distance,
       },
     ],
     [shouldBeSecond.events[0].event_dates[0].date]: [
       {
-        agencyName: mockAgency.name,
+        agencyName: 'should be second',
         date: "2020-04-15",
         endTime: mockEventDate.end_time,
         eventAddress: mockEvent.address,
@@ -203,6 +263,42 @@ test(`should return a final object sorted by events_date's date`, () => {
         id: mockEventDate.id,
         phoneNumber: mockAgency.phone,
         startTime: mockEventDate.start_time,
+        estimated_distance: shouldBeSecond.estimated_distance,
+      },
+      {
+        agencyName: 'should be third',
+        date: "2020-04-15",
+        endTime: mockEventDate.end_time,
+        eventAddress: mockEvent.address,
+        eventCity: mockEvent.city,
+        eventId: mockEventDate.event_id,
+        eventName: mockEvent.name,
+        eventService: mockEvent.service,
+        eventDetails: mockEvent.event_details,
+        eventState: mockEvent.state,
+        eventZip: mockEvent.zip,
+        id: mockEventDate.id,
+        phoneNumber: mockAgency.phone,
+        startTime: mockEventDate.start_time,
+        estimated_distance: shouldBeThird.estimated_distance,
+      },
+      {
+        agencyName: 'should be forth',
+        date: "2020-04-15",
+        endTime: mockEventDate.end_time,
+        eventAddress: mockEvent.address,
+        eventCity: mockEvent.city,
+        eventId: mockEventDate.event_id,
+        acceptReservations: mockEventDate.accept_reservations,
+        eventName: mockEvent.name,
+        eventService: mockEvent.service,
+        eventDetails: mockEvent.event_details,
+        eventState: mockEvent.state,
+        eventZip: mockEvent.zip,
+        id: mockEventDate.id,
+        phoneNumber: mockAgency.phone,
+        startTime: mockEventDate.start_time,
+        estimated_distance: shouldBeForth.estimated_distance,
       },
     ],
   }

@@ -5,7 +5,7 @@ import React from 'react';
 import NavigationBtnComponent from '../General/NavigationBtnComponent';
 import MainHeadingComponent from '../General/MainHeadingComponent';
 
-const FoodBankTitleContainer = () => {
+const FoodBankTitleComponent = () => {
     return (
         <div>
             <div className="row">
@@ -21,4 +21,4 @@ const FoodBankTitleContainer = () => {
         </div>
     )
 };
-export default FoodBankTitleContainer;
+export default FoodBankTitleComponent;

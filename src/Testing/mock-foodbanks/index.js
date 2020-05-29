@@ -18,7 +18,7 @@ export const mockFoodBank = mockFoodBankBuilder();
 export const mockFoodBankRegisterBuilder = build('Register').fields({
   orgName: fake(f => f.company.companyName()),
   streetAddress: fake(f => f.address.streetAddress()),
-  zipCode: fake(f => f.address.zipCode()),
+  zipCode: fake(f => f.random.number({ 'min': 11111, 'max': 99999 })),
   suiteBlg: fake(f => f.random.word()),
 });
 
