@@ -9,19 +9,13 @@ jest.mock('axios');
 const route = '/events/register/123';
 const path = '/events/register/:eventId';
 
-test('should set the user to the response of Gest_AUTH if no user is found', async () => {
+test('should show the loading component until the user token is returned by api', async () => {
   axios.post.mockImplementationOnce(() => Promise.resolve({ data: { ...mockGuestRegistrationResponse } }));
-  const { getByText } = renderWithRouter(
+  const { getByTestId, queryByTestId } = renderWithRouter(
     <RegistrationContainer />, { route, path }
   );
+  getByTestId('spinning component');
   await wait(() => {
-    getByText(mockGuestRegistrationResponse.token)
+    expect(queryByTestId('spinning component')).toBeNull();
   });
-});
-
-test('should pass props', () => {
-  const { getByText } = renderWithRouter(
-    <RegistrationContainer />, { route, path }
-  );
-  getByText('123')
 });

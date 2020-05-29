@@ -11,7 +11,7 @@ import '../../Assets/scss/main.scss';
 
 const FamilyContainer = () => {
   const { register, handleSubmit, errors, getValues, watch } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = data => {
     console.log(data);
   };
   return (

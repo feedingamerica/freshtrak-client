@@ -24,6 +24,7 @@ const EventCardComponent = props => {
       eventService,
       // acceptReservations,
       eventDetails,
+      eventId,
     },
   } = props;
 
@@ -79,7 +80,7 @@ const EventCardComponent = props => {
               </button>
             )}
             {!acceptReservations || (
-              <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/123`}>
+              <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${eventId}`}>
                 <button
                   type="button"
                   className="btn custom-button ml-1 flex-grow-1"
