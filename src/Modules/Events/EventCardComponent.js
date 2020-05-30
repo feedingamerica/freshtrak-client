@@ -11,6 +11,7 @@ const EventCardComponent = props => {
   const [showDetails, setShowDetails] = useState(false);
   const {
     event: {
+      id,
       startTime,
       endTime,
       date,
@@ -78,11 +79,10 @@ const EventCardComponent = props => {
               </button>
             )}
             {!acceptReservations || (
-              <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${eventId}`}>
+              <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
                 <button
                   type="button"
                   className="btn custom-button ml-1 flex-grow-1"
-                  hidden={!acceptReservations}
                 >
                   Reserve Time
                 </button>
