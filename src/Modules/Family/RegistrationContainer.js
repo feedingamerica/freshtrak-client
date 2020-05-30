@@ -4,7 +4,6 @@ import SpinnerComponent from '../General/SpinnerComponent';
 import { API_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
-import { mockFamily } from '../../Testing';
 
 const RegistrationContainer = () => {
   const { eventId } = useParams();
