@@ -10,6 +10,7 @@ export const API_URL = {
     EVENT_URL : BASE_URL + 'events',
     GUEST_AUTH: `${REGISTRATION_URL}guest_authentications`,
     GUEST_USER: `${REGISTRATION_URL}api/user`,
+    CREATE_RESERVATION: `${REGISTRATION_URL}api/reservations`,
 };
 
 export const RENDER_URL = {

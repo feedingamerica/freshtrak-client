@@ -7,7 +7,7 @@ import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
 
-const RegistrationComponent = ({ eventId, user }) => {
+const RegistrationComponent = ({ user, onRegister }) => {
   const { register, handleSubmit, errors, getValues, watch, reset } = useForm();
   useEffect(() => {
     const {
@@ -16,6 +16,7 @@ const RegistrationComponent = ({ eventId, user }) => {
       city,
       state,
       zip_code,
+      phone,
       first_name,
       last_name,
       middle_name,
@@ -30,6 +31,7 @@ const RegistrationComponent = ({ eventId, user }) => {
       city,
       state,
       zip_code,
+      phone,
       first_name,
       last_name,
       middle_name,
@@ -40,7 +42,7 @@ const RegistrationComponent = ({ eventId, user }) => {
     })
   }, [user, reset])
   const onSubmit = data => {
-    console.log(data);
+    onRegister(data);
   }
   return (
     <Fragment>

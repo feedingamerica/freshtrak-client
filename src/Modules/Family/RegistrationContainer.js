@@ -4,11 +4,14 @@ import SpinnerComponent from '../General/SpinnerComponent';
 import { API_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
+import { mockFamily } from '../../Testing';
 
 const RegistrationContainer = () => {
   const { eventId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
+  const [isSuccessful, setSuccessful] = useState(false);
+  const [isError, setError] = useState(undefined);
   const [user, setUser] = useState(undefined);
   useEffect(() => {
     if (userToken === undefined) {
@@ -56,11 +59,52 @@ const RegistrationContainer = () => {
     }
   };
 
+  const register = async user => {
+    const event_date_id = parseInt(eventId, 10);
+    // First save user
+    const { GUEST_USER, CREATE_RESERVATION } = API_URL;
+    try {
+      await axios.post(GUEST_USER, { user }, {
+        headers: { Authorization: `Bearer ${userToken}` }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    try {
+      await axios.post(CREATE_RESERVATION, {
+        reservation: { event_date_id }
+      },
+      { headers: { Authorization: `Bearer ${userToken}` } }
+      );
+      setSuccessful(true);
+    } catch (e) {
+      console.error(e);
+      setError(e);
+    }
+  }
+
   return (
     <Fragment>
       {isLoading && <SpinnerComponent />}
       {!isLoading && user && (
-        <RegistrationComponent eventId={eventId} user={user} />
+        <RegistrationComponent user={user} onRegister={register} />
+      )}
+      {
+        isSuccessful && (
+          <div className="container">
+            <p
+              className="text-success"
+              data-testid="success registration"
+            >
+              You have been successfully registered
+            </p>
+          </div>
+        )
+      }
+      {isError && (
+        <div className="container">
+          <p className="text-danger">There was an error saving your reservation</p>
+        </div>
       )}
     </Fragment>
   );
