@@ -9,6 +9,7 @@ export const API_URL = {
     FOODBANK_LIST : BASE_URL + 'api/foodbanks',
     EVENT_URL : BASE_URL + 'events',
     GUEST_AUTH: `${REGISTRATION_URL}guest_authentications`,
+    GUEST_USER: `${REGISTRATION_URL}api/user`,
 };
 
 export const RENDER_URL = {
