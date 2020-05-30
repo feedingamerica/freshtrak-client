@@ -22,13 +22,11 @@ const EventCardComponent = props => {
       agencyName,
       eventName,
       eventService,
-      // acceptReservations,
+      acceptReservations,
       eventDetails,
       eventId,
     },
   } = props;
-
-  const acceptReservations = true;
 
   return (
     <section className="col-lg-4 col-xl-4" tabIndex="0">
