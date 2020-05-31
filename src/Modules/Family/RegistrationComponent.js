@@ -1,19 +1,49 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import RegistrationTextComponent from './RegistrationTextComponent';
-import AddressComponent from './AddressComponent';
-import MemberCountFormComponent from './MemberCountFormComponent';
-import ContactInformationComponent from './ContactInformationComponent';
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
+import AddressComponent from './AddressComponent';
+import ContactInformationComponent from './ContactInformationComponent';
+import MemberCountFormComponent from './MemberCountFormComponent';
 
-import '../../Assets/scss/main.scss';
-
-const FamilyContainer = () => {
-  const { register, handleSubmit, errors, getValues, watch } = useForm();
+const RegistrationComponent = ({ user, onRegister }) => {
+  const { register, handleSubmit, errors, getValues, watch, reset } = useForm();
+  useEffect(() => {
+    const {
+      address_line_1,
+      address_line_2,
+      city,
+      state,
+      zip_code,
+      phone,
+      first_name,
+      last_name,
+      middle_name,
+      date_of_birth,
+      email,
+      seniors_in_household,
+      children_in_household,
+    } = user;
+    reset({
+      address_line_1,
+      address_line_2,
+      city,
+      state,
+      zip_code,
+      phone,
+      first_name,
+      last_name,
+      middle_name,
+      date_of_birth,
+      email,
+      seniors_in_household,
+      children_in_household,
+    })
+  }, [user, reset])
   const onSubmit = data => {
-    console.log(data);
-  };
+    onRegister(data);
+  }
   return (
     <Fragment>
       <div className="main-wrapper mt-4">
@@ -40,7 +70,7 @@ const FamilyContainer = () => {
                     className="btn custom-button"
                     data-testid="continue button"
                   >
-                    Continue
+                    Register
                   </button>
                 </div>
               </form>
@@ -52,4 +82,4 @@ const FamilyContainer = () => {
   );
 };
 
-export default FamilyContainer;
+export default RegistrationComponent;
