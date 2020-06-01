@@ -44,3 +44,11 @@ Sign in is currently takes any email or password. It just does some front end st
 
 Right now there is no button to take you to the user edit page so you will have to manually change the url to http://localhost:3000/family/edit
 
+## Deployment to AWS
+
+This project is deployed to AWS as a CloudFront distribution.
+The cloudformation template can be found in [freshtrak-infrastructure](https://github.com/midohiofoodbank/freshtrak-infrastructure)
+
+```
+AWS_PROFILE=<profile> AWS_REGION=us-east-2 ./deploy.sh <env>
+```
