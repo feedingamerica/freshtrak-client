@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, wait } from '@testing-library/react';
+import { wait } from '@testing-library/react';
 import EventListContainer from '../EventListContainer';
 import axios from 'axios';
-import { mockEvent, mockEventDate, mockAgency } from "../../../Testing";
+import { mockEvent, mockEventDate, mockAgency, renderWithRouter } from "../../../Testing";
 
 jest.mock('axios');
 
@@ -19,14 +19,16 @@ afterAll(() => {
 
 test('should load without errors', () => {
   expect(() => {
-    render(<EventListContainer searchData={{}} />);
+    renderWithRouter(<EventListContainer searchData={{}} />);
   }).not.toThrowError();
 });
 
 test('Successful Api with no Events dates', async() => {
   const testAgencyWithNoEventDates = { ...mockAgency, events: [{ ...mockEvent }] };
   axios.get.mockImplementation(() => Promise.resolve({ data: { agencies: [testAgencyWithNoEventDates] } }));
-  const { getByText } = render(<EventListContainer searchData={{ zip_code: mockAgency.zip} } />);
+  const { getByText } = renderWithRouter(
+    <EventListContainer searchData={{ zip_code: mockAgency.zip} } />
+  );
   await wait(() => {
     getByText(/No Events Currently Scheduled/i);
   });
@@ -35,7 +37,9 @@ test('Successful Api with no Events dates', async() => {
 test('Successful Api with Events dates', async() => {
   const testAgencyWithEventDates = { ...mockAgency, events: [{ ...mockEvent, event_dates: [{ ...mockEventDate }] }] };
   axios.get.mockImplementation(() => Promise.resolve({ data: { agencies: [testAgencyWithEventDates] } }));
-  const { getByText } = render(<EventListContainer searchData={{ zip_code: mockAgency.zip} } />);
+  const { getByText } = renderWithRouter(
+    <EventListContainer searchData={{ zip_code: mockAgency.zip} } />
+  );
   await wait(() => {
     getByText(`${mockEvent.name}`);
   });

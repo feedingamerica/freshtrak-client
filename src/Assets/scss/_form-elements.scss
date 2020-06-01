@@ -52,6 +52,13 @@
     }
 }
 .sign-in-form{
+    padding: 1em;
+    width: 100%;
+
+    @include responsive(medium-devices){
+        max-width: 500px;
+    }
+
     .form-control{
         border-color: inherit;
     }

@@ -19,6 +19,7 @@ const HeaderContainer = () => {
       {location.pathname === RENDER_URL.EVENT_CONFIRM_URL ||
       location.pathname === RENDER_URL.ADD_FAMILY_URL ||
       location.pathname === RENDER_URL.FRESHTRAK_ABOUT ||
+      location.pathname === RENDER_URL.EDIT_FAMILY_URL ||
       location.pathname === RENDER_URL.FRESHTRAK_WORKING ? (
         <HeaderComponent shortHeader={shortHeader} />
       ) : (

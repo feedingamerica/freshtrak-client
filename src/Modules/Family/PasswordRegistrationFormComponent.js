@@ -1,89 +1,61 @@
-import React from 'react';
-import useForm from '../../Utils/UseForm';
+import React, { Fragment, forwardRef } from 'react';
 
-const PasswordRegistrationFormComponent= React.forwardRef((props, ref)=> {
+const PasswordInfoFormComponent = forwardRef(({ register, errors, getValues }, ref) => (
+  <Fragment>
+    <h2>Create Frestrak Account</h2>
+      <small>
+        Input a password to create a Frestrak account and easily register with one click in the future
+      </small>
 
-    const [password, setPassword] = React.useState('');
-    const [password_re, setPasswordRe] = React.useState('');
-    let data,childFamilyData ='';
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          className="form-control"
+          name="email"
+          id="email"
+          autoComplete="off"
+          ref={register({ required: true })}
+        />
+        <small className="text-muted">
+          No Email? <a href="https://support.google.com/mail/answer/56256" target="_blank" rel="noopener noreferrer">Get one free from Google.</a>
+        </small><br />
+        {errors.email && <span className="text-danger">This field is required</span>}
+      </div>
 
-
-
-    const buildForm = (e) => {
-        let {name, value} = e.target;
-        let setFunction = '';
-        switch (name) {
-            case 'Password':
-                setFunction = setPassword;
-                break;
-
-            case 'Password_re':
-                setFunction = setPasswordRe;
-                break;
-        }
-        if (setFunction !== '') {
-            setFunction(value)
-        }
-    };
-
-
-    const handleChange = () => {
-        data = {
-            passwordData: {
-                password: password,
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          className="form-control"
+          name="password"
+          id="password"
+          autoComplete="new-password"
+          ref={register({ required: true })}
+        />
+        {errors.password && <span className="text-danger">This field is required</span>}
+      </div>
+      <div className="form-group">
+        <label htmlFor="password_confirm">Confirm Password</label>
+        <input
+          type="password"
+          className="form-control"
+          name="password_confirm"
+          id="password_confirm"
+          autoComplete="new-password"
+          ref={register({
+            required: 'Please confirm password',
+            validate: {
+              matchesPassword: value => {
+                const { password } = getValues();
+                return password === value || 'Passwords should match!';
+              }
             }
-        };
+          })}
+        />
+        {errors.password_confirm && <span className="text-danger">{errors.password_confirm.message}</span>}
+      </div>
+  </Fragment>
+));
 
-        props.onSelectedChild(data);
-    };
-
-    React.useEffect(() => {
-        handleChange();
-    }, [password,password_re]);
-
-
-
-
-    const dataToParent = () => {
-        props.onSelectedChild(childFamilyData);
-    };
-
-    const { errors, handleErrors } =
-        useForm(props, {
-            'password' : ['required'],
-            'password_re' : ['required'],
-        }, dataToParent);
-
-    React.useImperativeHandle(ref, () => ({
-
-        triggerErrors(){
-            handleChange();
-            return handleErrors(data.passwordData);
-        }
-
-    }));
-
-
-
-
-    return (
-        <div className="form-fields pt-50">
-            <div className="form-title">
-                Create FresTrak Account
-            </div>
-            <div className="form-text mb-2">
-                Input a password to create a FreshTrak account and easily register with one click in the future.
-            </div>
-            <div className="form-group">
-                <label>Password</label>
-                <input type="password" className="form-control" onChange={buildForm} name="Password" id="Password" />
-            </div>
-            <div className="form-group">
-                <label>Confirm Password</label>
-                <input type="password" className="form-control"  name="password_re" id="password_re" />
-            </div>
-        </div>
-    )
-});
-
-export default PasswordRegistrationFormComponent;
+export default PasswordInfoFormComponent;
