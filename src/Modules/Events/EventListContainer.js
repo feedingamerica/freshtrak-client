@@ -23,19 +23,18 @@ const EventListContainer = ({ searchData }) => {
     }
   }, [searchData]);
 
-  const handleSubmit = async (query) => {
-    if (query) {
-      setLoading(true);
-      const { zip_code } = query;
+  const handleSubmit = async (payload) => {
+       if (payload) {
+      const { zip_code,lat,long } = payload;
       try {
-        const resp = await axios.get(API_URL.EVENTS_LIST, { params: { zip_code } });
-        const { data: { agencies } } = resp;
+        const resp = lat!==''? await axios.get(API_URL.EVENTS_LIST, { params: { zip_code,lat,long },headers:{'Accept':'application/json'} }):
+        await axios.get(API_URL.EVENTS_LIST, { params: { zip_code } }) ;
+            
+        const { data: { agencies} } = resp;
         setAgencyData(agencies);
         setAgencyResponse(true);
-        setLoading(false);
       } catch (err) {
         console.error(err);
-        setLoading(false);
       }
     }
   };
