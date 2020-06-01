@@ -42,7 +42,10 @@ const SearchComponent = forwardRef(({ register, errors }, ref) => {
                                                 {...getInputProps({placeholder:"Type Address"})}
                                                  ref={register}
                                                 />
-                                           {loading? <div>...loading</div>:null}
+
+                                           {/* No spinners are set here as of now. You can re-use the loader from EventContainer page; 
+                                           though the size of the spinner is set as 10em,fixed in main.scss file. */}
+                                           {loading? 'Loading...':null}
                                           
                                          { suggestions.length>0 && <div className="suggestions-container">{suggestions.map((suggestion)=>{
 
@@ -57,7 +60,7 @@ const SearchComponent = forwardRef(({ register, errors }, ref) => {
 
                         </div> 
             }
-                        <div className="form-group zip-code">
+                        <div className={showAddress?"form-group": "form-group zip-code"}>
                             <label htmlFor="zip">Zip</label>
                             <input type="text" className="form-control zip" id="zip_code" 
                             name="zip_code" defaultValue={zip} 
@@ -77,8 +80,8 @@ const SearchComponent = forwardRef(({ register, errors }, ref) => {
                                      id="search-resource" value="Search For Resources"
                                      className = 'btn custom-button search-button'>Search For Resources</button>
                 </div>
-                <div className="col-12 search-order-2">
-                    {address.length==0 && <p >Enter your address for customized results (Optional) </p>}
+                <div className="col-12 search-order-2 mt-2">
+                    {address.length==0 && showAddress && <p >Enter your address for customized results (Optional) </p>}
                 </div>
             </div>
     )
