@@ -77,6 +77,7 @@ const RegistrationContainer = () => {
       { headers: { Authorization: `Bearer ${userToken}` } }
       );
       setSuccessful(true);
+      getUser(userToken);
       setError(undefined);
     } catch (e) {
       console.error(e);
