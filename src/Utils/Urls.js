@@ -8,6 +8,7 @@ export const API_URL = {
     EVENTS_LIST : BASE_URL + 'api/agencies',
     FOODBANK_LIST : BASE_URL + 'api/foodbanks',
     EVENT_URL : BASE_URL + 'events',
+    EVENT_DATES_URL : BASE_URL + 'api/event_dates',
     GUEST_AUTH: `${REGISTRATION_URL}guest_authentications`,
     GUEST_USER: `${REGISTRATION_URL}api/user`,
     CREATE_RESERVATION: `${REGISTRATION_URL}api/reservations`,
