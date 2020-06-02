@@ -34,11 +34,10 @@ const RegistrationConfirmComponent = (props) => {
             <h1 className="big-title med-title mt-5 mb-5 mobile-mb">
               You're Registered
             </h1>
-            <br /> <br />
             <h4>
               <b> {eventDate.event_date.event.name} </b>
             </h4>
-            <div className="address-wrap">
+            <div className="address-wrap mb-5">
               <div className="date-wrapper">
                 {formatDateDayAndDate(eventDate.event_date.date)}
               </div>
@@ -46,15 +45,13 @@ const RegistrationConfirmComponent = (props) => {
                 {eventDate.event_date.start_time} -
                 {eventDate.event_date.end_time}
               </div>
-              <br /> <br />
             </div>
-            <h5>
+            <h5 className="mb-4">
               <b> Your Information </b>
             </h5>
-            <br />
-            <div>
-              <h6>
-                HEAD OF HOUSEHOLD <br /> <br />
+            <div className="mb-2">
+              <h6 className="mb-4">
+                HEAD OF HOUSEHOLD
               </h6>
               {user_data.first_name} {user_data.last_name}
               {user_data.middle_name} {user_data.suffix} <br />
@@ -64,31 +61,27 @@ const RegistrationConfirmComponent = (props) => {
               {user_data.zip_code} <br />
               {user_data.phone} <br />
             </div>
-            <br />
-            <div>
+            <div className="mt-5">
               Identification Code:
               <h4>
                 <b> {user_data.identification_code} </b>
               </h4>
-              <br />
-              <p>
+              <p className="mb-2">
                 Notes: This code is unique to you, please write it on a piece of
                 paper and display in your driver-side front window.
               </p>
             </div>
-            {user_data.license_plate.length > 0 && (
-              <p>
+            {user_data.license_plate && user_data.license_plate.length > 0 && (
+              <p className="mt-4 mb-4">
                 Special Instructions: You included a license plate in your
                 registration. Please try to arrive in this vehicle, but if you
                 are unable to do so it will not impact your service.
               </p>
             )}
-            <br />
             <h5>
               <b> Additional Location Information </b>
             </h5>
-            <p>{eventDate.event_date.event.event_details}</p>
-            <br /> <br />
+            <p className="mb-5">{eventDate.event_date.event.event_details}</p>
             <Link to={RENDER_URL.HOME_URL}>
               <div className="button-wrap mt-4">
                 <button
