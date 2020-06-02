@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import EventListComponent from '../EventListComponent';
 import { preformattedEventData, renderWithRouter } from '../../../Testing';
 

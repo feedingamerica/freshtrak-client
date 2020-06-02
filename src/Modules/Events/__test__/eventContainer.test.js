@@ -1,11 +1,32 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { render, fireEvent, wait } from '@testing-library/react';
+import { render, fireEvent, wait,act } from '@testing-library/react';
 import EventContainer from '../EventContainer';
 import axios from 'axios';
 import { mockFoodBank } from '../../../Testing'
 
 jest.mock('axios');
+
+// Mocking Google API library without which it shows error. 
+
+jest.mock('react-places-autocomplete', () => {
+  const React = require('react'); // eslint-disable-line
+  class PlacesAutocomplete extends React.Component<> {
+    renderProps = {
+      getInputProps: jest.fn(({ placeholder, className }) => ({ placeholder, className })),
+      suggestions: [],
+      getSuggestionItemProps: jest.fn(),
+    };
+
+    render() {
+      return <>{this.props.children(this.renderProps)}</>;
+    }
+  }
+
+  return PlacesAutocomplete;
+});
+
+
 
 jest.mock('../EventListContainer', () => () => <mock-event-list-container />);
 
@@ -57,8 +78,7 @@ test('Successful api call', async () => {
   // There is no other way to uniquely select the submit button
   // TODO find a different way. This is fragile.
   const button = getAllByText(/search for resources/i)[0];
-  fireEvent.click(button);
-  getByTestId(/loading/i);
+   await act(async () => {fireEvent.click(button)});
   await wait(() => {
     getByText(mockFoodBank.name);
   });
@@ -85,7 +105,6 @@ test('Failed api call', async () => {
 
   const button = getAllByText(/search for resources/i)[0];
   fireEvent.click(button);
-  getByTestId(/loading/i);
   await wait(() => {
     getByText(/something went wrong/i);
   });
