@@ -7,7 +7,7 @@ import RegistrationComponent from './RegistrationComponent';
 import RegistrationConfirmComponent from './RegistrationConfirmComponent';
 
 const RegistrationContainer = () => {
-  const { eventId } = useParams();
+  const { eventDateId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
   const [isSuccessful, setSuccessful] = useState(false);
@@ -60,7 +60,7 @@ const RegistrationContainer = () => {
   };
 
   const register = async user => {
-    const event_date_id = parseInt(eventId, 10);
+    const event_date_id = parseInt(eventDateId, 10);
     // First save user
     const { GUEST_USER, CREATE_RESERVATION } = API_URL;
     try {
