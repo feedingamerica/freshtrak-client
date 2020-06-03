@@ -6,21 +6,38 @@ import { formatDateDayAndDate } from "../../Utils/DateFormat";
 import { Link } from "react-router-dom";
 
 const RegistrationConfirmComponent = (props) => {
-  const { eventId } = useParams();
+  const { eventDateId } = useParams();
   const user_data = props.user;
   const [eventDate, setEventDate] = useState(undefined);
+  const [eventId, setEventId] = useState(undefined);
+  const [event, setEvent] = useState(undefined);
 
   useEffect(() => {
-    const event_date_id = parseInt(eventId, 10);
-    getEventDateId(event_date_id);
-  }, [eventId]);
+    const event_date_id = parseInt(eventDateId, 10);
+    getEventDate(event_date_id);
+    if (eventId){
+      getEvent(eventId);
+    }
+  }, [eventDateId, eventId]);
 
-  const getEventDateId = async (event_date_id) => {
+  const getEvent = async (event_id) => {
+    try {
+      const { EVENT_URL } = API_URL;
+      const resp = await axios.get(EVENT_URL + "/" + event_id);
+      const { data } = resp;
+      setEvent(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const getEventDate = async (event_date_id) => {
     try {
       const { EVENT_DATES_URL } = API_URL;
       const resp = await axios.get(EVENT_DATES_URL + "/" + event_date_id);
       const { data } = resp;
       setEventDate(data);
+      setEventId(data.event_date.event_id);
     } catch (e) {
       console.error(e);
     }
@@ -35,7 +52,7 @@ const RegistrationConfirmComponent = (props) => {
               You're Registered
             </h1>
             <h4>
-              <b> {eventDate.event_date.event.name} </b>
+              <b> {event && event.event.agency_name} </b>
             </h4>
             <div className="address-wrap mb-5">
               <div className="date-wrapper">
@@ -81,7 +98,7 @@ const RegistrationConfirmComponent = (props) => {
             <h5>
               <b> Additional Location Information </b>
             </h5>
-            <p className="mb-5">{eventDate.event_date.event.event_details}</p>
+            <p className="mb-5">{event && event.event_details}</p>
             <Link to={RENDER_URL.HOME_URL}>
               <div className="button-wrap mt-4">
                 <button
