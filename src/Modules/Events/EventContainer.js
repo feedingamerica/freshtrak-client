@@ -76,12 +76,12 @@ const EventContainer = props => {
          if(payload) {
             setLoading(true);
             let foodBankUri = API_URL.FOODBANK_LIST;
-            const { zip_code,lat,long } = payload;
+            const { zip_code } = payload;
 
             setSearchDetails(payload)
 
             try {
-                const resp = lat!==''? await axios.get(foodBankUri, { params: { zip_code,lat,long } }):await axios.get(foodBankUri, { params: { zip_code } }) ;
+                const resp = await axios.get(foodBankUri, { params: { zip_code } }) ;
                 const { data } = resp;
                 setFoodBankData(data);
                 setFoodBankResponse(true);
