@@ -24,10 +24,33 @@ const EventCardComponent = props => {
       eventName,
       eventService,
       acceptReservations,
+      acceptInterest,
       eventDetails,
       eventId,
     },
   } = props;
+
+  const ButtonView = () => {
+    if (acceptReservations) {
+      return (
+        <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
+          <button type="button" className="btn custom-button ml-1 flex-grow-1">
+            Reserve Time
+          </button>
+        </LinkContainer>
+      );
+    } else if (acceptInterest && !acceptReservations) {
+      return (
+        <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
+          <button type="button" className="btn custom-button ml-1 flex-grow-1">
+            RSVP
+          </button>
+        </LinkContainer>
+      );
+    } else {
+      return null;
+    }
+  };
 
   return (
     <section className="col-lg-4 col-xl-4" tabIndex="0">
@@ -78,16 +101,7 @@ const EventCardComponent = props => {
                 {!showDetails ? 'View Details' : 'Hide details'}
               </button>
             )}
-            {!acceptReservations || (
-              <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
-                <button
-                  type="button"
-                  className="btn custom-button ml-1 flex-grow-1"
-                >
-                  Reserve Time
-                </button>
-              </LinkContainer>
-            )}
+            {ButtonView()}
           </div>
         </div>
       </div>
