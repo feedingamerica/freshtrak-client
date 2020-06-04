@@ -4,9 +4,10 @@ import SpinnerComponent from '../General/SpinnerComponent';
 import { API_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
+import RegistrationConfirmComponent from './RegistrationConfirmComponent';
 
 const RegistrationContainer = () => {
-  const { eventId } = useParams();
+  const { eventDateId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
   const [isSuccessful, setSuccessful] = useState(false);
@@ -59,7 +60,7 @@ const RegistrationContainer = () => {
   };
 
   const register = async user => {
-    const event_date_id = parseInt(eventId, 10);
+    const event_date_id = parseInt(eventDateId, 10);
     // First save user
     const { GUEST_USER, CREATE_RESERVATION } = API_URL;
     try {
@@ -76,6 +77,8 @@ const RegistrationContainer = () => {
       { headers: { Authorization: `Bearer ${userToken}` } }
       );
       setSuccessful(true);
+      getUser(userToken);
+      setError(undefined);
     } catch (e) {
       console.error(e);
       setError(e);
@@ -85,18 +88,13 @@ const RegistrationContainer = () => {
   return (
     <Fragment>
       {isLoading && <SpinnerComponent />}
-      {!isLoading && user && (
+      {!isLoading && user && !isSuccessful &&(
         <RegistrationComponent user={user} onRegister={register} />
       )}
       {
         isSuccessful && (
           <div className="container">
-            <p
-              className="text-success"
-              data-testid="success registration"
-            >
-              You have been successfully registered
-            </p>
+            <RegistrationConfirmComponent user={user}/>
           </div>
         )
       }
