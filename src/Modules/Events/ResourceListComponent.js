@@ -29,12 +29,12 @@ const ResourceListComponent = ({ dataToChild }) => {
     <section className="search-results" aria-live="polite">
       <div className="search-list-title">{foodBankDisplay()}</div>
       {foodBankArray.map((value, index) => {
-          const { foodbank: { name, address, city, state, zip, phone, display_url } } = value;
+          const { foodbank: { name, address, city, state, zip, phone, display_url, logo } } = value;
           return(
             <div className="row align-items-center mt-2" key={index}>
               <div className="col-lg-4 col-sm-6">
                 <div className="d-flex align-items-center">
-                  <span className="search-list-logo"><img alt="Mid-Ohio Foodbank logo" src={mofcLogo}/></span>
+                  <span className="search-list-logo"><img alt="logo" src={logo}/></span>
                   <span className="font-weight-bold ml-2">{name}</span>
                 </div>
               </div>

@@ -31,11 +31,12 @@ const eventDateMapper = (event, phone, name, estimated_distance) => {
   const { event_dates } = event;
   if (event_dates && event_dates.length > 0) {
     return event_dates.map(dateOfEvent => {
-      const { id, event_id, accept_reservations, start_time, end_time, date } = dateOfEvent;
+      const { id, event_id, accept_reservations, accept_interest, start_time, end_time, date } = dateOfEvent;
       return {
         id,
         eventId: event_id,
         acceptReservations: accept_reservations,
+        acceptInterest: accept_interest,
         startTime: start_time,
         endTime: end_time,
         date,
