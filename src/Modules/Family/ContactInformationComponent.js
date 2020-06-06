@@ -13,6 +13,7 @@ const ContactInformationComponent = forwardRef(
           type="tel"
           className="form-control"
           name="phone"
+          placeholder="(xxx) xxx-xxxx"
           id="phone"
           ref={register({
             validate: value => {
