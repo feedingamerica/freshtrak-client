@@ -102,9 +102,11 @@ const RegistrationConfirmComponent = (props) => {
             </div>
             {user_data.license_plate && user_data.license_plate.length > 0 && (
               <div className="mt-4 mb-4">
-                <span>Special Instructions: You included a license plate in your
-                registration: <b> {user_data.license_plate} </b> </span> <br/> Please try to arrive in this vehicle, but if you
-                are unable to do so it will not impact your service.
+                <span>
+                  Special Instructions: You included a license plate in your registration: <b> {user_data.license_plate} </b>
+                </span>
+                <br/>
+                For the possibility of expedited service, please try to arrive in this vehicle.
               </div>
             )}
             {user_data.event_details && user_data.event_details.length > 0 && (
