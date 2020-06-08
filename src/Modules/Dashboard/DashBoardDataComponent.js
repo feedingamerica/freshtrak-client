@@ -5,17 +5,17 @@ import DashboardCreateAccountComponent from './DashboardCreateAccountComponent';
 import { useForm } from 'react-hook-form';
 
 const DashBoardDataComponent = (props) => {
-    // Login is out of scope
-    // const [isLoggedIn, setIsLoggedIn] = React.useState(localStorage.getItem('isLoggedIn'));
+  // Login is out of scope
+  // const [isLoggedIn, setIsLoggedIn] = React.useState(localStorage.getItem('isLoggedIn'));
 
-    // React.useEffect(()=>{
-    //     if (localStorage.getItem('isLoggedIn')!=undefined ){
-    //         setIsLoggedIn(true);
-    //     }
-    // },[localStorage.getItem('isLoggedIn')]);
+  // React.useEffect(()=>{
+  //     if (localStorage.getItem('isLoggedIn')!=undefined ){
+  //         setIsLoggedIn(true);
+  //     }
+  // },[localStorage.getItem('isLoggedIn')]);
 
 
- const { register, errors,handleSubmit, getValues, watch } = useForm();
+  const { register, errors,handleSubmit, getValues, watch } = useForm();
  
   const onSubmit = (data) => {
         if(data) {
@@ -25,15 +25,16 @@ const DashBoardDataComponent = (props) => {
             });
            }
   };
-    return (
-        <div className="container pt-150 pb-150">
-            <div className="search-area text-left">
-               <form onSubmit={handleSubmit(onSubmit)}>
-                    <SearchComponent register={register}  errors={errors} />
-                </form>
-            </div>
+    
+  return (
+      <div className="container pt-150 pb-150">
+          <div className="search-area text-left">
+             <form onSubmit={handleSubmit(onSubmit)}>
+                  <SearchComponent register={register}  errors={errors} />
+              </form>
+          </div>
 
-            <DashboardCreateAccountComponent />
+          <DashboardCreateAccountComponent />
         </div>
     )
 };
