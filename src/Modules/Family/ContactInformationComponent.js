@@ -48,12 +48,12 @@ const ContactInformationComponent = forwardRef(
           <input
             type="checkbox"
             className="form-check-input"
-            name="phone_permission"
-            id="phone_permission"
+            name="permission_to_text"
+            id="permission_to_text"
             value=""
             ref={register}
           />
-            <label htmlFor="phone_permission" className="form-check-label">
+            <label htmlFor="permission_to_text" className="form-check-label">
             <small data-testid="phone permission">
               Is it okay to contact you with updates and information about your
               registration, and updates to our network?
@@ -111,12 +111,12 @@ const ContactInformationComponent = forwardRef(
           <input
             type="checkbox"
             className="form-check-input"
-            name="email_permission"
-            id="email_permission"
+            name="permission_to_email"
+            id="permission_to_email"
             value=""
             ref={register}
           />
-          <label htmlFor="email_permission" className="form-check-label">
+          <label htmlFor="permission_to_email" className="form-check-label">
             <small data-testid="email permission">
               Is it okay to email you with updates and information about your
               registration, and updates to our network?
