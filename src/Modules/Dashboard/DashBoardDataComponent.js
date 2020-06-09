@@ -1,10 +1,10 @@
-import React from 'react';
-import {withRouter} from 'react-router-dom';
-import SearchComponent from '../General/SearchComponent';
-import DashboardCreateAccountComponent from './DashboardCreateAccountComponent';
-import { useForm } from 'react-hook-form';
+import React from "react";
+import { withRouter } from "react-router-dom";
+import SearchComponent from "../General/SearchComponent";
+import DashboardCreateAccountComponent from "./DashboardCreateAccountComponent";
+import { useForm } from "react-hook-form";
 
-const DashBoardDataComponent = (props) => {
+const DashBoardDataComponent = props => {
   // Login is out of scope
   // const [isLoggedIn, setIsLoggedIn] = React.useState(localStorage.getItem('isLoggedIn'));
 
@@ -14,28 +14,27 @@ const DashBoardDataComponent = (props) => {
   //     }
   // },[localStorage.getItem('isLoggedIn')]);
 
+  const { register, errors, handleSubmit, getValues, watch } = useForm();
 
-  const { register, errors,handleSubmit, getValues, watch } = useForm();
- 
-  const onSubmit = (data) => {
-        if(data) {
-            props.history.push({
-                pathname : '/events/list',
-                state: { searchData: data }
-            });
-           }
+  const onSubmit = data => {
+    if (data) {
+      props.history.push({
+        pathname: "/events/list",
+        state: { searchData: data },
+      });
+    }
   };
-    
-  return (
-      <div className="container pt-150 pb-150">
-          <div className="search-area text-left">
-             <form onSubmit={handleSubmit(onSubmit)}>
-                  <SearchComponent register={register}  errors={errors} />
-              </form>
-          </div>
 
-          <DashboardCreateAccountComponent />
-        </div>
-    )
+  return (
+    <div className="container pt-150 pb-150">
+      <div className="search-area text-left">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <SearchComponent register={register} errors={errors} />
+        </form>
+      </div>
+
+      <DashboardCreateAccountComponent />
+    </div>
+  );
 };
 export default withRouter(DashBoardDataComponent);
