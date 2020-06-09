@@ -11,7 +11,7 @@ jest.mock('axios');
 
 jest.mock('react-places-autocomplete', () => {
   const React = require('react'); // eslint-disable-line
-  class PlacesAutocomplete extends React.Component<> {
+  class PlacesAutocomplete extends React.Component {
     renderProps = {
       getInputProps: jest.fn(({ placeholder, className }) => ({ placeholder, className })),
       suggestions: [],
