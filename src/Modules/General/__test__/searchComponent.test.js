@@ -1,18 +1,19 @@
-import React from 'react';
-import { render, fireEvent,wait,act } from '@testing-library/react';
-import SearchComponent from '../SearchComponent';
-import { noop } from '../../../Testing';
-import EventContainer from '../../Events/EventContainer'
-import {BrowserRouter as Router} from 'react-router-dom'
-import { mockFoodBank } from '../../../Testing'
+import React from "react";
+import { render, fireEvent, act } from "@testing-library/react";
+import SearchComponent from "../SearchComponent";
+import EventContainer from "../../Events/EventContainer";
+import { BrowserRouter as Router } from "react-router-dom";
+import { mockFoodBank } from "../../../Testing";
 
-
-    /*** Mock Google Maps JavaScript API ***/
-  jest.mock('react-places-autocomplete', () => {
-  const React = require('react'); // eslint-disable-line
+/*** Mock Google Maps JavaScript API ***/
+jest.mock("react-places-autocomplete", () => {
+  const React = require("react"); // eslint-disable-line
   class PlacesAutocomplete extends React.Component<> {
     renderProps = {
-      getInputProps: jest.fn(({ placeholder, className }) => ({ placeholder, className })),
+      getInputProps: jest.fn(({ placeholder, className }) => ({
+        placeholder,
+        className,
+      })),
       suggestions: [],
       getSuggestionItemProps: jest.fn(),
     };
@@ -25,62 +26,48 @@ import { mockFoodBank } from '../../../Testing'
   return PlacesAutocomplete;
 });
 
-
-
-
-
-
-test('should render', () => {
+test("should render", () => {
   expect(() => {
-    render(
-      <SearchComponent register = {jest.fn()} errors={jest.fn()}
-      />
-    );
+    render(<SearchComponent register={jest.fn()} errors={jest.fn()} />);
   }).not.toThrowError();
 });
 
-test('should show error an invalid submit', async() => {
- const { getByText, getByLabelText, getAllByText, getByTestId,baseElement } = render(
+test("should show error an invalid submit", async () => {
+  const {
+    getAllByText,
+    baseElement,
+  } = render(
     <Router>
-      <EventContainer location={{ state: '' }} />
+      <EventContainer location={{ state: "" }} />
     </Router>
   );
 
   const button = getAllByText(/search for resources/i)[0];
-  await act(async ()=>{
+  await act(async () => {
     fireEvent.click(button);
   });
-    expect(baseElement).toHaveTextContent('This field is required');
-
+  expect(baseElement).toHaveTextContent("This field is required");
 });
 
-test('should show Street Input after typing in zip code',async()=>{
-
-  const { getByLabelText, getByTestId, queryByLabelText,container } = render(
+test("should show Street Input after typing in zip code", async () => {
+  const { getByLabelText, queryByLabelText } = render(
     <Router>
-      <EventContainer location={{ state: '' }} />
+      <EventContainer location={{ state: "" }} />
     </Router>
   );
 
   expect(queryByLabelText(/Street/i)).toBeNull();
 
-  fireEvent.change(
-    getByLabelText(/zip/i, { id: 'search-zip'}),
-    {
-      target: { value: `${mockFoodBank.zip}` }
-    }
-  );
+  fireEvent.change(getByLabelText(/zip/i, { id: "search-zip" }), {
+    target: { value: `${mockFoodBank.zip}` },
+  });
 
-   getByLabelText(/Street/i);
-fireEvent.change(
-    getByLabelText(/Street/i),
-    {
-      target: { value: `${mockFoodBank.zip}` }
-    }
-  );
-
+  getByLabelText(/Street/i);
+  fireEvent.change(getByLabelText(/Street/i), {
+    target: { value: `${mockFoodBank.zip}` },
+  });
 });
 
- // Somehow, the suggestions list could not be detected even if the data is passed to the input field.
+// Somehow, the suggestions list could not be detected even if the data is passed to the input field.
 // Will have to look into that. But for now, it works well if the API KEY is correct.
 // It does have a few more testcases to cover once suggestion list is identified.
