@@ -20,6 +20,7 @@ const RegistrationConfirmComponent = (props) => {
     if (eventId){
       getEvent(eventId);
     }
+    localStorage.removeItem('userToken');
   }, [eventDateId, eventId]);
 
   const getEvent = async (event_id) => {
