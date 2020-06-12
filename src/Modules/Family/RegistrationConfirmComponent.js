@@ -4,6 +4,8 @@ import { API_URL, RENDER_URL } from "../../Utils/Urls";
 import axios from "axios";
 import { formatDateDayAndDate } from "../../Utils/DateFormat";
 import { Link } from "react-router-dom";
+import identificationCodeImg1 from '../../Assets/img/id_code1.png';
+import identificationCodeImg2 from '../../Assets/img/id_code2.png';
 
 const RegistrationConfirmComponent = (props) => {
   const { eventDateId } = useParams();
@@ -43,6 +45,13 @@ const RegistrationConfirmComponent = (props) => {
     }
   };
 
+  const formatPhoneNumber = (input) => {
+    const regExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+    return (
+      input.replace(regExp, '($1) $2-$3')
+    )
+  }
+
   return (
     <Fragment>
       {eventDate && (
@@ -70,34 +79,41 @@ const RegistrationConfirmComponent = (props) => {
               <h6 className="mb-4">
                 HEAD OF HOUSEHOLD
               </h6>
-              {user_data.first_name} {user_data.last_name}
-              {user_data.middle_name} {user_data.suffix} <br />
+              {user_data.first_name} {user_data.middle_name} {user_data.last_name} {user_data.suffix} <br />
               {user_data.address_line_1} <br />
               {user_data.address_line_2} <br />
               {user_data.city} {user_data.state} <br />
               {user_data.zip_code} <br />
-              {user_data.phone} <br />
+              {formatPhoneNumber(user_data.phone)} <br />
             </div>
             <div className="mt-5">
               Identification Code:
               <h4>
                 <b> {user_data.identification_code} </b>
               </h4>
-              <p className="mb-2">
+              <div className="mb-2">
                 Notes: This code is unique to you, please write it on a piece of
                 paper and display in your driver-side front window.
-              </p>
+                <div className=" ">
+                  <img src={identificationCodeImg1} alt="identificationCodeImg1" width="140" height="80" />
+                  <img className="ml-2" src={identificationCodeImg2} alt="identificationCodeImg2" width="140" height="80" />
+                </div>
+              </div>
             </div>
             {user_data.license_plate && user_data.license_plate.length > 0 && (
-              <p className="mt-4 mb-4">
-                Special Instructions: You included a license plate in your
-                registration. Please try to arrive in this vehicle, but if you
-                are unable to do so it will not impact your service.
-              </p>
+              <div className="mt-4 mb-4">
+                <span>
+                  Special Instructions: You included a license plate in your registration: <b> {user_data.license_plate} </b>
+                </span>
+                <br/>
+                For the possibility of expedited service, please try to arrive in this vehicle.
+              </div>
             )}
-            <h5>
-              <b> Additional Location Information </b>
-            </h5>
+            {user_data.event_details && user_data.event_details.length > 0 && (
+              <h5>
+                <b> Additional Location Information </b>
+              </h5>
+            )}
             <p className="mb-5">{event && event.event_details}</p>
             <Link to={RENDER_URL.HOME_URL}>
               <div className="button-wrap mt-4">
