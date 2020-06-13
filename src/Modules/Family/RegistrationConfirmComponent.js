@@ -20,6 +20,7 @@ const RegistrationConfirmComponent = (props) => {
     if (eventId){
       getEvent(eventId);
     }
+    localStorage.removeItem('userToken');
   }, [eventDateId, eventId]);
 
   const getEvent = async (event_id) => {
@@ -47,9 +48,13 @@ const RegistrationConfirmComponent = (props) => {
 
   const formatPhoneNumber = (input) => {
     const regExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-    return (
-      input.replace(regExp, '($1) $2-$3')
-    )
+    if (input) {
+      return (
+        input.replace(regExp, '($1) $2-$3')
+      )
+    } else {
+      return '';
+    }
   }
 
   return (
