@@ -3,12 +3,15 @@
  */
 import React, { useState } from 'react';
 import { LinkContainer } from 'react-router-bootstrap'
+import { useDispatch } from 'react-redux';
+import { setCurrentEvent } from '../../Store/Events/eventSlice';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
 
 const EventCardComponent = props => {
   const [showDetails, setShowDetails] = useState(false);
+  const dispatch = useDispatch();
   const {
     event: {
       id,
@@ -34,7 +37,11 @@ const EventCardComponent = props => {
     if (acceptReservations) {
       return (
         <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
-          <button type="button" className="btn custom-button ml-1 flex-grow-1">
+          <button
+            type="button"
+            className="btn custom-button ml-1 flex-grow-1"
+            onClick={() => dispatch(setCurrentEvent(props.event))}
+          >
             Reserve Time
           </button>
         </LinkContainer>
@@ -42,7 +49,11 @@ const EventCardComponent = props => {
     } else if (acceptInterest && !acceptReservations) {
       return (
         <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
-          <button type="button" className="btn custom-button ml-1 flex-grow-1">
+          <button
+            type="button"
+            className="btn custom-button ml-1 flex-grow-1"
+            onClick={() => dispatch(setCurrentEvent(props.event))}
+          >
             RSVP
           </button>
         </LinkContainer>
