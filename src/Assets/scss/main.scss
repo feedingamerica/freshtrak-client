@@ -13,6 +13,9 @@ body {
             color: $high-light-color;
         }
     }
+    .relative{
+        position: relative;
+    }
     .big-title {
         font-size: 4rem;
         letter-spacing: -1px;
@@ -626,7 +629,25 @@ body {
                 color: $secondary-color;
             }
         }
+
     }
+    .suggestions-container{
+            @include border-radius(5px);
+            @include box-shadow(0px, 4px, 8px, $shadow-color);
+            background: $color-white;
+            max-height: 200px;
+            overflow: auto;
+            z-index: 1;
+            position: absolute;
+            word-break: break-all;
+            > div{
+                cursor: pointer;
+                padding: 6px 15px;
+                &:hover{
+                    background: $inner-gray;
+                }
+            }
+        }
     .search-results-list {
         max-width: 900px;
         margin: auto;
