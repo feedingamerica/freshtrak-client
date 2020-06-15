@@ -33,10 +33,11 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
               {/* No spinners are set here as of now. You can re-use the loader from EventContainer page; 
                     though the size of the spinner is set as 10em,fixed in main.scss file. */}
               {loading ? "Loading..." : null}
-
               {suggestions.length > 0 && (
                 <div
                   data-testid="suggestions"
+                  id="suggestions"
+                  name="suggestions"
                   className="suggestions-container"
                 >
                   {suggestions.map((suggestion) => {
