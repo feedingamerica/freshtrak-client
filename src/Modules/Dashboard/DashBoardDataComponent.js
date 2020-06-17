@@ -1,9 +1,10 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import SearchComponent from '../General/SearchComponent';
-import DashboardCreateAccountComponent from './DashboardCreateAccountComponent';
-import '../../Assets/scss/main.scss';
-const DashBoardDataComponent = (props) => {
+import React from "react";
+import { withRouter } from "react-router-dom";
+import SearchComponent from "../General/SearchComponent";
+import DashboardCreateAccountComponent from "./DashboardCreateAccountComponent";
+import { useForm } from "react-hook-form";
+
+const DashBoardDataComponent = props => {
   // Login is out of scope
   // const [isLoggedIn, setIsLoggedIn] = React.useState(localStorage.getItem('isLoggedIn'));
 
@@ -13,10 +14,12 @@ const DashBoardDataComponent = (props) => {
   //     }
   // },[localStorage.getItem('isLoggedIn')]);
 
-  const handleSubmit = (data) => {
-    if (Object.keys(data)[0]) {
+  const { register, errors, handleSubmit, getValues, watch } = useForm();
+
+  const onSubmit = data => {
+    if (data) {
       props.history.push({
-        pathname: '/events/list',
+        pathname: "/events/list",
         state: { searchData: data },
       });
     }
@@ -25,7 +28,9 @@ const DashBoardDataComponent = (props) => {
   return (
     <div className="container pt-150 pb-150">
       <div className="search-area text-left">
-        <SearchComponent onSelectedChild={handleSubmit} />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <SearchComponent register={register} errors={errors} />
+        </form>
       </div>
 
       <DashboardCreateAccountComponent />

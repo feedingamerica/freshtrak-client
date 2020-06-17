@@ -35,15 +35,12 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 
-## Navigating
+## Address Autocomplete
 
-Click on create an account to see the current registration form.
-
-Click on Sign in at the top to see the sign in form. Filling out the form and clicking `Log In` will sign you in. 
-
-Sign in is currently takes any email or password. It just does some front end styling.
-
-Right now there is no button to take you to the user edit page so you will have to manually change the url to http://localhost:3000/family/edit
+Autocomplete feature is setup with Google Places API on dev environment.
+API key is intentionally removed from env variables. Contact Mark for the API key or ping `@ashikvarma11` 
+You'll see error on console as Invalid key while typing on Search component without proper API key.
+Styles are added on main.scss under `.search-area`.
 
 ## Deployment to AWS
 
