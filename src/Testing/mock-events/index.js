@@ -37,9 +37,26 @@ export const mockEventDatesBuilder = build('EventDates').fields({
   date: fake(f => f.date.future()),
 });
 
+export const mockEventHoursBuilder = build('EventHours').fields({
+  id: fake(f => f.random.number()),
+  start_time: "10:00 AM",
+  end_time: "10:59 AM",
+  event_hour_id: fake(f => f.random.number()),
+  open_slots: fake(f => f.random.number())
+})
+export const mockEventSlotBuilder = build('EventSlots').fields({
+  id: fake(f => f.random.number()),
+  event_slot_id: fake(f => f.random.number()),
+  start_time: "10:00 AM",
+  end_time: "10:59 AM",
+  open_slots: fake(f => f.random.number())
+})
+
 export const mockAgency = mockAgencyBuilder();
 export const mockEvent = mockEventsBuilder();
 export const mockEventDate = mockEventDatesBuilder();
+export const mockEventHour = mockEventHoursBuilder();
+export const mockEventSlot = mockEventSlotBuilder();
 
 const agency1 = mockAgencyBuilder();
 const agency2 = mockAgencyBuilder();

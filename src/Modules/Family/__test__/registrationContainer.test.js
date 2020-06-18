@@ -3,6 +3,8 @@ import {
   renderWithRouter,
   mockGuestRegistrationResponse,
   mockFamily,
+  mockEventDate,
+  mockEventSlot
 } from '../../../Testing';
 import { wait, act, fireEvent } from '@testing-library/react';
 import RegistrationContainer from '../RegistrationContainer';
@@ -20,11 +22,17 @@ test('should show the loading component until the user token is returned by api'
   axios.get.mockImplementationOnce(() =>
     Promise.resolve({ data: { ...mockFamily } })
   );
+  const location = {
+    state: {
+      eventDateId: mockEventDate.id,
+      eventSlotId: mockEventSlot.event_slot_id
+    }
+  }
   const {
     getByTestId,
     getByLabelText,
     queryByTestId,
-  } = renderWithRouter(<RegistrationContainer />, { route, path });
+  } = renderWithRouter(<RegistrationContainer location={location} />, { route, path });
   getByTestId('spinning component');
   await wait(() => {
     expect(queryByTestId('spinning component')).toBeNull();
@@ -35,7 +43,7 @@ test('should show the loading component until the user token is returned by api'
 
 test('should register user for event', async () => {
   axios.post.mockImplementation(url => {
-    switch(url) {
+    switch (url) {
       case 'undefinedguest_authentications':
         return Promise.resolve({ data: { ...mockGuestRegistrationResponse } })
       default:
@@ -53,7 +61,7 @@ test('should register user for event', async () => {
   // await wait(async () => {
   //   const input = getByLabelText(/first name/i);
   //   expect(input.value).toEqual(mockFamily.first_name);
-    
+
   // });
   // await act(async () => {
   //   fireEvent.click(getByTestId(/continue button/i));
