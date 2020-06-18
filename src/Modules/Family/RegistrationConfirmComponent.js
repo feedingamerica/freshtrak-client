@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { API_URL, RENDER_URL } from "../../Utils/Urls";
 import axios from "axios";
 import { formatDateDayAndDate } from "../../Utils/DateFormat";
@@ -8,20 +7,26 @@ import identificationCodeImg1 from '../../Assets/img/id_code1.png';
 import identificationCodeImg2 from '../../Assets/img/id_code2.png';
 
 const RegistrationConfirmComponent = (props) => {
-  const { eventDateId } = useParams();
   const user_data = props.user;
   const [eventDate, setEventDate] = useState(undefined);
   const [eventId, setEventId] = useState(undefined);
   const [event, setEvent] = useState(undefined);
+  const eventDateId = props.eventDateId;
 
   useEffect(() => {
-    const event_date_id = parseInt(eventDateId, 10);
-    getEventDate(event_date_id);
-    if (eventId){
+    if (eventId) {
       getEvent(eventId);
     }
     localStorage.removeItem('userToken');
-  }, [eventDateId, eventId]);
+  }, [eventId]);
+
+  useEffect(() => {
+    const event_date_id = parseInt(eventDateId, 10);
+    if (event_date_id) {
+      getEventDate(event_date_id);
+    }
+    localStorage.removeItem('userToken');
+  }, [eventDateId]);
 
   const getEvent = async (event_id) => {
     try {
@@ -110,7 +115,7 @@ const RegistrationConfirmComponent = (props) => {
                 <span>
                   Special Instructions: You included a license plate in your registration: <b> {user_data.license_plate} </b>
                 </span>
-                <br/>
+                <br />
                 For the possibility of expedited service, please try to arrive in this vehicle.
               </div>
             )}

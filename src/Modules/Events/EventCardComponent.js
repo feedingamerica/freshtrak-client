@@ -2,14 +2,15 @@
  * Event Card Component
  */
 import React, { useState } from 'react';
-import { LinkContainer } from 'react-router-bootstrap'
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
 import ReserveTimeButton from './ReserveTimeButton';
+import { useHistory } from 'react-router-dom';
 
 const EventCardComponent = props => {
   const [showDetails, setShowDetails] = useState(false);
+  const history = useHistory();
   const {
     event: {
       id,
@@ -30,18 +31,24 @@ const EventCardComponent = props => {
     },
   } = props;
 
+  const redirectToRegistration = (event_date_id) => {
+    history.push(RENDER_URL.EVENT_REGISTRATION_URL, {
+      eventDateId: event_date_id,
+    });
+  };
+
   const ButtonView = () => {
     if (acceptReservations) {
-      return (
-        <ReserveTimeButton event_date_id={id} />
-      );
+      return <ReserveTimeButton event_date_id={id} />;
     } else if (acceptInterest && !acceptReservations) {
       return (
-        <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
-          <button type="button" className="btn custom-button ml-1 flex-grow-1">
-            RSVP
-          </button>
-        </LinkContainer>
+        <button
+          type="button"
+          className="btn custom-button ml-1 flex-grow-1"
+          onClick={() => redirectToRegistration(id)}
+        >
+          RSVP
+        </button>
       );
     } else {
       return null;
