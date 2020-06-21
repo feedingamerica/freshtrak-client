@@ -1,9 +1,9 @@
 import React, { useState, Fragment } from 'react';
+import { LinkContainer } from 'react-router-bootstrap'
 import { useForm } from 'react-hook-form';
 import Modal from 'react-bootstrap/Modal';
 import { API_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 
 const ReserveTimeButton = (props) => {
   const event_date_id = props.event_date_id;
@@ -11,8 +11,7 @@ const ReserveTimeButton = (props) => {
   const handleShow = () => setShow(true);
   const [eventHour, setEventHour] = useState([]);
   const [show, setShow] = useState(false);
-  const history = useHistory();
-  const { register, handleSubmit, watch } = useForm();
+  const { register, watch } = useForm();
   const event_slot_id = watch('time_slot');
 
   const getEventHours = async (event_date_id) => {
@@ -41,13 +40,6 @@ const ReserveTimeButton = (props) => {
     }
   };
 
-  const onSubmit = (data) => {
-    history.push(RENDER_URL.EVENT_REGISTRATION_URL, {
-      eventDateId: event_date_id,
-      eventSlotId: event_slot_id,
-    });
-  };
-
   return (
     <Fragment>
       <button
@@ -61,46 +53,47 @@ const ReserveTimeButton = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>Choose Delivery Time</Modal.Title>
         </Modal.Header>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Modal.Body>
-            <div className="container">
-              {eventHour.map((item, index) => (
-                <div className="" key={'ul' + index}>
-                  {item.event_slots.map((e, i) => (
-                    <div className="form-check p-2" key={index + '-' + i}>
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="time_slot"
-                        value={e.event_slot_id}
-                        ref={register}
-                      />
-                      <label className="form-check-label pl-2">
-                        {e.start_time} - {e.end_time}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <button
-              type="button"
-              className="btn default-button"
-              onClick={handleClose}
-            >
-              Close
-						</button>
+        <Modal.Body>
+          <div className="container">
+            {eventHour.map((item, index) => (
+              <div className="" key={'ul' + index}>
+                {item.event_slots.map((e, i) => (
+                  <div className="form-check p-2" key={index + '-' + i}>
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="time_slot"
+                      value={e.event_slot_id}
+                      ref={register}
+                    />
+                    <label className="form-check-label pl-2">
+                      {e.start_time} - {e.end_time}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            type="button"
+            className="btn default-button"
+            onClick={handleClose}
+          >
+            Close
+          </button>
+          <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${event_date_id}/${event_slot_id}`}>
             <button
               type="submit"
+              disabled={!event_slot_id}
               className="btn primary-button ml-1 flex-grow-1"
               onClick={handleClose}
             >
               Save and Continue
-						</button>
-          </Modal.Footer>
-        </form>
+            </button>
+          </LinkContainer>
+        </Modal.Footer>
       </Modal>
     </Fragment>
   );
