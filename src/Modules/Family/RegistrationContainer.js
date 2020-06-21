@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import SpinnerComponent from '../General/SpinnerComponent';
 import { API_URL } from '../../Utils/Urls';
 import axios from 'axios';
@@ -6,12 +7,12 @@ import RegistrationComponent from './RegistrationComponent';
 import RegistrationConfirmComponent from './RegistrationConfirmComponent';
 
 const RegistrationContainer = (props) => {
+  const { eventDateId, eventSlotId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
   const [isSuccessful, setSuccessful] = useState(false);
   const [isError, setError] = useState(undefined);
   const [user, setUser] = useState(undefined);
-  const { eventDateId, eventSlotId } = props.location.state;
   useEffect(() => {
     if (userToken === undefined) {
       getUserToken();
