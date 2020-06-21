@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import Modal from 'react-bootstrap/Modal';
 import { API_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
+import alarmIcon from '../../Assets/img/alarm.svg';
 
 const ReserveTimeButton = (props) => {
   const event_date_id = props.event_date_id;
@@ -51,7 +52,12 @@ const ReserveTimeButton = (props) => {
 			</button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Choose Delivery Time</Modal.Title>
+          <Modal.Title>
+            <span className="pr-3">
+              <img aria-hidden="true" alt="Go back" src={alarmIcon} />
+            </span>
+            Choose Delivery Time
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container">
