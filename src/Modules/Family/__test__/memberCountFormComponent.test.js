@@ -11,7 +11,7 @@ test('should render without error', () => {
 
 test('should not allow member count to go below zero', () => {
   const { getByTestId, getByLabelText } = render(<MemberCountFormComponent register={noop} errors={noop} />);
-  const input = getByLabelText('Number of Seniors(65+)');
+  const input = getByLabelText('Number of Seniors(60+)');
   expect(input.value).toEqual('0');
   fireEvent.click(
     getByTestId(/count_senior_dec/i)
