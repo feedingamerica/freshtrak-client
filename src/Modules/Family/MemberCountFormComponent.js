@@ -49,10 +49,10 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
     <Fragment>
       <div className="form-sub-title font-weight-bold mt-2">
         <h2>Tell us about your family</h2>
-        Total Number of Household Members (Do not Include Yourself)
+        How many additional family members are in each age group? (Do not include yourself)
         <div className="mt-3 pt-1">
           <div className="d-flex align-items-center pt-2 pb-2">
-            <div className="member-age">Seniors (65+)</div>
+            <div className="member-age">Seniors (60+)</div>
             <div className="button-wrap d-flex flex-grow-1"></div>
             <button
               onClick={seniorDecrementFunction}
@@ -63,7 +63,7 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
               <span className="sr-only">Decrease number of seniors</span>
               <span aria-hidden="true">-</span>
             </button>
-            <label className="sr-only" htmlFor="seniors_in_household">Number of Seniors(65+)</label>
+            <label className="sr-only" htmlFor="seniors_in_household">Number of Seniors(60+)</label>
             <input
               type="text"
               className="number member-count"
