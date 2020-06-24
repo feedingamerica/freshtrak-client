@@ -6,8 +6,8 @@ import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
 import RegistrationConfirmComponent from './RegistrationConfirmComponent';
 
-const RegistrationContainer = () => {
-  const { eventDateId } = useParams();
+const RegistrationContainer = (props) => {
+  const { eventDateId, eventSlotId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
   const [isSuccessful, setSuccessful] = useState(false);
@@ -61,6 +61,7 @@ const RegistrationContainer = () => {
 
   const register = async user => {
     const event_date_id = parseInt(eventDateId, 10);
+    const event_slot_id = parseInt(eventSlotId, 10) || '';
     // First save user
     const { GUEST_USER, CREATE_RESERVATION } = API_URL;
     try {
@@ -72,9 +73,9 @@ const RegistrationContainer = () => {
     }
     try {
       await axios.post(CREATE_RESERVATION, {
-        reservation: { event_date_id }
+        reservation: { event_date_id, event_slot_id }
       },
-      { headers: { Authorization: `Bearer ${userToken}` } }
+        { headers: { Authorization: `Bearer ${userToken}` } }
       );
       setSuccessful(true);
       getUser(userToken);
@@ -88,16 +89,14 @@ const RegistrationContainer = () => {
   return (
     <Fragment>
       {isLoading && <SpinnerComponent />}
-      {!isLoading && user && !isSuccessful &&(
+      {!isLoading && user && !isSuccessful && (
         <RegistrationComponent user={user} onRegister={register} />
       )}
-      {
-        isSuccessful && (
-          <div className="container">
-            <RegistrationConfirmComponent user={user}/>
-          </div>
-        )
-      }
+      {isSuccessful && (
+        <div className="container">
+          <RegistrationConfirmComponent user={user} eventDateId={eventDateId} />
+        </div>
+      )}
       {isError && (
         <div className="container">
           <p className="text-danger">There was an error saving your reservation</p>

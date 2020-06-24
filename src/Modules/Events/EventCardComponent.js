@@ -6,6 +6,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
+import ReserveTimeButton from './ReserveTimeButton';
 
 const EventCardComponent = props => {
   const [showDetails, setShowDetails] = useState(false);
@@ -26,19 +27,12 @@ const EventCardComponent = props => {
       acceptReservations,
       acceptInterest,
       eventDetails,
-      eventId,
     },
   } = props;
 
   const ButtonView = () => {
     if (acceptReservations) {
-      return (
-        <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
-          <button type="button" className="btn custom-button ml-1 flex-grow-1">
-            Reserve Time
-          </button>
-        </LinkContainer>
-      );
+      return <ReserveTimeButton event_date_id={id} />;
     } else if (acceptInterest && !acceptReservations) {
       return (
         <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
