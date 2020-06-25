@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import identificationCodeImg1 from '../../Assets/img/id_code1.png';
 import identificationCodeImg2 from '../../Assets/img/id_code2.png';
 import formatPhoneNumber from "../../Utils/PhoneFormat";
+import idImg from '../../Assets/img/id_img.png';
 
 const RegistrationConfirmComponent = (props) => {
   const user_data = props.user;
@@ -87,16 +88,22 @@ const RegistrationConfirmComponent = (props) => {
               {formatPhoneNumber(user_data.phone)} <br />
             </div>
             <div className="mt-5">
-              Identification Code:
+              As a part of our contactless service process, please display the following information <br />
               <h4>
+                Identification Code <br />
                 <b> {user_data.identification_code} </b>
               </h4>
               <div className="mb-2">
                 Notes: This code is unique to you, please write it on a piece of
                 paper and display in your driver-side front window.
                 <div className=" ">
-                  <img src={identificationCodeImg1} alt="identificationCodeImg1" width="140" height="80" />
-                  <img className="ml-2" src={identificationCodeImg2} alt="identificationCodeImg2" width="140" height="80" />
+                  <img src={identificationCodeImg1} alt="identificationCodeImg1" height="300" width="auto" />
+                  <img className="ml-2" src={identificationCodeImg2} alt="identificationCodeImg2" height="300" width="auto" />
+                </div>
+                For expedite service at many locations, please also include an ID,
+                and a document with your current address
+                <div className=" ">
+                  <img src={idImg} alt="idImg" height="300" width="auto" />
                 </div>
               </div>
             </div>
