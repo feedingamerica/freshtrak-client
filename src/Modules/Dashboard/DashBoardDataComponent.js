@@ -14,7 +14,7 @@ const DashBoardDataComponent = props => {
   //     }
   // },[localStorage.getItem('isLoggedIn')]);
 
-  const { register, errors, handleSubmit, getValues, watch } = useForm();
+  const { register, errors, handleSubmit } = useForm();
 
   const onSubmit = data => {
     if (data) {

@@ -25,6 +25,7 @@ const EventListContainer = ({ searchData }) => {
 
   const handleSubmit = async payload => {
     if (payload) {
+      setLoading(true);
       const { zip_code, lat, long } = payload;
       try {
         const resp =
@@ -40,8 +41,10 @@ const EventListContainer = ({ searchData }) => {
         } = resp;
         setAgencyData(agencies);
         setAgencyResponse(true);
+        setLoading(false);
       } catch (err) {
         console.error(err);
+        setLoading(false);
       }
     }
   };
