@@ -3,6 +3,24 @@ import { render, fireEvent, act, getByText } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import FamilyContainer from '../FamilyContainer.js';
 
+/*** Mock Google Maps JavaScript API ***/
+jest.mock("react-places-autocomplete", () => {
+  const React = require("react"); // eslint-disable-line
+  class PlacesAutocomplete extends React.Component {
+    renderProps = {
+      getInputProps: jest.fn(),
+      suggestions: [],
+      getSuggestionItemProps: jest.fn(),
+    };
+
+    render() {
+      return <>{this.props.children(this.renderProps)}</>;
+    }
+  }
+
+  return PlacesAutocomplete;
+});
+
 test('it should render without errors', () => {
   expect(() => {
     render(
