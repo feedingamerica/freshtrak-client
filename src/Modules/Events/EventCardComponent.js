@@ -35,7 +35,17 @@ const EventCardComponent = props => {
 
   const ButtonView = () => {
     if (acceptReservations) {
-      return <ReserveTimeButton event_date_id={id} />;
+      return (
+        <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
+          <button
+            type="button"
+            className="btn custom-button ml-1 flex-grow-1"
+            onClick={() => dispatch(setCurrentEvent(props.event))}
+          >
+            Reserve Time
+          </button>
+        </LinkContainer>
+      );
     } else if (acceptInterest && !acceptReservations) {
       return (
         <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
