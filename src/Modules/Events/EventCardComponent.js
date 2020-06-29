@@ -27,6 +27,7 @@ const EventCardComponent = props => {
       acceptReservations,
       acceptInterest,
       eventDetails,
+      exceptionNote
     },
   } = props;
 
@@ -73,8 +74,15 @@ const EventCardComponent = props => {
             <br />
             {phoneNumber}
             <br />
-            <br />
           </div>
+          {exceptionNote && exceptionNote !== '' && (
+            <div className="timings">
+              Service Area Limitations:
+              <br />
+              <span className="text-danger">{exceptionNote}</span>
+              <br />
+            </div>
+          )}
           {showDetails && (
             <div className="">
               <p>
