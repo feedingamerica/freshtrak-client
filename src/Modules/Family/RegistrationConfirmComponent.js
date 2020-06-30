@@ -5,9 +5,8 @@ import { formatDateDayAndDate } from "../../Utils/DateFormat";
 import { Link } from "react-router-dom";
 import identificationCodeImg1 from '../../Assets/img/id_code1.png';
 import identificationCodeImg2 from '../../Assets/img/id_code2.png';
+import formatPhoneNumber from "../../Utils/PhoneFormat";
 import idImg from '../../Assets/img/id_img.png';
-
-
 
 const RegistrationConfirmComponent = (props) => {
   const user_data = props.user;
@@ -53,17 +52,6 @@ const RegistrationConfirmComponent = (props) => {
       console.error(e);
     }
   };
-
-  const formatPhoneNumber = (input) => {
-    const regExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-    if (input) {
-      return (
-        input.replace(regExp, '($1) $2-$3')
-      )
-    } else {
-      return '';
-    }
-  }
 
   return (
     <Fragment>
