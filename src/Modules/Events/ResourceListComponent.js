@@ -1,5 +1,4 @@
 import React from 'react';
-import mofcLogo from '../../Assets/img/MOFC-Logo.svg';
 
 const ResourceListComponent = ({ dataToChild }) => {
   const [foodBankArray, setFoodBankArray] = React.useState([]);

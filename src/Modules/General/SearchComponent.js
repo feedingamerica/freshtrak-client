@@ -122,7 +122,7 @@ const SearchComponent = forwardRef(({ register, errors }, ref) => {
         </button>
       </div>
       <div className="col-12 search-order-2 mt-2">
-        {address.length == 0 && showAddress && (
+        {address.length === 0 && showAddress && (
           <p>Enter your address for customized results (Optional) </p>
         )}
       </div>
