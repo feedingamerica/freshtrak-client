@@ -8,7 +8,7 @@ import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
 
 const RegistrationComponent = ({ user, onRegister }) => {
-  const { register, handleSubmit, errors, getValues, watch, reset } = useForm();
+  const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm();
   useEffect(() => {
     const {
       address_line_1,
@@ -62,6 +62,7 @@ const RegistrationComponent = ({ user, onRegister }) => {
                   errors={errors}
                   getValues={getValues}
                   watch={watch}
+                  setValue={setValue}
                 />
                 <MemberCountFormComponent register={register} errors={errors} />
                 <div className="button-wrap mt-4">

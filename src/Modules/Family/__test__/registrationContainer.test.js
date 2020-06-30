@@ -15,6 +15,24 @@ jest.mock('axios');
 const route = '/events/register/123';
 const path = '/events/register/:eventId';
 
+/*** Mock Google Maps JavaScript API ***/
+jest.mock("react-places-autocomplete", () => {
+  const React = require("react"); // eslint-disable-line
+  class PlacesAutocomplete extends React.Component {
+    renderProps = {
+      getInputProps: jest.fn(),
+      suggestions: [],
+      getSuggestionItemProps: jest.fn(),
+    };
+
+    render() {
+      return <>{this.props.children(this.renderProps)}</>;
+    }
+  }
+
+  return PlacesAutocomplete;
+});
+
 test('should show the loading component until the user token is returned by api', async () => {
   axios.post.mockImplementationOnce(() =>
     Promise.resolve({ data: { ...mockGuestRegistrationResponse } })
