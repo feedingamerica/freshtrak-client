@@ -1,6 +1,6 @@
 import React, { forwardRef, Fragment } from 'react';
 
-const StateDropdownComponent = forwardRef(({ register, errors }, ref) => (
+const StateDropdownComponent = forwardRef(({ register, errors,defaultValue }, ref) => (
   <Fragment>
     <div className="form-group ml-2">
       <label htmlFor="state">State</label>
@@ -10,7 +10,7 @@ const StateDropdownComponent = forwardRef(({ register, errors }, ref) => (
         name="state"
         ref={register({ required: true })}
       >
-        <option value="" defaultValue></option>
+        <option value={defaultValue} defaultValue>{defaultValue}</option>
         <option value="AK">Alaska</option>
         <option value="AL">Alabama</option>
         <option value="AR">Arkansas</option>
