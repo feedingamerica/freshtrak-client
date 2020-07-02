@@ -61,7 +61,7 @@ const RegistrationContainer = (props) => {
 
   const register = async user => {
     const event_date_id = parseInt(eventDateId, 10);
-    const event_slot_id = parseInt(eventSlotId, 10) || '';
+    const event_slot_id = parseInt(eventSlotId, 10) || undefined;
     // First save user
     const { GUEST_USER, CREATE_RESERVATION } = API_URL;
     try {
@@ -73,7 +73,7 @@ const RegistrationContainer = (props) => {
     }
     try {
       await axios.post(CREATE_RESERVATION, {
-        reservation: { event_date_id, event_slot_id }
+        reservation: eventSlotId === undefined ? {event_date_id} : {event_date_id, event_slot_id}
       },
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
