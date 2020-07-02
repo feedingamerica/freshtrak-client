@@ -28,7 +28,7 @@ const ContactInformationComponent = forwardRef(
               onChange={(e) => setValue('phone', e)}
             />
             {errors.phone && (
-              <span className="text-danger" data-testid="no phone error">
+              <span className="text-danger">
                 This field is required. If you have no phone check "No Phone
                 Available".
               </span>
@@ -51,7 +51,7 @@ const ContactInformationComponent = forwardRef(
           </div>
         )}
         {showPhonePermissions && (
-          <div className="form-check">
+          <div className="form-check" data-testid="no phone error">
             <input
               type="checkbox"
               className="form-check-input"
