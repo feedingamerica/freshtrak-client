@@ -21,6 +21,8 @@ test('should load without errors', () => {
 });
 
 test('show the event data and user data', () => {
+  const { agencyName } = preformattedEventData;
+  const { identification_code } = mockFamily;
   const store = mockStore({ event: { event: preformattedEventData } });
   const history = createMemoryHistory({ initialEntries: [''] });
   const { getByText } = render(
@@ -30,6 +32,6 @@ test('show the event data and user data', () => {
       </Router>
     </Provider>
   );
-  getByText(preformattedEventData.agencyName);
-  getByText(mockFamily.identification_code);
+  getByText(agencyName);
+  getByText(identification_code);
 });
