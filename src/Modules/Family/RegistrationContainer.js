@@ -73,7 +73,7 @@ const RegistrationContainer = (props) => {
     }
     try {
       await axios.post(CREATE_RESERVATION, {
-        reservation: eventSlotId ? {event_date_id} : {event_date_id, event_slot_id}
+        reservation: eventSlotId ? {event_date_id, event_slot_id} : {event_date_id}
       },
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
