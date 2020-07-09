@@ -4,7 +4,7 @@ import {
   mockGuestRegistrationResponse,
   mockFamily,
   mockEventDate,
-  mockEventSlot
+  mockEventSlot,
 } from '../../../Testing';
 import { wait, act, fireEvent } from '@testing-library/react';
 import RegistrationContainer from '../RegistrationContainer';
@@ -43,14 +43,17 @@ test('should show the loading component until the user token is returned by api'
   const location = {
     state: {
       eventDateId: mockEventDate.id,
-      eventSlotId: mockEventSlot.event_slot_id
-    }
-  }
+      eventSlotId: mockEventSlot.event_slot_id,
+    },
+  };
   const {
     getByTestId,
     getByLabelText,
     queryByTestId,
-  } = renderWithRouter(<RegistrationContainer location={location} />, { route, path });
+  } = renderWithRouter(<RegistrationContainer location={location} />, {
+    route,
+    path,
+  });
   getByTestId('spinning component');
   await wait(() => {
     expect(queryByTestId('spinning component')).toBeNull();
@@ -63,14 +66,16 @@ test('should register user for event', async () => {
   axios.post.mockImplementation(url => {
     switch (url) {
       case 'undefinedguest_authentications':
-        return Promise.resolve({ data: { ...mockGuestRegistrationResponse } })
+        return Promise.resolve({ data: { ...mockGuestRegistrationResponse } });
       default:
-        return Promise.resolve()
+        return Promise.resolve();
     }
   });
 
   axios.get.mockImplementationOnce(() =>
-    Promise.resolve({ data: { ...mockFamily, date_of_birth: '2020-05-20', state: 'OH' } })
+    Promise.resolve({
+      data: { ...mockFamily, date_of_birth: '2020-05-20', state: 'OH' },
+    })
   );
 
   // TO DO
