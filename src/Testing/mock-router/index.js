@@ -2,6 +2,8 @@ import React from 'react';
 import { Router, Route } from 'react-router';
 import { createMemoryHistory } from 'history';
 import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import store from '../../Store/store'
 
 // test utils file
 export function renderWithRouter(
@@ -14,9 +16,11 @@ export function renderWithRouter(
 ) {
   const Wrapper = ({ children }) => (
     // eslint-disable-next-line react/react-in-jsx-scope
-    <Router history={history}>
-      <Route path={path}>{children}</Route>
-    </Router>
+    <Provider store={store}>
+      <Router history={history}>
+        <Route path={path}>{children}</Route>
+      </Router>
+    </Provider>
   );
   return {
     ...render(ui, { wrapper: Wrapper }),
