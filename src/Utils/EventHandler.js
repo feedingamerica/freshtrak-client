@@ -65,11 +65,14 @@ export const AgencyHandler = agencies => {
 
   agencies.forEach(agency => {
     const { events, phone, name, estimated_distance } = agency;
+
     if (events && events.length > 0) {
       events.forEach(event => {
         eventDateMapper(event, phone, name, estimated_distance).forEach(x => eventDates.push(x));
       });
     }
+
   });
+
   return eventDates;
 }
