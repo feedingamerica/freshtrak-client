@@ -95,10 +95,7 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
                 >
                   {suggestions.map(suggestion => {
                     return (
-                      <div
-                        {...getSuggestionItemProps(suggestion)}
-                        key={suggestion.id}
-                      >
+                      <div {...getSuggestionItemProps(suggestion)} key={suggestion.id} >
                         {suggestion.description}
                       </div>
                     );
