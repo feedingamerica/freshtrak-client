@@ -10,7 +10,7 @@ import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import '../../Assets/scss/main.scss';
 
 const FamilyContainer = () => {
-  const { register, handleSubmit, errors, getValues, watch } = useForm();
+  const { register, handleSubmit, errors, getValues, setValue, watch } = useForm();
   const onSubmit = data => {
     console.log(data);
   };
@@ -25,7 +25,12 @@ const FamilyContainer = () => {
             <div className="content-wrapper">
               <RegistrationTextComponent />
               <form onSubmit={handleSubmit(onSubmit)}>
-                <PrimaryInfoFormComponent register={register} errors={errors} />
+                <PrimaryInfoFormComponent
+                  register={register}
+                  errors={errors}
+                  setValue={setValue}
+                  watch={watch}
+                />
                 <AddressComponent register={register} errors={errors} />
                 <ContactInformationComponent
                   register={register}

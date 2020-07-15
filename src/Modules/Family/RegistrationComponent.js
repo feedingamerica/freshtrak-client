@@ -55,7 +55,12 @@ const RegistrationComponent = ({ user, onRegister }) => {
             <div className="content-wrapper">
               <RegistrationTextComponent />
               <form onSubmit={handleSubmit(onSubmit)}>
-                <PrimaryInfoFormComponent register={register} errors={errors} />
+                <PrimaryInfoFormComponent
+                  register={register}
+                  errors={errors}
+                  setValue={setValue}
+                  watch={watch}
+                   />
                 <AddressComponent register={register} errors={errors} />
                 <ContactInformationComponent
                   register={register}
