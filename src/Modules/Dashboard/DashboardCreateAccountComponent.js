@@ -15,7 +15,7 @@ const DashboardCreateAccountComponent = () => {
       <div className="row text-center justify-content-between">
         <BoxComponent
           title="Stay Up to Date"
-          content="Make a FreshTrak account to stay up to date on local food access events."
+          content="Coming soon... Make a FreshTrak account to stay up to date on local food access events."
           imageUrl={CalenderIcon}
           className="stay-up-to-date"
         />
