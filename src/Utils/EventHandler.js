@@ -50,6 +50,8 @@ const eventDateMapper = (event, phone, name, estimated_distance) => {
         eventService: event.service,
         estimated_distance,
         eventDetails: event.event_details,
+        seniorAge: event.forms[0]["display_age_senior"],
+        adultAge: event.forms[0]["display_age_adult"]
       }
     });
   } else {
