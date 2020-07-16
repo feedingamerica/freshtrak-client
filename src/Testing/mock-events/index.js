@@ -26,6 +26,7 @@ export const mockEventsBuilder = build('Events').fields({
   service: fake(f => f.random.word()),
   event_details: fake(f => f.random.word()),
   event_dates: [],
+  forms: [],
 });
 
 export const mockEventDatesBuilder = build('EventDates').fields({
@@ -35,6 +36,12 @@ export const mockEventDatesBuilder = build('EventDates').fields({
   start_time: '08:00 AM',
   end_time: '11:00 AM',
   date: fake(f => f.date.future()),
+});
+
+export const mockFormsBuilder = build('Forms').fields({
+  id: fake(f => f.random.number()),
+  display_age_senior: 60,
+  display_age_adult: 18,
 });
 
 export const mockEventHoursBuilder = build('EventHours').fields({
@@ -55,6 +62,7 @@ export const mockEventSlotBuilder = build('EventSlots').fields({
 export const mockAgency = mockAgencyBuilder();
 export const mockEvent = mockEventsBuilder();
 export const mockEventDate = mockEventDatesBuilder();
+export const mockForms = mockFormsBuilder();
 export const mockEventHour = mockEventHoursBuilder();
 export const mockEventSlot = mockEventSlotBuilder();
 
@@ -66,13 +74,16 @@ const event3 = mockEventsBuilder();
 const eventDate1 = mockEventDatesBuilder();
 const eventDate2 = mockEventDatesBuilder();
 const eventDate3 = mockEventDatesBuilder();
+const form1 = mockFormsBuilder();
+const form2 = mockFormsBuilder();
+const form3 = mockFormsBuilder();
 export const testData = [
-  { ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }] }] },
-  { ...agency2, events: [{ ...event2, event_dates: [{ ...eventDate2 }] }] },
+  { ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }], forms: [{ ...form1 }] }] },
+  { ...agency2, events: [{ ...event2, event_dates: [{ ...eventDate2 }], forms: [{ ...form2 }] }] },
 ];
 
 export const testDataWithMultiple = [
-  { ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }] }] },
+  { ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }], forms: [{ ...form1 }] }] },
   {
     ...agency2,
     events: [
@@ -104,4 +115,6 @@ export const preformattedEventData = {
   eventName: event1.name,
   eventService: event1.service,
   eventDetails: event1.event_details,
+  seniorAge: form1.display_age_senior,
+  adultAge: form1.display_age_adult
 };
