@@ -6,6 +6,7 @@ import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
+import { formatDateToYYYYMMDD } from '../../Utils/DateFormat';
 
 const RegistrationComponent = ({ user, onRegister }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm();
@@ -42,6 +43,7 @@ const RegistrationComponent = ({ user, onRegister }) => {
     })
   }, [user, reset])
   const onSubmit = data => {
+    formatDateToYYYYMMDD(data["date_of_birth"])
     onRegister(data);
   }
   return (
