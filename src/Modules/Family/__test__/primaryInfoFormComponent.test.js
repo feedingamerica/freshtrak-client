@@ -5,6 +5,6 @@ import { noop } from '../../../Testing';
 
 test('should render without error', () => {
   expect(() => {
-    render(<PrimaryInfoFormComponent register={noop} errors={noop} getValues={noop} />);
+    render(<PrimaryInfoFormComponent register={noop} errors={noop} getValues={noop} setValue={noop} watch={noop} />);
   }).not.toThrowError();
 });
