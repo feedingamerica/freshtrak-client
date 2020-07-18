@@ -14,13 +14,31 @@ const SearchComponent = forwardRef(({ register, errors }, ref) => {
   const handleSelect = async value => {
     setAddress(value);
     const results = await geocodeByAddress(value);
-
+    let destructuredAddress = getDestructured(results[0]["address_components"]);
+    setAddress(destructuredAddress["street_number"]!==undefined?`${destructuredAddress["street_number"]} ${destructuredAddress["route"]}`:'');
+    
     //  Here we get the coordinates lat and long.
     const coordinates = await getLatLng(results[0]);
     setLat(coordinates.lat);
     setLong(coordinates.lng);
   };
 
+  const getDestructured = address_components => {
+    let destructured = {};
+    address_components.filter(component => {
+      switch (component["types"][0]) {
+        case "street_number":
+          destructured["street_number"] = component.long_name;
+          break;
+        case "route":
+          destructured["route"] = component.long_name;
+          break;
+          default:return null;
+      }
+    });
+    return destructured;
+    return destructured;
+  };
   return (
     <div className=" row align-items-end">
       <div className="col-sm-6 col-md-6 col-lg-7 col-xl-8 search-order-1">
@@ -60,10 +78,7 @@ const SearchComponent = forwardRef(({ register, errors }, ref) => {
                       >
                         {suggestions.map(suggestion => {
                           return (
-                            <div
-                              {...getSuggestionItemProps(suggestion)}
-                              key={suggestion.id}
-                            >
+                            <div {...getSuggestionItemProps(suggestion)} key={suggestion.id} >
                               {suggestion.description}
                             </div>
                           );

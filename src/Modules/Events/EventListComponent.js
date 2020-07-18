@@ -12,7 +12,6 @@ const EventListComponent = props => {
   //     e.preventDefault();
   // };
   const { events } = props;
-
   return (
     <div className="search-results-list" aria-live="polite">
       <div className="row m-0">
