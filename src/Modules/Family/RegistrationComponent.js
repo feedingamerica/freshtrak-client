@@ -8,7 +8,7 @@ import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
 import { formatDateToYYYYMMDD } from '../../Utils/DateFormat';
 
-const RegistrationComponent = ({ user, onRegister }) => {
+const RegistrationComponent = ({ user, onRegister, disabled }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm();
   useEffect(() => {
     const {
@@ -76,6 +76,7 @@ const RegistrationComponent = ({ user, onRegister }) => {
                   <button
                     type="submit"
                     className="btn custom-button"
+                    disabled={disabled}
                     data-testid="continue button"
                   >
                     Register
