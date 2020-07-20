@@ -6,6 +6,7 @@ import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
+import { formatDateToYYYYMMDD } from '../../Utils/DateFormat';
 
 const RegistrationComponent = ({ user, onRegister, disabled }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm();
@@ -42,6 +43,7 @@ const RegistrationComponent = ({ user, onRegister, disabled }) => {
     })
   }, [user, reset])
   const onSubmit = data => {
+    formatDateToYYYYMMDD(data["date_of_birth"])
     onRegister(data);
   }
   return (
@@ -55,7 +57,12 @@ const RegistrationComponent = ({ user, onRegister, disabled }) => {
             <div className="content-wrapper">
               <RegistrationTextComponent />
               <form onSubmit={handleSubmit(onSubmit)}>
-                <PrimaryInfoFormComponent register={register} errors={errors} />
+                <PrimaryInfoFormComponent
+                  register={register}
+                  errors={errors}
+                  setValue={setValue}
+                  watch={watch}
+                   />
                 <AddressComponent register={register} errors={errors} />
                 <ContactInformationComponent
                   register={register}

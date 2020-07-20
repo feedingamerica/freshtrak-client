@@ -5,6 +5,8 @@
 import '@testing-library/jest-dom/extend-expect';
 import 'mutationobserver-shim';
 
+window.scrollTo = () => {};
+
 window.google = {
   maps: {
     Marker: class {},
