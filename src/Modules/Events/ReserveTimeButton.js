@@ -5,9 +5,12 @@ import Modal from 'react-bootstrap/Modal';
 import { API_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import alarmIcon from '../../Assets/img/alarm.svg';
+import { useDispatch } from 'react-redux';
+import { setCurrentEvent } from '../../Store/Events/eventSlice';
 
 const ReserveTimeButton = (props) => {
-  const event_date_id = props.event_date_id;
+  const dispatch = useDispatch();
+  const event_date_id = props.event.id;
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [eventHour, setEventHour] = useState([]);
@@ -94,7 +97,7 @@ const ReserveTimeButton = (props) => {
               type="submit"
               disabled={!event_slot_id}
               className="btn primary-button ml-1 flex-grow-1"
-              onClick={handleClose}
+              onClick={() => dispatch(setCurrentEvent(props.event))}
             >
               Save and Continue
             </button>

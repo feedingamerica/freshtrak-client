@@ -64,7 +64,7 @@ const HeaderComponent = (props) => {
                 </Link>
               </span>
               {/* Out of Scope */}
-              <button
+              {/* <button
                 className="navbar-toggler mr-2"
                 type="button"
                 data-toggle="collapse"
@@ -74,7 +74,7 @@ const HeaderComponent = (props) => {
                 <span className="navbar-toggler-icon">
                   <img src={navBarIcon} alt="UserLogo" className="img-fluid" />
                 </span>
-              </button>
+              </button> */}
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             {/* Out of Scope */}
