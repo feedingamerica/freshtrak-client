@@ -28,6 +28,7 @@ const RegistrationContainer = lazy(() => import('../Modules/Family/RegistrationC
 // Out of scope
 // const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
 // const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
+const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEventListContainer'));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -74,6 +75,11 @@ const Routes = () => {
             <Route
               path={`${RENDER_URL.EVENT_REGISTRATION_URL}/:eventDateId/:eventSlotId?`}
               component={RegistrationContainer}
+            />
+
+            <Route
+              path={`${RENDER_URL.AGENCY_EVENT_LIST}/:agencyId`}
+              component={AgencyEventListContainer}
             />
 
             {/* Out of Scope */}
