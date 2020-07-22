@@ -1,12 +1,9 @@
 import React, { Fragment, forwardRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectEvent } from '../../Store/Events/eventSlice';
 
-const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
+const MemberCountFormComponent = forwardRef(({ register, event, errors }, ref) => {
   const [countSenior, setCountSenior] = useState(0);
   const [countAdult, setCountAdult] = useState(0);
   const [countKid, setCountKid] = useState(0);
-  const event = useSelector(selectEvent);
 
   const seniorDecrementFunction = e => {
     e.preventDefault();
@@ -14,6 +11,7 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
     if (newCount >= 0) {
       setCountSenior(newCount);
     }
+
   };
 
   const seniorIncrementFunction = e => {
@@ -65,7 +63,7 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
               <span className="sr-only">Decrease number of seniors</span>
               <span aria-hidden="true">-</span>
             </button>
-            <label className="sr-only" htmlFor="seniors_in_household">Number of Seniors ({event.seniorAge}+)</label>
+            <label className="sr-only" htmlFor="seniors_in_household">Number of Seniors (60+)</label>
             <input
               type="text"
               className="number member-count"

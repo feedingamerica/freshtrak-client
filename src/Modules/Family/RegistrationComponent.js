@@ -8,7 +8,7 @@ import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
 import { formatDateToYYYYMMDD } from '../../Utils/DateFormat';
 
-const RegistrationComponent = ({ user, onRegister, disabled }) => {
+const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm();
   useEffect(() => {
     const {
@@ -71,7 +71,11 @@ const RegistrationComponent = ({ user, onRegister, disabled }) => {
                   watch={watch}
                   setValue={setValue}
                 />
-                <MemberCountFormComponent register={register} errors={errors} />
+                <MemberCountFormComponent
+                  register={register}
+                  event={event}
+                  errors={errors}
+                />
                 <div className="button-wrap mt-4">
                   <button
                     type="submit"
