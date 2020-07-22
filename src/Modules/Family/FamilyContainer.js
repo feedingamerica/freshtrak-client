@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { selectEvent } from '../../Store/Events/eventSlice';
 import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import RegistrationTextComponent from './RegistrationTextComponent';
 import AddressComponent from './AddressComponent';
@@ -11,6 +13,7 @@ import '../../Assets/scss/main.scss';
 
 const FamilyContainer = () => {
   const { register, handleSubmit, errors, getValues, setValue, watch } = useForm();
+  const event = useSelector(selectEvent);
   const onSubmit = data => {
     console.log(data);
   };
@@ -38,7 +41,11 @@ const FamilyContainer = () => {
                   getValues={getValues}
                   watch={watch}
                 />
-                <MemberCountFormComponent register={register} errors={errors} />
+                <MemberCountFormComponent
+                  register={register}
+                  event={event}
+                  errors={errors}
+                />
                 <div className="button-wrap mt-4">
                   <button
                     type="submit"
