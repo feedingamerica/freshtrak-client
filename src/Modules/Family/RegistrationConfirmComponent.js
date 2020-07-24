@@ -11,6 +11,7 @@ import idImg from '../../Assets/img/id_img.png';
 const RegistrationConfirmComponent = props => {
   const user_data = props.user;
   const event = useSelector(selectEvent);
+  localStorage.removeItem('userToken');
 
   const formatPhoneNumber = input => {
     const regExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
