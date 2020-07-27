@@ -9,10 +9,10 @@ export const API_URL = {
   FOODBANK_LIST: BASE_URL + 'api/foodbanks',
   EVENT_URL: BASE_URL + 'api/events',
   EVENT_DATES_URL: BASE_URL + 'api/event_dates',
+  AGENCY_EVENTS: `${BASE_URL}api/agencies`,
   GUEST_AUTH: `${REGISTRATION_URL}guest_authentications`,
   GUEST_USER: `${REGISTRATION_URL}api/user`,
   CREATE_RESERVATION: `${REGISTRATION_URL}api/reservations`,
-  AGENCY_EVENTS: `${REGISTRATION_URL}/api/agencies/`,
 };
 
 export const RENDER_URL = {
