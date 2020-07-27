@@ -1,12 +1,12 @@
 /**
  * Created by Basil on 6/1/20.
  */
-import React, { useContext } from "react";
-import HeaderComponent from "./HeaderComponent";
-import HeaderDataComponent from "./HeaderDataComponent";
-import { HeaderContext } from "../../Store/ContextApi/HeaderContext";
-import { useLocation } from "react-router-dom";
-import { RENDER_URL } from "../../Utils/Urls";
+import React, { useContext } from 'react';
+import HeaderComponent from './HeaderComponent';
+import HeaderDataComponent from './HeaderDataComponent';
+import { HeaderContext } from '../../Store/ContextApi/HeaderContext';
+import { useLocation } from 'react-router-dom';
+import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
 
 const HeaderContainer = () => {
@@ -21,7 +21,8 @@ const HeaderContainer = () => {
       location.pathname === RENDER_URL.FRESHTRAK_ABOUT ||
       location.pathname === RENDER_URL.EDIT_FAMILY_URL ||
       location.pathname === RENDER_URL.FRESHTRAK_WORKING ||
-      location.pathname.includes(RENDER_URL.EVENT_REGISTRATION_URL)  ? (
+      location.pathname.includes(RENDER_URL.AGENCY_EVENT_LIST) ||
+      location.pathname.includes(RENDER_URL.EVENT_REGISTRATION_URL) ? (
         <HeaderComponent shortHeader={shortHeader} />
       ) : (
         <header className="header">
