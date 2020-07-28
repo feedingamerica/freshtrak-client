@@ -13,6 +13,7 @@ const RegistrationContainer = (props) => {
   const [isSuccessful, setSuccessful] = useState(false);
   const [isError, setError] = useState(undefined);
   const [user, setUser] = useState(undefined);
+  const [disabled, setDisabled] = useState(false);
   useEffect(() => {
     if (userToken === undefined) {
       getUserToken();
@@ -60,6 +61,7 @@ const RegistrationContainer = (props) => {
   };
 
   const register = async user => {
+    setDisabled(!disabled);
     const event_date_id = parseInt(eventDateId, 10);
     const event_slot_id = parseInt(eventSlotId, 10);
     // First save user
@@ -81,6 +83,7 @@ const RegistrationContainer = (props) => {
       getUser(userToken);
       setError(undefined);
     } catch (e) {
+      setDisabled(disabled);
       console.error(e);
       setError(e);
     }
@@ -90,7 +93,7 @@ const RegistrationContainer = (props) => {
     <Fragment>
       {isLoading && <SpinnerComponent />}
       {!isLoading && user && !isSuccessful && (
-        <RegistrationComponent user={user} onRegister={register} />
+        <RegistrationComponent user={user} onRegister={register} disabled={disabled} />
       )}
       {isSuccessful && (
         <div className="container">

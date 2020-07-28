@@ -8,6 +8,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import ScrollContainer from "./ScrollContainer";
 const DashBoardContainer = lazy(() =>
   import("../Modules/Dashboard/DashBoardContainer")
 );
@@ -35,6 +36,7 @@ const Routes = () => {
 
   return (
     <Router basename="/">
+      <ScrollContainer />
       <Suspense fallback={<div className="displayNone"> </div>}>
         <WrapperComponent>
           <Switch>
