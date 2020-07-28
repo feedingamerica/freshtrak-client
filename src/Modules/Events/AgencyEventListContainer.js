@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import SpinnerComponent from '../General/SpinnerComponent';
@@ -37,22 +37,22 @@ const AgencyEventListContainer = props => {
   };
 
   return (
-    <Fragment>
+    <div className="container mt-100">
       {loading && <SpinnerComponent />}
       {error && <h1>Something went wrong</h1>}
       {!loading && targetAgency && (
-        <div>
-          <h1>targetAgency.nickname</h1>
+        <div className="pb-4">
+          <h1>Events for {targetAgency.nickname}</h1>
         </div>
       )}
       {!loading && agencyEvents && (
         <div className="gray-bg">
           <div className="container pt-150 pb-150">
-            <EventListComponent events={agencyEvents} />
+            <EventListComponent events={agencyEvents} showHeader={false} />
           </div>
         </div>
       )}
-    </Fragment>
+    </div>
   );
 };
 
