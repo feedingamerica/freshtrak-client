@@ -39,8 +39,8 @@ function deploy {
   s3_bucket=$1
   distribution_id=$2
 
-  aws s3 cp build/ "s3://$s3_bucket" --sse --recursive --acl public-read --profile $AWS_PROFILE
-  aws cloudfront create-invalidation --distribution-id "$distribution_id" --paths "/index.html" --profile $AWS_PROFILE
+  aws s3 cp build/ "s3://$s3_bucket" --sse --recursive --acl public-read
+  aws cloudfront create-invalidation --distribution-id "$distribution_id" --paths "/index.html"
 }
 
 main
