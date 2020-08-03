@@ -2,7 +2,7 @@ import React from 'react';
 import { wait } from '@testing-library/react';
 import EventListContainer from '../EventListContainer';
 import axios from 'axios';
-import { mockEvent, mockEventDate, mockAgency, renderWithRouter } from "../../../Testing";
+import { mockEvent, mockEventDate, mockAgency, renderWithRouter, mockForms } from "../../../Testing";
 
 jest.mock('axios');
 
@@ -35,7 +35,7 @@ test('Successful Api with no Events dates', async() => {
 });
 
 test('Successful Api with Events dates', async() => {
-  const testAgencyWithEventDates = { ...mockAgency, events: [{ ...mockEvent, event_dates: [{ ...mockEventDate }] }] };
+  const testAgencyWithEventDates = { ...mockAgency, events: [{ ...mockEvent, event_dates: [{ ...mockEventDate }], forms: [{ ...mockForms }] }] };
   axios.get.mockImplementation(() => Promise.resolve({ data: { agencies: [testAgencyWithEventDates] } }));
   const { getByText } = renderWithRouter(
     <EventListContainer searchData={{ zip_code: mockAgency.zip} } />

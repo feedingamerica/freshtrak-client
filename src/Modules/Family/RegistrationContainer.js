@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectEvent } from '../../Store/Events/eventSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
 import { API_URL } from '../../Utils/Urls';
 import axios from 'axios';
@@ -14,6 +16,7 @@ const RegistrationContainer = (props) => {
   const [isError, setError] = useState(undefined);
   const [user, setUser] = useState(undefined);
   const [disabled, setDisabled] = useState(false);
+  const event = useSelector(selectEvent);
   useEffect(() => {
     if (userToken === undefined) {
       getUserToken();
@@ -93,7 +96,7 @@ const RegistrationContainer = (props) => {
     <Fragment>
       {isLoading && <SpinnerComponent />}
       {!isLoading && user && !isSuccessful && (
-        <RegistrationComponent user={user} onRegister={register} disabled={disabled} />
+        <RegistrationComponent user={user} onRegister={register} event={event} disabled={disabled} />
       )}
       {isSuccessful && (
         <div className="container">

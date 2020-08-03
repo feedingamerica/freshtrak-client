@@ -1,7 +1,12 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 import { render, fireEvent, act, getByText } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import FamilyContainer from '../FamilyContainer.js';
+import { mockEvent } from '../../../Testing';
+
+const mockStore = configureStore([]);
 
 /*** Mock Google Maps JavaScript API ***/
 jest.mock("react-places-autocomplete", () => {
@@ -22,11 +27,14 @@ jest.mock("react-places-autocomplete", () => {
 });
 
 test('it should render without errors', () => {
+  const store = mockStore({ event: { event: mockEvent } });
   expect(() => {
     render(
-      <Router>
-        <FamilyContainer />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <FamilyContainer event={mockEvent} />
+        </Router>
+      </Provider>
     );
   }).not.toThrowError();
 });
@@ -60,10 +68,13 @@ test('it should render without errors', () => {
 // });
 
 test(`should show to click 'No Phone Available' if no phone available is not clicked and nothing is in the phone number`, async () => {
+  const store = mockStore({ event: { event: mockEvent } });
   const { getByLabelText, getByTestId, queryByTestId } = render(
-    <Router>
-      <FamilyContainer />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <FamilyContainer event={mockEvent} />
+      </Router>
+    </Provider>
   );
 
   // Act is necessary for react-hook-forms to fire in the testing env
@@ -90,10 +101,13 @@ test(`should show to click 'No Phone Available' if no phone available is not cli
 });
 
 test(`should show to click 'No Email Available' if no email available is not clicked and nothing is in the email`, async () => {
+  const store = mockStore({ event: { event: mockEvent } });
   const { getByLabelText, getByTestId, queryByTestId } = render(
-    <Router>
-      <FamilyContainer />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <FamilyContainer event={mockEvent} />
+      </Router>
+    </Provider>
   );
 
   await act(async () => {
