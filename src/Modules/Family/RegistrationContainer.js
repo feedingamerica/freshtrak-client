@@ -85,6 +85,8 @@ const RegistrationContainer = (props) => {
       setSuccessful(true);
       getUser(userToken);
       setError(undefined);
+      var dataLayer = dataLayer || {};
+      dataLayer.push({'event':'reservation'});
     } catch (e) {
       setDisabled(disabled);
       console.error(e);
