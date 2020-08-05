@@ -27,6 +27,7 @@ export const mockEventsBuilder = build('Events').fields({
   event_details: fake(f => f.random.word()),
   event_dates: [],
   forms: [],
+  service_category: {}
 });
 
 export const mockEventDatesBuilder = build('EventDates').fields({
@@ -42,6 +43,11 @@ export const mockFormsBuilder = build('Forms').fields({
   id: fake(f => f.random.number()),
   display_age_senior: 60,
   display_age_adult: 18,
+});
+
+export const mockServiceCategoryBuilder = build('ServiceCategory').fields({
+  id: fake(f => f.random.number()),
+  service_category_name: fake(f => f.random.word())
 });
 
 export const mockEventHoursBuilder = build('EventHours').fields({
@@ -63,6 +69,7 @@ export const mockAgency = mockAgencyBuilder();
 export const mockEvent = mockEventsBuilder();
 export const mockEventDate = mockEventDatesBuilder();
 export const mockForms = mockFormsBuilder();
+export const mockServiceCategory = mockFormsBuilder();
 export const mockEventHour = mockEventHoursBuilder();
 export const mockEventSlot = mockEventSlotBuilder();
 
