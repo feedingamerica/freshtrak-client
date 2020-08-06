@@ -1,6 +1,6 @@
 import React, { Fragment, forwardRef, useState } from 'react';
 
-const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
+const MemberCountFormComponent = forwardRef(({ register, event, errors }, ref) => {
   const [countSenior, setCountSenior] = useState(0);
   const [countAdult, setCountAdult] = useState(0);
   const [countKid, setCountKid] = useState(0);
@@ -52,7 +52,7 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
         How many additional family members are in each age group? (Do not include yourself)
         <div className="mt-3 pt-1">
           <div className="d-flex align-items-center pt-2 pb-2">
-            <div className="member-age">Seniors (60+)</div>
+            <div className="member-age">Seniors ({event.seniorAge}+)</div>
             <div className="button-wrap d-flex flex-grow-1"></div>
             <button
               onClick={seniorDecrementFunction}
@@ -63,7 +63,7 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
               <span className="sr-only">Decrease number of seniors</span>
               <span aria-hidden="true">-</span>
             </button>
-            <label className="sr-only" htmlFor="seniors_in_household">Number of Seniors(60+)</label>
+            <label className="sr-only" htmlFor="seniors_in_household">Number of Seniors (60+)</label>
             <input
               type="text"
               className="number member-count"
@@ -84,7 +84,7 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
           </div>
 
           <div className="d-flex align-items-center pt-2 pb-2">
-              <div className="member-age">Adults (18+)</div>
+              <div className="member-age">Adults ({event.adultAge}+)</div>
               <div className="button-wrap d-flex flex-grow-1"></div>
             <button
               onClick={adultDecrementFunction}
@@ -95,7 +95,7 @@ const MemberCountFormComponent = forwardRef(({ register, errors }, ref) => {
               <span className="sr-only">Decrease number of adults</span>
               <span aria-hidden="true">-</span>
             </button>
-            <label className="sr-only" htmlFor="adults_in_household">Number of Adults</label>
+            <label className="sr-only" htmlFor="adults_in_household">Number of Adults ({event.adultAge}+)</label>
             <input
               type="text"
               className="number member-count"
