@@ -47,7 +47,7 @@ const eventDateMapper = (event, phone, name, estimated_distance) => {
         phoneNumber: phone,
         agencyName: name,
         eventName: event.name,
-        eventService: event.service,
+        eventService: event.service_category['service_category_name'],
         estimated_distance,
         eventDetails: event.event_details,
         seniorAge: event.forms[0]["display_age_senior"],
