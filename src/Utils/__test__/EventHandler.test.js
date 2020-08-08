@@ -1,5 +1,20 @@
-import { EventHandler, EventObjectBuilder, AgencyHandler } from '../EventHandler';
-import { mockAgencyBuilder, mockEventsBuilder, mockEventDatesBuilder, mockFormsBuilder, mockServiceCategoryBuilder, mockAgency, mockEvent, mockEventDate, mockForms, mockServiceCategory } from '../../Testing';
+import {
+  EventHandler,
+  EventObjectBuilder,
+  AgencyHandler,
+} from '../EventHandler';
+import {
+  mockAgencyBuilder,
+  mockEventsBuilder,
+  mockEventDatesBuilder,
+  mockFormsBuilder,
+  mockServiceCategoryBuilder,
+  mockAgency,
+  mockEvent,
+  mockEventDate,
+  mockForms,
+  mockServiceCategory,
+} from '../../Testing';
 
 test('should handle bad or empty data', () => {
   expect(EventHandler(null)).toEqual({});
@@ -31,10 +46,22 @@ test('should return an array of events', () => {
       estimated_distance: agency1.estimated_distance,
       eventDetails: event1.event_details,
       seniorAge: form1.display_age_senior,
-      adultAge: form1.display_age_adult
-    }
+      adultAge: form1.display_age_adult,
+    },
   ];
-  const testData = [{ ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }], forms: [{ ...form1 }], service_category: { ...service_category1 } }] }];
+  const testData = [
+    {
+      ...agency1,
+      events: [
+        {
+          ...event1,
+          event_dates: [{ ...eventDate1 }],
+          forms: [{ ...form1 }],
+          service_category: { ...service_category1 },
+        },
+      ],
+    },
+  ];
   expect(AgencyHandler(testData)).toEqual(expected);
 });
 
@@ -65,11 +92,21 @@ test('should return an array of events with mulitple agencies and one with no ev
       estimated_distance: agency1.estimated_distance,
       eventDetails: event1.event_details,
       seniorAge: form1.display_age_senior,
-      adultAge: form1.display_age_adult
-    }
+      adultAge: form1.display_age_adult,
+    },
   ];
   const testData = [
-    { ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }], forms: [{ ...form1 }], service_category: { ...service_category1 } }] },
+    {
+      ...agency1,
+      events: [
+        {
+          ...event1,
+          event_dates: [{ ...eventDate1 }],
+          forms: [{ ...form1 }],
+          service_category: { ...service_category1 },
+        },
+      ],
+    },
     { ...agency2, events: [event2] },
   ];
   expect(AgencyHandler(testData)).toEqual(expected);
@@ -105,7 +142,7 @@ test('should return an array of events with multiple agencies and multiple event
       estimated_distance: agency1.estimated_distance,
       eventDetails: event1.event_details,
       seniorAge: form1.display_age_senior,
-      adultAge: form1.display_age_adult
+      adultAge: form1.display_age_adult,
     },
     {
       id: eventDate2.id,
@@ -125,12 +162,32 @@ test('should return an array of events with multiple agencies and multiple event
       estimated_distance: agency2.estimated_distance,
       eventDetails: event2.event_details,
       seniorAge: form2.display_age_senior,
-      adultAge: form2.display_age_adult
-    }
+      adultAge: form2.display_age_adult,
+    },
   ];
   const testData = [
-    { ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }], forms: [{ ...form1 }], service_category: { ...service_category1 } }] },
-    { ...agency2, events: [{ ...event2, event_dates: [{ ...eventDate2 }], forms: [{ ...form2 }], service_category: { ...service_category2 } }] },
+    {
+      ...agency1,
+      events: [
+        {
+          ...event1,
+          event_dates: [{ ...eventDate1 }],
+          forms: [{ ...form1 }],
+          service_category: { ...service_category1 },
+        },
+      ],
+    },
+    {
+      ...agency2,
+      events: [
+        {
+          ...event2,
+          event_dates: [{ ...eventDate2 }],
+          forms: [{ ...form2 }],
+          service_category: { ...service_category2 },
+        },
+      ],
+    },
   ];
   expect(AgencyHandler(testData)).toEqual(expected);
 });
@@ -166,7 +223,7 @@ test('should sort events into dates', () => {
         estimated_distance: agency1.estimated_distance,
         eventDetails: event1.event_details,
         seniorAge: form1.display_age_senior,
-        adultAge: form1.display_age_adult
+        adultAge: form1.display_age_adult,
       },
       {
         id: eventDate2.id,
@@ -186,15 +243,35 @@ test('should sort events into dates', () => {
         estimated_distance: agency2.estimated_distance,
         eventDetails: event2.event_details,
         seniorAge: form2.display_age_senior,
-        adultAge: form2.display_age_adult
-      }
-    ]
+        adultAge: form2.display_age_adult,
+      },
+    ],
   };
   expect(
     EventObjectBuilder(
       AgencyHandler([
-        { ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }], forms: [{ ...form1 }], service_category: { ...service_category1 } }] },
-        { ...agency2, events: [{ ...event2, event_dates: [{ ...eventDate2, date: eventDate1.date }], forms: [{ ...form2 }], service_category: { ...service_category2 } }] },
+        {
+          ...agency1,
+          events: [
+            {
+              ...event1,
+              event_dates: [{ ...eventDate1 }],
+              forms: [{ ...form1 }],
+              service_category: { ...service_category1 },
+            },
+          ],
+        },
+        {
+          ...agency2,
+          events: [
+            {
+              ...event2,
+              event_dates: [{ ...eventDate2, date: eventDate1.date }],
+              forms: [{ ...form2 }],
+              service_category: { ...service_category2 },
+            },
+          ],
+        },
       ])
     )
   ).toEqual(expected);
@@ -203,46 +280,41 @@ test('should sort events into dates', () => {
 test(`should return a final object sorted by events_date's date and distance`, () => {
   const shouldBeFirst = {
     ...mockAgency,
-    name: "should be first",
+    name: 'should be first',
     events: [
-      { ...mockEvent,
+      {
+        ...mockEvent,
         event_dates: [{ ...mockEventDate, date: '2020-04-01' }],
-        forms: [{ ...mockForms}],
-        service_category: { ...mockServiceCategory }
-      }
-    ]
+        forms: [{ ...mockForms }],
+        service_category: { ...mockServiceCategory },
+      },
+    ],
   };
   const shouldBeSecond = {
     ...mockAgency,
-    name: "should be second",
+    name: 'should be second',
     estimated_distance: 10.31,
     events: [
-      { ...mockEvent,
-        event_dates: [
-          { ...mockEventDate, date: '2020-04-15' }
-        ],
-        forms: [
-          { ...mockForms}
-        ],
-        service_category: { ...mockServiceCategory }
-      }
-    ]
+      {
+        ...mockEvent,
+        event_dates: [{ ...mockEventDate, date: '2020-04-15' }],
+        forms: [{ ...mockForms }],
+        service_category: { ...mockServiceCategory },
+      },
+    ],
   };
   const shouldBeThird = {
     ...mockAgency,
-    name: "should be third",
+    name: 'should be third',
     estimated_distance: 15.31,
     events: [
-      { ...mockEvent,
-        event_dates: [
-          { ...mockEventDate, date: '2020-04-15' }
-        ],
-        forms: [
-          { ...mockForms}
-        ],
-        service_category: { ...mockServiceCategory }
-      }
-    ]
+      {
+        ...mockEvent,
+        event_dates: [{ ...mockEventDate, date: '2020-04-15' }],
+        forms: [{ ...mockForms }],
+        service_category: { ...mockServiceCategory },
+      },
+    ],
   };
 
   const shouldBeForth = {
@@ -251,24 +323,26 @@ test(`should return a final object sorted by events_date's date and distance`, (
     // test a null estimated distance
     estimated_distance: '',
     events: [
-      { ...mockEvent,
-        event_dates: [
-          { ...mockEventDate, date: '2020-04-15' }
-        ],
-        forms: [
-          { ...mockForms}
-        ],
-        service_category: { ...mockServiceCategory }
-      }
-    ]
-  }
+      {
+        ...mockEvent,
+        event_dates: [{ ...mockEventDate, date: '2020-04-15' }],
+        forms: [{ ...mockForms }],
+        service_category: { ...mockServiceCategory },
+      },
+    ],
+  };
 
-  const testData = [shouldBeForth, shouldBeThird, shouldBeSecond, shouldBeFirst];
+  const testData = [
+    shouldBeForth,
+    shouldBeThird,
+    shouldBeSecond,
+    shouldBeFirst,
+  ];
   const expected = {
     [shouldBeFirst.events[0].event_dates[0].date]: [
       {
         agencyName: 'should be first',
-        date: "2020-04-01",
+        date: '2020-04-01',
         endTime: mockEventDate.end_time,
         eventAddress: mockEvent.address,
         eventCity: mockEvent.city,
@@ -284,13 +358,13 @@ test(`should return a final object sorted by events_date's date and distance`, (
         startTime: mockEventDate.start_time,
         estimated_distance: shouldBeFirst.estimated_distance,
         seniorAge: mockForms.display_age_senior,
-        adultAge: mockForms.display_age_adult
+        adultAge: mockForms.display_age_adult,
       },
     ],
     [shouldBeSecond.events[0].event_dates[0].date]: [
       {
         agencyName: 'should be second',
-        date: "2020-04-15",
+        date: '2020-04-15',
         endTime: mockEventDate.end_time,
         eventAddress: mockEvent.address,
         eventCity: mockEvent.city,
@@ -306,11 +380,11 @@ test(`should return a final object sorted by events_date's date and distance`, (
         startTime: mockEventDate.start_time,
         estimated_distance: shouldBeSecond.estimated_distance,
         seniorAge: mockForms.display_age_senior,
-        adultAge: mockForms.display_age_adult
+        adultAge: mockForms.display_age_adult,
       },
       {
         agencyName: 'should be third',
-        date: "2020-04-15",
+        date: '2020-04-15',
         endTime: mockEventDate.end_time,
         eventAddress: mockEvent.address,
         eventCity: mockEvent.city,
@@ -326,11 +400,11 @@ test(`should return a final object sorted by events_date's date and distance`, (
         startTime: mockEventDate.start_time,
         estimated_distance: shouldBeThird.estimated_distance,
         seniorAge: mockForms.display_age_senior,
-        adultAge: mockForms.display_age_adult
+        adultAge: mockForms.display_age_adult,
       },
       {
         agencyName: 'should be forth',
-        date: "2020-04-15",
+        date: '2020-04-15',
         endTime: mockEventDate.end_time,
         eventAddress: mockEvent.address,
         eventCity: mockEvent.city,
@@ -346,9 +420,9 @@ test(`should return a final object sorted by events_date's date and distance`, (
         startTime: mockEventDate.start_time,
         estimated_distance: shouldBeForth.estimated_distance,
         seniorAge: mockForms.display_age_senior,
-        adultAge: mockForms.display_age_adult
+        adultAge: mockForms.display_age_adult,
       },
     ],
-  }
+  };
   expect(EventHandler(testData)).toEqual(expected);
 });

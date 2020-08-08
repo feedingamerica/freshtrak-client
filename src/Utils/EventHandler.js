@@ -1,19 +1,28 @@
 import moment from 'moment';
 
-export const EventHandler = agencies => EventDateSorterByDate(EventObjectBuilder(AgencyHandler(agencies)));
+export const EventHandler = agencies =>
+  EventDateSorterByDate(EventObjectBuilder(AgencyHandler(agencies)));
 
-const EventDateSortByDistance = arrayOfEvents => arrayOfEvents
-  .sort((a,b) => (a.estimated_distance? a.estimated_distance: Infinity) - (b.estimated_distance? b.estimated_distance: Infinity));
+const EventDateSortByDistance = arrayOfEvents =>
+  arrayOfEvents.sort(
+    (a, b) =>
+      (a.estimated_distance ? a.estimated_distance : Infinity) -
+      (b.estimated_distance ? b.estimated_distance : Infinity)
+  );
 
 export const EventDateSorterByDate = eventObj => {
   const eventOrderByDate = {};
-  Object.keys(eventObj).sort((a, b) => {
-    return moment(a, 'YYYY/MM/DD').toDate() - moment(b, 'YYYY/MM/DD').toDate();
-  }).forEach(key => {
-    eventOrderByDate[key] = EventDateSortByDistance(eventObj[key]);
-  });
+  Object.keys(eventObj)
+    .sort((a, b) => {
+      return (
+        moment(a, 'YYYY/MM/DD').toDate() - moment(b, 'YYYY/MM/DD').toDate()
+      );
+    })
+    .forEach(key => {
+      eventOrderByDate[key] = EventDateSortByDistance(eventObj[key]);
+    });
   return eventOrderByDate;
-}
+};
 
 export const EventObjectBuilder = events => {
   const eventSortedByDate = {};
@@ -25,13 +34,21 @@ export const EventObjectBuilder = events => {
     }
   });
   return eventSortedByDate;
-}
+};
 
 const eventDateMapper = (event, phone, name, estimated_distance) => {
-  const { event_dates } = event;
+  const { event_dates, forms } = event;
   if (event_dates && event_dates.length > 0) {
     return event_dates.map(dateOfEvent => {
-      const { id, event_id, accept_reservations, accept_interest, start_time, end_time, date } = dateOfEvent;
+      const {
+        id,
+        event_id,
+        accept_reservations,
+        accept_interest,
+        start_time,
+        end_time,
+        date,
+      } = dateOfEvent;
       return {
         id,
         eventId: event_id,
@@ -50,14 +67,14 @@ const eventDateMapper = (event, phone, name, estimated_distance) => {
         eventService: event.service_category['service_category_name'],
         estimated_distance,
         eventDetails: event.event_details,
-        seniorAge: event.forms[0]["display_age_senior"],
-        adultAge: event.forms[0]["display_age_adult"]
-      }
+        seniorAge: forms.length > 0 ? forms[0].display_age_senior : 60,
+        adultAge: forms.length > 0 ? forms[0].display_age_adult : 18,
+      };
     });
   } else {
     return [];
   }
-}
+};
 
 export const AgencyHandler = agencies => {
   if (!agencies || !agencies.length > 0) {
@@ -70,11 +87,12 @@ export const AgencyHandler = agencies => {
 
     if (events && events.length > 0) {
       events.forEach(event => {
-        eventDateMapper(event, phone, name, estimated_distance).forEach(x => eventDates.push(x));
+        eventDateMapper(event, phone, name, estimated_distance).forEach(x =>
+          eventDates.push(x)
+        );
       });
     }
-
   });
 
   return eventDates;
-}
+};

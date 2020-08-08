@@ -35,7 +35,7 @@ it('should show loading', async () => {
     status: 200,
     data: { agency: {} },
   };
-  axios.get.mockImplementation(() => Promise.resolve(response));
+  axios.get.mockImplementationOnce(() => Promise.resolve(response));
   const { getByTestId } = renderWithRouter(
     <AgencyEventListContainer location={location} />,
     {
@@ -52,7 +52,7 @@ it('should show error if server error', async () => {
     status: 500,
     statusText: 'ERROR',
   };
-  axios.get.mockImplementation(() => Promise.reject(failedResponse));
+  axios.get.mockImplementationOnce(() => Promise.reject(failedResponse));
   const { getByText } = renderWithRouter(
     <AgencyEventListContainer location={location} />,
     {
@@ -72,7 +72,7 @@ it('should show the results from the events api', async () => {
     status: 200,
     data: { agency: testAgency },
   };
-  axios.get.mockImplementation(() => Promise.resolve(response));
+  axios.get.mockImplementationOnce(() => Promise.resolve(response));
   const { getByText } = renderWithRouter(
     <AgencyEventListContainer location={location} />,
     { route, path }
