@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import TagManager from 'react-gtm-module'
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
@@ -85,6 +86,11 @@ const RegistrationContainer = (props) => {
       setSuccessful(true);
       getUser(userToken);
       setError(undefined);
+      TagManager.dataLayer({
+        dataLayer: {
+        event: "reservation"
+        }
+      })
     } catch (e) {
       setDisabled(disabled);
       console.error(e);
