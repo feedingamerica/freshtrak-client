@@ -98,11 +98,12 @@ const SearchComponent = forwardRef(({ register, errors }, ref) => {
               id="zip_code"
               name="zip_code"
               defaultValue={zip}
-              onChange={e =>
-                e.target.value.length > 4
-                  ? setShowAddress(true)
-                  : setShowAddress(false)
-              }
+              // Disable Address Autocomplete in Search Process
+              // onChange={e =>
+              //   e.target.value.length > 4
+              //     ? setShowAddress(true)
+              //     : setShowAddress(false)
+              // }
               ref={register({ required: true })}
             />
 
