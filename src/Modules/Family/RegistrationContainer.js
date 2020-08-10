@@ -28,15 +28,17 @@ const RegistrationContainer = (props) => {
 
   const getUserToken = async () => {
     const localUserToken = localStorage.getItem('userToken');
-    if (!localUserToken || localUserToken === 'undefined') {
+    const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
+    if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
       setLoading(true);
       const { GUEST_AUTH } = API_URL;
       try {
         const resp = await axios.post(GUEST_AUTH);
         const {
-          data: { token },
+          data: { token, expires_at },
         } = resp;
         localStorage.setItem('userToken', token);
+        localStorage.setItem('tokenExpiresAt', expires_at);
         setUserToken(token);
         setLoading(false);
       } catch (e) {
