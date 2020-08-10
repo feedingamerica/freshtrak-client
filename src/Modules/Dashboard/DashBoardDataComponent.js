@@ -29,7 +29,7 @@ const DashBoardDataComponent = props => {
     <div className="container pt-150 pb-150">
       <div className="search-area text-left">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <SearchComponent register={register} errors={errors} />
+          <SearchComponent register={register} errors={errors} onSubmitHandler={onSubmit}/>
         </form>
       </div>
 
