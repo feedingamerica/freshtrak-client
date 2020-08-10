@@ -5,7 +5,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 
-const SearchComponent = forwardRef(({ register, errors }, ref) => {
+const SearchComponent = forwardRef(({ register, errors, onSubmitHandler}, ref) => {
   const [address, setAddress] = React.useState("");
   const [zip] = React.useState("");
   const [lat, setLat] = React.useState("");
@@ -98,12 +98,16 @@ const SearchComponent = forwardRef(({ register, errors }, ref) => {
               id="zip_code"
               name="zip_code"
               defaultValue={zip}
-              // Disable Address Autocomplete in Search Process
-              // onChange={e =>
-              //   e.target.value.length > 4
-              //     ? setShowAddress(true)
-              //     : setShowAddress(false)
-              // }
+              onChange={e =>
+                {
+                  if(e.target.value.length == 5){
+                    // setShowAddress(true)
+                    onSubmitHandler({"zip_code":e.target.value, "lat":lat, "long":long, "street": address})
+                  }
+                  // else{
+                  //   // setShowAddress(false)
+                  // }
+              }}
               ref={register({ required: true })}
             />
 
