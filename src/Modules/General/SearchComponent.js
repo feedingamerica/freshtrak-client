@@ -105,7 +105,7 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler}, ref) =
                     onSubmitHandler({"zip_code":e.target.value, "lat":lat, "long":long, "street": address})
                   }
                   // else{
-                  //   // setShowAddress(false)
+                  //   setShowAddress(false)
                   // }
               }}
               ref={register({ required: true })}
