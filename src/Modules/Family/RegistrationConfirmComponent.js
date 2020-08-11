@@ -12,6 +12,7 @@ const RegistrationConfirmComponent = props => {
   const user_data = props.user;
   const event = useSelector(selectEvent);
   localStorage.removeItem('userToken');
+  localStorage.removeItem('tokenExpiresAt');
 
   const formatPhoneNumber = input => {
     const regExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
