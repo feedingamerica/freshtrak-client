@@ -43,7 +43,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
     })
   }, [user, reset])
   const onSubmit = data => {
-    formatDateToYYYYMMDD(data["date_of_birth"])
+    data["date_of_birth"] = formatDateToYYYYMMDD(data["date_of_birth"])
     onRegister(data);
   }
   return (
