@@ -19,6 +19,7 @@
     "react-bootstrap-time-picker": "^2.0.1",
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
+    "react-gtm-module": "^2.0.10",
     "react-hook-form": "^5.5.3",
     "react-places-autocomplete": "^7.2.1",
     "react-redux": "^7.2.0",
