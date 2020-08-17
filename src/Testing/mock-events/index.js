@@ -27,7 +27,7 @@ export const mockEventsBuilder = build('Events').fields({
   event_details: fake(f => f.random.word()),
   event_dates: [],
   forms: [],
-  service_category: {}
+  service_category: {},
 });
 
 export const mockEventDatesBuilder = build('EventDates').fields({
@@ -47,23 +47,23 @@ export const mockFormsBuilder = build('Forms').fields({
 
 export const mockServiceCategoryBuilder = build('ServiceCategory').fields({
   id: fake(f => f.random.number()),
-  service_category_name: fake(f => f.random.word())
+  service_category_name: fake(f => f.random.word()),
 });
 
 export const mockEventHoursBuilder = build('EventHours').fields({
   id: fake(f => f.random.number()),
-  start_time: "10:00 AM",
-  end_time: "10:59 AM",
+  start_time: '10:00 AM',
+  end_time: '10:59 AM',
   event_hour_id: fake(f => f.random.number()),
-  open_slots: fake(f => f.random.number())
-})
+  open_slots: fake(f => f.random.number()),
+});
 export const mockEventSlotBuilder = build('EventSlots').fields({
   id: fake(f => f.random.number()),
   event_slot_id: fake(f => f.random.number()),
-  start_time: "10:00 AM",
-  end_time: "10:59 AM",
-  open_slots: fake(f => f.random.number())
-})
+  start_time: '10:00 AM',
+  end_time: '10:59 AM',
+  open_slots: fake(f => f.random.number()),
+});
 
 export const mockAgency = mockAgencyBuilder();
 export const mockEvent = mockEventsBuilder();
@@ -85,12 +85,27 @@ const form1 = mockFormsBuilder();
 const form2 = mockFormsBuilder();
 const form3 = mockFormsBuilder();
 export const testData = [
-  { ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }], forms: [{ ...form1 }] }] },
-  { ...agency2, events: [{ ...event2, event_dates: [{ ...eventDate2 }], forms: [{ ...form2 }] }] },
+  {
+    ...agency1,
+    events: [
+      { ...event1, event_dates: [{ ...eventDate1 }], forms: [{ ...form1 }] },
+    ],
+  },
+  {
+    ...agency2,
+    events: [
+      { ...event2, event_dates: [{ ...eventDate2 }], forms: [{ ...form2 }] },
+    ],
+  },
 ];
 
 export const testDataWithMultiple = [
-  { ...agency1, events: [{ ...event1, event_dates: [{ ...eventDate1 }], forms: [{ ...form1 }] }] },
+  {
+    ...agency1,
+    events: [
+      { ...event1, event_dates: [{ ...eventDate1 }], forms: [{ ...form1 }] },
+    ],
+  },
   {
     ...agency2,
     events: [
@@ -123,5 +138,5 @@ export const preformattedEventData = {
   eventService: event1.service,
   eventDetails: event1.event_details,
   seniorAge: form1.display_age_senior,
-  adultAge: form1.display_age_adult
+  adultAge: form1.display_age_adult,
 };
