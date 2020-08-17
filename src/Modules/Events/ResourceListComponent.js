@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { RENDER_URL } from '../../Utils/Urls';
+import FoodbankTextComponent from '../General/FoodbankTextComponent';
 
 const ResourceListComponent = ({ dataToChild }) => {
   const [foodBankArray, setFoodBankArray] = React.useState([]);
@@ -42,6 +43,7 @@ const ResourceListComponent = ({ dataToChild }) => {
             display_url,
             logo,
             id,
+            foodbank_texts
           },
         } = value;
         return (
@@ -71,7 +73,12 @@ const ResourceListComponent = ({ dataToChild }) => {
                 </div>
               </div>
             </div>
-            <div className="row mt-2">
+            <ul className="list-group">
+            {foodbank_texts.map ((value, index) => {
+              return (<li className="list-group-item"><FoodbankTextComponent text={value.text} imageUrl={value.image_resource} LinkUrl={value.link_href} linkText={value.link_text}></FoodbankTextComponent></li>)
+            })}
+          </ul>
+          <div className="row mt-2">
               <LinkContainer to={`${RENDER_URL.AGENCY_EVENT_LIST}/${id}`}>
                 <Button variant="link">
                   View all of our upcoming distributions

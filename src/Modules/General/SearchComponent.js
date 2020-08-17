@@ -7,7 +7,7 @@ import PlacesAutocomplete, {
 
 const SearchComponent = forwardRef(({ register, errors, onSubmitHandler}, ref) => {
   const [address, setAddress] = React.useState("");
-  const [zip] = React.useState("");
+  const [zip,setZip] = React.useState("");
   const [lat, setLat] = React.useState("");
   const [long, setLong] = React.useState("");
   const [showAddress, setShowAddress] = React.useState(false);
@@ -97,9 +97,14 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler}, ref) =
               className="form-control zip"
               id="zip_code"
               name="zip_code"
+              value={zip}
               defaultValue={zip}
               onChange={e =>
                 {
+                  console.log("******************")
+                  console.log(e.target.value)
+                  console.log("111111",zip)
+                  setZip(e.target.value)
                   if(e.target.value.length == 5){
                     // setShowAddress(true)
                     onSubmitHandler({"zip_code":e.target.value, "lat":lat, "long":long, "street": address})
