@@ -5,7 +5,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 
 import mainLogo from "../../Assets/img/logo.png";
-import navBarIcon from "../../Assets/img/menu.svg";
 import closeIcon from '../../Assets/img/close.svg';
 // import navBarIcon from "../../Assets/img/menu.svg";
 import { Link } from "react-router-dom";

@@ -26,6 +26,7 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
 
   const getDestructured = address_components => {
     let destructured = {};
+    // eslint-disable-next-line array-callback-return
     address_components.filter(component => {
       switch (component["types"][0]) {
         case "street_number":
@@ -37,7 +38,6 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
           default:return null;
       }
     });
-    return destructured;
     return destructured;
   };
   return (
@@ -101,8 +101,8 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
               defaultValue={default_zipcode}
               onChange={e =>
                 {
-                  if(e.target.value.length == 5){
-                    // setShowAddress(true)
+                  if(e.target.value.length === 5){
+                    setShowAddress(false)
                     onSubmitHandler({"zip_code":e.target.value, "lat":lat, "long":long, "street": address})
                   }
                   // else{
