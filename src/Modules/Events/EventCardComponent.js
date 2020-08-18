@@ -86,7 +86,7 @@ const EventCardComponent = props => {
             <div className="timings">
               Service Area Limitations:
               <br />
-              <span className="text-danger">{exceptionNote}</span>
+              <span className="text-danger" data-testid="exception-note">{exceptionNote}</span>
               <br />
             </div>
           )}
