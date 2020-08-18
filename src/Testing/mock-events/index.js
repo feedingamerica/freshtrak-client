@@ -25,6 +25,7 @@ export const mockEventsBuilder = build('Events').fields({
   name: fake(f => f.random.word()),
   service: fake(f => f.random.word()),
   event_details: fake(f => f.random.word()),
+  exception_note: '',
   event_dates: [],
   forms: [],
   service_category: {},
@@ -32,6 +33,7 @@ export const mockEventsBuilder = build('Events').fields({
 
 export const mockEventDatesBuilder = build('EventDates').fields({
   id: fake(f => f.random.number()),
+  accept_interest: 0,
   event_id: fake(f => f.random.number()),
   accept_reservations: 1,
   start_time: '08:00 AM',

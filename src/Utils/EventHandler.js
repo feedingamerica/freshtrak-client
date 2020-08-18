@@ -37,7 +37,7 @@ export const EventObjectBuilder = events => {
 };
 
 const eventDateMapper = (event, phone, name, estimated_distance) => {
-  const { event_dates, forms } = event;
+  const { event_dates, forms, exception_note } = event;
   if (event_dates && event_dates.length > 0) {
     return event_dates.map(dateOfEvent => {
       const {
@@ -64,6 +64,7 @@ const eventDateMapper = (event, phone, name, estimated_distance) => {
         phoneNumber: phone,
         agencyName: name,
         eventName: event.name,
+        exceptionNote: exception_note,
         eventService: event.service_category['service_category_name'],
         estimated_distance,
         eventDetails: event.event_details,
