@@ -25,6 +25,7 @@ export const mockEventsBuilder = build('Events').fields({
   name: fake(f => f.random.word()),
   service: fake(f => f.random.word()),
   event_details: fake(f => f.random.word()),
+  exception_note: '',
   event_dates: [],
   forms: [],
   service_category: {},
@@ -32,6 +33,7 @@ export const mockEventsBuilder = build('Events').fields({
 
 export const mockEventDatesBuilder = build('EventDates').fields({
   id: fake(f => f.random.number()),
+  accept_interest: 0,
   event_id: fake(f => f.random.number()),
   accept_reservations: 1,
   start_time: '08:00 AM',
@@ -125,6 +127,7 @@ export const preformattedEventData = {
   id: eventDate1.id,
   eventId: eventDate1.event_id,
   acceptReservations: eventDate1.accept_reservations,
+  acceptInterest: eventDate1.acceptInterest,
   startTime: eventDate1.start_time,
   endTime: eventDate1.end_time,
   date: eventDate1.date,
@@ -135,6 +138,7 @@ export const preformattedEventData = {
   phoneNumber: agency1.phone,
   agencyName: agency1.name,
   eventName: event1.name,
+  exceptionNote: event1.exception_note,
   eventService: event1.service,
   eventDetails: event1.event_details,
   seniorAge: form1.display_age_senior,
