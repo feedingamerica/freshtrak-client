@@ -62,7 +62,7 @@ const EventContainer = props => {
         <div className="container pt-150 pb-150">
           <div className="search-area text-left">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <SearchComponent register={register} errors={errors} onSubmitHandler={onSubmit}/>
+              <SearchComponent register={register} errors={errors} onSubmitHandler={onSubmit} searchData={searchDetails}/>
             </form>
             {loading && (
               <div className="pt-4">
