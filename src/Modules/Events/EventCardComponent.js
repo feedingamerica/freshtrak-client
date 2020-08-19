@@ -8,7 +8,6 @@ import { setCurrentEvent } from '../../Store/Events/eventSlice';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
-import ReserveTimeButton from './ReserveTimeButton';
 
 const EventCardComponent = props => {
   const [showDetails, setShowDetails] = useState(false);
@@ -36,7 +35,17 @@ const EventCardComponent = props => {
 
   const ButtonView = () => {
     if (acceptReservations) {
-      return <ReserveTimeButton event={props.event} />;
+      return (
+      <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
+        <button
+          type="button"
+          className="btn custom-button ml-1 flex-grow-1"
+          onClick={() => dispatch(setCurrentEvent(props.event))}
+        >
+          Reserve Time
+        </button>
+      </LinkContainer>
+      )
     } else if (acceptInterest && !acceptReservations) {
       return (
         <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
