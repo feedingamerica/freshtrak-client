@@ -78,13 +78,14 @@ const ResourceListComponent = ({ dataToChild }) => {
               return (<li className="list-group-item"><FoodbankTextComponent text={value.text} imageUrl={value.image_resource} LinkUrl={value.link_href} linkText={value.link_text}></FoodbankTextComponent></li>)
             })}
           </ul>
+          {/* Out of Scope
           <div className="row mt-2">
               <LinkContainer to={`${RENDER_URL.AGENCY_EVENT_LIST}/${id}`}>
                 <Button variant="link">
                   View all of our upcoming distributions
                 </Button>
               </LinkContainer>
-            </div>
+            </div> */}
           </div>
         );
       })}
