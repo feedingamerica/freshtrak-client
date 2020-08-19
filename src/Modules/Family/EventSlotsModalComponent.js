@@ -1,22 +1,27 @@
-import React, { useState, Fragment } from 'react';
+import React, { useEffect,useState, Fragment } from 'react';
 import { LinkContainer } from 'react-router-bootstrap'
 import { useForm } from 'react-hook-form';
 import Modal from 'react-bootstrap/Modal';
 import { API_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import alarmIcon from '../../Assets/img/alarm.svg';
-import { useDispatch } from 'react-redux';
-import { setCurrentEvent } from '../../Store/Events/eventSlice';
 
-const ReserveTimeButton = (props) => {
-  const dispatch = useDispatch();
+const EventSlotsModalComponent = (props) => {
   const event_date_id = props.event.id;
+  const acceptReservations = props.event.acceptReservations;
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [eventHour, setEventHour] = useState([]);
   const [show, setShow] = useState(false);
   const { register, watch } = useForm();
   const event_slot_id = watch('time_slot');
+
+  useEffect(() => {
+    if (acceptReservations === 1) {
+      handleShow();
+      getEventHours(event_date_id);
+    }
+  }, [event_date_id, acceptReservations]);
 
   const getEventHours = async (event_date_id) => {
     try {
@@ -37,22 +42,8 @@ const ReserveTimeButton = (props) => {
     }
   };
 
-  const showModal = () => {
-    if (event_date_id) {
-      handleShow();
-      getEventHours(event_date_id);
-    }
-  };
-
   return (
     <Fragment>
-      <button
-        type="button"
-        className="btn custom-button ml-1 flex-grow-1"
-        onClick={(e) => showModal()}
-      >
-        Reserve Time
-			</button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
@@ -97,7 +88,7 @@ const ReserveTimeButton = (props) => {
               type="submit"
               disabled={!event_slot_id}
               className="btn primary-button ml-1 flex-grow-1"
-              onClick={() => dispatch(setCurrentEvent(props.event))}
+              onClick={handleClose}
             >
               Save and Continue
             </button>
@@ -108,4 +99,4 @@ const ReserveTimeButton = (props) => {
   );
 };
 
-export default ReserveTimeButton;
+export default EventSlotsModalComponent;

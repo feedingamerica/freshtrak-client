@@ -8,6 +8,7 @@ import { API_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
 import RegistrationConfirmComponent from './RegistrationConfirmComponent';
+import EventSlotsModalComponent from './EventSlotsModalComponent';
 
 const RegistrationContainer = (props) => {
   const { eventDateId, eventSlotId } = useParams();
@@ -102,6 +103,7 @@ const RegistrationContainer = (props) => {
 
   return (
     <Fragment>
+      {<EventSlotsModalComponent event={event} />}
       {isLoading && <SpinnerComponent />}
       {!isLoading && user && !isSuccessful && (
         <RegistrationComponent user={user} onRegister={register} event={event} disabled={disabled} />
