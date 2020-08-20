@@ -9,7 +9,7 @@ const FoodbankTextComponent = ({ text ='', imageUrl = '', LinkUrl = '',linkText 
                 <div className="col-8 item-details">
                     <p>{text}</p>
                 </div>
-                <div style={{"word-wrap": "break-word"}} className="col-3">
+                <div style={{"wordWrap": "break-word"}} className="col-3">
                     <a href={LinkUrl} target="_blank" rel="noopener noreferrer"> {linkText}</a>
                 </div>
             </div>        
