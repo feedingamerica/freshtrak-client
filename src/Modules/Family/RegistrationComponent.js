@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { RENDER_URL } from '../../Utils/Urls';
+import { useHistory } from 'react-router-dom';
 import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import RegistrationTextComponent from './RegistrationTextComponent';
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
@@ -42,9 +44,15 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
       children_in_household,
     })
   }, [user, reset])
+  const history = useHistory();
   const onSubmit = data => {
     data["date_of_birth"] = formatDateToYYYYMMDD(data["date_of_birth"])
     onRegister(data);
+    if (data) {
+      history.push({
+        pathname: RENDER_URL.EVENT_REGISTRATION_URL + "/confirm"
+      });
+    }
   }
   return (
     <Fragment>
