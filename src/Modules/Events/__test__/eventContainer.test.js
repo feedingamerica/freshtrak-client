@@ -1,11 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 import { render, fireEvent, wait, act } from '@testing-library/react';
 import EventContainer from '../EventContainer';
 import axios from 'axios';
 import { mockFoodBank } from '../../../Testing';
 
 jest.mock('axios');
+
+const mockStore = configureStore([]);
+const store = mockStore({});
 
 // Mocking Google API library without which it shows error.
 
@@ -45,9 +50,11 @@ afterAll(() => {
 test('should load without errors', () => {
   expect(() => {
     render(
-      <Router>
-        <EventContainer location={{ state: '' }} />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <EventContainer location={{ state: '' }} />
+        </Router>
+      </Provider>
     );
   }).not.toThrowError();
 });
@@ -63,9 +70,11 @@ test('Successful api call', async () => {
   axios.get.mockImplementation(() => Promise.resolve(successResponse));
 
   const { getByText, getByLabelText, getAllByText, getByTestId } = render(
-    <Router>
-      <EventContainer location={{ state: '' }} />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <EventContainer location={{ state: '' }} />
+      </Router>
+    </Provider>
   );
 
   fireEvent.change(getByLabelText(/zip/i, { id: 'search-zip' }), {
@@ -91,9 +100,11 @@ test('Failed api call', async () => {
   };
   axios.get.mockImplementation(() => Promise.reject(failedResponse));
   const { getByText, getByLabelText, getAllByText, getByTestId } = render(
-    <Router>
-      <EventContainer location={{ state: '' }} />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <EventContainer location={{ state: '' }} />
+      </Router>
+    </Provider>
   );
 
   fireEvent.change(getByLabelText(/zip/i, { id: 'search-zip' }), {

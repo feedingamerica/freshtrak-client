@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { ProgressBar } from 'react-bootstrap';
 import SearchComponent from '../General/SearchComponent';
 import ResourceListComponent from './ResourceListComponent';
 import EventListContainer from './EventListContainer';
-import { ProgressBar } from 'react-bootstrap';
 import { API_URL } from '../../Utils/Urls';
+import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
 
@@ -14,6 +16,7 @@ const EventContainer = props => {
   let [searchDetails, setSearchDetails] = useState({});
   const [serverError, setServerError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let isSearchData = !!props.location.state;
@@ -42,6 +45,7 @@ const EventContainer = props => {
       const { zip_code } = payload;
 
       setSearchDetails(payload);
+      dispatch(setCurrentZip(zip_code));
 
       try {
         const resp = await axios.get(foodBankUri, { params: { zip_code } });
