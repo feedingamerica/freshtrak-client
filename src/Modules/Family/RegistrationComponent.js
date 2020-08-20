@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { RENDER_URL } from '../../Utils/Urls';
 import { useHistory } from 'react-router-dom';
@@ -9,8 +9,12 @@ import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
 import { formatDateToYYYYMMDD } from '../../Utils/DateFormat';
+import { Link } from 'react-router-dom';
+import { RENDER_URL } from '../../Utils/Urls';
 
 const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
+  const [showform, setShow] = useState(false);
+  const showForm = () => setShow(true);
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
   useEffect(() => {
     const {
@@ -59,12 +63,24 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
       <div className="main-wrapper mt-4">
         <section className="container pt-100 pb-100 register-confirmation">
           <div>
-            <RegistrationHeaderComponent />
+            { !showform && <RegistrationHeaderComponent /> }
           </div>
           <div className="registration-form">
             <div className="content-wrapper">
-              <RegistrationTextComponent />
-              <form onSubmit={handleSubmit(onSubmit)}>
+              { !showform && <RegistrationTextComponent/> }
+              { !showform && <Link to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${event.id}`}>
+                <div className="button-wrap mt-4">
+                  <button
+                    type="submit"
+                    className="btn custom-button"
+                    data-testid="continue button"
+                    onClick={(e) => showForm()}
+                  >
+                    Proceed to Register
+                  </button>
+                </div>
+              </Link> }
+              { showform && <form onSubmit={handleSubmit(onSubmit) }>
                 <PrimaryInfoFormComponent
                   register={register}
                   errors={errors}
@@ -94,7 +110,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
                     Register
                   </button>
                 </div>
-              </form>
+              </form> }
             </div>
           </div>
         </section>
