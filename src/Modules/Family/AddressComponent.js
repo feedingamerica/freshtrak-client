@@ -24,6 +24,7 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
 
   const getDestructured = address_components => {
     let destructured = {};
+    // eslint-disable-next-line array-callback-return
     address_components.filter(component => {
       switch (component["types"][0]) {
         case "neighborhood":
