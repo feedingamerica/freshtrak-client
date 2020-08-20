@@ -9,7 +9,7 @@ import MemberCountFormComponent from './MemberCountFormComponent';
 import { formatDateToYYYYMMDD } from '../../Utils/DateFormat';
 
 const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
-  const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm();
+  const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
   useEffect(() => {
     const {
       address_line_1,

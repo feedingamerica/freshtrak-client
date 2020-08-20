@@ -3,7 +3,7 @@ import React, { forwardRef, Fragment } from 'react';
 const StateDropdownComponent = forwardRef(({ register, errors,shortNameChange,nameChange,value,defaultValue }, ref) => (
   <Fragment>
     <div className="form-group ml-2">
-      <label htmlFor="state">State</label>
+      <label htmlFor="state">State<span className="text-danger">*</span></label>
       <select
         className="form-control"
         id="state"
