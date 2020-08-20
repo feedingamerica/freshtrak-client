@@ -78,7 +78,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
                     data-testid="continue button"
                     onClick={(e) => showForm()}
                   >
-                    Proceed to Register
+                    Register Now
                   </button>
                 </div>
               </Link> }
