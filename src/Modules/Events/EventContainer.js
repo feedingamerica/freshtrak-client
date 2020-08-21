@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import SearchComponent from "../General/SearchComponent";
-import ResourceListComponent from "./ResourceListComponent";
-import EventListContainer from "./EventListContainer";
-import { ProgressBar } from "react-bootstrap";
-import { API_URL } from "../../Utils/Urls";
-import axios from "axios";
-import "../../Assets/scss/main.scss";
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import SearchComponent from '../General/SearchComponent';
+import ResourceListComponent from './ResourceListComponent';
+import EventListContainer from './EventListContainer';
+import { ProgressBar } from 'react-bootstrap';
+import { API_URL } from '../../Utils/Urls';
+import axios from 'axios';
+import '../../Assets/scss/main.scss';
 
 const EventContainer = props => {
   const [foodBankResponse, setFoodBankResponse] = useState(false);
@@ -62,7 +62,7 @@ const EventContainer = props => {
         <div className="container pt-150 pb-150">
           <div className="search-area text-left">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <SearchComponent register={register} errors={errors} onSubmitHandler={onSubmit}/>
+              <SearchComponent register={register} errors={errors} onSubmitHandler={onSubmit} searchData={searchDetails}/>
             </form>
             {loading && (
               <div className="pt-4">
