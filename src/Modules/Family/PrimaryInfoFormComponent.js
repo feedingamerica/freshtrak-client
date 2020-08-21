@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import moment from 'moment';
 
 const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watch }, ref) => {
   const date_of_birth = watch('date_of_birth') || '';
@@ -25,6 +26,12 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
     });
     let value = output.join('').substr(0, 14);
     setValue('date_of_birth', value)
+  }
+
+  const isValidDob = (value) => {
+    const maxAgeDate = moment().subtract(123, 'years');
+    const enteredDate = moment(value, 'MM / DD / YYYY');
+    return enteredDate.isAfter(maxAgeDate);
   }
 
   return (
@@ -85,9 +92,12 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
         placeholder="mm/dd/yyyy"
         onChange={e => handleChangeDob(e)}
         value={date_of_birth}
-        ref={register({ required: true })}
+        ref={register({ required: true, validate: value => isValidDob(value)})}
       />
-      {errors.date_of_birth && <span className="text-danger">This field is required</span>}
+      {errors.date_of_birth && ( errors.date_of_birth.type === "validate"
+        ? <span className="text-danger">Invalid DOB</span>
+        : <span className="text-danger">This field is required</span> )
+      }
     </div>
     <div className="form-group">
       <label htmlFor="gender">Gender<span className="text-danger">*</span></label>
@@ -95,13 +105,14 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
         className="form-control"
         name="gender"
         id="gender"
-        ref={register}
+        ref={register({required: true})}
       >
         <option value="" defaultValue></option>
         <option value="male">Male</option>
         <option value="female">Female</option>
         <option value="not_specify">Prefer Not To Specify</option>
       </select>
+      {errors.gender && <span className="text-danger">This field is required</span>}
     </div>
   </div>
   )
