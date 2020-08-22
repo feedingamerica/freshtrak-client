@@ -89,7 +89,7 @@ const EventContainer = props => {
             )}
             {!loading && <ResourceList />}
           </div>
-          <EventListContainer searchData={searchDetails} />
+          <EventListContainer zipCode={zipCode} />
         </div>
       </section>
     </div>

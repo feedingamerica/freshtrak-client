@@ -1,40 +1,28 @@
-import React, { useState, useEffect, Fragment } from "react";
-import EventListComponent from "./EventListComponent";
-import { EventHandler } from "../../Utils/EventHandler";
-import { API_URL } from "../../Utils/Urls";
-import SpinnerComponent from "../General/SpinnerComponent";
-import axios from "axios";
+import React, { useState, useEffect, Fragment } from 'react';
+import EventListComponent from './EventListComponent';
+import { EventHandler } from '../../Utils/EventHandler';
+import { API_URL } from '../../Utils/Urls';
+import SpinnerComponent from '../General/SpinnerComponent';
+import axios from 'axios';
 
-const EventListContainer = ({ searchData }) => {
+const EventListContainer = ({ zipCode }) => {
   const [agencyResponse, setAgencyResponse] = useState(false);
   const [agencyData, setAgencyData] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const isSearchData = !!searchData.zip_code;
-    const buildSearchData = data => {
-      if (Object.keys(data)[0]) {
-        handleSubmit(data);
-      }
-    };
-
-    if (isSearchData) {
-      buildSearchData(searchData);
+    if (zipCode) {
+      getEvents(zipCode);
     }
-  }, [searchData]);
+  }, [zipCode]);
 
-  const handleSubmit = async payload => {
-    if (payload) {
+  const getEvents = async zip => {
+    if (zip) {
       setLoading(true);
-      const { zip_code, lat, long } = payload;
       try {
-        const resp =
-          lat !== ""
-            ? await axios.get(API_URL.EVENTS_LIST, {
-                params: { zip_code, lat, long },
-                headers: { Accept: "application/json" },
-              })
-            : await axios.get(API_URL.EVENTS_LIST, { params: { zip_code } });
+        const resp = await axios.get(API_URL.EVENTS_LIST, {
+          params: { zip_code: zip },
+        });
 
         const {
           data: { agencies },
