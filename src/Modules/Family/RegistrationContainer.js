@@ -8,12 +8,16 @@ import { API_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
 import RegistrationConfirmComponent from './RegistrationConfirmComponent';
+import LoginModalComponent from '../Sign-In/LoginModal';
 import EventSlotsModalComponent from './EventSlotsModalComponent';
+
 
 const RegistrationContainer = (props) => {
   const { eventDateId, eventSlotId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
+  const [showLoginModal, setShowLoginModal] = useState(true);
+  const [guest, setGuest] = useState("");
   const [isSuccessful, setSuccessful] = useState(false);
   const [isError, setError] = useState(undefined);
   const [user, setUser] = useState(undefined);
@@ -105,6 +109,7 @@ const RegistrationContainer = (props) => {
     <Fragment>
       {<EventSlotsModalComponent event={event} />}
       {isLoading && <SpinnerComponent />}
+      <LoginModalComponent show={showLoginModal} onHide={()=>setShowLoginModal (false)} setGuest={setGuest}/>
       {!isLoading && user && !isSuccessful && (
         <RegistrationComponent user={user} onRegister={register} event={event} disabled={disabled} />
       )}
