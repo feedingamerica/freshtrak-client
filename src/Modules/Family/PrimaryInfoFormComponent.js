@@ -31,7 +31,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
   <div className="mt-4">
     <h2>Who you are</h2>
     <div className="form-group">
-      <label htmlFor="first_name">First Name</label>
+      <label htmlFor="first_name">First Name<span className="text-danger">*</span></label>
       <input
         type="text"
         className="form-control"
@@ -52,7 +52,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       />
     </div>
     <div className="form-group">
-      <label htmlFor="last_name">Last Name</label>
+      <label htmlFor="last_name">Last Name<span className="text-danger">*</span></label>
       <input
         type="text"
         className="form-control"
@@ -76,7 +76,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       </select>
     </div>
     <div className="form-group">
-      <label htmlFor="date_of_birth">Date of Birth</label>
+      <label htmlFor="date_of_birth">Date of Birth<span className="text-danger">*</span></label>
       <input
         type="text"
         className="form-control"
@@ -90,7 +90,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       {errors.date_of_birth && <span className="text-danger">This field is required</span>}
     </div>
     <div className="form-group">
-      <label htmlFor="gender">Gender</label>
+      <label htmlFor="gender">Gender<span className="text-danger">*</span></label>
       <select
         className="form-control"
         name="gender"
