@@ -59,7 +59,7 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
     <Fragment>
       <h2>Where you live</h2>
       <div className="form-group relative">
-        <label htmlFor="address_line_1">Street Address</label>
+        <label htmlFor="address_line_1">Street Address<span className="text-danger">*</span></label>
         <PlacesAutocomplete
           value={addressLine1}
           onChange={setAddressLine1}
@@ -121,7 +121,7 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
 
       <div className="d-flex city-state-form">
         <div className="form-group">
-          <label htmlFor="city">City</label>
+          <label htmlFor="city">City<span className="text-danger">*</span></label>
           <input
             type="text"
             className="form-control"
@@ -145,7 +145,7 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
         />
 
         <div className="form-group ml-2">
-          <label htmlFor="zip_code">Zip Code</label>
+          <label htmlFor="zip_code">Zip Code<span className="text-danger">*</span></label>
           <input
             type="text"
             className="form-control"
