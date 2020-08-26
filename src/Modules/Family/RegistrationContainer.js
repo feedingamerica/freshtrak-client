@@ -24,32 +24,43 @@ const RegistrationContainer = (props) => {
   const [disabled, setDisabled] = useState(false);
   const event = useSelector(selectEvent);
   useEffect(() => {
-    getUser(userToken);
+    if(userToken === undefined) {
+      getUserToken(true);
+    } else {
+      getUser(userToken);
+    }
   }, [userToken]);
 
-  const getUserToken = async () => {
+  const fetchUserToken = async () => {
+    setLoading(true);
+    const { GUEST_AUTH } = API_URL;
+    try {
+      const resp = await axios.post(GUEST_AUTH);
+      const {
+        data: { token, expires_at },
+      } = resp;
+      localStorage.setItem('userToken', token);
+      localStorage.setItem('tokenExpiresAt', expires_at);
+      setUserToken(token);
+      setShowLoginModal(false);
+      setLoading(false);
+    } catch (e) {
+      console.error(e);
+      setShowLoginModal(false);
+      setLoading(false);
+    }
+  };
+
+  const getUserToken = (initialLoad) => {
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
-      setLoading(true);
-      const { GUEST_AUTH } = API_URL;
-      try {
-        const resp = await axios.post(GUEST_AUTH);
-        const {
-          data: { token, expires_at },
-        } = resp;
-        localStorage.setItem('userToken', token);
-        localStorage.setItem('tokenExpiresAt', expires_at);
-        setUserToken(token);
-        setShowLoginModal(false);
-        setLoading(false);
-      } catch (e) {
-        console.error(e);
-        setShowLoginModal(false);
-        setLoading(false);
-      }
+      showLoginModal ? fetchUserToken() : setShowLoginModal(false);
+    } else if(initialLoad === true) {
+      setUserToken(localUserToken);
     } else {
       setUserToken(localUserToken);
+      setShowLoginModal(false);
     }
   };
 
@@ -107,9 +118,9 @@ const RegistrationContainer = (props) => {
     <Fragment>
       {<EventSlotsModalComponent event={event} />}
       {isLoading && <SpinnerComponent />}
-      <LoginModalComponent
+      {<LoginModalComponent
         show={showLoginModal}
-        onLogin={getUserToken}/>
+        onLogin={getUserToken} />}
       {!isLoading && user && !isSuccessful && (
         <RegistrationComponent user={user} onRegister={register} event={event} disabled={disabled} />
       )}

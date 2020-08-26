@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { RENDER_URL } from '../../Utils/Urls';
 import { useHistory } from 'react-router-dom';
 import RegistrationHeaderComponent from './RegistrationHeaderComponent';
-import RegistrationTextComponent from './RegistrationTextComponent';
+import RegistrationTextInfoComponent from './RegistrationTextInfoComponent';
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
@@ -64,24 +64,11 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
     <Fragment>
       <div className="main-wrapper mt-4">
         <section className="container pt-100 pb-100 register-confirmation">
-          <div>
-            { !showform && <RegistrationHeaderComponent /> }
-          </div>
+          { !showform && <RegistrationTextInfoComponent event={event} showForm={showForm}/>}
+
           <div className="registration-form">
             <div className="content-wrapper">
-              { !showform && <RegistrationTextComponent/> }
-              { !showform && <Link to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${event.id}`}>
-                <div className="button-wrap mt-4">
-                  <button
-                    type="submit"
-                    className="btn custom-button"
-                    data-testid="continue button"
-                    onClick={(e) => showForm()}
-                  >
-                    Register Now
-                  </button>
-                </div>
-              </Link> }
+              
               { showform && <form onSubmit={handleSubmit(onSubmit) }>
                 <PrimaryInfoFormComponent
                   register={register}
