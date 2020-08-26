@@ -24,11 +24,7 @@ const RegistrationContainer = (props) => {
   const [disabled, setDisabled] = useState(false);
   const event = useSelector(selectEvent);
   useEffect(() => {
-    if (userToken === undefined) {
-      getUserToken();
-    } else {
-      getUser(userToken);
-    }
+    getUser(userToken);
   }, [userToken]);
 
   const getUserToken = async () => {
@@ -45,9 +41,11 @@ const RegistrationContainer = (props) => {
         localStorage.setItem('userToken', token);
         localStorage.setItem('tokenExpiresAt', expires_at);
         setUserToken(token);
+        setShowLoginModal(false);
         setLoading(false);
       } catch (e) {
         console.error(e);
+        setShowLoginModal(false);
         setLoading(false);
       }
     } else {
@@ -109,7 +107,9 @@ const RegistrationContainer = (props) => {
     <Fragment>
       {<EventSlotsModalComponent event={event} />}
       {isLoading && <SpinnerComponent />}
-      <LoginModalComponent show={showLoginModal} onHide={()=>setShowLoginModal (false)} setGuest={setGuest}/>
+      <LoginModalComponent
+        show={showLoginModal}
+        onLogin={getUserToken}/>
       {!isLoading && user && !isSuccessful && (
         <RegistrationComponent user={user} onRegister={register} event={event} disabled={disabled} />
       )}
