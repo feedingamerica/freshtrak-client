@@ -75,7 +75,11 @@ const ResourceListComponent = ({ dataToChild }) => {
             </div>
             <ul className="list-group">
             {foodbank_texts.map ((value, index) => {
-              return (<li className="list-group-item"><FoodbankTextComponent text={value.text} imageUrl={value.image_resource} LinkUrl={value.link_href} linkText={value.link_text}></FoodbankTextComponent></li>)
+              return (
+                <li className="list-group-item" key={index}>
+                  <FoodbankTextComponent text={value.text} imageUrl={value.image_resource} LinkUrl={value.link_href} linkText={value.link_text} />
+                </li>
+              )
             })}
           </ul>
           {/* Out of Scope
