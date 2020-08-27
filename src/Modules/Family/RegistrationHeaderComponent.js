@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import back from '../../Assets/img/back.svg';
 import '../../Assets/scss/main.scss';
-import EventCardComponent from '../Events/EventCardComponent';
+import RegistrationTextComponent from './RegistrationTextComponent';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 
 
@@ -26,7 +26,7 @@ const RegistrationHeaderComponent = ({event}) => {
         </div>
       </div>
       <div className="row">
-        <div className="col-6">
+        <div className="col-12">
           <div className="title-wrap">
             <h1 className="big-title mt-5 mb-5 mobile-mb">
               Register Now.<br />
@@ -34,16 +34,9 @@ const RegistrationHeaderComponent = ({event}) => {
               Stay Safe.
             </h1>
           </div>
-
         </div>
-        { event &&
-          <div className="col-6">
-            <div className="day-view">
-              <EventCardComponent key={event.id} event={event} registrationView={true}/>
-            </div>
-          </div>
-        }
       </div>
+      <RegistrationTextComponent />
     </Fragment>
   )
 };

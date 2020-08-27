@@ -113,7 +113,7 @@ const EventCardComponent = props => {
             </div>
           )}
           <div className="day-view-item-detail-footer d-flex mt-3">
-            {eventDetails.length > 0 && (
+            {eventDetails && eventDetails.length > 0 && (
               <button
                 className="btn default-button flex-grow-1"
                 onClick={() => {

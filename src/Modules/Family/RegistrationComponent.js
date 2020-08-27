@@ -1,8 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { RENDER_URL } from '../../Utils/Urls';
-import { useHistory } from 'react-router-dom';
-import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import RegistrationTextInfoComponent from './RegistrationTextInfoComponent';
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
@@ -12,9 +9,7 @@ import { formatDateToYYYYMMDD } from '../../Utils/DateFormat';
 import { Link } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
 
-const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
-  const [showform, setShow] = useState(false);
-  const showForm = () => setShow(true);
+const RegistrationComponent = ({ user, onRegister, event, disabled, showForm, setShowForm }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
   useEffect(() => {
     const {
@@ -31,7 +26,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
       email,
       seniors_in_household,
       children_in_household,
-    } = user;
+    } = user || {};
     reset({
       address_line_1,
       address_line_2,
@@ -62,12 +57,12 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
     <Fragment>
       <div className="main-wrapper mt-4">
         <section className="container pt-100 pb-100 register-confirmation">
-          { !showform && <RegistrationTextInfoComponent event={event} showForm={showForm}/>}
+          { !showForm && <RegistrationTextInfoComponent event={event} setShowForm={setShowForm}/>}
 
           <div className="registration-form">
             <div className="content-wrapper">
               
-              { showform && <form onSubmit={handleSubmit(onSubmit) }>
+              { showForm && <form onSubmit={handleSubmit(onSubmit) }>
                 <PrimaryInfoFormComponent
                   register={register}
                   errors={errors}

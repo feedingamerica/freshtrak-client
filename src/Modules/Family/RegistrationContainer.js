@@ -16,20 +16,17 @@ const RegistrationContainer = (props) => {
   const { eventDateId, eventSlotId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
-  const [showLoginModal, setShowLoginModal] = useState(true);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [guest, setGuest] = useState("");
   const [isSuccessful, setSuccessful] = useState(false);
   const [isError, setError] = useState(undefined);
   const [user, setUser] = useState(undefined);
   const [disabled, setDisabled] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+
+  //const showForm = () => setShowForm(true);
+
   const event = useSelector(selectEvent);
-  useEffect(() => {
-    if(userToken === undefined) {
-      getUserToken(true);
-    } else {
-      getUser(userToken);
-    }
-  }, [userToken]);
 
   const fetchUserToken = async () => {
     setLoading(true);
@@ -44,6 +41,8 @@ const RegistrationContainer = (props) => {
       setUserToken(token);
       setShowLoginModal(false);
       setLoading(false);
+      getUser(token);
+      setShowForm(true);
     } catch (e) {
       console.error(e);
       setShowLoginModal(false);
@@ -51,16 +50,15 @@ const RegistrationContainer = (props) => {
     }
   };
 
-  const getUserToken = (initialLoad) => {
+  const getUserToken = () => {
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
       showLoginModal ? fetchUserToken() : setShowLoginModal(false);
-    } else if(initialLoad === true) {
-      setUserToken(localUserToken);
     } else {
       setUserToken(localUserToken);
       setShowLoginModal(false);
+      setShowForm(false);
     }
   };
 
@@ -114,15 +112,30 @@ const RegistrationContainer = (props) => {
     }
   }
 
+  const showRegistrationForm = () => {
+    user ? setShowForm(true) : setShowLoginModal(true)
+  }
+
+  console.log(showLoginModal);
+  console.log(showForm);
+
   return (
     <Fragment>
       {<EventSlotsModalComponent event={event} />}
       {isLoading && <SpinnerComponent />}
-      {<LoginModalComponent
-        show={showLoginModal}
-        onLogin={getUserToken} />}
-      {!isLoading && user && !isSuccessful && (
-        <RegistrationComponent user={user} onRegister={register} event={event} disabled={disabled} />
+      <LoginModalComponent
+            show={showLoginModal}
+            onLogin={getUserToken} />
+      {!isLoading && !isSuccessful && (
+        <Fragment>
+          <RegistrationComponent
+            user={user}
+            showForm={!showLoginModal && showForm}
+            setShowForm={showRegistrationForm}
+            onRegister={register}
+            event={event}
+            disabled={disabled} />
+        </Fragment>
       )}
       {isSuccessful && (
         <div className="container">

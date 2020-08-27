@@ -2,23 +2,30 @@ import React, { Fragment, useEffect, useState } from 'react';
 //import '../../Assets/scss/main.scss';
 import { Link } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
-import RegistrationTextComponent from './RegistrationTextComponent';
 import RegistrationHeaderComponent from './RegistrationHeaderComponent';
+import EventCardComponent from '../Events/EventCardComponent';
 // import RegistrationTextComponent from './RegistrationTextComponent';
 
 
-const RegistrationTextInfoComponent = ({event,showForm}) => {
+const RegistrationTextInfoComponent = ({event, setShowForm}) => {
   return (
     <Fragment>
       <RegistrationHeaderComponent event={event}/>
-      <RegistrationTextComponent/>
+      { event &&
+        <div className="col-6">
+          <div className="day-view">
+            <EventCardComponent key={event.id} event={event} registrationView={true}/>
+          </div>
+        </div>
+      }
+      
           <Link to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${event.id}`}>
             <div className="button-wrap mt-4">
               <button
                 type="submit"
                 className="btn custom-button"
                 data-testid="continue button"
-                onClick={(e) => showForm()}
+                onClick={(e) => setShowForm(true)}
               >
                 Register Now
               </button>
