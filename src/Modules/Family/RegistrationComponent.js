@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import RegistrationTextInfoComponent from './RegistrationTextInfoComponent';
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
