@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import moment from 'moment';
 
 const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watch }, ref) => {
   const date_of_birth = watch('date_of_birth') || '';
@@ -27,11 +28,17 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
     setValue('date_of_birth', value)
   }
 
+  const isValidDob = (value) => {
+    const maxAgeDate = moment().subtract(123, 'years');
+    const enteredDate = moment(value, 'MM / DD / YYYY');
+    return enteredDate.isAfter(maxAgeDate);
+  }
+
   return (
   <div className="mt-4">
     <h2>Who you are</h2>
     <div className="form-group">
-      <label htmlFor="first_name">First Name</label>
+      <label htmlFor="first_name">First Name<span className="text-danger">*</span></label>
       <input
         type="text"
         className="form-control"
@@ -52,7 +59,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       />
     </div>
     <div className="form-group">
-      <label htmlFor="last_name">Last Name</label>
+      <label htmlFor="last_name">Last Name<span className="text-danger">*</span></label>
       <input
         type="text"
         className="form-control"
@@ -76,7 +83,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       </select>
     </div>
     <div className="form-group">
-      <label htmlFor="date_of_birth">Date of Birth</label>
+      <label htmlFor="date_of_birth">Date of Birth<span className="text-danger">*</span></label>
       <input
         type="text"
         className="form-control"
@@ -85,23 +92,27 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
         placeholder="mm/dd/yyyy"
         onChange={e => handleChangeDob(e)}
         value={date_of_birth}
-        ref={register({ required: true })}
+        ref={register({ required: true, validate: value => isValidDob(value)})}
       />
-      {errors.date_of_birth && <span className="text-danger">This field is required</span>}
+      {errors.date_of_birth && ( errors.date_of_birth.type === "validate"
+        ? <span className="text-danger">Invalid DOB</span>
+        : <span className="text-danger">This field is required</span> )
+      }
     </div>
     <div className="form-group">
-      <label htmlFor="gender">Gender</label>
+      <label htmlFor="gender">Gender<span className="text-danger">*</span></label>
       <select
         className="form-control"
         name="gender"
         id="gender"
-        ref={register}
+        ref={register({required: true})}
       >
         <option value="" defaultValue></option>
         <option value="male">Male</option>
         <option value="female">Female</option>
         <option value="not_specify">Prefer Not To Specify</option>
       </select>
+      {errors.gender && <span className="text-danger">This field is required</span>}
     </div>
   </div>
   )
