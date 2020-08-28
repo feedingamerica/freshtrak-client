@@ -11,6 +11,7 @@ import MemberCountFormComponent from './MemberCountFormComponent';
 import { formatDateForServer } from '../../Utils/DateFormat';
 import { Link } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
+import EventSlotsModalComponent from './EventSlotsModalComponent';
 
 const RegistrationComponent = ({ user, onRegister, event, disabled, showForm, setShowForm }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
@@ -65,7 +66,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled, showForm, se
 
           <div className="registration-form">
             <div className="content-wrapper">
-              
+              { showForm && <EventSlotsModalComponent event={event} /> }
               { showForm && <form onSubmit={handleSubmit(onSubmit) }>
                 <PrimaryInfoFormComponent
                   register={register}
