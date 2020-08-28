@@ -9,7 +9,7 @@ import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
 import RegistrationConfirmComponent from './RegistrationConfirmComponent';
 import LoginModalComponent from '../Sign-In/LoginModal';
-import EventSlotsModalComponent from './EventSlotsModalComponent';
+
 
 
 const RegistrationContainer = (props) => {
@@ -121,7 +121,6 @@ const RegistrationContainer = (props) => {
 
   return (
     <Fragment>
-      {<EventSlotsModalComponent event={event} />}
       {isLoading && <SpinnerComponent />}
       <LoginModalComponent
             show={showLoginModal}
