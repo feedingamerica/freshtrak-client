@@ -20,6 +20,9 @@ test('should render that there are no events scheduled if an empty object is pas
 
 test('should display the data if data is passed to it', () => {
   const testData = { [preformattedEventData.date]: [preformattedEventData] };
-  const { getByText } = renderWithRouter(<EventListComponent events={testData} />);
+  const { getByText } = renderWithRouter(
+    <EventListComponent events={testData} zipCode={43123} />
+  );
   getByText(preformattedEventData.agencyName);
+  getByText(/Resource Events Serving Residents of Zip Code 43123/i);
 });

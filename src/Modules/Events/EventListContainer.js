@@ -40,7 +40,7 @@ const EventListContainer = ({ zipCode }) => {
   const EventList = () => {
     if (agencyResponse) {
       const agencyDataSorted = EventHandler(agencyData);
-      return <EventListComponent events={agencyDataSorted} />;
+      return <EventListComponent events={agencyDataSorted} zipCode={zipCode} />;
     }
     return null;
   };
