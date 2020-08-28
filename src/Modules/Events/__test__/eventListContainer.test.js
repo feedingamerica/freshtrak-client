@@ -1,17 +1,18 @@
-import React from 'react';
-import { wait, render } from '@testing-library/react';
-import configureStore from 'redux-mock-store';
-import EventListContainer from '../EventListContainer';
-import axios from 'axios';
+import React from "react";
+import { wait, render } from "@testing-library/react";
+import { BrowserRouter as Router } from "react-router-dom";
+import configureStore from "redux-mock-store";
+import EventListContainer from "../EventListContainer";
+import axios from "axios";
 import {
   mockEvent,
   mockAgency,
   mockEventDate,
   mockForms,
-} from '../../../Testing';
-import { Provider } from 'react-redux';
+} from "../../../Testing";
+import { Provider } from "react-redux";
 
-jest.mock('axios');
+jest.mock("axios");
 
 const mockStore = configureStore([]);
 const store = mockStore({});
@@ -21,19 +22,19 @@ const store = mockStore({});
 const originalWarn = console.warn.bind(console.warn);
 beforeAll(() => {
   console.warn = msg =>
-    !msg.toString().includes('Deprecation warning') && originalWarn(msg);
+    !msg.toString().includes("Deprecation warning") && originalWarn(msg);
 });
 afterAll(() => {
   console.warn = originalWarn;
 });
 
-test('should load without errors', () => {
+test("should load without errors", () => {
   expect(() => {
     render(<EventListContainer searchData={{}} />);
   }).not.toThrowError();
 });
 
-test('Successful Api with no Events dates', async () => {
+test("Successful Api with no Events dates", async () => {
   const testAgencyWithNoEventDates = {
     ...mockAgency,
     events: [{ ...mockEvent }],
@@ -47,7 +48,7 @@ test('Successful Api with no Events dates', async () => {
   });
 });
 
-test('Successful Api with Events dates', async () => {
+test("Successful Api with Events dates", async () => {
   const testAgencyWithEventDates = {
     ...mockAgency,
     events: [
@@ -63,7 +64,9 @@ test('Successful Api with Events dates', async () => {
   );
   const { getByText } = render(
     <Provider store={store}>
-      <EventListContainer zipCode={mockAgency.zip} />
+      <Router>
+        <EventListContainer zipCode={mockAgency.zip} />
+      </Router>
     </Provider>
   );
   await wait(() => {
