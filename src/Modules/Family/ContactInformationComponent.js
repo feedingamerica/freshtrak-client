@@ -67,7 +67,7 @@ const ContactInformationComponent = forwardRef(
         )}
         {showEmailPermissions && (
           <div className="form-group">
-            <label htmlFor="email">Email<span className="text-danger">*</span></label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               className="form-control"

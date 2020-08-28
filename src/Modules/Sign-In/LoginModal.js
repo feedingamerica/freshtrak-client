@@ -9,9 +9,9 @@ const LoginModalComponent = ({show, onLogin}) => {
             Guest Login
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Footer>
         <button type="submit" className="btn primary-button ml-1 flex-grow-1" onClick={onLogin}> Continue AS Guest </button>
-        </Modal.Body>
+        </Modal.Footer>
       </Modal>
   );
 };

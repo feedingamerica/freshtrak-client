@@ -58,7 +58,7 @@ const RegistrationContainer = (props) => {
     } else {
       setUserToken(localUserToken);
       setShowLoginModal(false);
-      setShowForm(false);
+      setShowForm(true);
     }
   };
 
