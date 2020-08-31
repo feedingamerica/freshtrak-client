@@ -2,19 +2,22 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { RENDER_URL } from '../../Utils/Urls';
+import { useSelector } from 'react-redux';
+import { selectZip } from '../../Store/Search/searchSlice';
 import FoodbankTextComponent from '../General/FoodbankTextComponent';
 
 const ResourceListComponent = ({ dataToChild }) => {
   const [foodBankArray, setFoodBankArray] = React.useState([]);
+  const searchedZip = useSelector(selectZip);
 
   const foodBankDisplay = () => {
     switch (foodBankArray.length) {
       case 0:
         return 'No Food Banks found within the zip code';
       case 1:
-        return 'Your Local Food Bank';
+        return `Food bank serving zip code [${searchedZip}]`;
       default:
-        return 'Your Local Food Banks';
+        return `Food banks serving zip code [${searchedZip}]`;
     }
   };
 
@@ -43,7 +46,7 @@ const ResourceListComponent = ({ dataToChild }) => {
             display_url,
             logo,
             id,
-            foodbank_texts
+            foodbank_texts,
           },
         } = value;
         return (
@@ -74,15 +77,20 @@ const ResourceListComponent = ({ dataToChild }) => {
               </div>
             </div>
             <ul className="list-group">
-            {foodbank_texts.map ((value, index) => {
-              return (
-                <li className="list-group-item" key={index}>
-                  <FoodbankTextComponent text={value.text} imageUrl={value.image_resource} LinkUrl={value.link_href} linkText={value.link_text} />
-                </li>
-              )
-            })}
-          </ul>
-          {/* Out of Scope
+              {foodbank_texts.map((value, index) => {
+                return (
+                  <li className="list-group-item" key={index}>
+                    <FoodbankTextComponent
+                      text={value.text}
+                      imageUrl={value.image_resource}
+                      LinkUrl={value.link_href}
+                      linkText={value.link_text}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+            {/* Out of Scope
           <div className="row mt-2">
               <LinkContainer to={`${RENDER_URL.AGENCY_EVENT_LIST}/${id}`}>
                 <Button variant="link">
