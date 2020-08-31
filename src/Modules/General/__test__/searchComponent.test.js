@@ -1,14 +1,19 @@
 import React from "react";
 import { render, fireEvent, act } from "@testing-library/react";
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 import SearchComponent from "../SearchComponent";
 import EventContainer from "../../Events/EventContainer";
 import { BrowserRouter as Router } from "react-router-dom";
-import { mockFoodBank } from "../../../Testing";
+// import { mockFoodBank } from "../../../Testing";
+
+const mockStore = configureStore([]);
+const store = mockStore({});
 
 /*** Mock Google Maps JavaScript API ***/
 jest.mock("react-places-autocomplete", () => {
   const React = require("react"); // eslint-disable-line
-  class PlacesAutocomplete extends React.Component<> {
+  class PlacesAutocomplete extends React.Component {
     renderProps = {
       getInputProps: jest.fn(({ placeholder, className }) => ({
         placeholder,
@@ -37,9 +42,11 @@ test("should show error an invalid submit", async () => {
     getAllByText,
     baseElement,
   } = render(
-    <Router>
-      <EventContainer location={{ state: "" }} />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <EventContainer location={{ state: "" }} />
+      </Router>
+    </Provider>
   );
 
   const button = getAllByText(/search for resources/i)[0];

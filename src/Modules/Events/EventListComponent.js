@@ -11,13 +11,13 @@ const EventListComponent = props => {
   // const onChangeHandler = (e)=>{
   //     e.preventDefault();
   // };
-  const { events, showHeader = true } = props;
+  const { events, showHeader = true, zipCode } = props;
   return (
     <div className="search-results-list" aria-live="polite">
       {showHeader && (
         <div className="row m-0">
           <h2 className="font-weight-bold mobile-text-left">
-            Resource Events in Your Area
+            Resource Events Serving Residents of Zip Code {zipCode}
           </h2>
           {/* Out of scope */}
           {/* <div className="col-lg-4 col-xl-4 d-none-xs d-none-sm">

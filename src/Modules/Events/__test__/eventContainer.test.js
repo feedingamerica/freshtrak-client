@@ -1,11 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { render, fireEvent, wait, act } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import { render, wait } from '@testing-library/react';
 import EventContainer from '../EventContainer';
 import axios from 'axios';
-import { mockFoodBank } from '../../../Testing';
+import { mockFoodBank, renderWithRouter } from '../../../Testing';
 
 jest.mock('axios');
+
+const mockStore = configureStore([]);
+const store = mockStore({});
 
 // Mocking Google API library without which it shows error.
 
@@ -31,6 +36,14 @@ jest.mock('react-places-autocomplete', () => {
 
 jest.mock('../EventListContainer', () => () => <mock-event-list-container />);
 
+const route = '/events/list/43065';
+const path = '/events/list/:zipCode';
+const location = {
+  state: {
+    zipCode: mockFoodBank.zipCode,
+  },
+};
+
 // Suppress the moment warning. This is a consequence of using test-data-bot
 // and does not show in reality
 const originalWarn = console.warn.bind(console.warn);
@@ -45,9 +58,11 @@ afterAll(() => {
 test('should load without errors', () => {
   expect(() => {
     render(
-      <Router>
-        <EventContainer location={{ state: '' }} />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <EventContainer location={{ state: '' }} />
+        </Router>
+      </Provider>
     );
   }).not.toThrowError();
 });
@@ -62,23 +77,11 @@ test('Successful api call', async () => {
   };
   axios.get.mockImplementation(() => Promise.resolve(successResponse));
 
-  const { getByText, getByLabelText, getAllByText, getByTestId } = render(
-    <Router>
-      <EventContainer location={{ state: '' }} />
-    </Router>
+  const { getByText } = renderWithRouter(
+    <EventContainer location={location} />,
+    { route, path }
   );
 
-  fireEvent.change(getByLabelText(/zip/i, { id: 'search-zip' }), {
-    target: { value: `${mockFoodBank.zip}` },
-  });
-
-  // For some reason react bootstrap refuses to allow data attributes to bubble down
-  // There is no other way to uniquely select the submit button
-  // TODO find a different way. This is fragile.
-  const button = getAllByText(/search for resources/i)[0];
-  await act(async () => {
-    fireEvent.click(button);
-  });
   await wait(() => {
     getByText(mockFoodBank.name);
   });
@@ -90,18 +93,10 @@ test('Failed api call', async () => {
     statusText: 'ERROR',
   };
   axios.get.mockImplementation(() => Promise.reject(failedResponse));
-  const { getByText, getByLabelText, getAllByText, getByTestId } = render(
-    <Router>
-      <EventContainer location={{ state: '' }} />
-    </Router>
+  const { getByText } = renderWithRouter(
+    <EventContainer location={location} />,
+    { route, path }
   );
-
-  fireEvent.change(getByLabelText(/zip/i, { id: 'search-zip' }), {
-    target: { value: `${mockFoodBank.zip}` },
-  });
-
-  const button = getAllByText(/search for resources/i)[0];
-  fireEvent.click(button);
   await wait(() => {
     getByText(/something went wrong/i);
   });

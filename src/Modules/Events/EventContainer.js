@@ -1,27 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams, withRouter } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { ProgressBar } from 'react-bootstrap';
 import SearchComponent from '../General/SearchComponent';
 import ResourceListComponent from './ResourceListComponent';
 import EventListContainer from './EventListContainer';
-import { ProgressBar } from 'react-bootstrap';
 import { API_URL } from '../../Utils/Urls';
+import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
 
 const EventContainer = props => {
+  const { zipCode } = useParams();
   const [foodBankResponse, setFoodBankResponse] = useState(false);
   let [foodBankData, setFoodBankData] = useState({});
   let [searchDetails, setSearchDetails] = useState({});
   const [serverError, setServerError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    let isSearchData = !!props.location.state;
-    if (isSearchData) {
-      onSubmit(props.location.state.searchData);
-      props.history.replace({ state: null });
+    if (zipCode) {
+      dispatch(setCurrentZip(zipCode));
+      getFoodbanks(zipCode);
     }
-  });
+  }, [zipCode, dispatch]);
 
   const ResourceList = () => {
     if (foodBankResponse) {
@@ -35,16 +39,16 @@ const EventContainer = props => {
 
   const { register, errors, handleSubmit } = useForm();
 
-  const onSubmit = async payload => {
-    if (payload) {
+  const getFoodbanks = async zip => {
+    if (zip) {
       setLoading(true);
       let foodBankUri = API_URL.FOODBANK_LIST;
-      const { zip_code } = payload;
-
-      setSearchDetails(payload);
+      setSearchDetails(zip);
 
       try {
-        const resp = await axios.get(foodBankUri, { params: { zip_code } });
+        const resp = await axios.get(foodBankUri, {
+          params: { zip_code: zip },
+        });
         const { data } = resp;
         setFoodBankData(data);
         setFoodBankResponse(true);
@@ -56,13 +60,27 @@ const EventContainer = props => {
     }
   };
 
+  const onSubmit = data => {
+    if (data) {
+      const { zip_code } = data;
+      props.history.push({
+        pathname: `/events/list/${zip_code}`,
+      });
+    }
+  };
+
   return (
     <div>
       <section className="gray-bg">
         <div className="container pt-150 pb-150">
           <div className="search-area text-left">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <SearchComponent register={register} errors={errors} onSubmitHandler={onSubmit} searchData={searchDetails}/>
+              <SearchComponent
+                register={register}
+                errors={errors}
+                onSubmitHandler={onSubmit}
+                searchData={searchDetails}
+              />
             </form>
             {loading && (
               <div className="pt-4">
@@ -71,11 +89,11 @@ const EventContainer = props => {
             )}
             {!loading && <ResourceList />}
           </div>
-          <EventListContainer searchData={searchDetails} />
+          <EventListContainer zipCode={zipCode} />
         </div>
       </section>
     </div>
   );
 };
 
-export default EventContainer;
+export default withRouter(EventContainer);
