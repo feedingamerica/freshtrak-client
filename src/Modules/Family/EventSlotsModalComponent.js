@@ -82,7 +82,7 @@ const EventSlotsModalComponent = (props) => {
           >
             Close
           </button>
-          <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${eventId}/${eventDateId}/${event_slot_id}`}>
+          <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${eventDateId}/${event_slot_id}`}>
             <button
               type="submit"
               disabled={!event_slot_id}
