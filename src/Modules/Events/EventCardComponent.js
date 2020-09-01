@@ -41,7 +41,7 @@ const EventCardComponent = props => {
     }
     if (acceptReservations) {
       return (
-      <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${eventId}/${id}`}>
+      <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
         <button
           type="button"
           className="btn custom-button ml-1 flex-grow-1"
@@ -53,7 +53,7 @@ const EventCardComponent = props => {
       )
     } else if (acceptInterest && !acceptReservations) {
       return (
-        <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${eventId}/${id}`}>
+        <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
           <button
             type="button"
             className="btn custom-button ml-1 flex-grow-1"

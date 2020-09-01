@@ -19,7 +19,7 @@ const RegistrationTextInfoComponent = ({event, setShowForm}) => {
         </div>
       }
       
-          <Link to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${event.eventId}/${event.id}`}>
+      <Link to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${event.id}`}>
             <div className="button-wrap mt-4">
               <button
                 type="submit"
