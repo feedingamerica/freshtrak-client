@@ -9,8 +9,7 @@ import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
 import RegistrationConfirmComponent from './RegistrationConfirmComponent';
 import LoginModalComponent from '../Sign-In/LoginModal';
-
-
+import { EventFormat } from '../../Utils/EventHandler';
 
 const RegistrationContainer = (props) => {
   const { eventDateId, eventSlotId } = useParams();
@@ -27,6 +26,32 @@ const RegistrationContainer = (props) => {
   //const showForm = () => setShowForm(true);
 
   const event = useSelector(selectEvent);
+  const [selectedEvent, setSelectedEvent] = useState(event);
+
+  useEffect(() => {
+    console.log(event);
+      if(Object.keys(selectedEvent).length === 0) {
+        const { match: { params: { eventId } } } = props;
+        getEvent(eventId);
+      }
+  });
+
+  const getEvent = async (eventId) => {
+    try {
+      const { EVENT_URL } = API_URL;
+      const resp = await axios.get(
+        EVENT_URL + '/' + eventId
+      ).catch(error=>{
+        setError(error.response)
+      })
+      const { data } = resp;
+      if (data && data.event) {
+        setSelectedEvent(EventFormat(data.event,eventDateId));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const fetchUserToken = async () => {
     setLoading(true);
@@ -132,7 +157,7 @@ const RegistrationContainer = (props) => {
             showForm={!showLoginModal && showForm}
             setShowForm={showRegistrationForm}
             onRegister={register}
-            event={event}
+            event={selectedEvent}
             disabled={disabled} />
         </Fragment>
       )}
