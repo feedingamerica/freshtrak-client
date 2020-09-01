@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
-import { API_URL } from '../../Utils/Urls';
+import { API_URL, BASE_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
 import RegistrationConfirmComponent from './RegistrationConfirmComponent';
@@ -31,22 +31,22 @@ const RegistrationContainer = (props) => {
   useEffect(() => {
     console.log(event);
       if(Object.keys(selectedEvent).length === 0) {
-        const { match: { params: { eventId } } } = props;
-        getEvent(eventId);
+        const { match: { params: { eventDateId } } } = props;
+        getEvent(eventDateId);
       }
   });
 
   const getEvent = async (eventId) => {
     try {
-      const { EVENT_URL } = API_URL;
       const resp = await axios.get(
-        EVENT_URL + '/' + eventId
+        `${BASE_URL}api/event_dates/${eventDateId}/event_details`
       ).catch(error=>{
         setError(error.response)
       })
       const { data } = resp;
-      if (data && data.event) {
-        setSelectedEvent(EventFormat(data.event,eventDateId));
+      if (data && data.event !== undefined) {
+        console.log(EventFormat(data.event, eventDateId));
+        setSelectedEvent(EventFormat(data.event, eventDateId));
       }
     } catch (e) {
       console.error(e);

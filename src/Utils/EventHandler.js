@@ -77,45 +77,55 @@ export const eventDateMapper = (event, phone, name, estimated_distance) => {
   }
 };
 
-export const EventFormat = (event, event_date_id) => {
-  const { event_dates, forms, agency_name, exception_note, estimated_distance } = event;
-  let eventDate = event_dates.filter(e => e.id == event_date_id)
-  if (eventDate && eventDate.length > 0) {
-    eventDate = eventDate[0]
-    const {
-      id,
-      event_id,
-      accept_reservations,
-      accept_interest,
-      start_time,
-      end_time,
-      date,
-    } = eventDate;
-      return {
-        id,
-        eventId: event_id,
-        acceptReservations: accept_reservations,
-        acceptInterest: accept_interest,
-        startTime: start_time,
-        endTime: end_time,
-        date,
-        eventAddress: event.address,
-        eventCity: event.city,
-        eventState: event.state,
-        eventZip: event.zip,
-        phoneNumber: "",
-        agencyName: agency_name,
-        eventName: event.name,
-        exceptionNote: exception_note,
-        eventService: event.service_category['service_category_name'],
-        estimated_distance,
-        eventDetails: event.event_details,
-        seniorAge: forms.length > 0 ? forms[0].display_age_senior : 60,
-        adultAge: forms.length > 0 ? forms[0].display_age_adult : 18,
-      };
-  } else {
-    return {};
-  }
+export const EventFormat = (event, eventDateId) => {
+  const {
+    address: eventAddress,
+    city: eventCity,
+    state: eventState,
+    zip: eventZip,
+    forms,
+    agency_name: agencyName,
+    name: eventName,
+    exception_note: exceptionNote,
+    estimated_distance: estimatedDistance,
+    service_category: serviceCategory,
+    event_details: eventDetails,
+    event_dates: eventDates
+  } = event;
+
+  const eventDate = eventDates.filter((eventDate) => eventDateId === `${eventDate.id}`)[0];
+
+  const {
+    event_id: eventId,
+    accept_reservations: acceptReservations,
+    accept_interest: acceptInterest,
+    start_time: startTime,
+    end_time: endTime,
+    date,
+  } = eventDate;
+
+  return {
+    id: eventDateId,
+    eventId,
+    acceptReservations,
+    acceptInterest,
+    startTime,
+    endTime,
+    date,
+    eventAddress,
+    eventCity,
+    eventState,
+    eventZip,
+    phoneNumber: "",
+    agencyName,
+    eventName,
+    exceptionNote,
+    eventService: serviceCategory && serviceCategory.service_category_name,
+    estimatedDistance,
+    eventDetails,
+    seniorAge: forms.length > 0 ? forms[0].display_age_senior : 60,
+    adultAge: forms.length > 0 ? forms[0].display_age_adult : 18,
+  };
 };
 
 export const AgencyHandler = agencies => {
