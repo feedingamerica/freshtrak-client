@@ -8,7 +8,7 @@ import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
-import { formatDateToYYYYMMDD } from '../../Utils/DateFormat';
+import { formatDateDayAndDate } from '../../Utils/DateFormat';
 
 const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
@@ -46,7 +46,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   }, [user, reset])
   const history = useHistory();
   const onSubmit = data => {
-    data["date_of_birth"] = formatDateToYYYYMMDD(data["date_of_birth"])
+    data["date_of_birth"] = formatDateDayAndDate(data["date_of_birth"])
     onRegister(data);
     if (data) {
       history.push({
