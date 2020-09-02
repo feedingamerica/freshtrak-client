@@ -79,7 +79,7 @@ const EventContainer = props => {
                 register={register}
                 errors={errors}
                 onSubmitHandler={onSubmit}
-                searchData={searchDetails}
+                zipCode={zipCode}
               />
             </form>
             {loading && (
