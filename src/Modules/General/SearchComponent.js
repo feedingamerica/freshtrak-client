@@ -5,9 +5,10 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 
-const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, zipCode}, ref) => {
+const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchData}, ref) => {
+  const default_zipcode = (searchData && searchData.length > 0)? searchData : "";
   const [address, setAddress] = React.useState("");
-  const [zip] = React.useState("");
+  // const [zip] = React.useState("");
   const [lat, setLat] = React.useState("");
   const [long, setLong] = React.useState("");
   const [showAddress, setShowAddress] = React.useState(false);
@@ -97,7 +98,7 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, zipCode
               className="form-control zip"
               id="zip_code"
               name="zip_code"
-              defaultValue={zipCode}
+              defaultValue={default_zipcode}
               onChange={e =>
                 {
                   if(e.target.value.length === 5){

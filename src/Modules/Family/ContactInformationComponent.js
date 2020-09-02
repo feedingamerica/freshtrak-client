@@ -1,4 +1,4 @@
-import React, { forwardRef, Fragment, useEffect } from 'react';
+import React, { forwardRef, Fragment } from 'react';
 import PhoneInputComponent from './PhoneInputComponent';
 
 const ContactInformationComponent = forwardRef(
