@@ -3,7 +3,7 @@ import FacebookLogin from 'react-facebook-login';
 import axios from 'axios';
 import { API_URL } from '../../Utils/Urls';
 
-const FacebookComponent = ( ) => {
+const FacebookLoginComponent = ( ) => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   // const [accessToken, setAccessToken] = React.useState("");
 
@@ -49,4 +49,4 @@ const FacebookComponent = ( ) => {
   )
 };
 
-export default FacebookComponent;
+export default FacebookLoginComponent;
