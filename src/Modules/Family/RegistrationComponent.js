@@ -8,7 +8,7 @@ import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
-import { formatDateToYYYYMMDD } from '../../Utils/DateFormat';
+import { formatDateForServer } from '../../Utils/DateFormat';
 
 const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
@@ -46,8 +46,9 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   }, [user, reset])
   const history = useHistory();
   const onSubmit = data => {
-    data["date_of_birth"] = formatDateToYYYYMMDD(data["date_of_birth"])
+    data["date_of_birth"] = formatDateForServer(data["date_of_birth"])
     onRegister(data);
+    // This must also be fixed. It is just luck that the params are available in the container
     if (data) {
       history.push({
         pathname: RENDER_URL.EVENT_REGISTRATION_URL + "/confirm"
