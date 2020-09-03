@@ -18,7 +18,9 @@ const RegistrationContainer = (props) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [guest, setGuest] = useState("");
   const [isSuccessful, setSuccessful] = useState(false);
-  const [isError, setError] = useState(undefined);
+  const [isError, setIsError] = useState(false);
+  const [pageError, setPageError] = useState(false);
+  const [errors, setErrors] = useState([]);
   const [user, setUser] = useState(undefined);
   const [disabled, setDisabled] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -29,8 +31,7 @@ const RegistrationContainer = (props) => {
   const [selectedEvent, setSelectedEvent] = useState(event);
 
   useEffect(() => {
-    console.log(event);
-      if(Object.keys(selectedEvent).length === 0) {
+      if(Object.keys(selectedEvent).length === 0 && !isError && !pageError) {
         const { match: { params: { eventDateId } } } = props;
         getEvent(eventDateId);
       }
@@ -41,12 +42,14 @@ const RegistrationContainer = (props) => {
       const resp = await axios.get(
         `${BASE_URL}api/event_dates/${eventDateId}/event_details`
       ).catch(error=>{
-        setError(error.response)
+        setIsError(true);
       })
       const { data } = resp;
       if (data && data.event !== undefined) {
-        console.log(EventFormat(data.event, eventDateId));
         setSelectedEvent(EventFormat(data.event, eventDateId));
+      } else {
+        setPageError(true);
+        setErrors(data.errors || []);
       }
     } catch (e) {
       console.error(e);
@@ -124,7 +127,7 @@ const RegistrationContainer = (props) => {
       );
       setSuccessful(true);
       getUser(userToken);
-      setError(undefined);
+      setErrors([]);
       TagManager.dataLayer({
         dataLayer: {
         event: "reservation"
@@ -133,7 +136,7 @@ const RegistrationContainer = (props) => {
     } catch (e) {
       setDisabled(disabled);
       console.error(e);
-      setError(e);
+      setErrors(e);
     }
   }
 
@@ -141,8 +144,18 @@ const RegistrationContainer = (props) => {
     user ? setShowForm(true) : setShowLoginModal(true)
   }
 
-  console.log(showLoginModal);
-  console.log(showForm);
+  if(pageError) {
+    return (
+      <div>
+        <p className="text-danger">There was an error saving your reservation</p>
+        {
+          errors.map((error, index) => {
+            return <p key={`error-${index}`} className="text-danger">{error}</p>
+          })
+        }
+      </div>
+    );
+  }
 
   return (
     <Fragment>
