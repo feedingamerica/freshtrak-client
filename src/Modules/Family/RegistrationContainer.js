@@ -115,9 +115,6 @@ const RegistrationContainer = (props) => {
     user ? setShowForm(true) : setShowLoginModal(true)
   }
 
-  console.log(showLoginModal);
-  console.log(showForm);
-
   return (
     <Fragment>
       {isLoading && <SpinnerComponent />}
