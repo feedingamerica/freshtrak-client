@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import back from '../../Assets/img/back.svg';
 import '../../Assets/scss/main.scss';
 import RegistrationTextComponent from './RegistrationTextComponent';
-import { formatDateDayAndDate } from '../../Utils/DateFormat';
 
 
 const RegistrationHeaderComponent = ({event}) => {

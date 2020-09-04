@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import TagManager from 'react-gtm-module'
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -17,7 +17,6 @@ const RegistrationContainer = (props) => {
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [guest, setGuest] = useState("");
   const [isSuccessful, setSuccessful] = useState(false);
   const [isError, setError] = useState(undefined);
   const [user, setUser] = useState(undefined);

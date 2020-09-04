@@ -1,13 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import RegistrationTextInfoComponent from './RegistrationTextInfoComponent';
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
-import { Link } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
 import EventSlotsModalComponent from './EventSlotsModalComponent';
 import { formatDateForServer } from '../../Utils/DateFormat';

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { RENDER_URL } from '../../Utils/Urls';
+// import { Button } from 'react-bootstrap';
+// import { LinkContainer } from 'react-router-bootstrap';
+// import { RENDER_URL } from '../../Utils/Urls';
 import { useSelector } from 'react-redux';
 import { selectZip } from '../../Store/Search/searchSlice';
 import FoodbankTextComponent from '../General/FoodbankTextComponent';
@@ -45,7 +45,7 @@ const ResourceListComponent = ({ dataToChild }) => {
             phone,
             display_url,
             logo,
-            id,
+            // id,
             foodbank_texts,
           },
         } = value;

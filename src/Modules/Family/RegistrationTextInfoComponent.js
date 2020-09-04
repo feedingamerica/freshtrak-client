@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 //import '../../Assets/scss/main.scss';
 import { Link } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
