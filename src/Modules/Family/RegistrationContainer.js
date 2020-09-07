@@ -132,7 +132,7 @@ const RegistrationContainer = (props) => {
             disabled={disabled} />
         </Fragment>
       )}
-      {isSuccessful && (
+      {isSuccessful && user && (
         <div className="container">
           <RegistrationConfirmComponent user={user} eventDateId={eventDateId} />
         </div>
