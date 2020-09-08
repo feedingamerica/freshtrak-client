@@ -1,5 +1,7 @@
 import React from "react";
 import Routes from "./Core/Routes";
+// import "./Assets/scss/main.scss";
+// import "./Assets/css/style.css";
 
 const App = () => {
   React.useEffect(() => {}, []);
