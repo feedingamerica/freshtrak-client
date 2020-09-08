@@ -8,7 +8,7 @@ import PlacesAutocomplete, {
 const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchData}, ref) => {
   const default_zipcode = (searchData && searchData.zip_code)? searchData.zip_code : "";
   const [address, setAddress] = React.useState("");
-  const [zip] = React.useState("");
+  // const [zip] = React.useState("");
   const [lat, setLat] = React.useState("");
   const [long, setLong] = React.useState("");
   const [showAddress, setShowAddress] = React.useState(false);

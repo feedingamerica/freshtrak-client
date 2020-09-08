@@ -2,8 +2,10 @@ import React, { Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import back from '../../Assets/img/back.svg';
 import '../../Assets/scss/main.scss';
+import RegistrationTextComponent from './RegistrationTextComponent';
 
-const RegistrationHeaderComponent = () => {
+
+const RegistrationHeaderComponent = ({event}) => {
   const home = useHistory();
   const backHome = () => {
     home.goBack();
@@ -33,6 +35,7 @@ const RegistrationHeaderComponent = () => {
           </div>
         </div>
       </div>
+      <RegistrationTextComponent />
     </Fragment>
   )
 };

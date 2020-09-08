@@ -1,16 +1,17 @@
 import React, { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { RENDER_URL } from '../../Utils/Urls';
 import { useHistory } from 'react-router-dom';
-import RegistrationHeaderComponent from './RegistrationHeaderComponent';
-import RegistrationTextComponent from './RegistrationTextComponent';
+import RegistrationTextInfoComponent from './RegistrationTextInfoComponent';
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
-import { formatDateToYYYYMMDD } from '../../Utils/DateFormat';
+import { RENDER_URL } from '../../Utils/Urls';
+import EventSlotsModalComponent from './EventSlotsModalComponent';
+import { formatDateForServer } from '../../Utils/DateFormat';
 
-const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
+
+const RegistrationComponent = ({ user, onRegister, event, disabled, showForm, setShowForm }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
   useEffect(() => {
     const {
@@ -27,7 +28,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
       email,
       seniors_in_household,
       children_in_household,
-    } = user;
+    } = user || {};
     reset({
       address_line_1,
       address_line_2,
@@ -46,8 +47,9 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   }, [user, reset])
   const history = useHistory();
   const onSubmit = data => {
-    data["date_of_birth"] = formatDateToYYYYMMDD(data["date_of_birth"])
+    data["date_of_birth"] = formatDateForServer(data["date_of_birth"])
     onRegister(data);
+    // This must also be fixed. It is just luck that the params are available in the container
     if (data) {
       history.push({
         pathname: RENDER_URL.EVENT_REGISTRATION_URL + "/confirm"
@@ -58,13 +60,12 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
     <Fragment>
       <div className="main-wrapper mt-4">
         <section className="container pt-100 pb-100 register-confirmation">
-          <div>
-            <RegistrationHeaderComponent />
-          </div>
+          { !showForm && <RegistrationTextInfoComponent event={event} setShowForm={setShowForm}/>}
+
           <div className="registration-form">
             <div className="content-wrapper">
-              <RegistrationTextComponent />
-              <form onSubmit={handleSubmit(onSubmit)}>
+              { showForm && <EventSlotsModalComponent event={event} /> }
+              { showForm && <form onSubmit={handleSubmit(onSubmit) }>
                 <PrimaryInfoFormComponent
                   register={register}
                   errors={errors}
@@ -94,7 +95,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
                     Register
                   </button>
                 </div>
-              </form>
+              </form> }
             </div>
           </div>
         </section>
