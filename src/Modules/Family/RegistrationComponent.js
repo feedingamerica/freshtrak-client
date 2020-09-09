@@ -56,6 +56,11 @@ const RegistrationComponent = ({ user, onRegister, event, disabled, showForm, se
       });
     }
   }
+  
+  const submitHandlerFocus = (e)=>{
+    handleSubmit(onSubmit)(e);
+    setTimeout(()=> window.scrollBy({top: -100,behavior: "smooth"}), 200)
+  }
   return (
     <Fragment>
       <div className="main-wrapper mt-4">
@@ -65,7 +70,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled, showForm, se
           <div className="registration-form">
             <div className="content-wrapper">
               { showForm && <EventSlotsModalComponent event={event} /> }
-              { showForm && <form onSubmit={handleSubmit(onSubmit) }>
+              { showForm && <form onSubmit={submitHandlerFocus}>
                 <PrimaryInfoFormComponent
                   register={register}
                   errors={errors}
