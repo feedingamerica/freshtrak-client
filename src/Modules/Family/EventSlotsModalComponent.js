@@ -50,7 +50,7 @@ const EventSlotsModalComponent = (props) => {
             <span className="pr-3">
               <img aria-hidden="true" alt="Go back" src={alarmIcon} />
             </span>
-            Choose Delivery Time
+            Choose Time Slot
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
