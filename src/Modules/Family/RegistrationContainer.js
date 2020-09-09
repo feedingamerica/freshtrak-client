@@ -16,7 +16,6 @@ const RegistrationContainer = (props) => {
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [guest, setGuest] = useState("");
   const [isSuccessful, setSuccessful] = useState(false);
   const [isError, setIsError] = useState(false);
   const [pageError, setPageError] = useState(false);
@@ -174,7 +173,7 @@ const RegistrationContainer = (props) => {
             disabled={disabled} />
         </Fragment>
       )}
-      {isSuccessful && (
+      {isSuccessful && user && (
         <div className="container">
           <RegistrationConfirmComponent user={user} eventDateId={eventDateId} />
         </div>
