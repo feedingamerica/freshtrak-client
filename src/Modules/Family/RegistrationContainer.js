@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import TagManager from 'react-gtm-module'
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -8,46 +8,56 @@ import { API_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
 import RegistrationConfirmComponent from './RegistrationConfirmComponent';
-import EventSlotsModalComponent from './EventSlotsModalComponent';
+import LoginModalComponent from '../Sign-In/LoginModal';
+
+
 
 const RegistrationContainer = (props) => {
   const { eventDateId, eventSlotId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [isSuccessful, setSuccessful] = useState(false);
   const [isError, setError] = useState(undefined);
   const [user, setUser] = useState(undefined);
   const [disabled, setDisabled] = useState(false);
-  const event = useSelector(selectEvent);
-  useEffect(() => {
-    if (userToken === undefined) {
-      getUserToken();
-    } else {
-      getUser(userToken);
-    }
-  }, [userToken]);
+  const [showForm, setShowForm] = useState(false);
 
-  const getUserToken = async () => {
+  //const showForm = () => setShowForm(true);
+
+  const event = useSelector(selectEvent);
+
+  const fetchUserToken = async () => {
+    setLoading(true);
+    const { GUEST_AUTH } = API_URL;
+    try {
+      const resp = await axios.post(GUEST_AUTH);
+      const {
+        data: { token, expires_at },
+      } = resp;
+      localStorage.setItem('userToken', token);
+      localStorage.setItem('tokenExpiresAt', expires_at);
+      setUserToken(token);
+      setShowLoginModal(false);
+      setLoading(false);
+      getUser(token);
+      setShowForm(true);
+    } catch (e) {
+      console.error(e);
+      setShowLoginModal(false);
+      setLoading(false);
+    }
+  };
+
+  const getUserToken = () => {
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
-      setLoading(true);
-      const { GUEST_AUTH } = API_URL;
-      try {
-        const resp = await axios.post(GUEST_AUTH);
-        const {
-          data: { token, expires_at },
-        } = resp;
-        localStorage.setItem('userToken', token);
-        localStorage.setItem('tokenExpiresAt', expires_at);
-        setUserToken(token);
-        setLoading(false);
-      } catch (e) {
-        console.error(e);
-        setLoading(false);
-      }
+      showLoginModal ? fetchUserToken() : setShowLoginModal(false);
     } else {
       setUserToken(localUserToken);
+      setShowLoginModal(false);
+      setShowForm(true);
     }
   };
 
@@ -101,14 +111,28 @@ const RegistrationContainer = (props) => {
     }
   }
 
+  const showRegistrationForm = () => {
+    user ? setShowForm(true) : setShowLoginModal(true)
+  }
+
   return (
     <Fragment>
-      {<EventSlotsModalComponent event={event} />}
       {isLoading && <SpinnerComponent />}
-      {!isLoading && user && !isSuccessful && (
-        <RegistrationComponent user={user} onRegister={register} event={event} disabled={disabled} />
+      <LoginModalComponent
+            show={showLoginModal}
+            onLogin={getUserToken} />
+      {!isLoading && !isSuccessful && (
+        <Fragment>
+          <RegistrationComponent
+            user={user}
+            showForm={!showLoginModal && showForm}
+            setShowForm={showRegistrationForm}
+            onRegister={register}
+            event={event}
+            disabled={disabled} />
+        </Fragment>
       )}
-      {isSuccessful && (
+      {isSuccessful && user && (
         <div className="container">
           <RegistrationConfirmComponent user={user} eventDateId={eventDateId} />
         </div>

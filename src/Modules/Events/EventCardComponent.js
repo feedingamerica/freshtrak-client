@@ -31,9 +31,13 @@ const EventCardComponent = props => {
       eventDetails,
       exceptionNote
     },
+    registrationView
   } = props;
 
   const ButtonView = () => {
+    if(registrationView) {
+      return null;
+    }
     if (acceptReservations) {
       return (
       <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
@@ -64,7 +68,7 @@ const EventCardComponent = props => {
   };
 
   return (
-    <section className="col-lg-4 col-xl-4" tabIndex="0">
+    <section className={registrationView ? "" : "col-lg-4 col-xl-4"} tabIndex="0">
       <div className="day-view-item">
         <div className="day-view-item-header">
           <div className="day-view-header-title">{agencyName}</div>
@@ -109,7 +113,7 @@ const EventCardComponent = props => {
             </div>
           )}
           <div className="day-view-item-detail-footer d-flex mt-3">
-            {eventDetails.length > 0 && (
+            {eventDetails && eventDetails.length > 0 && (
               <button
                 className="btn default-button flex-grow-1"
                 onClick={() => {
