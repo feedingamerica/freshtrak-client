@@ -4,7 +4,6 @@ import back from '../../Assets/img/back.svg';
 import '../../Assets/scss/main.scss';
 import RegistrationTextComponent from './RegistrationTextComponent';
 
-
 const RegistrationHeaderComponent = ({event}) => {
   const home = useHistory();
   const backHome = () => {

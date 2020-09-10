@@ -6,10 +6,9 @@ import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
-import { RENDER_URL } from '../../Utils/Urls';
 import EventSlotsModalComponent from './EventSlotsModalComponent';
 import { formatDateForServer } from '../../Utils/DateFormat';
-
+import { RENDER_URL } from '../../Utils/Urls';
 
 const RegistrationComponent = ({ user, onRegister, event, disabled, showForm, setShowForm }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
@@ -63,14 +62,13 @@ const RegistrationComponent = ({ user, onRegister, event, disabled, showForm, se
   }
   return (
     <Fragment>
-      <div className="main-wrapper mt-4">
+      <div className="mt-4">
         <section className="container pt-100 pb-100 register-confirmation">
           { !showForm && <RegistrationTextInfoComponent event={event} setShowForm={setShowForm}/>}
-
           <div className="registration-form">
             <div className="content-wrapper">
               { showForm && <EventSlotsModalComponent event={event} /> }
-              { showForm && <form onSubmit={submitHandlerFocus}>
+              { showForm && <form onSubmit={submitHandlerFocus }>
                 <PrimaryInfoFormComponent
                   register={register}
                   errors={errors}

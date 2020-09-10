@@ -36,7 +36,7 @@ export const EventObjectBuilder = events => {
   return eventSortedByDate;
 };
 
-const eventDateMapper = (event, phone, name, estimated_distance) => {
+export const eventDateMapper = (event, phone, name, estimated_distance) => {
   const { event_dates, forms, exception_note } = event;
   if (event_dates && event_dates.length > 0) {
     return event_dates.map(dateOfEvent => {
@@ -75,6 +75,57 @@ const eventDateMapper = (event, phone, name, estimated_distance) => {
   } else {
     return [];
   }
+};
+
+export const EventFormat = (event, eventDateId) => {
+  const {
+    address: eventAddress,
+    city: eventCity,
+    state: eventState,
+    zip: eventZip,
+    forms,
+    agency_name: agencyName,
+    name: eventName,
+    exception_note: exceptionNote,
+    estimated_distance: estimatedDistance,
+    service_category: serviceCategory,
+    event_details: eventDetails,
+    event_dates: eventDates
+  } = event;
+
+  const eventDate = eventDates.filter((eventDate) => eventDateId === `${eventDate.id}`)[0];
+
+  const {
+    event_id: eventId,
+    accept_reservations: acceptReservations,
+    accept_interest: acceptInterest,
+    start_time: startTime,
+    end_time: endTime,
+    date,
+  } = eventDate;
+
+  return {
+    id: eventDateId,
+    eventId,
+    acceptReservations,
+    acceptInterest,
+    startTime,
+    endTime,
+    date,
+    eventAddress,
+    eventCity,
+    eventState,
+    eventZip,
+    phoneNumber: "",
+    agencyName,
+    eventName,
+    exceptionNote,
+    eventService: serviceCategory && serviceCategory.service_category_name,
+    estimatedDistance,
+    eventDetails,
+    seniorAge: forms.length > 0 ? forms[0].display_age_senior : 60,
+    adultAge: forms.length > 0 ? forms[0].display_age_adult : 18,
+  };
 };
 
 export const AgencyHandler = agencies => {

@@ -41,7 +41,7 @@ const RegistrationConfirmComponent = props => {
   return (
     <Fragment>
       {event && (
-        <div className="main-wrapper mt-4">
+        <div className="mt-4">
           <section className="container pt-100 pb-100 register-confirmation">
             <h1 className="big-title med-title mt-5 mb-5 mobile-mb">
               You're Registered
