@@ -1,16 +1,13 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import RegistrationTextInfoComponent from './RegistrationTextInfoComponent';
-import RegistrationTextComponent from './RegistrationTextComponent';
-import RegistrationHeaderComponent from './RegistrationTextComponent';
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
 import EventSlotsModalComponent from './EventSlotsModalComponent';
 import { formatDateForServer } from '../../Utils/DateFormat';
-import { Link } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
 
 const RegistrationComponent = ({ user, onRegister, event, disabled, showForm, setShowForm }) => {
@@ -65,7 +62,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled, showForm, se
   }
   return (
     <Fragment>
-      <div className="main-wrapper mt-4">
+      <div className="mt-4">
         <section className="container pt-100 pb-100 register-confirmation">
           { !showForm && <RegistrationTextInfoComponent event={event} setShowForm={setShowForm}/>}
           <div className="registration-form">

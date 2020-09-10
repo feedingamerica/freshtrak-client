@@ -15,7 +15,6 @@ const EventCardComponent = props => {
   const {
     event: {
       id,
-      eventId,
       startTime,
       endTime,
       date,

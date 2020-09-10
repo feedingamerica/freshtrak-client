@@ -7,7 +7,7 @@ import axios from 'axios';
 import alarmIcon from '../../Assets/img/alarm.svg';
 
 const EventSlotsModalComponent = (props) => {
-  const { event: { id: eventDateId, acceptReservations, eventId } } = props;
+  const { event: { id: eventDateId, acceptReservations } } = props;
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [eventHour, setEventHour] = useState([]);

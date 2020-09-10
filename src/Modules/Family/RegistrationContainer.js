@@ -145,7 +145,7 @@ const RegistrationContainer = (props) => {
 
   if(pageError) {
     return (
-      <div>
+      <div className="pt-100 container">
         <p className="text-danger">There was an error saving your reservation</p>
         {
           errors.map((error, index) => {
