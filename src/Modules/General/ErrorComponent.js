@@ -1,0 +1,34 @@
+import React, { Fragment } from 'react';
+import { RENDER_URL } from '../../Utils/Urls';
+import { Link } from 'react-router-dom';
+
+const ErrorComponent = ({error}) => {
+  return (
+    <Fragment>
+        <div className="mt-4">
+          <section className="container pt-100 pb-100 ">
+            <h2 className="text-danger text-center mt-5 mb-5 mobile-mb">
+              Oops..! page not found
+            </h2>
+            <h4>
+              status: <b> {error.status} </b> <br/>
+              message: <b> {error.message} </b>
+            </h4>
+            <div className="button-wrap mt-4">
+              <Link to={RENDER_URL.HOME_URL}>
+                <button
+                  type="submit"
+                  className="btn custom-button"
+                  data-testid="continue button"
+                >
+                  Back To Home
+                </button>
+              </Link>
+            </div>
+          </section>
+        </div>
+    </Fragment>
+  );
+};
+
+export default ErrorComponent;
