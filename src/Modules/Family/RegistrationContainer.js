@@ -78,6 +78,11 @@ const RegistrationContainer = (props) => {
   };
 
   const getUserToken = () => {
+    TagManager.dataLayer({
+      dataLayer: {
+      event: "guest-login"
+      }
+    })
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {

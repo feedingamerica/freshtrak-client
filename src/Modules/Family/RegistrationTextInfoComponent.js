@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import TagManager from 'react-gtm-module'
 //import '../../Assets/scss/main.scss';
 import { Link } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
@@ -8,6 +9,14 @@ import EventCardComponent from '../Events/EventCardComponent';
 
 
 const RegistrationTextInfoComponent = ({event, setShowForm}) => {
+  const clickedRegisterNow = () => {
+    setShowForm(true)
+    TagManager.dataLayer({
+      dataLayer: {
+      event: "modal-open"
+      }
+    })
+  }
   return (
     <Fragment>
       <RegistrationHeaderComponent event={event}/>
@@ -25,7 +34,7 @@ const RegistrationTextInfoComponent = ({event, setShowForm}) => {
                 type="submit"
                 className="btn custom-button"
                 data-testid="continue button"
-                onClick={(e) => setShowForm(true)}
+                onClick={clickedRegisterNow}
               >
                 Register Now
               </button>
