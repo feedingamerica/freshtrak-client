@@ -1,16 +1,15 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import TagManager from 'react-gtm-module'
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
-import { API_URL } from '../../Utils/Urls';
+import { API_URL, BASE_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
 import RegistrationConfirmComponent from './RegistrationConfirmComponent';
 import LoginModalComponent from '../Sign-In/LoginModal';
-
-
+import { EventFormat } from '../../Utils/EventHandler';
 
 const RegistrationContainer = (props) => {
   const { eventDateId, eventSlotId } = useParams();
@@ -18,7 +17,9 @@ const RegistrationContainer = (props) => {
   const [userToken, setUserToken] = useState(undefined);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isSuccessful, setSuccessful] = useState(false);
-  const [isError, setError] = useState(undefined);
+  const [isError, setIsError] = useState(false);
+  const [pageError, setPageError] = useState(false);
+  const [errors, setErrors] = useState([]);
   const [user, setUser] = useState(undefined);
   const [disabled, setDisabled] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -26,6 +27,33 @@ const RegistrationContainer = (props) => {
   //const showForm = () => setShowForm(true);
 
   const event = useSelector(selectEvent);
+  const [selectedEvent, setSelectedEvent] = useState(event);
+
+  useEffect(() => {
+      if(Object.keys(selectedEvent).length === 0 && !isError && !pageError) {
+        const { match: { params: { eventDateId } } } = props;
+        getEvent(eventDateId);
+      }
+  });
+
+  const getEvent = async (eventId) => {
+    try {
+      const resp = await axios.get(
+        `${BASE_URL}api/event_dates/${eventDateId}/event_details`
+      ).catch(error=>{
+        setIsError(true);
+      })
+      const { data } = resp;
+      if (data && data.event !== undefined) {
+        setSelectedEvent(EventFormat(data.event, eventDateId));
+      } else {
+        setPageError(true);
+        setErrors(data.errors || []);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const fetchUserToken = async () => {
     setLoading(true);
@@ -98,7 +126,7 @@ const RegistrationContainer = (props) => {
       );
       setSuccessful(true);
       getUser(userToken);
-      setError(undefined);
+      setErrors([]);
       TagManager.dataLayer({
         dataLayer: {
         event: "reservation"
@@ -107,12 +135,25 @@ const RegistrationContainer = (props) => {
     } catch (e) {
       setDisabled(disabled);
       console.error(e);
-      setError(e);
+      setErrors(e);
     }
   }
 
   const showRegistrationForm = () => {
     user ? setShowForm(true) : setShowLoginModal(true)
+  }
+
+  if(pageError) {
+    return (
+      <div className="pt-100 container">
+        <p className="text-danger">There was an error saving your reservation</p>
+        {
+          errors.map((error, index) => {
+            return <p key={`error-${index}`} className="text-danger">{error}</p>
+          })
+        }
+      </div>
+    );
   }
 
   return (
@@ -128,7 +169,7 @@ const RegistrationContainer = (props) => {
             showForm={!showLoginModal && showForm}
             setShowForm={showRegistrationForm}
             onRegister={register}
-            event={event}
+            event={selectedEvent}
             disabled={disabled} />
         </Fragment>
       )}

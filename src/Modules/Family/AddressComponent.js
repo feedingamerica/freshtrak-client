@@ -13,6 +13,9 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
 
   const handleSelect = async value => {
     const results = await geocodeByAddress(value);
+    //remove errors when selecting a new address
+    delete errors.city
+    delete errors.zip_code
     let destructuredAddress = getDestructured(results[0]["address_components"]);
     setCity(destructuredAddress["locality"]);
     setZip(destructuredAddress["postal_code"]);
