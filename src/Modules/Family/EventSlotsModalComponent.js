@@ -7,8 +7,7 @@ import axios from 'axios';
 import alarmIcon from '../../Assets/img/alarm.svg';
 
 const EventSlotsModalComponent = (props) => {
-  const event_date_id = props.event.id;
-  const acceptReservations = props.event.acceptReservations;
+  const { event: { id: eventDateId, acceptReservations } } = props;
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [eventHour, setEventHour] = useState([]);
@@ -19,15 +18,15 @@ const EventSlotsModalComponent = (props) => {
   useEffect(() => {
     if (acceptReservations === 1) {
       handleShow();
-      getEventHours(event_date_id);
+      getEventHours(eventDateId);
     }
-  }, [event_date_id, acceptReservations]);
+  }, [eventDateId, acceptReservations]);
 
-  const getEventHours = async (event_date_id) => {
+  const getEventHours = async (eventDateId) => {
     try {
       const { EVENT_DATES_URL } = API_URL;
       const resp = await axios.get(
-        EVENT_DATES_URL + '/' + event_date_id + '/event_hours'
+        EVENT_DATES_URL + '/' + eventDateId + '/event_hours'
       );
       const { data } = resp;
       if (
@@ -50,7 +49,7 @@ const EventSlotsModalComponent = (props) => {
             <span className="pr-3">
               <img aria-hidden="true" alt="Go back" src={alarmIcon} />
             </span>
-            Choose Delivery Time
+            Choose Time Slot
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -83,7 +82,7 @@ const EventSlotsModalComponent = (props) => {
           >
             Close
           </button>
-          <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${event_date_id}/${event_slot_id}`}>
+          <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${eventDateId}/${event_slot_id}`}>
             <button
               type="submit"
               disabled={!event_slot_id}
