@@ -11,8 +11,8 @@ const LoginModalComponent = ({show, onLogin}) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Footer>
-        <button type="submit" className="btn primary-button ml-1 flex-grow-1" onClick={onLogin}> Continue AS Guest </button>
         <FacebookLoginComponent />
+        <button type="submit" className="btn primary-button ml-1 flex-grow-1" onClick={onLogin}> Continue AS Guest </button>
         </Modal.Footer>
       </Modal>
   );
