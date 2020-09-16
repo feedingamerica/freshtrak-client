@@ -34,18 +34,19 @@ const FacebookLoginComponent = ( ) => {
   } else{
     fbContent = (
       <FacebookLogin
-        appId="2790354964530637"
-        size="small"
+        appId="775743709882361"
+        size='small'
         autoLoad={false}
         onClick={componentClicked}
         callback={responseFacebook}
         icon="fa-facebook"
+        style={{width: '100%'}}
       />
     );
   }
 
   return (
-    <div>{fbContent}</div>
+    <div style={{width: '100%'}}>{fbContent}</div>
   )
 };
 
