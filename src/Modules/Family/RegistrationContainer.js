@@ -1,18 +1,20 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import TagManager from 'react-gtm-module'
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectEvent } from '../../Store/Events/eventSlice';
+import { useParams, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentEvent, selectEvent } from '../../Store/Events/eventSlice';
+import { setCurrentUser, selectUser } from '../../Store/userSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
 import ErrorComponent from '../General/ErrorComponent';
-import { API_URL, BASE_URL } from '../../Utils/Urls';
+import { API_URL, BASE_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
-import RegistrationConfirmComponent from './RegistrationConfirmComponent';
-import LoginModalComponent from '../Sign-In/LoginModal';
 import { EventFormat } from '../../Utils/EventHandler';
 
 const RegistrationContainer = (props) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const { eventDateId, eventSlotId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
@@ -21,30 +23,37 @@ const RegistrationContainer = (props) => {
   const [isError, setIsError] = useState(false);
   const [pageError, setPageError] = useState(false);
   const [errors, setErrors] = useState([]);
-  const [user, setUser] = useState(undefined);
   const [disabled, setDisabled] = useState(false);
   const [showForm, setShowForm] = useState(false);
-
-  //const showForm = () => setShowForm(true);
 
   const event = useSelector(selectEvent);
   const [selectedEvent, setSelectedEvent] = useState(event);
 
+  const currentUser = useSelector(selectUser);
+  const [user, setUser] = useState(currentUser);
+
   useEffect(() => {
-      if(Object.keys(selectedEvent).length === 0 && !isError && !pageError) {
-        const { match: { params: { eventDateId } } } = props;
-        getEvent(eventDateId);
+    setUserToken(localStorage.getItem('userToken'));
+    if (!isError && !pageError) {
+      if(Object.keys(selectedEvent).length === 0) {
+        getEvent();
       }
+      if(user === null) {
+        getUser(localStorage.getItem('userToken'));
+      }
+    }
   });
 
-  const getEvent = async (eventId) => {
+  const getEvent = async () => {
     try {
       const resp = await axios.get(
         `${BASE_URL}api/event_dates/${eventDateId}/event_details`
       )
       const { data } = resp;
       if (data && data.event !== undefined) {
-        setSelectedEvent(EventFormat(data.event, eventDateId));
+        const eventData = EventFormat(data.event, eventDateId);
+        dispatch(setCurrentEvent(eventData));
+        setSelectedEvent(eventData);
       } else {
         setPageError(true);
         setErrors(data.errors || []);
@@ -59,45 +68,6 @@ const RegistrationContainer = (props) => {
     }
   };
 
-  const fetchUserToken = async () => {
-    setLoading(true);
-    const { GUEST_AUTH } = API_URL;
-    try {
-      const resp = await axios.post(GUEST_AUTH);
-      const {
-        data: { token, expires_at },
-      } = resp;
-      localStorage.setItem('userToken', token);
-      localStorage.setItem('tokenExpiresAt', expires_at);
-      setUserToken(token);
-      setShowLoginModal(false);
-      setLoading(false);
-      getUser(token);
-      setShowForm(true);
-    } catch (e) {
-      console.error(e);
-      setShowLoginModal(false);
-      setLoading(false);
-    }
-  };
-
-  const getUserToken = () => {
-    TagManager.dataLayer({
-      dataLayer: {
-      event: "guest-login"
-      }
-    })
-    const localUserToken = localStorage.getItem('userToken');
-    const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
-    if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
-      showLoginModal ? fetchUserToken() : setShowLoginModal(false);
-    } else {
-      setUserToken(localUserToken);
-      setShowLoginModal(false);
-      setShowForm(true);
-    }
-  };
-
   const getUser = async token => {
     setLoading(true);
     const { GUEST_USER } = API_URL;
@@ -107,6 +77,7 @@ const RegistrationContainer = (props) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       const { data } = resp;
+      dispatch(setCurrentUser(data));
       setUser(data);
       setLoading(false);
     } catch (e) {
@@ -133,14 +104,9 @@ const RegistrationContainer = (props) => {
       },
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
-      setSuccessful(true);
-      getUser(userToken);
-      setErrors([]);
-      TagManager.dataLayer({
-        dataLayer: {
-        event: "reservation"
-        }
-      })
+      history.push({
+        pathname: RENDER_URL.EVENT_REGISTRATION_CONFIRM_URL
+      });
     } catch (e) {
       setDisabled(disabled);
       console.error(e);
