@@ -11,6 +11,8 @@ import LoginModalComponent from '../Sign-In/LoginModal';
 import { EventFormat } from '../../Utils/EventHandler';
 
 const EventDetailsContainer = (props) => {
+  const history = useHistory();
+
   const { id: eventDateId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
@@ -21,8 +23,6 @@ const EventDetailsContainer = (props) => {
 
   const event = useSelector(selectEvent);
   const [selectedEvent, setSelectedEvent] = useState(event);
-
-  console.log("@@@@@@@@@@@@");
 
   useEffect(() => {
       if(Object.keys(selectedEvent).length === 0 && !isError && !pageError) {
@@ -62,7 +62,7 @@ const EventDetailsContainer = (props) => {
       } = resp;
       localStorage.setItem('userToken', token);
       localStorage.setItem('tokenExpiresAt', expires_at);
-      useHistory().push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
+      history.push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
     } catch (e) {
       console.error(e);
       setShowLoginModal(false);
@@ -79,7 +79,7 @@ const EventDetailsContainer = (props) => {
     } else {
       setUserToken(localUserToken);
       setShowLoginModal(false);
-      useHistory().push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
+      history.push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
     }
   };
 
