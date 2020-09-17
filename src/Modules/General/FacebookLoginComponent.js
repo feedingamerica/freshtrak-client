@@ -3,17 +3,10 @@ import FacebookLogin from 'react-facebook-login';
 import axios from 'axios';
 import { API_URL } from '../../Utils/Urls';
 
-const FacebookLoginComponent = ( ) => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  // const [accessToken, setAccessToken] = React.useState("");
-
-  const componentClicked = () => console.log('clicked..');
+const FacebookLoginComponent = ({onLogin} ) => {
 
   const responseFacebook = async (response) => {
     console.log(response);
-    setIsLoggedIn(true);
-    // setAccessToken(response.accessToken);
-
     const { FB_URL_RESP } = API_URL;
     try {
       await axios({
@@ -25,28 +18,21 @@ const FacebookLoginComponent = ( ) => {
     } catch (e) {
       console.error(e);
     }
+    onLogin();
   }
 
-  let fbContent;
-
-  if(isLoggedIn){
-    fbContent = null
-  } else{
-    fbContent = (
+  return (
+    <div style={{width: '100%'}}>
       <FacebookLogin
-        appId="775743709882361"
+        appId="2790354964530637"
         size='small'
         autoLoad={false}
-        onClick={componentClicked}
+        fields="name,email,picture"
         callback={responseFacebook}
         icon="fa-facebook"
         style={{width: '100%'}}
       />
-    );
-  }
-
-  return (
-    <div style={{width: '100%'}}>{fbContent}</div>
+    </div>
   )
 };
 
