@@ -2,6 +2,7 @@ import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import axios from 'axios';
 import { API_URL } from '../../Utils/Urls';
+import TagManager from 'react-gtm-module'
 
 const FacebookLoginComponent = ({onLogin} ) => {
 
@@ -19,6 +20,11 @@ const FacebookLoginComponent = ({onLogin} ) => {
       console.error(e);
     }
     onLogin();
+    TagManager.dataLayer({
+      dataLayer: {
+      event: 'facebook-login'
+      }
+    })
   }
 
   return (
