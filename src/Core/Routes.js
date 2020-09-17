@@ -30,6 +30,7 @@ const RegistrationContainer = lazy(() => import('../Modules/Family/RegistrationC
 // const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
 // const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
 const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEventListContainer'));
+const EventDetailsContainer = lazy(() => import('../Modules/Events/EventDetailsContainer'));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -75,7 +76,12 @@ const Routes = () => {
             />
 
             <Route
-              path={`${RENDER_URL.EVENT_REGISTRATION_URL}/:eventDateId/:eventSlotId?`}
+              path={`${RENDER_URL.EVENT_DETAILS_URL}/:id`}
+              component={EventDetailsContainer}
+            />
+
+            <Route
+              path={`${RENDER_URL.EVENT_REGISTRATION_URL}/:eventDateId`}
               component={RegistrationContainer}
             />
 
