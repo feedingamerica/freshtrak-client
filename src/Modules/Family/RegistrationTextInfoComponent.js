@@ -7,19 +7,10 @@ import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import EventCardComponent from '../Events/EventCardComponent';
 // import RegistrationTextComponent from './RegistrationTextComponent';
 
-
-const RegistrationTextInfoComponent = ({event, setShowForm}) => {
-  const clickedRegisterNow = () => {
-    setShowForm(true)
-    TagManager.dataLayer({
-      dataLayer: {
-      event: "modal-open"
-      }
-    })
-  }
+const RegistrationTextInfoComponent = ({event, onRegisterNow}) => {
   return (
     <Fragment>
-      <RegistrationHeaderComponent event={event}/>
+      <RegistrationHeaderComponent event={event} />
       { event &&
         <div className="col-6">
           <div className="day-view">
@@ -28,18 +19,16 @@ const RegistrationTextInfoComponent = ({event, setShowForm}) => {
         </div>
       }
       
-          <Link to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${event.id}`}>
-            <div className="button-wrap mt-4">
-              <button
-                type="submit"
-                className="btn custom-button"
-                data-testid="continue button"
-                onClick={clickedRegisterNow}
-              >
-                Register Now
-              </button>
-            </div>
-          </Link>
+      <div className="button-wrap mt-4">
+        <button
+          type="submit"
+          className="btn custom-button"
+          data-testid="continue button"
+          onClick={(e) => onRegisterNow(true)}
+        >
+          Register Now
+        </button>
+      </div>
     </Fragment>
   );
 };
