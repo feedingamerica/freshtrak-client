@@ -139,10 +139,6 @@ const RegistrationContainer = (props) => {
     }
   }
 
-  const showRegistrationForm = () => {
-    user ? setShowForm(true) : setShowLoginModal(true)
-  }
-
   if(pageError) {
     return (
       <div className="pt-100 container">
@@ -159,30 +155,13 @@ const RegistrationContainer = (props) => {
   return (
     <Fragment>
       {isLoading && <SpinnerComponent />}
-      <LoginModalComponent
-            show={showLoginModal}
-            onLogin={getUserToken} />
-      {!isLoading && !isSuccessful && (
-        <Fragment>
+      <Fragment>
           <RegistrationComponent
             user={user}
-            showForm={!showLoginModal && showForm}
-            setShowForm={showRegistrationForm}
             onRegister={register}
             event={selectedEvent}
             disabled={disabled} />
         </Fragment>
-      )}
-      {isSuccessful && user && (
-        <div className="container">
-          <RegistrationConfirmComponent user={user} eventDateId={eventDateId} />
-        </div>
-      )}
-      {isError && (
-        <div className="container">
-          <p className="text-danger">There was an error saving your reservation</p>
-        </div>
-      )}
     </Fragment>
   );
 };
