@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
+import ErrorComponent from '../General/ErrorComponent';
 import { API_URL, BASE_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
@@ -40,9 +41,7 @@ const RegistrationContainer = (props) => {
     try {
       const resp = await axios.get(
         `${BASE_URL}api/event_dates/${eventDateId}/event_details`
-      ).catch(error=>{
-        setIsError(true);
-      })
+      )
       const { data } = resp;
       if (data && data.event !== undefined) {
         setSelectedEvent(EventFormat(data.event, eventDateId));
@@ -52,6 +51,11 @@ const RegistrationContainer = (props) => {
       }
     } catch (e) {
       console.error(e);
+      setIsError(true);
+      if(e.response){
+        setPageError(true);
+        setErrors(e.response.data);
+      }
     }
   };
 
@@ -78,6 +82,11 @@ const RegistrationContainer = (props) => {
   };
 
   const getUserToken = () => {
+    TagManager.dataLayer({
+      dataLayer: {
+      event: "guest-login"
+      }
+    })
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
@@ -145,14 +154,7 @@ const RegistrationContainer = (props) => {
 
   if(pageError) {
     return (
-      <div className="pt-100 container">
-        <p className="text-danger">There was an error saving your reservation</p>
-        {
-          errors.map((error, index) => {
-            return <p key={`error-${index}`} className="text-danger">{error}</p>
-          })
-        }
-      </div>
+      <ErrorComponent error={errors}/>
     );
   }
 
