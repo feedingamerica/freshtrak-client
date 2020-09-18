@@ -30,7 +30,7 @@ const FacebookLoginComponent = ({onLogin} ) => {
   return (
     <div style={{width: '100%'}}>
       <FacebookLogin
-        appId="2790354964530637"
+        appId="876144606126554"
         size='small'
         autoLoad={false}
         fields="name,email,picture"
