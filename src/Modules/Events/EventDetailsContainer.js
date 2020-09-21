@@ -14,7 +14,7 @@ const EventDetailsContainer = (props) => {
 
   const { id: eventDateId } = useParams();
   const [isLoading, setLoading] = useState(false);
-  const [userToken, setUserToken] = useState(undefined);
+  const [setUserToken] = useState(undefined);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isSuccessful, setSuccessful] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -26,8 +26,8 @@ const EventDetailsContainer = (props) => {
   useEffect(() => {
       if(Object.keys(selectedEvent).length === 0 && !isError && !pageError) {
         getEvent();
-        setLoading(true);
-        setSuccessful(false);
+        // setLoading(true);
+        // setSuccessful(false);
       }
   });
 
