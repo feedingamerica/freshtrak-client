@@ -105,7 +105,8 @@ const RegistrationContainer = (props) => {
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
       history.push({
-        pathname: RENDER_URL.EVENT_REGISTRATION_CONFIRM_URL
+        pathname: RENDER_URL.EVENT_REGISTRATION_CONFIRM_URL,
+        state: { user: {...user,identification_code:currentUser.identification_code}, eventDateId: eventDateId}
       });
     } catch (e) {
       setDisabled(disabled);

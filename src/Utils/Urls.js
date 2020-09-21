@@ -26,6 +26,6 @@ export const RENDER_URL = {
   FRESHTRAK_WORKING: '/freshtrak-working',
   FRESHTRAK_ABOUT: '/freshtrak-about',
   EVENT_REGISTRATION_URL: '/events/register',
-  EVENT_REGISTRATION_CONFIRM_URL: '/events/register/confirm',
+  EVENT_REGISTRATION_CONFIRM_URL: '/event/confirm',
   AGENCY_EVENT_LIST: '/agency/events',
 };
