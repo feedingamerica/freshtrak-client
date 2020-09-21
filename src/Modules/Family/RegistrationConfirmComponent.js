@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { RENDER_URL } from '../../Utils/Urls';
-import HeaderComponent from '../Header/HeaderComponent';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { Link } from 'react-router-dom';

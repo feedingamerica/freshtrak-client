@@ -1,14 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
-import RegistrationTextInfoComponent from './RegistrationTextInfoComponent';
 import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
 import AddressComponent from './AddressComponent';
 import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
 import EventSlotsModalComponent from './EventSlotsModalComponent';
 import { formatDateForServer } from '../../Utils/DateFormat';
-import { RENDER_URL } from '../../Utils/Urls';
 
 const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
@@ -44,7 +41,6 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
       children_in_household,
     })
   }, [user, reset])
-  const history = useHistory();
   const onSubmit = data => {
     data["date_of_birth"] = formatDateForServer(data["date_of_birth"])
     onRegister(data);

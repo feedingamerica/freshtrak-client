@@ -1,11 +1,7 @@
 import React, { Fragment } from 'react';
-import TagManager from 'react-gtm-module'
 //import '../../Assets/scss/main.scss';
-import { Link } from 'react-router-dom';
-import { RENDER_URL } from '../../Utils/Urls';
 import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import EventCardComponent from '../Events/EventCardComponent';
-// import RegistrationTextComponent from './RegistrationTextComponent';
 
 const RegistrationTextInfoComponent = ({event, onRegisterNow}) => {
   return (

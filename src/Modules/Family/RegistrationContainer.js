@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import TagManager from 'react-gtm-module'
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentEvent, selectEvent } from '../../Store/Events/eventSlice';
@@ -18,13 +17,10 @@ const RegistrationContainer = (props) => {
   const { eventDateId, eventSlotId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [isSuccessful, setSuccessful] = useState(false);
   const [isError, setIsError] = useState(false);
   const [pageError, setPageError] = useState(false);
   const [errors, setErrors] = useState([]);
   const [disabled, setDisabled] = useState(false);
-  const [showForm, setShowForm] = useState(false);
 
   const event = useSelector(selectEvent);
   const [selectedEvent, setSelectedEvent] = useState(event);
