@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import TagManager from 'react-gtm-module'
 import { selectEvent } from '../../Store/Events/eventSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
 import { API_URL, BASE_URL, RENDER_URL } from '../../Utils/Urls';
@@ -26,8 +27,6 @@ const EventDetailsContainer = (props) => {
   useEffect(() => {
       if(Object.keys(selectedEvent).length === 0 && !isError && !pageError) {
         getEvent();
-        // setLoading(true);
-        // setSuccessful(false);
       }
   });
 
@@ -70,6 +69,11 @@ const EventDetailsContainer = (props) => {
   };
 
   const getUserToken = () => {
+    TagManager.dataLayer({
+      dataLayer: {
+      event: "guest-login"
+      }
+    })
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
 

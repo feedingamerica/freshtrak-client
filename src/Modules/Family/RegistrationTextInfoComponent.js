@@ -1,9 +1,19 @@
 import React, { Fragment } from 'react';
-//import '../../Assets/scss/main.scss';
+import TagManager from 'react-gtm-module'
+
+
 import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import EventCardComponent from '../Events/EventCardComponent';
 
 const RegistrationTextInfoComponent = ({event, onRegisterNow}) => {
+  const clickedRegisterNow = () => {
+    onRegisterNow(true)
+    TagManager.dataLayer({
+      dataLayer: {
+      event: "modal-open"
+      }
+    })
+  }
   return (
     <Fragment>
       <RegistrationHeaderComponent event={event} />
@@ -20,7 +30,7 @@ const RegistrationTextInfoComponent = ({event, onRegisterNow}) => {
           type="submit"
           className="btn custom-button"
           data-testid="continue button"
-          onClick={(e) => onRegisterNow(true)}
+          onClick={clickedRegisterNow}
         >
           Register Now
         </button>

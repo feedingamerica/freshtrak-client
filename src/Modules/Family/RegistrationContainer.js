@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import TagManager from 'react-gtm-module'
 import { setCurrentEvent, selectEvent } from '../../Store/Events/eventSlice';
 import { setCurrentUser, selectUser } from '../../Store/userSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
@@ -102,6 +103,11 @@ const RegistrationContainer = (props) => {
       },
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
+      TagManager.dataLayer({
+        dataLayer: {
+        event: "reservation"
+        }
+      })
       history.push({
         pathname: RENDER_URL.EVENT_REGISTRATION_CONFIRM_URL,
         state: { user: {...user,identification_code:currentUser.identification_code}, eventDateId: eventDateId}
