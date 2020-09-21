@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { RENDER_URL } from '../../Utils/Urls';
+import HeaderComponent from '../Header/HeaderComponent';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { Link } from 'react-router-dom';
@@ -9,7 +10,7 @@ import identificationCodeImg2 from '../../Assets/img/id_code2.png';
 import idImg from '../../Assets/img/id_img.png';
 
 const RegistrationConfirmComponent = props => {
-  const user_data = props.user;
+  const user_data = props.location.state.user;
   const event = useSelector(selectEvent);
   localStorage.removeItem('userToken');
   localStorage.removeItem('tokenExpiresAt');
