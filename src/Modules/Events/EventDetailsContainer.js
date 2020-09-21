@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import TagManager from 'react-gtm-module'
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
