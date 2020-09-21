@@ -7,7 +7,7 @@ import SpinnerComponent from '../General/SpinnerComponent';
 import { API_URL, BASE_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationTextInfoComponent from '../Family/RegistrationTextInfoComponent';
-import LoginModalComponent from '../Sign-In/LoginModal';
+import AuthenticationModalComponent from '../Authentication/AuthenticationModal';
 import { EventFormat } from '../../Utils/EventHandler';
 
 const EventDetailsContainer = (props) => {
@@ -16,7 +16,7 @@ const EventDetailsContainer = (props) => {
   const { id: eventDateId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [setUserToken] = useState(undefined);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showAuthenticationModal, setshowAuthenticationModal] = useState(false);
   const [isSuccessful, setSuccessful] = useState(true);
   const [isError, setIsError] = useState(false);
   const [pageError, setPageError] = useState(false);
@@ -63,7 +63,7 @@ const EventDetailsContainer = (props) => {
       history.push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
     } catch (e) {
       console.error(e);
-      setShowLoginModal(false);
+      setshowAuthenticationModal(false);
       setLoading(false);
     }
   };
@@ -78,10 +78,10 @@ const EventDetailsContainer = (props) => {
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
 
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
-      showLoginModal ? fetchUserToken() : setShowLoginModal(true);
+      showAuthenticationModal ? fetchUserToken() : setshowAuthenticationModal(true);
     } else {
       setUserToken(localUserToken);
-      setShowLoginModal(false);
+      setshowAuthenticationModal(false);
       history.push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
     }
   };
@@ -89,8 +89,8 @@ const EventDetailsContainer = (props) => {
   return (
     <Fragment>
       {isLoading && <SpinnerComponent />}
-      <LoginModalComponent
-            show={showLoginModal}
+      <AuthenticationModalComponent
+            show={showAuthenticationModal}
             onLogin={getUserToken} />
       {!isLoading && isSuccessful && (
         <div className="mt-4">
