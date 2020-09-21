@@ -6,6 +6,7 @@ import ContactInformationComponent from './ContactInformationComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
 import EventSlotsModalComponent from './EventSlotsModalComponent';
 import { formatDateForServer } from '../../Utils/DateFormat';
+import BackButtonComponent from '../General/BackButtonComponent';
 
 const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
@@ -58,6 +59,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
           <div className="registration-form">
             <div className="content-wrapper">
               <EventSlotsModalComponent event={event} />
+              <BackButtonComponent />
               <form onSubmit={submitHandlerFocus }>
                 <PrimaryInfoFormComponent
                   register={register}
