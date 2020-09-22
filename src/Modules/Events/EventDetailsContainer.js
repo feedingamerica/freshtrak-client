@@ -51,10 +51,9 @@ const EventDetailsContainer = (props) => {
 
   const fetchUserToken = async (response) => {
     setLoading(true);
-    const isFbLoggedIn = localStorage.getItem('isFbLoggedIn');
     const { GUEST_AUTH, FB_AUTH} = API_URL;
     try {
-      if(isFbLoggedIn){
+      if(response){
         const resp = await axios({
           method: 'post',
           url: FB_AUTH,
@@ -64,6 +63,7 @@ const EventDetailsContainer = (props) => {
         const {
           data: { token, expires_at },
         } = resp;
+        localStorage.getItem('isFbLoggedIn', true);
         localStorage.setItem('userToken', token);
         localStorage.setItem('tokenExpiresAt', expires_at);
       }else{
