@@ -1,30 +1,10 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
-import axios from 'axios';
-import { API_URL } from '../../Utils/Urls';
-import TagManager from 'react-gtm-module'
 
-const FacebookLoginComponent = ({onLogin} ) => {
-
+const FacebookLoginComponent = ({onFbLogin} ) => {
   const responseFacebook = async (response) => {
     console.log(response);
-    const { FB_URL_RESP } = API_URL;
-    try {
-      await axios({
-        method: 'post',
-        url: FB_URL_RESP,
-        data: JSON.stringify(response),
-        headers: { 'Content-Type': 'application/json' }
-      });
-    } catch (e) {
-      console.error(e);
-    }
-    onLogin();
-    TagManager.dataLayer({
-      dataLayer: {
-      event: 'facebook-login'
-      }
-    })
+    onFbLogin(response);
   }
 
   return (

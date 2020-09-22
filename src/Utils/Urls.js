@@ -13,7 +13,7 @@ export const API_URL = {
     GUEST_AUTH: `${REGISTRATION_URL}guest_authentications`,
     GUEST_USER: `${REGISTRATION_URL}api/user`,
     CREATE_RESERVATION: `${REGISTRATION_URL}api/reservations`,
-    FB_URL_RESP: `${REGISTRATION_URL}auth_callbacks/facebook`,
+    FB_AUTH: `${REGISTRATION_URL}auth_callbacks/facebook`,
 };
 
 export const RENDER_URL = {

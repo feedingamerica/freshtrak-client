@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import TagManager from 'react-gtm-module'
 import { selectEvent } from '../../Store/Events/eventSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
 import { API_URL, BASE_URL, RENDER_URL } from '../../Utils/Urls';
@@ -50,16 +49,31 @@ const EventDetailsContainer = (props) => {
     }
   };
 
-  const fetchUserToken = async () => {
+  const fetchUserToken = async (response) => {
     setLoading(true);
-    const { GUEST_AUTH } = API_URL;
+    const isFbLoggedIn = localStorage.getItem('isFbLoggedIn');
+    const { GUEST_AUTH, FB_AUTH} = API_URL;
     try {
-      const resp = await axios.post(GUEST_AUTH);
-      const {
-        data: { token, expires_at },
-      } = resp;
-      localStorage.setItem('userToken', token);
-      localStorage.setItem('tokenExpiresAt', expires_at);
+      if(isFbLoggedIn){
+        const resp = await axios({
+          method: 'post',
+          url: FB_AUTH,
+          data: JSON.stringify(response),
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const {
+          data: { token, expires_at },
+        } = resp;
+        localStorage.setItem('userToken', token);
+        localStorage.setItem('tokenExpiresAt', expires_at);
+      }else{
+        const resp = await axios.post(GUEST_AUTH);
+        const {
+          data: { token, expires_at },
+        } = resp;
+        localStorage.setItem('userToken', token);
+        localStorage.setItem('tokenExpiresAt', expires_at);
+      }
       history.push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
     } catch (e) {
       console.error(e);
@@ -68,17 +82,12 @@ const EventDetailsContainer = (props) => {
     }
   };
 
-  const getUserToken = () => {
-    TagManager.dataLayer({
-      dataLayer: {
-      event: "guest-login"
-      }
-    })
+  const getUserToken = (response) => {
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
 
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
-      showAuthenticationModal ? fetchUserToken() : setshowAuthenticationModal(true);
+      showAuthenticationModal ? fetchUserToken(response) : setshowAuthenticationModal(true);
     } else {
       setUserToken(localUserToken);
       setshowAuthenticationModal(false);
