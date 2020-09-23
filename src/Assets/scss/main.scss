@@ -907,3 +907,30 @@ body {
     height: 10em;
     width: 10em;
 }
+
+.local-foodbank {
+    background: $color-white;
+    border: 1px solid $default-button;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-family: Noto Sans;
+    font-style: normal;
+    color: $color-black;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    padding:16px;
+    .foodbank-name{    
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 20px;
+        text-transform: capitalize;
+    }
+    .foodbank-address{
+        padding-bottom:16px;
+    }
+    .foodbank-contact{
+        padding-bottom:4px;
+        color: $text-color;  
+    }
+}

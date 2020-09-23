@@ -6,6 +6,7 @@ import { ProgressBar } from 'react-bootstrap';
 import SearchComponent from '../General/SearchComponent';
 import ResourceListComponent from './ResourceListComponent';
 import EventListContainer from './EventListContainer';
+import LocalFoodBankComponent from './LocalFoodBankComponent';
 import { API_URL } from '../../Utils/Urls';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
@@ -68,6 +69,8 @@ const EventContainer = props => {
       });
     }
   };
+  const localUserToken = localStorage.getItem('userToken');
+  
 
   return (
     <div>
@@ -87,9 +90,11 @@ const EventContainer = props => {
                 <ProgressBar animated now={100} data-testid="loading" />
               </div>
             )}
-            {!loading && <ResourceList />}
+            {!loading && !localUserToken && <ResourceList />}
           </div>
-          <EventListContainer zipCode={zipCode} />
+          {!localUserToken && <EventListContainer zipCode={zipCode} />}
+          {localUserToken && <LocalFoodBankComponent />}
+          {localUserToken && <LocalFoodBankComponent />}
         </div>
       </section>
     </div>
