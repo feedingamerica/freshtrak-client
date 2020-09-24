@@ -6,11 +6,12 @@ const FacebookLoginComponent = ({onFbLogin} ) => {
     console.log(response);
     onFbLogin(response);
   }
+  const FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
 
   return (
     <div style={{width: '100%'}}>
       <FacebookLogin
-        appId="876144606126554"
+        appId={FACEBOOK_APP_ID}
         size='small'
         autoLoad={false}
         fields="name,email,picture"
