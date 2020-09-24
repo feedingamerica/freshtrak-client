@@ -100,6 +100,7 @@ const EventDetailsContainer = (props) => {
       {isLoading && <SpinnerComponent />}
       <AuthenticationModalComponent
             show={showAuthenticationModal}
+            setshow={setshowAuthenticationModal}
             onLogin={getUserToken} />
       {!isLoading && isSuccessful && (
         <div className="mt-4">
