@@ -920,6 +920,7 @@ body {
     font-size: 12px;
     line-height: 16px;
     padding:16px;
+    margin-bottom: 20px; 
     .foodbank-name{    
         font-weight: bold;
         font-size: 18px;
@@ -931,6 +932,56 @@ body {
     }
     .foodbank-contact{
         padding-bottom:4px;
-        color: $text-color;  
+        color: $text-color; 
+    }
+    .yourpantries-header{
+        position: static;
+        width: 122px;
+        height: 20px;
+        left: 0px;
+        top: calc(50% - 20px/2 - 37px);
+        font-family: Noto Sans;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 20px;
+        display: flex;
+        align-items: flex-end;
+        text-transform: capitalize;
+        color: #282828;
+        flex: none;
+        order: 0;
+        align-self: flex-start;
+        margin: 0px 8px;
+    }
+    .yourpantries{
+        position: static;
+        height: 66px;
+        left: 0px;
+        right: 0px;
+        top: 28px;
+        font-family: Noto Sans;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 22px;
+        color: #6A6B6B;
+        flex: none;
+        order: 1;
+        align-self: center;
+        margin: 0px 8px;  
+    }
+    .events-nearby-header{
+        position: absolute;
+        height: 22px;
+        left: 0px;
+        right: 0px;
+        top: 28px;
+        font-family: Noto Sans;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 22px;
+        color: #616161;
     }
 }

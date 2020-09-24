@@ -7,6 +7,8 @@ import SearchComponent from '../General/SearchComponent';
 import ResourceListComponent from './ResourceListComponent';
 import EventListContainer from './EventListContainer';
 import LocalFoodBankComponent from './LocalFoodBankComponent';
+import YourPantriesComponent from './YourPantriesComponent';
+import EventNearByComponent from './EventNearByComponent';
 import { API_URL } from '../../Utils/Urls';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
@@ -94,7 +96,8 @@ const EventContainer = props => {
           </div>
           {!localUserToken && <EventListContainer zipCode={zipCode} />}
           {localUserToken && <LocalFoodBankComponent />}
-          {localUserToken && <LocalFoodBankComponent />}
+          {localUserToken && <YourPantriesComponent />}
+          {localUserToken && <EventNearByComponent />} 
         </div>
       </section>
     </div>

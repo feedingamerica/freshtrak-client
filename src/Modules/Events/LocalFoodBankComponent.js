@@ -7,12 +7,49 @@ import SearchComponent from '../General/SearchComponent';
 import ResourceListComponent from './ResourceListComponent';
 import EventListContainer from './EventListContainer';
 import { API_URL } from '../../Utils/Urls';
+// import { Linking} from 'react-native'
+
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
 
 const LocalFoodBankComponent = props => {
-  
+  let [foodBankData, setFoodBankData] = useState({});
+  const [foodBankResponse, setFoodBankResponse] = useState(false);
+  const [serverError, setServerError] = useState(false);
+  const { zipCode } = useParams();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  let [searchDetails, setSearchDetails] = useState({});
+
+useEffect(() => {
+  if (zipCode) {
+    dispatch(setCurrentZip(zipCode));
+    getFoodbanks(zipCode);
+  }
+}, [zipCode, dispatch]);
+
+  const getFoodbanks = async zip => {
+    if (zip) {
+      setLoading(true);
+      let foodBankUri = API_URL.FOODBANK_LIST;
+      setSearchDetails(zip);
+
+      try {
+        const resp = await axios.get(foodBankUri, {
+          params: { zip_code: zip },
+        });
+        const { data } = resp;
+        setFoodBankData(data?.foodbanks?.[0]||{});
+        setFoodBankResponse(true);
+        setLoading(false);
+      } catch (err) {
+        setServerError(true);
+        setLoading(false);
+      }
+    }
+  };
+  console.log("********** foodbank data",foodBankData)
 
   return (
     <Fragment>
@@ -21,19 +58,21 @@ const LocalFoodBankComponent = props => {
       </h2>
       <div className="local-foodbank">
         <h2 className="foodbank-name">
-        Mid-Ohio Foodbank
+        {foodBankData.company}
         </h2>
         <div className="foodbank-address">
-        3960 Brookham Dr Grove City, OH 43123
+        {foodBankData.address} {foodBankData.city} {foodBankData.state} {foodBankData.zip}
         </div>
         <div className="foodbank-contact">
         Get Directions
         </div>
         <div className="foodbank-contact">
-        Visit website
+        {/* Linking */}
+        {/* Linking.openURL({foodBankData.display_url}); */}
+        {/* Visit website {foodBankData.display_url} */}
         </div>
         <div className="foodbank-contact">
-        Call(614) 277-3663
+        Call {foodBankData.phone}
         </div>
         </div>
     </Fragment>
