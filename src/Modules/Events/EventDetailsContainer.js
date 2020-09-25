@@ -14,8 +14,8 @@ const EventDetailsContainer = (props) => {
 
   const { id: eventDateId } = useParams();
   const [isLoading, setLoading] = useState(false);
-  const [setUserToken] = useState(undefined);
   const [showAuthenticationModal, setshowAuthenticationModal] = useState(false);
+  const [userToken, setUserToken] = useState(undefined);
   const [isSuccessful, setSuccessful] = useState(true);
   const [isError, setIsError] = useState(false);
   const [pageError, setPageError] = useState(false);
