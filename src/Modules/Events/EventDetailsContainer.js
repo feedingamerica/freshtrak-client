@@ -1,13 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import TagManager from 'react-gtm-module'
 import { selectEvent } from '../../Store/Events/eventSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
 import { API_URL, BASE_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationTextInfoComponent from '../Family/RegistrationTextInfoComponent';
-import LoginModalComponent from '../Sign-In/LoginModal';
+import AuthenticationModalComponent from '../Authentication/AuthenticationModal';
 import { EventFormat } from '../../Utils/EventHandler';
 
 const EventDetailsContainer = (props) => {
@@ -15,8 +14,8 @@ const EventDetailsContainer = (props) => {
 
   const { id: eventDateId } = useParams();
   const [isLoading, setLoading] = useState(false);
-  const [setUserToken] = useState(undefined);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showAuthenticationModal, setshowAuthenticationModal] = useState(false);
+  const [userToken, setUserToken] = useState(undefined);
   const [isSuccessful, setSuccessful] = useState(true);
   const [isError, setIsError] = useState(false);
   const [pageError, setPageError] = useState(false);
@@ -50,38 +49,48 @@ const EventDetailsContainer = (props) => {
     }
   };
 
-  const fetchUserToken = async () => {
+  const fetchUserToken = async (response) => {
     setLoading(true);
-    const { GUEST_AUTH } = API_URL;
+    const { GUEST_AUTH, FB_AUTH} = API_URL;
     try {
-      const resp = await axios.post(GUEST_AUTH);
-      const {
-        data: { token, expires_at },
-      } = resp;
-      localStorage.setItem('userToken', token);
-      localStorage.setItem('tokenExpiresAt', expires_at);
+      if(response){
+        const resp = await axios({
+          method: 'post',
+          url: FB_AUTH,
+          data: JSON.stringify(response),
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const {
+          data: { token, expires_at },
+        } = resp;
+        localStorage.getItem('isFbLoggedIn', true);
+        localStorage.setItem('userToken', token);
+        localStorage.setItem('tokenExpiresAt', expires_at);
+      }else{
+        const resp = await axios.post(GUEST_AUTH);
+        const {
+          data: { token, expires_at },
+        } = resp;
+        localStorage.setItem('userToken', token);
+        localStorage.setItem('tokenExpiresAt', expires_at);
+      }
       history.push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
     } catch (e) {
       console.error(e);
-      setShowLoginModal(false);
+      setshowAuthenticationModal(false);
       setLoading(false);
     }
   };
 
-  const getUserToken = () => {
-    TagManager.dataLayer({
-      dataLayer: {
-      event: "guest-login"
-      }
-    })
+  const getUserToken = (response) => {
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
 
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
-      showLoginModal ? fetchUserToken() : setShowLoginModal(true);
+      showAuthenticationModal ? fetchUserToken(response) : setshowAuthenticationModal(true);
     } else {
       setUserToken(localUserToken);
-      setShowLoginModal(false);
+      setshowAuthenticationModal(false);
       history.push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
     }
   };
@@ -89,8 +98,9 @@ const EventDetailsContainer = (props) => {
   return (
     <Fragment>
       {isLoading && <SpinnerComponent />}
-      <LoginModalComponent
-            show={showLoginModal}
+      <AuthenticationModalComponent
+            show={showAuthenticationModal}
+            setshow={setshowAuthenticationModal}
             onLogin={getUserToken} />
       {!isLoading && isSuccessful && (
         <div className="mt-4">
