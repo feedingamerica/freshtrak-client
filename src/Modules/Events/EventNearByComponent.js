@@ -19,8 +19,13 @@ const EventNearByComponent = props => {
       <h2 className="font-weight-bold mobile-text-left">
         Events Nearby Today
       </h2>
-      <div className="events-nearby-header">
-        Events Within your area.
+      <div>
+        <div className="events-nearby-header">
+          Events Within your area.
+        </div>
+        {/* <div className="events-nearby-header">
+          Events Within your area.
+        </div> */}
       </div>
     </Fragment>
   );

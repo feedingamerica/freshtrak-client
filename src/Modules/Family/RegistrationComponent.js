@@ -44,6 +44,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const onSubmit = data => {
     data["date_of_birth"] = formatDateForServer(data["date_of_birth"])
     onRegister(data);
+    localStorage.setItem("zip_code",user.zip_code)
   }
   
   const submitHandlerFocus = (e)=>{

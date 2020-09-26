@@ -15,6 +15,13 @@ const DashBoardDataComponent = props => {
   // },[localStorage.getItem('isLoggedIn')]);
 
   const { register, errors, handleSubmit } = useForm();
+  const localUserToken = localStorage.getItem('userToken');
+  const zip_code = localStorage.getItem("zip_code");
+  if (localUserToken){
+    props.history.push({
+      pathname: `/home/${zip_code}`,
+    }); 
+  }
 
   const onSubmit = data => {
     if (data) {

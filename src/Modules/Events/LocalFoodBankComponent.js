@@ -7,6 +7,7 @@ import SearchComponent from '../General/SearchComponent';
 import ResourceListComponent from './ResourceListComponent';
 import EventListContainer from './EventListContainer';
 import { API_URL } from '../../Utils/Urls';
+import { Link } from 'react-router-dom';
 // import { Linking} from 'react-native'
 
 import { setCurrentZip } from '../../Store/Search/searchSlice';
@@ -67,14 +68,13 @@ useEffect(() => {
         Get Directions
         </div>
         <div className="foodbank-contact">
-        {/* Linking */}
-        {/* Linking.openURL({foodBankData.display_url}); */}
-        {/* Visit website {foodBankData.display_url} */}
+        {/* {foodBankData.display_url} */}
+        <a href={foodBankData.display_url}>Visit Website</a>
         </div>
         <div className="foodbank-contact">
         Call {foodBankData.phone}
         </div>
-        </div>
+      </div>
     </Fragment>
   );
 };

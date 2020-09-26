@@ -32,6 +32,7 @@ const RegistrationContainer = lazy(() => import('../Modules/Family/RegistrationC
 const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEventListContainer'));
 const EventDetailsContainer = lazy(() => import('../Modules/Events/EventDetailsContainer'));
 const RegistrationConfirmComponent = lazy(() => import('../Modules/Family/RegistrationConfirmComponent'));
+const PantryContainer = lazy(() => import('../Modules/Pantry/PantryContainer'));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -55,6 +56,10 @@ const Routes = () => {
             <Route
               exact path={RENDER_URL.ADD_FAMILY_URL}
               component={FamilyContainer}
+            />
+            <Route
+              exact path={RENDER_URL.REDIRECT_HOME_URL}
+              component={PantryContainer}
             />
 
             {/* Out of Scope */}

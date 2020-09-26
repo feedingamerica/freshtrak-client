@@ -28,4 +28,5 @@ export const RENDER_URL = {
   EVENT_REGISTRATION_URL: '/events/register',
   EVENT_REGISTRATION_CONFIRM_URL: '/event/confirm',
   AGENCY_EVENT_LIST: '/agency/events',
+  REDIRECT_HOME_URL: '/home/:zipCode',
 };
