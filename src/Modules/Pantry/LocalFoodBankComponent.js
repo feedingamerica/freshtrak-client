@@ -2,10 +2,6 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { ProgressBar } from 'react-bootstrap';
-import SearchComponent from '../General/SearchComponent';
-import ResourceListComponent from './ResourceListComponent';
-import EventListContainer from './EventListContainer';
 import { API_URL } from '../../Utils/Urls';
 import { Link } from 'react-router-dom';
 // import { Linking} from 'react-native'
