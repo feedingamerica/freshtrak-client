@@ -10,6 +10,7 @@ import { API_URL, BASE_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
 import { EventFormat } from '../../Utils/EventHandler';
+import { formatMMDDYYYY } from '../../Utils/DateFormat';
 
 const RegistrationContainer = (props) => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const RegistrationContainer = (props) => {
       }
     }}
     fetchBusinesses();
-  });
+  },[]);
 
   const getEvent = async () => {
     try {
@@ -76,6 +77,9 @@ const RegistrationContainer = (props) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       const { data } = resp;
+      if (data["date_of_birth"] !== null){
+        data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
+      }
       dispatch(setCurrentUser(data));
       setUser(data);
       setLoading(false);
