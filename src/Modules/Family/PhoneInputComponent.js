@@ -29,6 +29,10 @@ const PhoneInputComponent = (props) => {
     props.onChange(updatedPhone);
   };
 
+  const formatedPhoneNumber = normalizeInput(props.value);
+  // const formatedNumber = normalizeInput(props.value);
+  // console.log("***********format",formatedPhoneNumber)
+  // console.log("***********props",props)
   return (
     <Fragment>
       <input
@@ -37,7 +41,7 @@ const PhoneInputComponent = (props) => {
         name={props.name}
         placeholder={props.placeholder}
         id={props.id}
-        value={props.value}
+        value={formatedPhoneNumber}
         onChange={(e) => formatPhone(e)}
         ref={props.register({
           validate: value => isValidPhoneNumber(value)
