@@ -96,6 +96,8 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
                   register={register}
                   event={event}
                   errors={errors}
+                  watch={watch}
+                  setValue={setValue}
                 />
                 <div className="button-wrap mt-4">
                   <button

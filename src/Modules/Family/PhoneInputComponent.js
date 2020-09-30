@@ -30,9 +30,7 @@ const PhoneInputComponent = (props) => {
   };
 
   const formatedPhoneNumber = normalizeInput(props.value);
-  // const formatedNumber = normalizeInput(props.value);
-  // console.log("***********format",formatedPhoneNumber)
-  // console.log("***********props",props)
+
   return (
     <Fragment>
       <input
