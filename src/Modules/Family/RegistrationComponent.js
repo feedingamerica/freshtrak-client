@@ -69,7 +69,12 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
                   setValue={setValue}
                   watch={watch}
                    />
-                <AddressComponent register={register} errors={errors} />
+                <AddressComponent
+                  register={register}
+                  errors={errors}
+                  watch={watch}
+                  setValue={setValue}
+                />
                 <ContactInformationComponent
                   register={register}
                   errors={errors}
