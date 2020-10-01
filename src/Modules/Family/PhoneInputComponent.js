@@ -29,7 +29,11 @@ const PhoneInputComponent = (props) => {
     props.onChange(updatedPhone);
   };
 
-  const formatedPhoneNumber = normalizeInput(props.value);
+  let normalizedValue = null;
+  if (props.value && !props.value.includes('-')) {
+    normalizedValue = normalizeInput(props.value)
+    setTimeout(props.onChange(normalizedValue), 0);
+  }
 
   return (
     <Fragment>
@@ -39,7 +43,7 @@ const PhoneInputComponent = (props) => {
         name={props.name}
         placeholder={props.placeholder}
         id={props.id}
-        value={formatedPhoneNumber}
+        value={normalizedValue || props.value}
         onChange={(e) => formatPhone(e)}
         ref={props.register({
           validate: value => isValidPhoneNumber(value)
