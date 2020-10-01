@@ -21,7 +21,7 @@ const ContactInformationComponent = forwardRef(
               placeholder="(xxx) xxx-xxxx"
               id="phone"
               value={phone}
-              onChange={(e) => setValue('phone', e)}
+              onChange={(e) => { console.log(e);setValue('phone', e) }}
               register={register}
             />
             {errors.phone && (
