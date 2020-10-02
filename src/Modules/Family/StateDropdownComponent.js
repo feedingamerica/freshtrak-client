@@ -5,7 +5,7 @@ const StateDropdownComponent = forwardRef(({ register, errors,value, setValue },
     <div className="form-group ml-2">
       <label htmlFor="state">State<span className="text-danger">*</span></label>
       <select
-        className="form-control"
+        className= {`form-control ${errors.state && 'invalid'}`}
         id="state"
         name="state"
         value={value}
