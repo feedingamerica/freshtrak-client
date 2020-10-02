@@ -16,7 +16,7 @@ const ContactInformationComponent = forwardRef(
             <label htmlFor="phone">Phone Number (Mobile Preferred)</label>
             <PhoneInputComponent
               type="text"
-              className="form-control"
+              className= {`form-control ${errors.phone && 'invalid'}`}
               name="phone"
               placeholder="(xxx) xxx-xxxx"
               id="phone"
@@ -70,7 +70,7 @@ const ContactInformationComponent = forwardRef(
             <label htmlFor="email">Email</label>
             <input
               type="email"
-              className="form-control"
+              className= {`form-control ${errors.email && 'invalid'}`}
               name="email"
               id="email"
               autoComplete="off"

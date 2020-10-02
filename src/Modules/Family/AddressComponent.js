@@ -74,7 +74,7 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
             <>
               <input
                 type="text"
-                className="form-control"
+                className= {`form-control ${errors.address_line_1 && 'invalid'}`}
                 name="address_line_1"
                 id="address_line_1"
                 {...getInputProps()}
@@ -124,7 +124,7 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
           <label htmlFor="city">City<span className="text-danger">*</span></label>
           <input
             type="text"
-            className="form-control"
+            className= {`form-control ${errors.city && 'invalid'}`}
             name="city"
             id="city"
             value={cityName}
@@ -146,7 +146,7 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
           <label htmlFor="zip_code">Zip Code<span className="text-danger">*</span></label>
           <input
             type="text"
-            className="form-control"
+            className= {`form-control ${errors.zip_code && 'invalid'}`}
             name="zip_code"
             value={zip}
             onChange={(e) => setValue('zip_code', e)}
