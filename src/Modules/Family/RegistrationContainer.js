@@ -30,8 +30,9 @@ const RegistrationContainer = (props) => {
   const currentUser = useSelector(selectUser);
   const [user, setUser] = useState(currentUser);
 
-  useEffect(() => {
-    function fetchBusinesses(){
+  useEffect(fetchBusinesses);
+
+  function fetchBusinesses(){
     setUserToken(localStorage.getItem('userToken'));
     if (!isError && !pageError) {
       if(Object.keys(selectedEvent).length === 0) {
@@ -40,9 +41,8 @@ const RegistrationContainer = (props) => {
       if(user === null) {
         getUser(localStorage.getItem('userToken'));
       }
-    }}
-    fetchBusinesses();
-  },[]);
+    }
+  }
 
   const getEvent = async () => {
     try {
