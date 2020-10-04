@@ -1,10 +1,12 @@
-import React, { Fragment } from 'react';
-
-const isValidPhoneNumber = (value) => {
-  return value.length === 14;
-}
+import React, { Fragment, useEffect, useState } from 'react';
 
 const PhoneInputComponent = (props) => {
+  const [phoneNo, setPhoneNo] = useState('');
+
+  useEffect(()  => {
+    setPhoneNo(normalizeInput(props.value));
+  }, [props.value]);
+
   const normalizeInput = (value) => {
     if (!value) return value;
     const currentValue = value.replace(/[^\d]/g, '');
@@ -29,12 +31,6 @@ const PhoneInputComponent = (props) => {
     props.onChange(updatedPhone);
   };
 
-  let normalizedValue = null;
-  if (props.value && !props.value.includes('-')) {
-    normalizedValue = normalizeInput(props.value)
-    setTimeout(props.onChange(normalizedValue), 0);
-  }
-
   return (
     <Fragment>
       <input
@@ -43,10 +39,10 @@ const PhoneInputComponent = (props) => {
         name={props.name}
         placeholder={props.placeholder}
         id={props.id}
-        value={normalizedValue || props.value}
+        value={phoneNo}
         onChange={(e) => formatPhone(e)}
         ref={props.register({
-          validate: value => isValidPhoneNumber(value)
+          validate: value => value.length === 14
         })}
       />
     </Fragment>
