@@ -40,7 +40,6 @@ const EventSlotsModalComponent = (props) => {
       console.error(e);
     }
   };
-
   return (
     <Fragment>
       <Modal show={show} onHide={handleClose}>
@@ -55,7 +54,7 @@ const EventSlotsModalComponent = (props) => {
         <Modal.Body>
           <div className="container">
             {eventHour.map((item, index) => (
-              item.event_slots.filter((e, i) => (e.capacity > 0)).map((e, i) => {
+              item.event_slots.filter((e, i) => (e.open_slots > 0)).map((e, i) => {
                 return (
                   <div className="form-check p-2" key={index + '-' + i}>
                     <input
