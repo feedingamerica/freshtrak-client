@@ -80,6 +80,10 @@ const RegistrationContainer = (props) => {
       if (data["date_of_birth"] !== null){
         data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
       }
+      if (data["phone"] !== null){
+        const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+        data["phone"] = data["phone"].replace(phoneRegex, '($1) $2-$3')
+      }
       dispatch(setCurrentUser(data));
       setUser(data);
       setLoading(false);

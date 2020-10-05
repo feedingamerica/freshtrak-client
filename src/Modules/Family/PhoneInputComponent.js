@@ -1,12 +1,6 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 
 const PhoneInputComponent = (props) => {
-  const [phoneNo, setPhoneNo] = useState('');
-
-  useEffect(()  => {
-    setPhoneNo(normalizeInput(props.value));
-  }, [props.value]);
-
   const normalizeInput = (value) => {
     if (!value) return value;
     const currentValue = value.replace(/[^\d]/g, '');
@@ -39,7 +33,7 @@ const PhoneInputComponent = (props) => {
         name={props.name}
         placeholder={props.placeholder}
         id={props.id}
-        value={phoneNo}
+        value={props.value}
         onChange={(e) => formatPhone(e)}
         ref={props.register({
           validate: value => value.length === 14
