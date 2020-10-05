@@ -8,6 +8,7 @@ import axios from 'axios';
 import RegistrationTextInfoComponent from '../Family/RegistrationTextInfoComponent';
 import AuthenticationModalComponent from '../Authentication/AuthenticationModal';
 import { EventFormat } from '../../Utils/EventHandler';
+import TagManager from 'react-gtm-module'
 
 const EventDetailsContainer = (props) => {
   const history = useHistory();
@@ -63,6 +64,7 @@ const EventDetailsContainer = (props) => {
         const {
           data: { authentication },
         } = resp;
+        TagManager.dataLayer({ dataLayer: { event: "returning-customer-login" } })
         localStorage.setItem('userToken', authentication.token);
         localStorage.setItem('tokenExpiresAt', authentication.expires_at);
       }else{
