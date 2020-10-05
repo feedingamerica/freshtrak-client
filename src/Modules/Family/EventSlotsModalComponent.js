@@ -55,8 +55,8 @@ const EventSlotsModalComponent = (props) => {
         <Modal.Body>
           <div className="container">
             {eventHour.map((item, index) => (
-              <div className="" key={'ul' + index}>
-                {item.event_slots.map((e, i) => (
+              item.event_slots.filter((e, i) => (e.capacity > 0)).map((e, i) => {
+                return (
                   <div className="form-check p-2" key={index + '-' + i}>
                     <input
                       className="form-check-input"
@@ -69,8 +69,8 @@ const EventSlotsModalComponent = (props) => {
                       {e.start_time} - {e.end_time}
                     </label>
                   </div>
-                ))}
-              </div>
+                )
+              })
             ))}
           </div>
         </Modal.Body>
