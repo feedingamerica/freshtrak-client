@@ -61,11 +61,10 @@ const EventDetailsContainer = (props) => {
           headers: { 'Content-Type': 'application/json' }
         });
         const {
-          data: { token, expires_at },
+          data: { authentication },
         } = resp;
-        localStorage.getItem('isFbLoggedIn', true);
-        localStorage.setItem('userToken', token);
-        localStorage.setItem('tokenExpiresAt', expires_at);
+        localStorage.setItem('userToken', authentication.token);
+        localStorage.setItem('tokenExpiresAt', authentication.expires_at);
       }else{
         const resp = await axios.post(GUEST_AUTH);
         const {
