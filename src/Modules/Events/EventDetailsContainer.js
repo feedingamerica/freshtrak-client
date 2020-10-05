@@ -8,6 +8,7 @@ import axios from 'axios';
 import RegistrationTextInfoComponent from '../Family/RegistrationTextInfoComponent';
 import AuthenticationModalComponent from '../Authentication/AuthenticationModal';
 import { EventFormat } from '../../Utils/EventHandler';
+import TagManager from 'react-gtm-module'
 
 const EventDetailsContainer = (props) => {
   const history = useHistory();
@@ -61,11 +62,11 @@ const EventDetailsContainer = (props) => {
           headers: { 'Content-Type': 'application/json' }
         });
         const {
-          data: { token, expires_at },
+          data: { authentication },
         } = resp;
-        localStorage.getItem('isFbLoggedIn', true);
-        localStorage.setItem('userToken', token);
-        localStorage.setItem('tokenExpiresAt', expires_at);
+        TagManager.dataLayer({ dataLayer: { event: "returning-customer-login" } })
+        localStorage.setItem('userToken', authentication.token);
+        localStorage.setItem('tokenExpiresAt', authentication.expires_at);
       }else{
         const resp = await axios.post(GUEST_AUTH);
         const {
