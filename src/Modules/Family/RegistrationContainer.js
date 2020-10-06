@@ -30,7 +30,7 @@ const RegistrationContainer = (props) => {
   const currentUser = useSelector(selectUser);
   const [user, setUser] = useState(currentUser);
 
-  useEffect(fetchBusinesses);
+  useEffect(fetchBusinesses, []);
 
   function fetchBusinesses(){
     setUserToken(localStorage.getItem('userToken'));
@@ -43,7 +43,7 @@ const RegistrationContainer = (props) => {
       }
     }
   }
-
+  
   const getEvent = async () => {
     try {
       const resp = await axios.get(
