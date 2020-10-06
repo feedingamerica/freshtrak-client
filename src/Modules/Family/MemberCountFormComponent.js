@@ -1,48 +1,47 @@
-import React, { Fragment, forwardRef, useState } from 'react';
+import React, { Fragment, forwardRef } from 'react';
 
-const MemberCountFormComponent = forwardRef(({ register, event, errors }, ref) => {
-  const [countSenior, setCountSenior] = useState(0);
-  const [countAdult, setCountAdult] = useState(0);
-  const [countKid, setCountKid] = useState(0);
+const MemberCountFormComponent = forwardRef(({ register, event, watch, setValue }, ref) => {
+  const countSenior = watch('seniors_in_household') || 0 ;
+  const countAdult = watch('adults_in_household') || 0 ;
+  const countKid = watch('children_in_household') || 0 ;
 
   const seniorDecrementFunction = e => {
     e.preventDefault();
     const newCount = countSenior - 1;
     if (newCount >= 0) {
-      setCountSenior(newCount);
+      setValue('seniors_in_household', newCount);
     }
-
   };
 
   const seniorIncrementFunction = e => {
     e.preventDefault();
-    setCountSenior(countSenior + 1);
+    setValue('seniors_in_household', Number(countSenior) + 1);
   };
 
   const adultDecrementFunction = e => {
     const newCount = countAdult - 1
     e.preventDefault();
     if (newCount >= 0) {
-      setCountAdult(countAdult - 1);
+      setValue('adults_in_household', newCount);
     }
   };
 
   const adultIncrementFunction = e => {
     e.preventDefault();
-    setCountAdult(countAdult + 1);
+    setValue('adults_in_household', Number(countAdult) + 1);
   };
 
   const kidDecrementFunction = e => {
     const newCount = countKid - 1
     e.preventDefault();
     if (newCount >= 0) {
-      setCountKid(countKid - 1);
+      setValue('children_in_household', newCount);
     }
   };
 
   const kidIncrementFunction = e => {
     e.preventDefault();
-    setCountKid(countKid + 1);
+    setValue('children_in_household', Number(countKid) + 1);
   };
 
   return (

@@ -1,9 +1,5 @@
 import React, { Fragment } from 'react';
 
-const isValidPhoneNumber = (value) => {
-  return value.length === 14;
-}
-
 const PhoneInputComponent = (props) => {
   const normalizeInput = (value) => {
     if (!value) return value;
@@ -40,7 +36,7 @@ const PhoneInputComponent = (props) => {
         value={props.value}
         onChange={(e) => formatPhone(e)}
         ref={props.register({
-          validate: value => isValidPhoneNumber(value)
+          validate: value => value.length === 14
         })}
       />
     </Fragment>

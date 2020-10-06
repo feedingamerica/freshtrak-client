@@ -34,7 +34,12 @@ const FamilyContainer = () => {
                   setValue={setValue}
                   watch={watch}
                 />
-                <AddressComponent register={register} errors={errors} />
+                <AddressComponent
+                  register={register}
+                  errors={errors}
+                  watch={watch}
+                  setValue={setValue}
+                />
                 <ContactInformationComponent
                   register={register}
                   errors={errors}
@@ -45,6 +50,8 @@ const FamilyContainer = () => {
                   register={register}
                   event={event}
                   errors={errors}
+                  watch={watch}
+                  setValue={setValue}
                 />
                 <div className="button-wrap mt-4">
                   <button

@@ -10,6 +10,7 @@ import { API_URL, BASE_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
 import { EventFormat } from '../../Utils/EventHandler';
+import { formatMMDDYYYY } from '../../Utils/DateFormat';
 
 const RegistrationContainer = (props) => {
   const dispatch = useDispatch();
@@ -29,8 +30,9 @@ const RegistrationContainer = (props) => {
   const currentUser = useSelector(selectUser);
   const [user, setUser] = useState(currentUser);
 
-  useEffect(() => {
-    function fetchBusinesses(){
+  useEffect(fetchBusinesses, []);
+
+  function fetchBusinesses(){
     setUserToken(localStorage.getItem('userToken'));
     if (!isError && !pageError) {
       if(Object.keys(selectedEvent).length === 0) {
@@ -39,10 +41,9 @@ const RegistrationContainer = (props) => {
       if(user === null) {
         getUser(localStorage.getItem('userToken'));
       }
-    }}
-    fetchBusinesses();
-  });
-
+    }
+  }
+  
   const getEvent = async () => {
     try {
       const resp = await axios.get(
@@ -76,6 +77,13 @@ const RegistrationContainer = (props) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       const { data } = resp;
+      if (data["date_of_birth"] !== null){
+        data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
+      }
+      if (data["phone"] !== null){
+        const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+        data["phone"] = data["phone"].replace(phoneRegex, '($1) $2-$3')
+      }
       dispatch(setCurrentUser(data));
       setUser(data);
       setLoading(false);

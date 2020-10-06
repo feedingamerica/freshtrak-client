@@ -12,34 +12,46 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
   useEffect(() => {
     const {
+      first_name,
+      middle_name,
+      last_name,
+      suffix,
+      date_of_birth,
+      gender,
       address_line_1,
       address_line_2,
       city,
       state,
       zip_code,
       phone,
-      first_name,
-      last_name,
-      middle_name,
-      date_of_birth,
+      permission_to_text,
       email,
+      permission_to_email,
       seniors_in_household,
+      adults_in_household,
       children_in_household,
+      license_plate
     } = user || {};
     reset({
+      first_name,
+      middle_name,
+      last_name,
+      suffix,
+      date_of_birth,
+      gender,
       address_line_1,
       address_line_2,
       city,
       state,
       zip_code,
       phone,
-      first_name,
-      last_name,
-      middle_name,
-      date_of_birth,
+      permission_to_text,
       email,
+      permission_to_email,
       seniors_in_household,
+      adults_in_household,
       children_in_household,
+      license_plate
     })
   }, [user, reset])
   const onSubmit = data => {
@@ -68,7 +80,12 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
                   setValue={setValue}
                   watch={watch}
                    />
-                <AddressComponent register={register} errors={errors} />
+                <AddressComponent
+                  register={register}
+                  errors={errors}
+                  watch={watch}
+                  setValue={setValue}
+                />
                 <ContactInformationComponent
                   register={register}
                   errors={errors}
@@ -80,6 +97,8 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
                   register={register}
                   event={event}
                   errors={errors}
+                  watch={watch}
+                  setValue={setValue}
                 />
                 <div className="button-wrap mt-4">
                   <button

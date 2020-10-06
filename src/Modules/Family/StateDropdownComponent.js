@@ -1,15 +1,15 @@
 import React, { forwardRef, Fragment } from 'react';
 
-const StateDropdownComponent = forwardRef(({ register, errors,shortNameChange,nameChange,value,defaultValue }, ref) => (
+const StateDropdownComponent = forwardRef(({ register, errors,value, setValue }, ref) => (
   <Fragment>
     <div className="form-group ml-2">
       <label htmlFor="state">State<span className="text-danger">*</span></label>
       <select
-        className="form-control"
+        className= {`form-control ${errors.state && 'invalid'}`}
         id="state"
         name="state"
         value={value}
-        onChange={(e)=>{shortNameChange(e.target.value);nameChange(e.target.value)}}
+        onChange={(e) => setValue('state', e)}
         ref={register({ required: true })}
       >
         <option value="" defaultValue></option>

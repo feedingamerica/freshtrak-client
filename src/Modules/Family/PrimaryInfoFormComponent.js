@@ -41,7 +41,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       <label htmlFor="first_name">First Name<span className="text-danger">*</span></label>
       <input
         type="text"
-        className="form-control"
+        className= {`form-control ${errors.first_name && 'invalid'}`}
         name="first_name"
         id="first_name"
         ref={register({ required: true })}
@@ -62,7 +62,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       <label htmlFor="last_name">Last Name<span className="text-danger">*</span></label>
       <input
         type="text"
-        className="form-control"
+        className= {`form-control ${errors.last_name && 'invalid'}`}
         name="last_name"
         id="last_name"
         ref={register({ required: true })}
@@ -86,7 +86,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       <label htmlFor="date_of_birth">Date of Birth<span className="text-danger">*</span></label>
       <input
         type="text"
-        className="form-control"
+        className= {`form-control ${errors.date_of_birth && 'invalid'}`}
         name="date_of_birth"
         id="date_of_birth"
         placeholder="mm/dd/yyyy"
@@ -102,7 +102,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
     <div className="form-group">
       <label htmlFor="gender">Gender<span className="text-danger">*</span></label>
       <select
-        className="form-control"
+        className= {`form-control ${errors.gender && 'invalid'}`}
         name="gender"
         id="gender"
         ref={register({required: true})}
