@@ -45,7 +45,7 @@ const Routes = () => {
           <Switch>
             <Route
               exact
-              path={RENDER_URL.HOME_URL}
+              path={RENDER_URL.ROOT_URL}
               component={DashBoardContainer}
             />
             <Route
@@ -58,7 +58,7 @@ const Routes = () => {
               component={FamilyContainer}
             />
             <Route
-              exact path={RENDER_URL.REDIRECT_HOME_URL}
+              exact path={RENDER_URL.HOME_URL}
               component={PantryContainer}
             />
 

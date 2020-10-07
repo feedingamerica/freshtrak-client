@@ -54,7 +54,7 @@ const HeaderComponent = (props) => {
           <Navbar expand="md" className="w-100">
             <Navbar.Brand className="my-auto mobile-view">
               <span className="my-auto mobile-view">
-                <Link to={RENDER_URL.HOME_URL}>
+                <Link to={RENDER_URL.ROOT_URL}>
                   <img
                     src={mainLogo}
                     alt="FreshTrak"
