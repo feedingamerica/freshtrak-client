@@ -1,6 +1,7 @@
 import React, { useEffect,useState, Fragment } from 'react';
 import { LinkContainer } from 'react-router-bootstrap'
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import { API_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
@@ -14,6 +15,11 @@ const EventSlotsModalComponent = (props) => {
   const [show, setShow] = useState(false);
   const { register, watch } = useForm();
   const event_slot_id = watch('time_slot');
+
+  const home = useHistory();
+  const backHome = () => {
+    home.goBack();
+  }
 
   useEffect(() => {
     if (acceptReservations === 1) {
@@ -43,7 +49,7 @@ const EventSlotsModalComponent = (props) => {
   return (
     <Fragment>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>
             <span className="pr-3">
               <img aria-hidden="true" alt="Go back" src={alarmIcon} />
@@ -77,9 +83,9 @@ const EventSlotsModalComponent = (props) => {
           <button
             type="button"
             className="btn default-button"
-            onClick={handleClose}
+            onClick={backHome}
           >
-            Close
+            Go Back
           </button>
           <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${eventDateId}/${event_slot_id}`}>
             <button
