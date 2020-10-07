@@ -48,7 +48,7 @@ const EventSlotsModalComponent = (props) => {
   };
   return (
     <Fragment>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} backdrop="static">
         <Modal.Header>
           <Modal.Title>
             <span className="pr-3">
