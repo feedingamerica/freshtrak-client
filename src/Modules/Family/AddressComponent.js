@@ -34,7 +34,7 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
           destructured["street_number"] = component.long_name;
           break;
         case "route":
-          destructured["route"] = component.long_name;
+          destructured["route"] = component.short_name;
           break;
         case "locality":
           destructured["locality"] = component.long_name;
