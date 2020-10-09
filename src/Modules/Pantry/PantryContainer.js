@@ -59,9 +59,11 @@ const PantryContainer = props => {
               </div>
             )}
           </div>
-          <LocalFoodBankComponent />
-          <YourPantriesComponent />
-          <EventNearByComponent /> 
+          <div className="foodbank-and-events">
+            <LocalFoodBankComponent />
+            <YourPantriesComponent />
+           <EventNearByComponent /> 
+          </div>
         </div>
       </section>
     </div>
