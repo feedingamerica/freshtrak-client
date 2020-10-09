@@ -95,9 +95,9 @@ const PantryContainer = props => {
           </div>
           <div className="foodbank-and-events">
             <LocalFoodBankComponent />
-            <EventNearByComponent /> 
+            <EventNearByComponent EventList= {EventList}/> 
           </div>
-          {!loading && <EventList />}
+          {/* {!loading && <EventList />} */}
         </div>
       </section>
     </div>

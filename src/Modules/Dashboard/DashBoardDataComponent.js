@@ -17,6 +17,8 @@ const DashBoardDataComponent = props => {
   const { register, errors, handleSubmit } = useForm();
   const localUserToken = localStorage.getItem('userToken');
   // const zip_code = localStorage.getItem("zip_code");
+  
+  //Flag to turn logged user
   if (localUserToken){
     props.history.push({
       pathname: `/home`,
