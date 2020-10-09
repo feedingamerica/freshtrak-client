@@ -93,9 +93,10 @@ const PantryContainer = props => {
               </div>
             )}
           </div>
-          <LocalFoodBankComponent />
-          <YourPantriesComponent />
-          <EventNearByComponent /> 
+          <div className="foodbank-and-events">
+            <LocalFoodBankComponent />
+            <EventNearByComponent /> 
+          </div>
           {!loading && <EventList />}
         </div>
       </section>
@@ -104,3 +105,4 @@ const PantryContainer = props => {
 };
 
 export default withRouter(PantryContainer);
+          

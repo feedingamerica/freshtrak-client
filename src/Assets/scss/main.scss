@@ -670,6 +670,11 @@ body {
     }
     .gray-bg {
         background: $gray-color;
+        
+        .foodbank-and-events{
+            padding-left: 105px;
+            padding-right: 105px;
+        }
     }
     .gray-bg-inner {
         background: $inner-gray;
