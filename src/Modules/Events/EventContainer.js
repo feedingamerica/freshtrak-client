@@ -95,9 +95,9 @@ const EventContainer = props => {
             {!loading && !localUserToken && <ResourceList />}
           </div>
           {!localUserToken && <EventListContainer zipCode={zipCode} />}
-          {localUserToken && <LocalFoodBankComponent />}
+          {/* {localUserToken && <LocalFoodBankComponent />}
           {localUserToken && <YourPantriesComponent />}
-          {localUserToken && <EventNearByComponent />} 
+          {localUserToken && <EventNearByComponent />}  */}
         </div>
       </section>
     </div>

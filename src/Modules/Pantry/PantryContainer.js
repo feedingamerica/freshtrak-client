@@ -11,21 +11,45 @@ import { API_URL } from '../../Utils/Urls';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
+import EventListComponent from '../Events/EventListComponent';
+import { EventHandler } from '../../Utils/EventHandler';
+
 
 const PantryContainer = props => {
-  const { zipCode } = useParams();
-  // const [foodBankResponse, setFoodBankResponse] = useState(false);
-  // let [foodBankData, setFoodBankData] = useState({});
+  const [agencyResponse, setAgencyResponse] = useState(false);
+  const [agencyData, setAgencyData] = useState({});
+  const [zipCode, setZipCode] = useState(localStorage.getItem("zip_code"));
   let [searchDetails, setSearchDetails] = useState({});
-  // const [serverError, setServerError] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (zipCode) {
+      getEvents(zipCode);
       dispatch(setCurrentZip(zipCode));
     }
   }, [zipCode, dispatch]);
+
+  const getEvents = async zip => {
+    if (zip) {
+      setLoading(true);
+      try {
+        const resp = await axios.get(API_URL.EVENTS_LIST, {
+          params: { zip_code: zip },
+        });
+
+        const {
+          data: { agencies },
+        } = resp;
+        setAgencyData(agencies);
+        setAgencyResponse(true);
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setLoading(false);
+      }
+    }
+  };
 
   const { register, errors, handleSubmit } = useForm();
 
@@ -33,10 +57,20 @@ const PantryContainer = props => {
   const onSubmit = data => {
     if (data) {
       const { zip_code } = data;
-      props.history.push({
-        pathname: `/home/${zip_code}`,
-      });
+      localStorage.setItem("zip_code", zip_code)
+      // props.history.push({
+      //   pathname: `/home`,
+      // });
+      setZipCode(zip_code)
     }
+  };
+
+  const EventList = () => {
+    if (agencyResponse) {
+      const agencyDataSorted = EventHandler(agencyData);
+      return <EventListComponent events={agencyDataSorted} zipCode={zipCode} />;
+    }
+    return null;
   };
   
 
@@ -62,6 +96,7 @@ const PantryContainer = props => {
           <LocalFoodBankComponent />
           <YourPantriesComponent />
           <EventNearByComponent /> 
+          {!loading && <EventList />}
         </div>
       </section>
     </div>
