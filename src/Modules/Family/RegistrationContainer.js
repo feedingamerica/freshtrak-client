@@ -11,6 +11,7 @@ import axios from 'axios';
 import RegistrationComponent from './RegistrationComponent';
 import { EventFormat } from '../../Utils/EventHandler';
 import { formatMMDDYYYY } from '../../Utils/DateFormat';
+import { NotifyToast, showToast } from '../Notifications/NotifyToastComponent';
 
 const RegistrationContainer = (props) => {
   const dispatch = useDispatch();
@@ -92,6 +93,11 @@ const RegistrationContainer = (props) => {
     }
   };
 
+  const notify = (msg, error) => {
+    let formatted_msg = msg.user_id[0]
+    showToast(formatted_msg, error);
+  }
+
   const register = async user => {
     setDisabled(!disabled);
     const event_date_id = parseInt(eventDateId, 10);
@@ -121,6 +127,8 @@ const RegistrationContainer = (props) => {
         state: { user: {...user,identification_code:currentUser.identification_code}, eventDateId: eventDateId}
       });
     } catch (e) {
+      notify(e.response.data, 'error')
+      setTimeout(()=> window.scrollTo(0, 0))
       setDisabled(disabled);
       console.error(e);
       setErrors(e);
@@ -137,6 +145,7 @@ const RegistrationContainer = (props) => {
     <Fragment>
       {isLoading && <SpinnerComponent />}
       <Fragment>
+        <NotifyToast />
           <RegistrationComponent
             user={user}
             onRegister={register}
