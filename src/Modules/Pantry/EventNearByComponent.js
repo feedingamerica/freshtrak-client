@@ -42,10 +42,10 @@ const EventNearByComponent = props => {
     </Card>
     <Card>
       <Accordion.Toggle as={Card.Header} eventKey="1">
-        Weekly Events
+        Next Week Events
       </Accordion.Toggle>
       <Accordion.Collapse eventKey="1">
-        <Card.Body>Hello! I'm another body</Card.Body>
+        <Card.Body>Next Week Events Loading......</Card.Body>
       </Accordion.Collapse>
     </Card>
   </Accordion>

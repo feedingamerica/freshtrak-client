@@ -57,6 +57,7 @@ const Routes = () => {
               exact path={RENDER_URL.ADD_FAMILY_URL}
               component={FamilyContainer}
             />
+            {/* Flag to turn off Loggedin user feature */}
             <Route
               exact path={RENDER_URL.HOME_URL}
               component={PantryContainer}
