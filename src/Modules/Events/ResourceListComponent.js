@@ -65,7 +65,7 @@ const ResourceListComponent = ({ dataToChild }) => {
               </div>
               <div className="col-lg-4 col-sm-6 caption-text">
                 <div>{phone}</div>
-                <div>
+                <div className="link-wrap">
                   <a
                     href={display_url}
                     target="_blank"
