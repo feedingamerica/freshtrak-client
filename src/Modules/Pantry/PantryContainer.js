@@ -13,7 +13,7 @@ import axios from 'axios';
 import '../../Assets/scss/main.scss';
 import EventListComponent from '../Events/EventListComponent';
 import { EventHandler } from '../../Utils/EventHandler';
-
+import moment from 'moment';
 
 const PantryContainer = props => {
   const [agencyResponse, setAgencyResponse] = useState(false);
@@ -65,9 +65,27 @@ const PantryContainer = props => {
     }
   };
 
-  const EventList = () => {
+  // const EventList = () => {
+  //   if (agencyResponse) {
+  //     const agencyDataSorted = EventHandler(agencyData);
+  //     return <EventListComponent events={agencyDataSorted} zipCode={zipCode} />;
+  //   }
+  //   return null;
+  // };
+
+  const EventList = (props) => {
+    const filterEvents = (eventList) => {
+      if (props.filter === "today"){
+        const todayDate = moment(new Date()).format("YYYY-MM-DD");
+        // console.log("todayDate*****",todayDate)
+        console.log("eventListeventListeventList",eventList )
+        return { [todayDate]: eventList[todayDate]}
+      }
+      return eventList;
+    }
     if (agencyResponse) {
-      const agencyDataSorted = EventHandler(agencyData);
+      let agencyDataSorted = EventHandler(agencyData);
+      agencyDataSorted = filterEvents(agencyDataSorted);
       return <EventListComponent events={agencyDataSorted} zipCode={zipCode} />;
     }
     return null;

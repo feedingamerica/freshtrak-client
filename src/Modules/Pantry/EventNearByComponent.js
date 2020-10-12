@@ -15,7 +15,6 @@ import Card from 'react-bootstrap/Card'
 
 const EventNearByComponent = props => {
   
-
   return (
     <Fragment>
       <h2 className="font-weight-bold mobile-text-left">
@@ -36,7 +35,7 @@ const EventNearByComponent = props => {
       </Accordion.Toggle>
       <Accordion.Collapse eventKey="0">
       <Card.Body> 
-        <props.EventList />
+        <props.EventList filter="today"/>
       </Card.Body>
       </Accordion.Collapse>
     </Card>
@@ -46,6 +45,14 @@ const EventNearByComponent = props => {
       </Accordion.Toggle>
       <Accordion.Collapse eventKey="1">
         <Card.Body>Next Week Events Loading......</Card.Body>
+      </Accordion.Collapse>
+    </Card>
+    <Card>
+      <Accordion.Toggle as={Card.Header} eventKey="2">
+        Next Month Events
+      </Accordion.Toggle>
+      <Accordion.Collapse eventKey="2">
+        <Card.Body><props.EventList /></Card.Body>
       </Accordion.Collapse>
     </Card>
   </Accordion>
