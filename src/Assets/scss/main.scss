@@ -939,6 +939,10 @@ body {
         padding-bottom:4px;
         color: $text-color; 
     }
+    .Toastify__toast-container--top-left {
+        top: 4em !important;
+        left: 10em !important;
+    }
     .yourpantries-header{
         position: static;
         width: 122px;
