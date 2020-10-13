@@ -7,17 +7,12 @@ import SearchComponent from '../General/SearchComponent';
 import LocalFoodBankComponent from '../Pantry/LocalFoodBankComponent';
 import YourPantriesComponent from '../Pantry/YourPantriesComponent';
 import EventNearByComponent from '../Pantry/EventNearByComponent';
-import { API_URL } from '../../Utils/Urls';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
-import axios from 'axios';
 import '../../Assets/scss/main.scss';
 
 const PantryContainer = props => {
   const { zipCode } = useParams();
-  // const [foodBankResponse, setFoodBankResponse] = useState(false);
-  // let [foodBankData, setFoodBankData] = useState({});
   let [searchDetails, setSearchDetails] = useState({});
-  // const [serverError, setServerError] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 

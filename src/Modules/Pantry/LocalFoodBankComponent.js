@@ -1,10 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { useForm } from 'react-hook-form';
 import { useParams, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { API_URL } from '../../Utils/Urls';
-import { Link } from 'react-router-dom';
-// import { Linking} from 'react-native'
 
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
@@ -46,7 +43,6 @@ useEffect(() => {
       }
     }
   };
-  console.log("********** foodbank data",foodBankData)
 
   return (
     <Fragment>
