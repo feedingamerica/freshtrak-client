@@ -913,6 +913,11 @@ body {
     width: 10em;
 }
 
+.Toastify__toast-container--top-left {
+    top: 4em !important;
+    left: 10em !important;
+}
+
 .local-foodbank {
     background: $color-white;
     border: 1px solid $default-button;
