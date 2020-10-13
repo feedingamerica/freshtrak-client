@@ -44,7 +44,7 @@ const EventNearByComponent = props => {
         Next Week Events
       </Accordion.Toggle>
       <Accordion.Collapse eventKey="1">
-        <Card.Body>Next Week Events Loading......</Card.Body>
+        <Card.Body> <props.EventList filter="week"/></Card.Body>
       </Accordion.Collapse>
     </Card>
     <Card>

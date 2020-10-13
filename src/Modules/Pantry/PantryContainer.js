@@ -77,16 +77,27 @@ const PantryContainer = props => {
     const filterEvents = (eventList) => {
       if (props.filter === "today"){
         const todayDate = moment(new Date()).format("YYYY-MM-DD");
-        // console.log("todayDate*****",todayDate)
-        console.log("eventListeventListeventList",eventList )
         return { [todayDate]: eventList[todayDate]}
       }
+      if (props.filter === "week"){
+        const todayDate = moment(new Date()).format("YYYY-MM-DD");
+        const thisWeek = moment().day(1 + 7).format("YYYY-MM-DD");
+        const entries = Object.entries(eventList)
+        const weekevents = entries.reduce((acc, item) => {
+          if(item[0] > todayDate && item[0] <= thisWeek){
+            acc[item[0]] = item[1];
+          }
+          return acc;
+        }, {})
+        return weekevents;
+      }
+      const entries = Object.entries(eventList)
       return eventList;
     }
     if (agencyResponse) {
       let agencyDataSorted = EventHandler(agencyData);
       agencyDataSorted = filterEvents(agencyDataSorted);
-      return <EventListComponent events={agencyDataSorted} zipCode={zipCode} />;
+      return <EventListComponent events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
     }
     return null;
   };
