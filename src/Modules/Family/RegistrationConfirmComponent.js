@@ -75,7 +75,7 @@ const RegistrationConfirmComponent = props => {
               following information <br />
               <h4>
                 Identification Code <br />
-                <b> {identification_code} </b>
+                <b> {identification_code.toUpperCase()} </b>
               </h4>
               <div className="mb-2">
                 Notes: This code is unique to you, please write it on a piece of

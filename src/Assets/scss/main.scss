@@ -68,6 +68,9 @@ body {
     .caption-text {
         font-family: $font-varela;
         letter-spacing: 0.4px;
+        .link-wrap {
+            word-wrap: break-word;
+        }
     }
     .navbar-toggler {
         .navbar-toggler-icon {
