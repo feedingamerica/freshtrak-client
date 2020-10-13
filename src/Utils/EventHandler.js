@@ -18,7 +18,6 @@ export const EventDateSorterByDate = eventObj => {
         moment(a, 'YYYY/MM/DD').toDate() - moment(b, 'YYYY/MM/DD').toDate()
       );
     })
-    // console.log("*******",moment().startOf('month').format('YYYY-MM-DD hh:mm'))
     .forEach(key => {
       eventOrderByDate[key] = EventDateSortByDistance(eventObj[key]);
     });

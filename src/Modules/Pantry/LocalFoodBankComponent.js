@@ -46,7 +46,6 @@ useEffect(() => {
       }
     }
   };
-  console.log("********** foodbank data",foodBankData)
 
   return (
     <Fragment>
