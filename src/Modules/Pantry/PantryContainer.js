@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ProgressBar } from 'react-bootstrap';
 import SearchComponent from '../General/SearchComponent';
 import LocalFoodBankComponent from '../Pantry/LocalFoodBankComponent';
-import YourPantriesComponent from '../Pantry/YourPantriesComponent';
+// import YourPantriesComponent from '../Pantry/YourPantriesComponent';
 import EventNearByComponent from '../Pantry/EventNearByComponent';
 import { API_URL } from '../../Utils/Urls';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
@@ -19,7 +19,7 @@ const PantryContainer = props => {
   const [agencyResponse, setAgencyResponse] = useState(false);
   const [agencyData, setAgencyData] = useState({});
   const [zipCode, setZipCode] = useState(localStorage.getItem("zip_code"));
-  let [searchDetails, setSearchDetails] = useState({});
+  let [searchDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -91,7 +91,7 @@ const PantryContainer = props => {
         }, {})
         return weekevents;
       }
-      const entries = Object.entries(eventList)
+      // const entries = Object.entries(eventList)
       return eventList;
     }
     if (agencyResponse) {

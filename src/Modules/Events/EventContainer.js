@@ -6,9 +6,6 @@ import { ProgressBar } from 'react-bootstrap';
 import SearchComponent from '../General/SearchComponent';
 import ResourceListComponent from './ResourceListComponent';
 import EventListContainer from './EventListContainer';
-import LocalFoodBankComponent from '../Pantry/LocalFoodBankComponent';
-import YourPantriesComponent from '../Pantry/YourPantriesComponent';
-import EventNearByComponent from '../Pantry/EventNearByComponent';
 import { API_URL } from '../../Utils/Urls';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
@@ -95,9 +92,6 @@ const EventContainer = props => {
             {!loading && !localUserToken && <ResourceList />}
           </div>
           {!localUserToken && <EventListContainer zipCode={zipCode} />}
-          {/* {localUserToken && <LocalFoodBankComponent />}
-          {localUserToken && <YourPantriesComponent />}
-          {localUserToken && <EventNearByComponent />}  */}
         </div>
       </section>
     </div>

@@ -1,10 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { useForm } from 'react-hook-form';
 import { useParams, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { API_URL } from '../../Utils/Urls';
-import { Link } from 'react-router-dom';
-// import { Linking} from 'react-native'
 
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
@@ -12,12 +9,12 @@ import '../../Assets/scss/main.scss';
 
 const LocalFoodBankComponent = props => {
   let [foodBankData, setFoodBankData] = useState({});
-  const [foodBankResponse, setFoodBankResponse] = useState(false);
-  const [serverError, setServerError] = useState(false);
+  const [ setFoodBankResponse] = useState(false);
+  const [setServerError] = useState(false);
   const { zipCode } = useParams();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-  let [searchDetails, setSearchDetails] = useState({});
+  const [setLoading] = useState(false);
+  let [setSearchDetails] = useState({});
 
 useEffect(() => {
   if (zipCode) {
@@ -63,7 +60,6 @@ useEffect(() => {
         Get Directions
         </div>
         <div className="foodbank-contact">
-        {/* {foodBankData.display_url} */}
         <a href={foodBankData.display_url}>Visit Website</a>
         </div>
         <div className="foodbank-contact">
