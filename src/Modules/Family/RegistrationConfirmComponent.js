@@ -64,6 +64,7 @@ const RegistrationConfirmComponent = props => {
                 Your Confirmation Number <br />
                 <b> {identification_code.toUpperCase()} </b>
               </h2>
+              <br />
             </div>
 
             <h5 className="mb-4">
