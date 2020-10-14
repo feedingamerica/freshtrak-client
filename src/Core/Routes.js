@@ -24,14 +24,14 @@ const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
-const RegistrationContainer = lazy(() => import('../Modules/Family/RegistrationContainer'));
+const RegistrationContainer = lazy(() => import('../Modules/Registration/RegistrationContainer'));
 // const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 // Out of scope
 // const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
 // const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
 const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEventListContainer'));
 const EventDetailsContainer = lazy(() => import('../Modules/Events/EventDetailsContainer'));
-const RegistrationConfirmComponent = lazy(() => import('../Modules/Family/RegistrationConfirmComponent'));
+const RegistrationConfirmComponent = lazy(() => import('../Modules/Registration/RegistrationConfirmComponent'));
 
 const Routes = () => {
   React.useEffect(() => {}, []);

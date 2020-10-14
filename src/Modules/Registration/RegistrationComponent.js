@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import PrimaryInfoFormComponent from './PrimaryInfoFormComponent';
-import AddressComponent from './AddressComponent';
-import ContactInformationComponent from './ContactInformationComponent';
-import MemberCountFormComponent from './MemberCountFormComponent';
-import EventSlotsModalComponent from './EventSlotsModalComponent';
+import PrimaryInfoFormComponent from '../Family/PrimaryInfoFormComponent';
+import AddressComponent from '../Family/AddressComponent';
+import ContactInformationComponent from '../Family/ContactInformationComponent';
+import MemberCountFormComponent from '../Family/MemberCountFormComponent';
+import EventSlotsModalComponent from '../Family/EventSlotsModalComponent';
 import { formatDateForServer } from '../../Utils/DateFormat';
 import BackButtonComponent from '../General/BackButtonComponent';
 

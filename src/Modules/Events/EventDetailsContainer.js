@@ -5,7 +5,7 @@ import { selectEvent } from '../../Store/Events/eventSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
 import { API_URL, BASE_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
-import RegistrationTextInfoComponent from '../Family/RegistrationTextInfoComponent';
+import RegistrationTextInfoComponent from '../Registration/RegistrationTextInfoComponent';
 import AuthenticationModalComponent from '../Authentication/AuthenticationModal';
 import { EventFormat } from '../../Utils/EventHandler';
 import TagManager from 'react-gtm-module'
