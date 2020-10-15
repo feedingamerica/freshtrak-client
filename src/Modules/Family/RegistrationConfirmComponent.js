@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import identificationCodeImg1 from '../../Assets/img/id_code1.png';
 import identificationCodeImg2 from '../../Assets/img/id_code2.png';
 import idImg from '../../Assets/img/id_img.png';
+import EventCardComponent from '../Events/EventCardComponent';
 
 const RegistrationConfirmComponent = props => {
   const user_data = props.location.state.user;
@@ -67,6 +68,14 @@ const RegistrationConfirmComponent = props => {
               <br />
             </div>
 
+            { event &&
+                  <div className="col-6">
+                    <div className="day-view">
+                      <EventCardComponent key={event.id} event={event} registrationView={true}/>
+                    </div>
+                  </div>
+                }
+            
             <h5 className="mb-4">
               <b> Your Information </b>
             </h5>
