@@ -75,7 +75,7 @@ const EventDetailsContainer = (props) => {
         localStorage.setItem('userToken', token);
         localStorage.setItem('tokenExpiresAt', expires_at);
       }
-      history.push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
+      history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     } catch (e) {
       console.error(e);
       setshowAuthenticationModal(false);
@@ -92,7 +92,7 @@ const EventDetailsContainer = (props) => {
     } else {
       setUserToken(localUserToken);
       setshowAuthenticationModal(false);
-      history.push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
+      history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     }
   };
 

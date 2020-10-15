@@ -19,13 +19,13 @@ export const API_URL = {
 export const RENDER_URL = {
   HOME_URL: '/',
   EVENT_LIST_URL: '/events/list/:zipCode',
-  EVENT_DETAILS_URL: '/events/details',
+  REGISTRATION_EVENT_DETAILS_URL: '/register/event',
   ADD_FAMILY_URL: '/family/create',
   SIGN_IN: '/family/sign-in',
   EDIT_FAMILY_URL: '/family/edit',
   FRESHTRAK_WORKING: '/freshtrak-working',
   FRESHTRAK_ABOUT: '/freshtrak-about',
-  EVENT_REGISTRATION_URL: '/events/register',
-  EVENT_REGISTRATION_CONFIRM_URL: '/event/confirm',
+  REGISTRATION_FORM_URL: '/register/form',
+  REGISTRATION_CONFIRM_URL: '/register/confirm',
   AGENCY_EVENT_LIST: '/agency/events',
 };
