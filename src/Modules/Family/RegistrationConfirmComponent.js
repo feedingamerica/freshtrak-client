@@ -59,7 +59,6 @@ const RegistrationConfirmComponent = props => {
                 {event.startTime} -{event.endTime}
               </div>
             </div>
-
             <div className="mt-5">
               <h2>
                 Your Confirmation Number <br />
@@ -67,15 +66,13 @@ const RegistrationConfirmComponent = props => {
               </h2>
               <br />
             </div>
-
             { event &&
                   <div className="col-6">
                     <div className="day-view">
                       <EventCardComponent key={event.id} event={event} registrationView={true}/>
                     </div>
                   </div>
-                }
-            
+            }
             <h5 className="mb-4">
               <b> Your Information </b>
             </h5>
