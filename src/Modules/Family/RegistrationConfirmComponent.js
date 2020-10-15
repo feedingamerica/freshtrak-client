@@ -58,6 +58,14 @@ const RegistrationConfirmComponent = props => {
                 {event.startTime} -{event.endTime}
               </div>
             </div>
+
+            <div className="mt-5">
+              <h2>
+                Your Confirmation Number <br />
+                <b> {identification_code.toUpperCase()} </b>
+              </h2>
+            </div>
+
             <h5 className="mb-4">
               <b> Your Information </b>
             </h5>
@@ -72,11 +80,7 @@ const RegistrationConfirmComponent = props => {
             </div>
             <div className="mt-5">
               As a part of our contactless service process, please display the
-              following information <br />
-              <h4>
-                Identification Code <br />
-                <b> {identification_code.toUpperCase()} </b>
-              </h4>
+              above confirmation number <br />
               <div className="mb-2">
                 Notes: This code is unique to you, please write it on a piece of
                 paper and display in your driver-side front window.
