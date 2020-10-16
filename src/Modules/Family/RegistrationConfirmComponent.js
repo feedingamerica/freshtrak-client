@@ -11,7 +11,8 @@ import idImg from '../../Assets/img/id_img.png';
 const RegistrationConfirmComponent = props => {
   const user_data = props.location.state.user;
   const event = useSelector(selectEvent);
-  localStorage.removeItem('isFbLoggedIn');
+  // Need to have isFbLoggedIn in local storage to show loggedin home page(Returning Users)
+  // localStorage.removeItem('isFbLoggedIn');
   localStorage.removeItem('userToken');
   localStorage.removeItem('tokenExpiresAt');
 
