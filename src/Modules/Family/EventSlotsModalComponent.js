@@ -87,7 +87,7 @@ const EventSlotsModalComponent = (props) => {
           >
             Go Back
           </button>
-          <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${eventDateId}/${event_slot_id}`}>
+          <LinkContainer to={`${RENDER_URL.REGISTRATION_FORM_URL}/${eventDateId}/${event_slot_id}`}>
             <button
               type="submit"
               disabled={!event_slot_id}

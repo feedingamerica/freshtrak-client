@@ -12,9 +12,13 @@ import EventCardComponent from '../Events/EventCardComponent';
 const RegistrationConfirmComponent = props => {
   const user_data = props.location.state.user;
   const event = useSelector(selectEvent);
-  localStorage.removeItem('isFbLoggedIn');
+  // Need to have isLoggedIn => true in local storage to show loggedin home page(Returning Users)
+  localStorage.setItem('isLoggedIn', true);
+  // localStorage.setItem('isLoggedIn', false);
   localStorage.removeItem('userToken');
   localStorage.removeItem('tokenExpiresAt');
+
+  const HOME_OR_ROOT_URL = localStorage.getItem('isLoggedIn') === "true" ? RENDER_URL.HOME_URL : RENDER_URL.ROOT_URL
 
   const formatPhoneNumber = input => {
     const regExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
@@ -130,7 +134,7 @@ const RegistrationConfirmComponent = props => {
               </h5>
             )}
             <p className="mb-5">{event.eventDetails}</p>
-            <Link to={RENDER_URL.HOME_URL}>
+            <Link to={HOME_OR_ROOT_URL}>
               <div className="button-wrap mt-4">
                 <button
                   type="submit"
