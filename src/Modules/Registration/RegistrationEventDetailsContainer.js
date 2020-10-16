@@ -10,7 +10,7 @@ import AuthenticationModalComponent from '../Authentication/AuthenticationModal'
 import { EventFormat } from '../../Utils/EventHandler';
 import TagManager from 'react-gtm-module'
 
-const EventDetailsContainer = (props) => {
+const RegistrationEventDetailsContainer = (props) => {
   const history = useHistory();
 
   const { id: eventDateId } = useParams();
@@ -114,4 +114,4 @@ const EventDetailsContainer = (props) => {
   );
 };
 
-export default EventDetailsContainer;
+export default RegistrationEventDetailsContainer;

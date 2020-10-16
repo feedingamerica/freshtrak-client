@@ -30,7 +30,7 @@ const RegistrationContainer = lazy(() => import('../Modules/Registration/Registr
 // const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
 // const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
 const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEventListContainer'));
-const EventDetailsContainer = lazy(() => import('../Modules/Registration/EventDetailsContainer'));
+const RegistrationEventDetailsContainer = lazy(() => import('../Modules/Registration/RegistrationEventDetailsContainer'));
 const RegistrationConfirmComponent = lazy(() => import('../Modules/Registration/RegistrationConfirmComponent'));
 const PantryContainer = lazy(() => import('../Modules/Pantry/PantryContainer'));
 
@@ -84,7 +84,7 @@ const Routes = () => {
 
             <Route
               path={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/:id`}
-              component={EventDetailsContainer}
+              component={RegistrationEventDetailsContainer}
             />
 
             <Route
