@@ -123,7 +123,7 @@ const RegistrationContainer = (props) => {
         }
       })
       history.push({
-        pathname: RENDER_URL.EVENT_REGISTRATION_CONFIRM_URL,
+        pathname: RENDER_URL.REGISTRATION_CONFIRM_URL,
         state: { user: {...user,identification_code:currentUser.identification_code}, eventDateId: eventDateId}
       });
     } catch (e) {

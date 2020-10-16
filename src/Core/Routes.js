@@ -24,14 +24,14 @@ const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
-const RegistrationContainer = lazy(() => import('../Modules/Family/RegistrationContainer'));
+const RegistrationContainer = lazy(() => import('../Modules/Registration/RegistrationContainer'));
 // const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 // Out of scope
 // const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
 // const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
 const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEventListContainer'));
-const EventDetailsContainer = lazy(() => import('../Modules/Events/EventDetailsContainer'));
-const RegistrationConfirmComponent = lazy(() => import('../Modules/Family/RegistrationConfirmComponent'));
+const EventDetailsContainer = lazy(() => import('../Modules/Registration/EventDetailsContainer'));
+const RegistrationConfirmComponent = lazy(() => import('../Modules/Registration/RegistrationConfirmComponent'));
 const PantryContainer = lazy(() => import('../Modules/Pantry/PantryContainer'));
 
 const Routes = () => {
@@ -83,17 +83,17 @@ const Routes = () => {
             />
 
             <Route
-              path={`${RENDER_URL.EVENT_DETAILS_URL}/:id`}
+              path={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/:id`}
               component={EventDetailsContainer}
             />
 
             <Route
-              path={`${RENDER_URL.EVENT_REGISTRATION_URL}/:eventDateId`}
+              path={`${RENDER_URL.REGISTRATION_FORM_URL}/:eventDateId`}
               component={RegistrationContainer}
             />
 
             <Route
-              path={`${RENDER_URL.EVENT_REGISTRATION_CONFIRM_URL}`}
+              path={`${RENDER_URL.REGISTRATION_CONFIRM_URL}`}
               component={RegistrationConfirmComponent}
             />
 

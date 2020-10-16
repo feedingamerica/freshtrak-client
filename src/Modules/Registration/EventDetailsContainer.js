@@ -5,7 +5,7 @@ import { selectEvent } from '../../Store/Events/eventSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
 import { API_URL, BASE_URL, RENDER_URL } from '../../Utils/Urls';
 import axios from 'axios';
-import RegistrationTextInfoComponent from '../Family/RegistrationTextInfoComponent';
+import RegistrationTextInfoComponent from '../Registration/RegistrationTextInfoComponent';
 import AuthenticationModalComponent from '../Authentication/AuthenticationModal';
 import { EventFormat } from '../../Utils/EventHandler';
 import TagManager from 'react-gtm-module'
@@ -75,7 +75,7 @@ const EventDetailsContainer = (props) => {
         localStorage.setItem('userToken', token);
         localStorage.setItem('tokenExpiresAt', expires_at);
       }
-      history.push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
+      history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     } catch (e) {
       console.error(e);
       setshowAuthenticationModal(false);
@@ -92,7 +92,7 @@ const EventDetailsContainer = (props) => {
     } else {
       setUserToken(localUserToken);
       setshowAuthenticationModal(false);
-      history.push(`${RENDER_URL.EVENT_REGISTRATION_URL}/${selectedEvent.id}`);
+      history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     }
   };
 
