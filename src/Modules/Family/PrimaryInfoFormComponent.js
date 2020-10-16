@@ -110,6 +110,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
         <option value="" defaultValue></option>
         <option value="male">Male</option>
         <option value="female">Female</option>
+        <option value="female">Other</option>
         <option value="not_specify">Prefer Not To Specify</option>
       </select>
       {errors.gender && <span className="text-danger">This field is required</span>}
