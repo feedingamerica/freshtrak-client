@@ -54,7 +54,7 @@ const EventListComponent = props => {
                   </div>
                 </div>
                 <div className="row mt-2">
-                  {event.map(event => (
+                  {event && event.map(event => (
                     <EventCardComponent key={event.id} event={event} />
                   ))}
                 </div>

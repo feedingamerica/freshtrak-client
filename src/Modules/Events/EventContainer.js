@@ -68,6 +68,8 @@ const EventContainer = props => {
       });
     }
   };
+  const localUserToken = localStorage.getItem('userToken');
+  
 
   return (
     <div>
@@ -87,9 +89,9 @@ const EventContainer = props => {
                 <ProgressBar animated now={100} data-testid="loading" />
               </div>
             )}
-            {!loading && <ResourceList />}
+            {!loading && !localUserToken && <ResourceList />}
           </div>
-          <EventListContainer zipCode={zipCode} />
+          {!localUserToken && <EventListContainer zipCode={zipCode} />}
         </div>
       </section>
     </div>

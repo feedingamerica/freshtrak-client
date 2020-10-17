@@ -8,7 +8,7 @@ import mainLogo from "../../Assets/img/logo.png";
 import closeIcon from '../../Assets/img/close.svg';
 // import navBarIcon from "../../Assets/img/menu.svg";
 import { Link } from "react-router-dom";
-// import { LinkContainer } from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import {
   Nav,
   Navbar,
@@ -39,10 +39,11 @@ const HeaderComponent = (props) => {
     };
   }, [localIsLoggedIn, isLoggedIn]);
 
-  // const logOut = () => {
-  //   localStorage.setItem('isLoggedIn', false);
-  //   setIsLoggedIn(false);
-  // }
+  const logOut = () => {
+    localStorage.setItem('isLoggedIn', false);
+    setIsLoggedIn(false);
+
+  }
   
   return (
     <Fragment>
@@ -54,7 +55,7 @@ const HeaderComponent = (props) => {
           <Navbar expand="md" className="w-100">
             <Navbar.Brand className="my-auto mobile-view">
               <span className="my-auto mobile-view">
-                <Link to={RENDER_URL.HOME_URL}>
+                <Link to={RENDER_URL.ROOT_URL}>
                   <img
                     src={mainLogo}
                     alt="FreshTrak"
@@ -119,16 +120,18 @@ const HeaderComponent = (props) => {
                     SIGN IN
                 </Nav.Link>
               </LinkContainer>
-            )}
+            )}*/}
             {isLoggedIn && (
-              <button
-                type="button"
+              <LinkContainer to={RENDER_URL.ROOT_URL}>
+                <button
+                type="submit"
                 className="btn btn-link header-sign-in"
                 onClick={logOut}
                 >
                   LOG OUT
                 </button>
-            )} */}
+              </LinkContainer>
+            )}
           </Navbar>
         </div>
       </Nav>

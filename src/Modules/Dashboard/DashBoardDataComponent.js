@@ -15,6 +15,14 @@ const DashBoardDataComponent = props => {
   // },[localStorage.getItem('isLoggedIn')]);
 
   const { register, errors, handleSubmit } = useForm();
+  const localUserToken = localStorage.getItem('userToken');
+  
+  //Flag to turn off/on Home Page Container for Loggedin user feature
+  if (localUserToken){
+    props.history.push({
+      pathname: `/home`,
+    }); 
+  }
 
   const onSubmit = data => {
     if (data) {
