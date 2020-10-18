@@ -9,7 +9,6 @@ const StateDropdownComponent = forwardRef(({ register, errors,value, setValue },
         id="state"
         name="state"
         value={value}
-        onChange={(e) => setValue('state', e)}
         ref={register({ required: true })}
       >
         <option value="" defaultValue></option>

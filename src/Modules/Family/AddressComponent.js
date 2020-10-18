@@ -128,7 +128,6 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
             name="city"
             id="city"
             value={cityName}
-            onChange={(e) => setValue('city', e)}
             ref={register({ required: true })}
           />
           {errors.city && (
@@ -149,7 +148,6 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
             className= {`form-control ${errors.zip_code && 'invalid'}`}
             name="zip_code"
             value={zip}
-            onChange={(e) => setValue('zip_code', e)}
             id="zip_code"
             ref={register({ required: true })}
           />
