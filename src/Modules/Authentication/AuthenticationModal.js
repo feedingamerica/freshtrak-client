@@ -15,7 +15,7 @@ const AuthenticationModalComponent = ({show, setshow, onLogin}) => {
     })
   }
   const onFbLogin =  (response) => {
-    localStorage.setItem('isFbLoggedIn', true);
+    localStorage.setItem('isLoggedIn', true);
     onLogin(response);
     TagManager.dataLayer({
       dataLayer: {

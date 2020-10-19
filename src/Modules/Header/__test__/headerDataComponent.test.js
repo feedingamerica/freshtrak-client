@@ -15,7 +15,7 @@ test('should render without errors', () => {
 
 test(`should render 'Find food resources...' if location is not the event list url`, () => {
   const { getByText, getByTestId } = renderWithRouter(<HeaderDataComponent />, {
-    route: RENDER_URL.EVENT_REGISTRATION_URL,
+    route: RENDER_URL.REGISTRATION_FORM_URL,
   });
   getByText(/Find food resources in your neighborhood./i);
   getByTestId('subtext-on-header');
