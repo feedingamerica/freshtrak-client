@@ -927,8 +927,14 @@ body {
     font-weight: normal;
     font-size: 12px;
     line-height: 16px;
+    top: 28px; 
     padding:16px;
+    left: 0px;
+    right: 0px;
+    height: 22px;
+    position: absolute;
     margin-bottom: 20px; 
+    flex: none;
     .foodbank-name{    
         font-weight: bold;
         font-size: 18px;
@@ -948,20 +954,14 @@ body {
     }
     .yourpantries-header{
         position: static;
-        width: 122px;
-        height: 20px;
-        left: 0px;
+        width: 122px; 
         top: calc(50% - 20px/2 - 37px);
-        font-family: Noto Sans;
-        font-style: normal;
         font-weight: bold;
         font-size: 18px;
-        line-height: 20px;
         display: flex;
         align-items: flex-end;
         text-transform: capitalize;
-        color: #282828;
-        flex: none;
+        color: $color-light; 
         order: 0;
         align-self: flex-start;
         margin: 0px 8px;
@@ -969,44 +969,18 @@ body {
     .yourpantries{
         position: static;
         height: 66px;
-        left: 0px;
-        right: 0px;
-        top: 28px;
-        font-family: Noto Sans;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
         line-height: 22px;
-        color: #6A6B6B;
-        flex: none;
+        color: $color-light-grey;  
         order: 1;
         align-self: center;
         margin: 0px 8px;  
     }
     .events-nearby-header{
-        position: absolute;
-        height: 22px;
-        left: 0px;
-        right: 0px;
-        top: 28px;
-        font-family: Noto Sans;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
         line-height: 22px;
-        color: #616161;
+        color: $content-text-color;
     }
     .list-of-events{
-        position: absolute;
-        height: 22px;
-        left: 0px;
-        right: 0px;
-        top: 28px;
-        font-family: Noto Sans;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
         line-height: 22px;
-        color: #616161;
+        color: $content-text-color;
     }
 }
