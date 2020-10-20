@@ -35,6 +35,7 @@ useEffect(() => {
           params: { zip_code: zip },
         });
         const { data } = resp;
+        console.log("data foodn",data)
         setFoodBankData(data?.foodbanks?.[0]||{});
         setFoodBankResponse(true);
         setLoading(false);
