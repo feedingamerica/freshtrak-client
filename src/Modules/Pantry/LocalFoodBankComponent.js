@@ -9,19 +9,20 @@ import '../../Assets/scss/main.scss';
 
 const LocalFoodBankComponent = props => {
   let [foodBankData, setFoodBankData] = useState({});
-  const [ setFoodBankResponse] = useState(false);
-  const [setServerError] = useState(false);
-  const { zipCode } = useParams();
+  const [ foodBankResponse, setFoodBankResponse] = useState(false);
+  const [serverError, setServerError] = useState(false);
+  // const { zipCode } = useParams();
   const dispatch = useDispatch();
-  const [setLoading] = useState(false);
-  let [setSearchDetails] = useState({});
+  const [loading, setLoading] = useState(false);
+  let [searchDetails, setSearchDetails] = useState({});
 
 useEffect(() => {
+  const zipCode = localStorage.getItem("zip_code")
   if (zipCode) {
     dispatch(setCurrentZip(zipCode));
     getFoodbanks(zipCode);
   }
-}, [zipCode, dispatch]);
+}, [dispatch]);
 
   const getFoodbanks = async zip => {
     if (zip) {
@@ -49,23 +50,31 @@ useEffect(() => {
       <h2 className="font-weight-bold mobile-text-left">
               Your Local Food Bank
       </h2>
-      <div className="local-foodbank">
-        <h2 className="foodbank-name">
-        {foodBankData.company}
-        </h2>
-        <div className="foodbank-address">
-        {foodBankData.address} {foodBankData.city} {foodBankData.state} {foodBankData.zip}
+       <div className="row align-items-center mt-2">
+          <div className="col-lg-4 col-sm-6">
+            <div className="d-flex align-items-center">
+              <span className="search-list-logo">
+                <img alt="logo" src={foodBankData.logo} />
+              </span>
+              <span className="font-weight-bold ml-2">{foodBankData.name}</span>
+            </div>
+          </div>
+          <div className="col-lg-4 col-sm-6 caption-text">
+            {foodBankData.address} {foodBankData.city}, {foodBankData.state} {foodBankData.zip}
+          </div>
+          <div className="col-lg-4 col-sm-6 caption-text">
+            <div>{foodBankData.phone}</div>
+            <div className="link-wrap">
+              <a
+                href={foodBankData.display_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {foodBankData.display_url}
+              </a>
+            </div>
+          </div>
         </div>
-        <div className="foodbank-contact">
-        Get Directions
-        </div>
-        <div className="foodbank-contact">
-        <a href={foodBankData.display_url}>Visit Website</a>
-        </div>
-        <div className="foodbank-contact">
-        Call {foodBankData.phone}
-        </div>
-      </div>
     </Fragment>
   );
 };

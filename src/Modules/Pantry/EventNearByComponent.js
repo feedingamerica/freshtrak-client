@@ -8,7 +8,7 @@ const EventNearByComponent = props => {
   
   return (
     <Fragment>
-      <h2 className="font-weight-bold mobile-text-left">
+      <h2 className="font-weight-bold mt-60">
         Events Nearby Today
       </h2>
       <div>
@@ -32,7 +32,7 @@ const EventNearByComponent = props => {
     </Card>
     <Card>
       <Accordion.Toggle as={Card.Header} eventKey="1">
-        Next Week Events
+        Next 7 Days Events
       </Accordion.Toggle>
       <Accordion.Collapse eventKey="1">
         <Card.Body> <props.EventList filter="week"/></Card.Body>
@@ -40,7 +40,7 @@ const EventNearByComponent = props => {
     </Card>
     <Card>
       <Accordion.Toggle as={Card.Header} eventKey="2">
-        Next Month Events
+        Next 30 Days Events
       </Accordion.Toggle>
       <Accordion.Collapse eventKey="2">
         <Card.Body><props.EventList /></Card.Body>
