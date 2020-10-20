@@ -101,7 +101,8 @@ const RegistrationContainer = (props) => {
   const send_sms = async user => {
     const { TWILIO_SMS } = API_URL;
     let phone = user['phone']
-    let message = "You're Registered."
+    let identification_code =  user['identification_code']
+    let message = "You're Registered, Identification Code is " + identification_code.toUpperCase()
     try {
       await axios.post(TWILIO_SMS, { phone, message });
     } catch (e) {
