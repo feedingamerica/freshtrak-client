@@ -127,8 +127,7 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
             className= {`form-control ${errors.city && 'invalid'}`}
             name="city"
             id="city"
-            value={cityName}
-            onChange={(e) => setValue('city', e)}
+            defaultValue={cityName}
             ref={register({ required: true })}
           />
           {errors.city && (
@@ -138,8 +137,7 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
         <StateDropdownComponent
           register={register}
           errors={errors}
-          setValue={setValue}
-          value={shortStateName}
+          defaultValue={shortStateName}
         />
 
         <div className="form-group ml-2">
@@ -148,8 +146,7 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
             type="text"
             className= {`form-control ${errors.zip_code && 'invalid'}`}
             name="zip_code"
-            value={zip}
-            onChange={(e) => setValue('zip_code', e)}
+            defaultValue={zip}
             id="zip_code"
             ref={register({ required: true })}
           />
