@@ -13,8 +13,8 @@ const RegistrationConfirmComponent = props => {
   const user_data = props.location.state.user;
   const event = useSelector(selectEvent);
   // Need to have isLoggedIn => true in local storage to show loggedin home page(Returning Users)
-  localStorage.setItem('isLoggedIn', true);
-  // localStorage.setItem('isLoggedIn', false);
+  // localStorage.setItem('isLoggedIn', true);
+  localStorage.setItem('isLoggedIn', false);
   localStorage.removeItem('userToken');
   localStorage.removeItem('tokenExpiresAt');
 
