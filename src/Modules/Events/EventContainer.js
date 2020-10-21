@@ -89,9 +89,9 @@ const EventContainer = props => {
                 <ProgressBar animated now={100} data-testid="loading" />
               </div>
             )}
-            {!loading && !localUserToken && <ResourceList />}
+            {!loading && <ResourceList />}
           </div>
-          {!localUserToken && <EventListContainer zipCode={zipCode} />}
+          { <EventListContainer zipCode={zipCode} />}
         </div>
       </section>
     </div>
