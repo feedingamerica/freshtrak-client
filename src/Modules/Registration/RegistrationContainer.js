@@ -98,6 +98,18 @@ const RegistrationContainer = (props) => {
     showToast(formatted_msg, error);
   }
 
+  const send_sms = async user => {
+    const { TWILIO_SMS } = API_URL;
+    let phone = user['phone']
+    let identification_code =  user['identification_code']
+    let message = "You're Registered, Identification Code is " + identification_code.toUpperCase()
+    try {
+      await axios.post(TWILIO_SMS, { phone, message });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   const register = async user => {
     setDisabled(!disabled);
     const event_date_id = parseInt(eventDateId, 10);
@@ -122,6 +134,9 @@ const RegistrationContainer = (props) => {
         event: "reservation"
         }
       })
+      if(user['permission_to_text']){
+        send_sms(user)
+      }
       history.push({
         pathname: RENDER_URL.REGISTRATION_CONFIRM_URL,
         state: { user: {...user,identification_code:currentUser.identification_code}, eventDateId: eventDateId}
