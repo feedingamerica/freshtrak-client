@@ -78,8 +78,8 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
         ref={register}
       >
         <option value="" defaultValue></option>
-        <option value="jr">Jr</option>
-        <option value="sr">Sr</option>
+        <option value="Jr">Jr</option>
+        <option value="Sr">Sr</option>
         <option value="I">I</option>
         <option value="II">II</option>
         <option value="III">III</option>
