@@ -58,7 +58,14 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
     data['identification_code'] = user['identification_code']
     data["date_of_birth"] = formatDateForServer(data["date_of_birth"])
     onRegister(data);
+    data.first_name = replaceMultipleSpaces(data.first_name)
+    data.middle_name = replaceMultipleSpaces(data.middle_name)
+    data.last_name = replaceMultipleSpaces(data.last_name)
     // localStorage.setItem("zip_code",user.zip_code)
+  }
+
+  const replaceMultipleSpaces = input =>{
+    return input.replace(/\s\s+/g, ' ');
   }
   
   const submitHandlerFocus = (e)=>{
