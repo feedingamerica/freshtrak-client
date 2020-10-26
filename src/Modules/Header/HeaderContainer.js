@@ -23,6 +23,7 @@ const HeaderContainer = () => {
       location.pathname === RENDER_URL.FRESHTRAK_WORKING ||
       location.pathname.includes(RENDER_URL.AGENCY_EVENT_LIST) ||
       location.pathname.includes(RENDER_URL.REGISTRATION_EVENT_DETAILS_URL) ||
+      location.pathname.includes(RENDER_URL.ECB_CONTAINER) ||
       location.pathname.includes(RENDER_URL.REGISTRATION_FORM_URL) ? (
         <HeaderComponent shortHeader={shortHeader} />
       ) : (

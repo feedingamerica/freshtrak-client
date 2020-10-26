@@ -34,34 +34,62 @@ const EventCardComponent = props => {
     registrationView
   } = props;
 
-  const ButtonView = () => {
-    if(registrationView) {
-      return null;
-    }
-    if (acceptReservations) {
-      return (
-      <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
+  // const ButtonView = () => {
+  //   if(registrationView) {
+  //     return null;
+  //   }
+  //   if (acceptReservations) {
+  //     return (
+  //     <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
+  //       <button
+  //         type="button"
+  //         className="btn custom-button ml-1 flex-grow-1"
+  //         onClick={() => dispatch(setCurrentEvent(props.event))}
+  //       >
+  //         Reserve Time
+  //       </button>
+  //     </LinkContainer>
+  //     )
+  //   } else if (acceptInterest && !acceptReservations) {
+  //     return (
+  //       <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
+  //         <button
+  //           type="button"
+  //           className="btn custom-button ml-1 flex-grow-1"
+  //           onClick={() => dispatch(setCurrentEvent(props.event))}
+  //         >
+  //           RSVP
+  //         </button>
+  //       </LinkContainer>
+  //     );
+  //   } else {
+  //     return null;
+  //   }
+  // };
+
+  const getButton = (buttonName, targetUrl) => {
+    return (
+      <LinkContainer to={targetUrl}>
         <button
           type="button"
           className="btn custom-button ml-1 flex-grow-1"
           onClick={() => dispatch(setCurrentEvent(props.event))}
         >
-          Reserve Time
+          {buttonName}
         </button>
       </LinkContainer>
       )
+  }
+
+  const ButtonView = () => {
+    let targetUrl = props.targetUrl != undefined ?  `${props.targetUrl}/${id}`:`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`
+    if(registrationView) {
+      return null;
+    }
+    if (acceptReservations) {
+      return getButton('Reserve Time', targetUrl)
     } else if (acceptInterest && !acceptReservations) {
-      return (
-        <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
-          <button
-            type="button"
-            className="btn custom-button ml-1 flex-grow-1"
-            onClick={() => dispatch(setCurrentEvent(props.event))}
-          >
-            RSVP
-          </button>
-        </LinkContainer>
-      );
+      return getButton('RSVP', targetUrl)
     } else {
       return null;
     }

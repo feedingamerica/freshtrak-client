@@ -15,8 +15,8 @@ const RegistrationConfirmComponent = props => {
 
   // Need to have isFBLoggedIn => true in local storage to show loggedin home page(Returning Users)
   localStorage.setItem('isFBLoggedIn', false);
-  localStorage.removeItem('userToken');
-  localStorage.removeItem('tokenExpiresAt');
+  // localStorage.removeItem('userToken');
+  // localStorage.removeItem('tokenExpiresAt');
 
   const HOME_OR_ROOT_URL = localStorage.getItem('isFBLoggedIn') === "true" ? RENDER_URL.HOME_URL : RENDER_URL.ROOT_URL
 
