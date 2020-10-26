@@ -137,6 +137,7 @@ const RegistrationContainer = (props) => {
       if(user['permission_to_text']){
         send_sms(user)
       }
+      sessionStorage.setItem("registeredEventDateID", eventDateId);
       history.push({
         pathname: RENDER_URL.REGISTRATION_CONFIRM_URL,
         state: { user: {...user,identification_code:currentUser.identification_code}, eventDateId: eventDateId}
