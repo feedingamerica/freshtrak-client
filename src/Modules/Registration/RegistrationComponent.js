@@ -57,15 +57,24 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const onSubmit = data => {
     data['identification_code'] = user['identification_code']
     data["date_of_birth"] = formatDateForServer(data["date_of_birth"])
+    data = sanatizeInput(data)
     onRegister(data);
-    data.first_name = replaceMultipleSpaces(data.first_name)
-    data.middle_name = replaceMultipleSpaces(data.middle_name)
-    data.last_name = replaceMultipleSpaces(data.last_name)
     // localStorage.setItem("zip_code",user.zip_code)
   }
 
-  const replaceMultipleSpaces = input =>{
-    return input.replace(/\s\s+/g, ' ');
+  const sanatizeInput = data => {
+    const keys = ["first_name", "middle_name", "last_name"];
+    keys.forEach(key => {
+    data[key] = santizeString(data[key]);
+    })
+  return data
+  }
+
+  const santizeString = input =>{
+    let modifiedInput = input.trim();
+    modifiedInput = modifiedInput.replace(/\s\s+/g, ' ');
+    modifiedInput = modifiedInput.replace(/[^a-zA-Z0-9 ]/g, '');
+    return modifiedInput;
   }
   
   const submitHandlerFocus = (e)=>{
