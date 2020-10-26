@@ -7,7 +7,7 @@ import SearchComponent from '../General/SearchComponent';
 import LocalFoodBankComponent from '../Pantry/LocalFoodBankComponent';
 // import YourPantriesComponent from '../Pantry/YourPantriesComponent';
 import EventNearByComponent from '../Pantry/EventNearByComponent';
-import { API_URL } from '../../Utils/Urls';
+import { API_URL, RENDER_URL } from '../../Utils/Urls';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
@@ -97,7 +97,8 @@ const PantryContainer = props => {
     if (agencyResponse) {
       let agencyDataSorted = EventHandler(agencyData);
       agencyDataSorted = filterEvents(agencyDataSorted);
-      return <EventListComponent events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
+      // return <EventListComponent events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
+      return <EventListComponent targetUrl={RENDER_URL.ECB_CONTAINER} events={agencyDataSorted} zipCode={zipCode} showHeader= {false} />;
     }
     return null;
   };
@@ -124,6 +125,7 @@ const PantryContainer = props => {
           </div>
           <div className="foodbank-and-events">
             <LocalFoodBankComponent />
+            {/* <RegisteredEventsComponents /> */}
             <EventNearByComponent EventList= {EventList}/> 
           </div>
           {/* {!loading && <EventList />} */}
