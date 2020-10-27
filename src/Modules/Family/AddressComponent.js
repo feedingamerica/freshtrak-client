@@ -95,7 +95,6 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
                   className="suggestions-container"
                 >
                   {suggestions.map(suggestion => {
-                    console.log("suggestion id******",suggestion.id)
                     return (
                       <div {...getSuggestionItemProps(suggestion)} key={suggestion.id} >
                         {suggestion.description}

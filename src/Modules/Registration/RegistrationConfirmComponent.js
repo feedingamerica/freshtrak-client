@@ -126,7 +126,6 @@ const RegistrationConfirmComponent = props => {
     license_plate,
   } = user_data;
 
-  console.log("***************",event)
   return (
     <Fragment>
       {event && (
