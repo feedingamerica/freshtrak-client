@@ -63,7 +63,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   }
 
   const sanatizeInput = data => {
-    const keys = ["first_name", "middle_name", "last_name"];
+    const keys = ["first_name", "middle_name", "last_name", "date_of_birth","gender", "address_line_1", "address_line_2", "city", "state","zip_code", "phone", "email"];
     keys.forEach(key => {
     data[key] = santizeString(data[key]);
     })
@@ -73,7 +73,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const santizeString = input =>{
     let modifiedInput = input.trim();
     modifiedInput = modifiedInput.replace(/\s\s+/g, ' ');
-    modifiedInput = modifiedInput.replace(/[^a-zA-Z0-9'` ]/g, '');
+    modifiedInput = modifiedInput.replace(/[^A-Za-z0-9 \-.@'` ]/g, '');
     return modifiedInput;
   }
   
