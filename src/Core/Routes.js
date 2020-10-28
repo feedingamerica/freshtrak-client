@@ -33,7 +33,6 @@ const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEven
 const RegistrationEventDetailsContainer = lazy(() => import('../Modules/Registration/RegistrationEventDetailsContainer'));
 const RegistrationConfirmComponent = lazy(() => import('../Modules/Registration/RegistrationConfirmComponent'));
 const PantryContainer = lazy(() => import('../Modules/Pantry/PantryContainer'));
-const ECBContainer = lazy(() => import('../Modules/ECB/ECBContainer'));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -92,7 +91,7 @@ const Routes = () => {
               path={`${RENDER_URL.REGISTRATION_FORM_URL}/:eventDateId`}
               component={RegistrationContainer}
             />
-            
+
             <Route
               path={`${RENDER_URL.REGISTRATION_CONFIRM_URL}`}
               component={RegistrationConfirmComponent}
