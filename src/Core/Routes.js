@@ -92,12 +92,7 @@ const Routes = () => {
               path={`${RENDER_URL.REGISTRATION_FORM_URL}/:eventDateId`}
               component={RegistrationContainer}
             />
-
-            <Route
-              path={`${RENDER_URL.ECB_CONTAINER}/:id`}
-              component={ECBContainer}
-            />
-
+            
             <Route
               path={`${RENDER_URL.REGISTRATION_CONFIRM_URL}`}
               component={RegistrationConfirmComponent}

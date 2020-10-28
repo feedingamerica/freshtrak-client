@@ -1,11 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import TagManager from 'react-gtm-module'
 
 
 import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import EventCardComponent from '../Events/EventCardComponent';
+import BackButtonComponent from '../General/BackButtonComponent';
 
 const RegistrationTextInfoComponent = ({event, onRegisterNow}) => {
+const isFBLoggedIn = localStorage.getItem("isFBLoggedIn");
   const clickedRegisterNow = () => {
     onRegisterNow(true)
     TagManager.dataLayer({
@@ -16,7 +18,8 @@ const RegistrationTextInfoComponent = ({event, onRegisterNow}) => {
   }
   return (
     <Fragment>
-      <RegistrationHeaderComponent event={event} />
+      <BackButtonComponent />
+      {!isFBLoggedIn && <RegistrationHeaderComponent event={event} />}
       { event &&
         <div className="col-6">
           <div className="day-view">
