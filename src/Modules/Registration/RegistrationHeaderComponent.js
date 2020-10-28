@@ -1,12 +1,10 @@
 import React, { Fragment } from 'react';
 import '../../Assets/scss/main.scss';
 import RegistrationTextComponent from './RegistrationTextComponent';
-import BackButtonComponent from '../General/BackButtonComponent';
 
 const RegistrationHeaderComponent = ({event}) => {
   return (
     <Fragment>
-       <BackButtonComponent />
       <div className="row">
         <div className="col-12">
           <div className="title-wrap">

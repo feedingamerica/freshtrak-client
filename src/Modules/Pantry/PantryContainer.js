@@ -98,7 +98,7 @@ const PantryContainer = props => {
       let agencyDataSorted = EventHandler(agencyData);
       agencyDataSorted = filterEvents(agencyDataSorted);
       // return <EventListComponent events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
-      return <EventListComponent targetUrl={RENDER_URL.ECB_CONTAINER} events={agencyDataSorted} zipCode={zipCode} showHeader= {false} />;
+      return <EventListComponent targetUrl={RENDER_URL.REGISTRATION_EVENT_DETAILS_URL} events={agencyDataSorted} zipCode={zipCode} showHeader= {false} />;
     }
     return null;
   };
