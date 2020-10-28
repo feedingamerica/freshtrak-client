@@ -20,9 +20,9 @@ const DashBoardDataComponent = props => {
   
   //Flag to turn off/on Home Page Container for Loggedin user feature
   if (isFaceBookLoggedIn){
-    props.history.push({
-      pathname: `/home`,
-    }); 
+    // props.history.push({
+    //   pathname: `/home`,
+    // }); 
   }
 
   const onSubmit = data => {
