@@ -5,9 +5,10 @@ import TagManager from 'react-gtm-module'
 import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import EventCardComponent from '../Events/EventCardComponent';
 import BackButtonComponent from '../General/BackButtonComponent';
+import { getItemLocalStorage } from '../../Utils/Util';
 
 const RegistrationTextInfoComponent = ({event, onRegisterNow}) => {
-const isFBLoggedIn = localStorage.getItem("isFBLoggedIn");
+const isFBLoggedIn = JSON.parse(getItemLocalStorage("isFBLoggedIn"));
   const clickedRegisterNow = () => {
     onRegisterNow(true)
     TagManager.dataLayer({
