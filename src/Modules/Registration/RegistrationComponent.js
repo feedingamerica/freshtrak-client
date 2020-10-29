@@ -57,8 +57,24 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const onSubmit = data => {
     data['identification_code'] = user['identification_code']
     data["date_of_birth"] = formatDateForServer(data["date_of_birth"])
+    data = sanatizeInput(data)
     onRegister(data);
     // localStorage.setItem("zip_code",user.zip_code)
+  }
+
+  const sanatizeInput = data => {
+    const keys = ["first_name", "middle_name", "last_name", "date_of_birth","gender", "address_line_1", "address_line_2", "city", "state","zip_code", "phone", "email"];
+    keys.forEach(key => {
+    data[key] = santizeString(data[key]);
+    })
+  return data
+  }
+
+  const santizeString = input =>{
+    let modifiedInput = input.trim();
+    modifiedInput = modifiedInput.replace(/\s\s+/g, ' ');
+    modifiedInput = modifiedInput.replace(/[^A-Za-z0-9 \-.@'` ]/g, '');
+    return modifiedInput;
   }
   
   const submitHandlerFocus = (e)=>{
