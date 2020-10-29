@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import back from '../../Assets/img/back.svg';
 import '../../Assets/scss/main.scss';
 
-const RegistrationHeaderComponent = () => {
+const BackButtonComponent = ( ) => {
   const home = useHistory();
   const backHome = () => {
     home.goBack();
@@ -22,19 +22,8 @@ const RegistrationHeaderComponent = () => {
           </button>
         </div>
       </div>
-      <div className="row">
-        <div className="col-12">
-          <div className="title-wrap">
-            <h1 className="big-title mt-5 mb-5 mobile-mb">
-              Register Now.<br />
-              Save Time.<br />
-              Stay Safe.
-            </h1>
-          </div>
-        </div>
-      </div>
     </Fragment>
   )
 };
 
-export default RegistrationHeaderComponent;
+export default BackButtonComponent;

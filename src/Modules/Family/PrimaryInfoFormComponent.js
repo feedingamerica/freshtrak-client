@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import moment from 'moment';
 
 const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watch }, ref) => {
   const date_of_birth = watch('date_of_birth') || '';
@@ -27,6 +28,12 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
     setValue('date_of_birth', value)
   }
 
+  const isValidDob = (value) => {
+    const maxAgeDate = moment().subtract(123, 'years');
+    const enteredDate = moment(value, 'MM / DD / YYYY');
+    return enteredDate.isAfter(maxAgeDate);
+  }
+
   return (
   <div className="mt-4">
     <h2>Who you are</h2>
@@ -34,7 +41,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       <label htmlFor="first_name">First Name<span className="text-danger">*</span></label>
       <input
         type="text"
-        className="form-control"
+        className= {`form-control ${errors.first_name && 'invalid'}`}
         name="first_name"
         id="first_name"
         ref={register({ required: true })}
@@ -55,7 +62,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       <label htmlFor="last_name">Last Name<span className="text-danger">*</span></label>
       <input
         type="text"
-        className="form-control"
+        className= {`form-control ${errors.last_name && 'invalid'}`}
         name="last_name"
         id="last_name"
         ref={register({ required: true })}
@@ -71,37 +78,48 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
         ref={register}
       >
         <option value="" defaultValue></option>
-        <option value="jr">Jr</option>
-        <option value="sr">Sr</option>
+        <option value="SR">Sr</option>
+        <option value="JR">Jr</option>
+        <option value="I">I</option>
+        <option value="II">II</option>
+        <option value="III">III</option>
+        <option value="IV">IV</option>
+        <option value="V">V</option>
+        <option value="VI">VI</option>
       </select>
     </div>
     <div className="form-group">
       <label htmlFor="date_of_birth">Date of Birth<span className="text-danger">*</span></label>
       <input
         type="text"
-        className="form-control"
+        className= {`form-control ${errors.date_of_birth && 'invalid'}`}
         name="date_of_birth"
         id="date_of_birth"
         placeholder="mm/dd/yyyy"
         onChange={e => handleChangeDob(e)}
         value={date_of_birth}
-        ref={register({ required: true })}
+        ref={register({ required: true, validate: value => isValidDob(value)})}
       />
-      {errors.date_of_birth && <span className="text-danger">This field is required</span>}
+      {errors.date_of_birth && ( errors.date_of_birth.type === "validate"
+        ? <span className="text-danger">Invalid DOB</span>
+        : <span className="text-danger">This field is required</span> )
+      }
     </div>
     <div className="form-group">
       <label htmlFor="gender">Gender<span className="text-danger">*</span></label>
       <select
-        className="form-control"
+        className= {`form-control ${errors.gender && 'invalid'}`}
         name="gender"
         id="gender"
-        ref={register}
+        ref={register({required: true})}
       >
         <option value="" defaultValue></option>
         <option value="male">Male</option>
         <option value="female">Female</option>
+        <option value="other">Other</option>
         <option value="not_specify">Prefer Not To Specify</option>
       </select>
+      {errors.gender && <span className="text-danger">This field is required</span>}
     </div>
   </div>
   )

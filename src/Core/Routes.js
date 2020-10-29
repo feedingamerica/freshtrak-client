@@ -24,12 +24,15 @@ const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
-const RegistrationContainer = lazy(() => import('../Modules/Family/RegistrationContainer'));
+const RegistrationContainer = lazy(() => import('../Modules/Registration/RegistrationContainer'));
 // const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 // Out of scope
 // const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
 // const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
 const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEventListContainer'));
+const RegistrationEventDetailsContainer = lazy(() => import('../Modules/Registration/RegistrationEventDetailsContainer'));
+const RegistrationConfirmComponent = lazy(() => import('../Modules/Registration/RegistrationConfirmComponent'));
+const PantryContainer = lazy(() => import('../Modules/Pantry/PantryContainer'));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -42,7 +45,7 @@ const Routes = () => {
           <Switch>
             <Route
               exact
-              path={RENDER_URL.HOME_URL}
+              path={RENDER_URL.ROOT_URL}
               component={DashBoardContainer}
             />
             <Route
@@ -53,6 +56,11 @@ const Routes = () => {
             <Route
               exact path={RENDER_URL.ADD_FAMILY_URL}
               component={FamilyContainer}
+            />
+            {/* Flag to turn off/on Home Page Container for Loggedin user feature */}
+            <Route
+              exact path={RENDER_URL.HOME_URL}
+              component={PantryContainer}
             />
 
             {/* Out of Scope */}
@@ -75,8 +83,18 @@ const Routes = () => {
             />
 
             <Route
-              path={`${RENDER_URL.EVENT_REGISTRATION_URL}/:eventDateId/:eventSlotId?`}
+              path={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/:id`}
+              component={RegistrationEventDetailsContainer}
+            />
+
+            <Route
+              path={`${RENDER_URL.REGISTRATION_FORM_URL}/:eventDateId`}
               component={RegistrationContainer}
+            />
+
+            <Route
+              path={`${RENDER_URL.REGISTRATION_CONFIRM_URL}`}
+              component={RegistrationConfirmComponent}
             />
 
             <Route

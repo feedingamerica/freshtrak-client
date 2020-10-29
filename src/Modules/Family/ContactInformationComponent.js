@@ -1,4 +1,4 @@
-import React, { forwardRef, Fragment, useEffect } from 'react';
+import React, { forwardRef, Fragment } from 'react';
 import PhoneInputComponent from './PhoneInputComponent';
 
 const ContactInformationComponent = forwardRef(
@@ -8,10 +8,6 @@ const ContactInformationComponent = forwardRef(
     const phone = watch('phone') || '';
     const email = watch('email') || '';
 
-    useEffect(() => {
-      register({ name: 'phone' });
-    }, [register]);
-
     return (
       <Fragment>
         <h2>How to Contact You</h2>
@@ -20,12 +16,13 @@ const ContactInformationComponent = forwardRef(
             <label htmlFor="phone">Phone Number (Mobile Preferred)</label>
             <PhoneInputComponent
               type="text"
-              className="form-control"
+              className= {`form-control ${errors.phone && 'invalid'}`}
               name="phone"
               placeholder="(xxx) xxx-xxxx"
               id="phone"
               value={phone}
-              onChange={(e) => setValue('phone', e)}
+              onChange={(e) => { setValue('phone', e) }}
+              register={register}
             />
             {errors.phone && (
               <span className="text-danger">
@@ -70,20 +67,20 @@ const ContactInformationComponent = forwardRef(
         )}
         {showEmailPermissions && (
           <div className="form-group">
-            <label htmlFor="email">Email<span className="text-danger">*</span></label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
-              className="form-control"
+              className= {`form-control ${errors.email && 'invalid'}`}
               name="email"
               id="email"
               autoComplete="off"
+              value={email}
+              onChange={e => setValue('email', e.target.value)}
               ref={register({
                 validate: (value) => {
-                  const { no_email } = getValues();
-                  if (!value && !no_email) {
-                    return false;
-                  }
-                },
+                  const { no_email: noEmail } = getValues();
+                  return value.length > 0 || noEmail;      
+                }
               })}
             />
             <small className="text-muted">
@@ -99,7 +96,8 @@ const ContactInformationComponent = forwardRef(
             <br />
             {errors.email && (
               <span className="text-danger" data-testid="no email error">
-                This field is required
+                This field is required. If you have no email check "No Email
+                Available".
               </span>
             )}
           </div>

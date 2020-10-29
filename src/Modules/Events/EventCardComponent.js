@@ -8,7 +8,6 @@ import { setCurrentEvent } from '../../Store/Events/eventSlice';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
-import ReserveTimeButton from './ReserveTimeButton';
 
 const EventCardComponent = props => {
   const [showDetails, setShowDetails] = useState(false);
@@ -32,14 +31,28 @@ const EventCardComponent = props => {
       eventDetails,
       exceptionNote
     },
+    registrationView
   } = props;
 
   const ButtonView = () => {
+    if(registrationView) {
+      return null;
+    }
     if (acceptReservations) {
-      return <ReserveTimeButton event={props.event} />;
+      return (
+      <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
+        <button
+          type="button"
+          className="btn custom-button ml-1 flex-grow-1"
+          onClick={() => dispatch(setCurrentEvent(props.event))}
+        >
+          Reserve Time
+        </button>
+      </LinkContainer>
+      )
     } else if (acceptInterest && !acceptReservations) {
       return (
-        <LinkContainer to={`${RENDER_URL.EVENT_REGISTRATION_URL}/${id}`}>
+        <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
           <button
             type="button"
             className="btn custom-button ml-1 flex-grow-1"
@@ -55,7 +68,7 @@ const EventCardComponent = props => {
   };
 
   return (
-    <section className="col-lg-4 col-xl-4" tabIndex="0">
+    <section className={registrationView ? "" : "col-lg-4 col-xl-4"} tabIndex="0">
       <div className="day-view-item">
         <div className="day-view-item-header">
           <div className="day-view-header-title">{agencyName}</div>
@@ -100,7 +113,7 @@ const EventCardComponent = props => {
             </div>
           )}
           <div className="day-view-item-detail-footer d-flex mt-3">
-            {eventDetails.length > 0 && (
+            {eventDetails && eventDetails.length > 0 && (
               <button
                 className="btn default-button flex-grow-1"
                 onClick={() => {

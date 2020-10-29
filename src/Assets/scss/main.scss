@@ -68,6 +68,9 @@ body {
     .caption-text {
         font-family: $font-varela;
         letter-spacing: 0.4px;
+        .link-wrap {
+            word-wrap: break-word;
+        }
     }
     .navbar-toggler {
         .navbar-toggler-icon {
@@ -670,6 +673,11 @@ body {
     }
     .gray-bg {
         background: $gray-color;
+        
+        .foodbank-and-events{
+            padding-left: 105px;
+            padding-right: 105px;
+        }
     }
     .gray-bg-inner {
         background: $inner-gray;
@@ -886,6 +894,11 @@ body {
     }
 }
 
+.kep-login-facebook {
+    width: 100%;
+    border-radius: 8px;
+  }
+
 .loading-spinner-height {
     height: 10em;
     width: 10em;
@@ -901,4 +914,73 @@ body {
 .loading-spinner-height {
     height: 10em;
     width: 10em;
+}
+
+.local-foodbank {
+    background: $color-white;
+    border: 1px solid $default-button;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-family: Noto Sans;
+    font-style: normal;
+    color: $color-black;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    top: 28px; 
+    padding:16px;
+    left: 0px;
+    right: 0px;
+    height: 22px;
+    position: absolute;
+    margin-bottom: 20px; 
+    flex: none;
+    .foodbank-name{    
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 20px;
+        text-transform: capitalize;
+    }
+    .foodbank-address{
+        padding-bottom:16px;
+    }
+    .foodbank-contact{
+        padding-bottom:4px;
+        color: $text-color; 
+    }
+    .Toastify__toast-container--top-left {
+        top: 4em !important;
+        left: 10em !important;
+    }
+    .yourpantries-header{
+        position: static;
+        width: 122px; 
+        top: calc(50% - 20px/2 - 37px);
+        font-weight: bold;
+        font-size: 18px;
+        display: flex;
+        align-items: flex-end;
+        text-transform: capitalize;
+        color: $color-light; 
+        order: 0;
+        align-self: flex-start;
+        margin: 0px 8px;
+    }
+    .yourpantries{
+        position: static;
+        height: 66px;
+        line-height: 22px;
+        color: $color-light-grey;  
+        order: 1;
+        align-self: center;
+        margin: 0px 8px;  
+    }
+    .events-nearby-header{
+        line-height: 22px;
+        color: $content-text-color;
+    }
+    .list-of-events{
+        line-height: 22px;
+        color: $content-text-color;
+    }
 }

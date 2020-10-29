@@ -4,22 +4,22 @@ import PlacesAutocomplete, {
   geocodeByAddress,
 } from "react-places-autocomplete";
 
-const AddressComponent = forwardRef(({ register, errors }, ref) => {
-  const [addressLine1, setAddressLine1] = React.useState("");
-  const [cityName, setCity] = React.useState("");
-  const [stateName, setStateName] = React.useState("");
-  const [shortStateName,setShortStateName] = React.useState("");
-  const [zip, setZip] = React.useState("");
+const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref) => {
+  const addressLine1 = watch('address_line_1') || '';
+  const cityName = watch('city') || '';
+  const shortStateName = watch('state') || '';
+  const zip = watch('zip_code') || '';
 
   const handleSelect = async value => {
     const results = await geocodeByAddress(value);
+    //remove errors when selecting a new address
+    delete errors.city
+    delete errors.zip_code
     let destructuredAddress = getDestructured(results[0]["address_components"]);
-    setCity(destructuredAddress["locality"]);
-    setZip(destructuredAddress["postal_code"]);
-    setStateName(destructuredAddress["administrative_area_level_1"]);
-    setShortStateName(destructuredAddress["administrative_area_level_1_short"]);
-    setAddressLine1(destructuredAddress["street_number"]!==undefined?`${destructuredAddress["street_number"]} ${destructuredAddress["route"]}`:'');
-    
+    setValue('address_line_1', destructuredAddress["street_number"]!==undefined?`${destructuredAddress["street_number"]} ${destructuredAddress["route"]}`:'');
+    setValue('city', destructuredAddress["locality"]);
+    setValue('state', destructuredAddress["administrative_area_level_1_short"]);
+    setValue('zip_code', destructuredAddress["postal_code"]);
   };
 
   const getDestructured = address_components => {
@@ -34,7 +34,7 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
           destructured["street_number"] = component.long_name;
           break;
         case "route":
-          destructured["route"] = component.long_name;
+          destructured["route"] = component.short_name;
           break;
         case "locality":
           destructured["locality"] = component.long_name;
@@ -62,7 +62,7 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
         <label htmlFor="address_line_1">Street Address<span className="text-danger">*</span></label>
         <PlacesAutocomplete
           value={addressLine1}
-          onChange={setAddressLine1}
+          onChange={(e) => setValue('address_line_1', e)}
           onSelect={handleSelect}
         >
           {({
@@ -74,7 +74,7 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
             <>
               <input
                 type="text"
-                className="form-control"
+                className= {`form-control ${errors.address_line_1 && 'invalid'}`}
                 name="address_line_1"
                 id="address_line_1"
                 {...getInputProps()}
@@ -124,11 +124,10 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
           <label htmlFor="city">City<span className="text-danger">*</span></label>
           <input
             type="text"
-            className="form-control"
+            className= {`form-control ${errors.city && 'invalid'}`}
             name="city"
             id="city"
-            value={cityName}
-            onChange={(e)=>setCity(e.target.value)}
+            defaultValue={cityName}
             ref={register({ required: true })}
           />
           {errors.city && (
@@ -138,20 +137,16 @@ const AddressComponent = forwardRef(({ register, errors }, ref) => {
         <StateDropdownComponent
           register={register}
           errors={errors}
-          shortNameChange={setShortStateName}
-          nameChange={setStateName}
-          value={shortStateName}
-          defaultValue={stateName}
+          defaultValue={shortStateName}
         />
 
         <div className="form-group ml-2">
           <label htmlFor="zip_code">Zip Code<span className="text-danger">*</span></label>
           <input
             type="text"
-            className="form-control"
+            className= {`form-control ${errors.zip_code && 'invalid'}`}
             name="zip_code"
-            value={zip}
-            onChange={(e)=>setZip(e.target.value)}
+            defaultValue={zip}
             id="zip_code"
             ref={register({ required: true })}
           />

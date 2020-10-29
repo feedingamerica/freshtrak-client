@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 
 const PhoneInputComponent = (props) => {
-  const normalizeInput = (value, previousValue) => {
+  const normalizeInput = (value) => {
     if (!value) return value;
     const currentValue = value.replace(/[^\d]/g, '');
     const cvLength = currentValue.length;
 
-    if (!previousValue || value.length > previousValue.length) {
+    if (value.length) {
       if (cvLength < 4) return currentValue;
       if (cvLength < 7)
         return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3)}`;
@@ -21,7 +21,7 @@ const PhoneInputComponent = (props) => {
 
   const formatPhone = (e) => {
     const value = e.target.value;
-    const updatedPhone = normalizeInput(value, props.value);
+    const updatedPhone = normalizeInput(value);
     props.onChange(updatedPhone);
   };
 
@@ -35,6 +35,9 @@ const PhoneInputComponent = (props) => {
         id={props.id}
         value={props.value}
         onChange={(e) => formatPhone(e)}
+        ref={props.register({
+          validate: value => value.length >= 14
+        })}
       />
     </Fragment>
   )

@@ -7,12 +7,18 @@ import { Link } from 'react-router-dom';
 import identificationCodeImg1 from '../../Assets/img/id_code1.png';
 import identificationCodeImg2 from '../../Assets/img/id_code2.png';
 import idImg from '../../Assets/img/id_img.png';
+import EventCardComponent from '../Events/EventCardComponent';
 
 const RegistrationConfirmComponent = props => {
-  const user_data = props.user;
+  const user_data = props.location.state.user;
   const event = useSelector(selectEvent);
+
+  // Need to have isFBLoggedIn => true in local storage to show loggedin home page(Returning Users)
+  localStorage.setItem('isFBLoggedIn', false);
   localStorage.removeItem('userToken');
   localStorage.removeItem('tokenExpiresAt');
+
+  const HOME_OR_ROOT_URL = localStorage.getItem('isFBLoggedIn') === "true" ? RENDER_URL.HOME_URL : RENDER_URL.ROOT_URL
 
   const formatPhoneNumber = input => {
     const regExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
@@ -41,7 +47,7 @@ const RegistrationConfirmComponent = props => {
   return (
     <Fragment>
       {event && (
-        <div className="main-wrapper mt-4">
+        <div className="mt-4">
           <section className="container pt-100 pb-100 register-confirmation">
             <h1 className="big-title med-title mt-5 mb-5 mobile-mb">
               You're Registered
@@ -57,6 +63,20 @@ const RegistrationConfirmComponent = props => {
                 {event.startTime} -{event.endTime}
               </div>
             </div>
+            <div className="mt-5">
+              <h2>
+                Your Confirmation Number <br />
+                <b> {identification_code.toUpperCase()} </b>
+              </h2>
+              <br />
+            </div>
+            { event &&
+                  <div className="col-6">
+                    <div className="day-view">
+                      <EventCardComponent key={event.id} event={event} registrationView={true}/>
+                    </div>
+                  </div>
+            }
             <h5 className="mb-4">
               <b> Your Information </b>
             </h5>
@@ -71,11 +91,7 @@ const RegistrationConfirmComponent = props => {
             </div>
             <div className="mt-5">
               As a part of our contactless service process, please display the
-              following information <br />
-              <h4>
-                Identification Code <br />
-                <b> {identification_code} </b>
-              </h4>
+              above confirmation number <br />
               <div className="mb-2">
                 Notes: This code is unique to you, please write it on a piece of
                 paper and display in your driver-side front window.
@@ -118,7 +134,7 @@ const RegistrationConfirmComponent = props => {
               </h5>
             )}
             <p className="mb-5">{event.eventDetails}</p>
-            <Link to={RENDER_URL.HOME_URL}>
+            <Link to={HOME_OR_ROOT_URL}>
               <div className="button-wrap mt-4">
                 <button
                   type="submit"

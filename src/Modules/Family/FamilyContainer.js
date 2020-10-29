@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
-import RegistrationHeaderComponent from './RegistrationHeaderComponent';
-import RegistrationTextComponent from './RegistrationTextComponent';
+import RegistrationHeaderComponent from '../Registration/RegistrationHeaderComponent';
+import RegistrationTextComponent from '../Registration/RegistrationTextComponent';
 import AddressComponent from './AddressComponent';
 import MemberCountFormComponent from './MemberCountFormComponent';
 import ContactInformationComponent from './ContactInformationComponent';
@@ -34,7 +34,12 @@ const FamilyContainer = () => {
                   setValue={setValue}
                   watch={watch}
                 />
-                <AddressComponent register={register} errors={errors} />
+                <AddressComponent
+                  register={register}
+                  errors={errors}
+                  watch={watch}
+                  setValue={setValue}
+                />
                 <ContactInformationComponent
                   register={register}
                   errors={errors}
@@ -45,6 +50,8 @@ const FamilyContainer = () => {
                   register={register}
                   event={event}
                   errors={errors}
+                  watch={watch}
+                  setValue={setValue}
                 />
                 <div className="button-wrap mt-4">
                   <button
