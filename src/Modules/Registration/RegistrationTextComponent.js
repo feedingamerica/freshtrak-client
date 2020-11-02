@@ -7,7 +7,7 @@ const RegistrationTextComponent = ({event}) => {
   const OPTIONAL = "optional"
   const REQUIRED = "required" 
   useEffect(() =>{
-    if (event.acceptWalkin){
+    if (event && event.acceptWalkin){
       setRegRequired(OPTIONAL)
     }
     else {
@@ -15,7 +15,6 @@ const RegistrationTextComponent = ({event}) => {
     }
   } )
 
-  console.log("********event details",event)
   return (
     <div>
       <div className="content-wrapper page-info-wrap">
