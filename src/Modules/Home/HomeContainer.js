@@ -77,7 +77,7 @@ const HomeContainer = props => {
     const filterEvents = (eventList) => {
       if (props.filter === "today"){
         const todayDate = moment(new Date()).format("YYYY-MM-DD");
-        return { [todayDate]: eventList[todayDate]}
+        return eventList[todayDate] ? { [todayDate]: eventList[todayDate]}: {};
       }
       if (props.filter === "week"){
         const todayDate = moment(new Date()).format("YYYY-MM-DD");
@@ -124,7 +124,7 @@ const HomeContainer = props => {
             )}
           </div>
           <div className="foodbank-and-events">
-            <LocalFoodBankComponent />
+            <LocalFoodBankComponent zipCode= {zipCode}/>
             {/* <RegisteredEventsComponents /> */}
             <EventNearByComponent EventList= {EventList}/> 
           </div>

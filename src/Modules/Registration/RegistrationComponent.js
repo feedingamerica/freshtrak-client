@@ -59,7 +59,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
     data["date_of_birth"] = formatDateForServer(data["date_of_birth"])
     data = sanatizeInput(data)
     onRegister(data);
-    // localStorage.setItem("zip_code",user.zip_code)
+    localStorage.setItem("zip_code",data.zip_code)
   }
 
   const sanatizeInput = data => {
