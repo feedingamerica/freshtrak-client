@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { API_URL } from '../../Utils/Urls';
-
+import SpinnerComponent from '../General/SpinnerComponent';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
@@ -44,12 +44,12 @@ useEffect(() => {
       }
     }
   };
-
   return (
     <Fragment>
       <h2 className="font-weight-bold mobile-text-left">
               Your Local Food Bank
       </h2>
+      {Object.keys(foodBankData).length === 0 ? <SpinnerComponent/>: 
        <div className="row align-items-center mt-2">
           <div className="col-lg-4 col-sm-6">
             <div className="d-flex align-items-center">
@@ -75,7 +75,8 @@ useEffect(() => {
             </div>
           </div>
         </div>
-    </Fragment>
+  }
+  </Fragment>
   );
 };
 
