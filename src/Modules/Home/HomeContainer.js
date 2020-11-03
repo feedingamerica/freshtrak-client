@@ -18,7 +18,7 @@ import moment from 'moment';
 const HomeContainer = props => {
   const [agencyResponse, setAgencyResponse] = useState(false);
   const [agencyData, setAgencyData] = useState({});
-  const [zipCode, setZipCode] = useState(localStorage.getItem("zip_code"));
+  const [zipCode, setZipCode] = useState(localStorage.getItem("search_zip"));
   let [searchDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();

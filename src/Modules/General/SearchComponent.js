@@ -7,7 +7,7 @@ import PlacesAutocomplete, {
 
 const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchData}, ref) => {
   const default_zipcode = (searchData && searchData.length > 0)? searchData : "";
-  const user_zipcode = localStorage.getItem("zip_code");
+  const search_zipcode = localStorage.getItem("search_zip");
   const [address, setAddress] = React.useState("");
   // const [zip] = React.useState("");
   const [lat, setLat] = React.useState("");
@@ -99,7 +99,7 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
               className="form-control zip"
               id="zip_code"
               name="zip_code"
-              defaultValue={default_zipcode || user_zipcode}
+              defaultValue={default_zipcode || search_zipcode}
               onChange={e =>
                 {
                   if(e.target.value.length === 5){
