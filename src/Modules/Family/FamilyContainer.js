@@ -26,7 +26,7 @@ const FamilyContainer = () => {
           </div>
           <div className="registration-form">
             <div className="content-wrapper">
-              <RegistrationTextComponent />
+              <RegistrationTextComponent event= {event}/>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <PrimaryInfoFormComponent
                   register={register}
