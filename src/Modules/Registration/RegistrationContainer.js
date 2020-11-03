@@ -100,13 +100,28 @@ const RegistrationContainer = (props) => {
 
   const send_sms = async user => {
     const { TWILIO_SMS } = API_URL;
-    let phone = user['phone']
+    let to_phone_number = user['phone']
     let identification_code =  user['identification_code']
     let message = "You're Registered, Identification Code is " + identification_code.toUpperCase()
-    try {
-      await axios.post(TWILIO_SMS, { phone, message });
-    } catch (e) {
-      console.log(e);
+    let search_zip = localStorage.getItem('search_zip')
+    if (search_zip) {
+      setLoading(true);
+      let foodBankUri = API_URL.FOODBANK_LIST;
+      try {
+        const resp = await axios.get(foodBankUri, {
+        params: { zip_code: search_zip },
+        });
+        const { data } = resp;
+        let from_phone_number = data.foodbanks[0].twilio_phone_number
+        try {
+          await axios.post(TWILIO_SMS, { from_phone_number, to_phone_number, message });
+        } catch (e) {
+          console.log(e);
+        }
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+      }
     }
   }
 
