@@ -125,7 +125,7 @@ const HomeContainer = props => {
           </div>
           <div className="foodbank-and-events">
             <LocalFoodBankComponent />
-            {/* <RegisteredEventsComponents /> */}
+            {/* <UsersRegistrations /> */}
             <EventNearByComponent EventList= {EventList}/> 
           </div>
           {/* {!loading && <EventList />} */}
