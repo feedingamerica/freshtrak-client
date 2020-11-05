@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ProgressBar } from 'react-bootstrap';
 import SearchComponent from '../General/SearchComponent';
+import SpinnerComponent from '../General/SpinnerComponent';
 import LocalFoodBankComponent from '../Home/LocalFoodBankComponent';
 // import YourPantriesComponent from '../Home/YourPantriesComponent';
 import EventNearByComponent from '../Home/EventNearByComponent';
@@ -100,9 +101,8 @@ const HomeContainer = props => {
       // return <EventListComponent events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
       return <EventListComponent targetUrl={RENDER_URL.REGISTRATION_EVENT_DETAILS_URL} events={agencyDataSorted} zipCode={zipCode} showHeader= {false} />;
     }
-    return null;
+    return <SpinnerComponent variant = "small" />;
   };
-  
 
   return (
     <div>
