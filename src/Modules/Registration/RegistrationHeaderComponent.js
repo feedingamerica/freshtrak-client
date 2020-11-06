@@ -16,7 +16,7 @@ const RegistrationHeaderComponent = ({event}) => {
           </div>
         </div>
       </div>
-      <RegistrationTextComponent />
+      <RegistrationTextComponent event= {event}/>
     </Fragment>
   )
 };
