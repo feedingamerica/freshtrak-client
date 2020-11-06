@@ -33,6 +33,7 @@ const EventCardComponent = props => {
     },
     registrationView
   } = props;
+  const showRsvp = acceptInterest && !acceptReservations;
 
   // const ButtonView = () => {
   //   if(registrationView) {
@@ -88,7 +89,7 @@ const EventCardComponent = props => {
     }
     if (acceptReservations) {
       return getButton('Reserve Time', targetUrl)
-    } else if (acceptInterest && !acceptReservations) {
+    } else if (showRsvp) {
       return getButton('RSVP', targetUrl)
     } else {
       return null;
@@ -140,6 +141,7 @@ const EventCardComponent = props => {
               </p>
             </div>
           )}
+         {!!showRsvp && <span className="text-danger font-size-point-85rem">RSVP is required for this event</span>}
           <div className="day-view-item-detail-footer d-flex mt-3">
             {eventDetails && eventDetails.length > 0 && (
               <button
