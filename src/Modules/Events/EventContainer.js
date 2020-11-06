@@ -69,7 +69,7 @@ const EventContainer = props => {
     }
   };
   const localUserToken = localStorage.getItem('userToken');
-  const search_zip = localStorage.setItem('search_zip', `${zipCode}`);
+  localStorage.setItem('search_zip', `${zipCode}`);
 
   return (
     <div>

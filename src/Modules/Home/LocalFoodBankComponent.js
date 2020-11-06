@@ -17,12 +17,12 @@ const LocalFoodBankComponent = props => {
   let [searchDetails, setSearchDetails] = useState({});
 
 useEffect(() => {
-  const zipCode = localStorage.getItem("zip_code")
+  const zipCode = props.zipCode;
   if (zipCode) {
     dispatch(setCurrentZip(zipCode));
     getFoodbanks(zipCode);
   }
-}, [dispatch]);
+}, [dispatch, props.zipCode]);
 
   const getFoodbanks = async zip => {
     if (zip) {
@@ -35,7 +35,7 @@ useEffect(() => {
           params: { zip_code: zip },
         });
         const { data } = resp;
-        setFoodBankData(data?.foodbanks?.[0]||{});
+        setFoodBankData(data?.foodbanks?.[0] || "no_foodbanks_found");
         setFoodBankResponse(true);
         setLoading(false);
       } catch (err) {
@@ -50,6 +50,7 @@ useEffect(() => {
               Your Local Food Bank
       </h2>
       {Object.keys(foodBankData).length === 0 ? <SpinnerComponent/>: 
+       foodBankData === "no_foodbanks_found"? "NO FOOD BANKS FOUND WITHIN THE ZIP CODE":
        <div className="row align-items-center mt-2">
           <div className="col-lg-4 col-sm-6">
             <div className="d-flex align-items-center">

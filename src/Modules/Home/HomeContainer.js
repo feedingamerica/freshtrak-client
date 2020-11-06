@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ProgressBar } from 'react-bootstrap';
 import SearchComponent from '../General/SearchComponent';
+import SpinnerComponent from '../General/SpinnerComponent';
 import LocalFoodBankComponent from '../Home/LocalFoodBankComponent';
 // import YourPantriesComponent from '../Home/YourPantriesComponent';
 import EventNearByComponent from '../Home/EventNearByComponent';
@@ -18,7 +19,7 @@ import moment from 'moment';
 const HomeContainer = props => {
   const [agencyResponse, setAgencyResponse] = useState(false);
   const [agencyData, setAgencyData] = useState({});
-  const [zipCode, setZipCode] = useState(localStorage.getItem("zip_code"));
+  const [zipCode, setZipCode] = useState(localStorage.getItem("search_zip"));
   let [searchDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -77,7 +78,7 @@ const HomeContainer = props => {
     const filterEvents = (eventList) => {
       if (props.filter === "today"){
         const todayDate = moment(new Date()).format("YYYY-MM-DD");
-        return { [todayDate]: eventList[todayDate]}
+        return eventList[todayDate] ? { [todayDate]: eventList[todayDate]}: {};
       }
       if (props.filter === "week"){
         const todayDate = moment(new Date()).format("YYYY-MM-DD");
@@ -100,9 +101,8 @@ const HomeContainer = props => {
       // return <EventListComponent events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
       return <EventListComponent targetUrl={RENDER_URL.REGISTRATION_EVENT_DETAILS_URL} events={agencyDataSorted} zipCode={zipCode} showHeader= {false} />;
     }
-    return null;
+    return <SpinnerComponent variant = "small" />;
   };
-  
 
   return (
     <div>
@@ -124,8 +124,8 @@ const HomeContainer = props => {
             )}
           </div>
           <div className="foodbank-and-events">
-            <LocalFoodBankComponent />
-            {/* <RegisteredEventsComponents /> */}
+            <LocalFoodBankComponent zipCode= {zipCode}/>
+            {/* <UsersRegistrations /> */}
             <EventNearByComponent EventList= {EventList}/> 
           </div>
           {/* {!loading && <EventList />} */}
