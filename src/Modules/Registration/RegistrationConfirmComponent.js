@@ -73,7 +73,7 @@ const RegistrationConfirmComponent = props => {
             { event &&
                   <div className="col-6">
                     <div className="day-view">
-                      <EventCardComponent key={event.id} event={event} noRsvpMessage = {true} registrationView={true}/>
+                      <EventCardComponent key={event.id} event={event} registrationView={true}/>
                     </div>
                   </div>
             }
