@@ -132,6 +132,62 @@ export const EventFormat = (event, eventDateId) => {
   };
 };
 
+export const HomeEventFormat = (event, eventDateId) => {
+  const {
+    address: eventAddress,
+    city: eventCity,
+    state: eventState,
+    zip: eventZip,
+    forms,
+    agency_name: agencyName,
+    name: eventName,
+    exception_note: exceptionNote,
+    estimated_distance: estimatedDistance,
+    service_category: serviceCategory,
+    event_details: eventDetails,
+    event_dates: eventDates
+  } = event;
+  const eventDate = eventDates.filter((eventDate) => eventDateId === eventDate.id)[0];
+  if (eventDate){
+    const {
+      event_id: eventId,
+      accept_reservations: acceptReservations,
+      accept_interest: acceptInterest,
+      accept_walkin: acceptWalkin,
+      start_time: startTime,
+      end_time: endTime,
+      date,
+    } = eventDate;
+  
+    return {
+      id: eventDateId,
+      eventId,
+      acceptReservations,
+      acceptInterest,
+      acceptWalkin,
+      startTime,
+      endTime,
+      date,
+      eventAddress,
+      eventCity,
+      eventState,
+      eventZip,
+      phoneNumber: "",
+      agencyName,
+      eventName,
+      exceptionNote,
+      eventService: serviceCategory && serviceCategory.service_category_name,
+      estimatedDistance,
+      eventDetails,
+      seniorAge: forms.length > 0 ? forms[0].display_age_senior : 60,
+      adultAge: forms.length > 0 ? forms[0].display_age_adult : 18,
+    };
+  }
+  else {
+    return null;
+  }
+};
+
 export const AgencyHandler = agencies => {
   if (!agencies || !agencies.length > 0) {
     return [];

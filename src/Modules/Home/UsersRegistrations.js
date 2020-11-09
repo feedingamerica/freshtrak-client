@@ -3,8 +3,11 @@ import { withRouter } from 'react-router-dom';
 import '../../Assets/scss/main.scss';
 import axios from 'axios';
 import { API_URL} from '../../Utils/Urls';
-import { EventFormat } from '../../Utils/EventHandler';
+import { HomeEventFormat } from '../../Utils/EventHandler';
 import EventListComponent from '../Events/EventListComponent';
+import EventCardComponent from '../Events/EventCardComponent';
+import { formatDateDayAndDate } from '../../Utils/DateFormat';
+import '../../Assets/scss/main.scss';
 
 const UsersRegistrations = props => {
   const [events,setEvents] = useState();
@@ -24,7 +27,6 @@ const UsersRegistrations = props => {
       setUsersReservation(usersRegData.data);
       getEvents(usersRegData.data);
       // setLoading();
-      console.log("*****usersRegData*****", usersRegData)
     } catch (e) {
       console.log(e);
     } 
@@ -38,19 +40,38 @@ const UsersRegistrations = props => {
     )
     const regEvents = await axios.all(userRegEvents)
     const events = [];
-    regEvents.map((event, index) => {
-      events.push(EventFormat(event,userRegData[index].event_date_id))
-    })
+    regEvents.forEach((event, index) => {
+      let filteredEvents;
+      if (event.data?.events[0]){
+         filteredEvents = HomeEventFormat(event.data.events[0],userRegData[index].event_date_id) 
+      }
+      filteredEvents && events.push(filteredEvents)
+    });
     setEvents(events);
-    console.log("inside getEvents for events******",regEvents)
   }
 
   return (
     <Fragment>
-      <h2 className="font-weight-bold mobile-text-left">
-        Your Registrations
+      <h2 className="font-weight-bold mt-60">
+        Your UpComing Reservations
       </h2>
-      {events && <EventListComponent events={events} showHeader= {false} registrationView = {true}/>}
+      <div className="row mt-5">
+            <div className="col-md-12">
+              <div className="day-view">
+                <div className="row">
+                  <div className="col-md-12">
+                    <span className="day-view-title">
+                    </span>
+                  </div>
+                </div>
+                <div className="row mt-2">
+                {events && events.map(event => (
+                    <EventCardComponent key={event.id} event={event} registrationView = {true}/>
+                ))}
+                </div>
+              </div>
+            </div>
+          </div>
     </Fragment>
   );
 };
