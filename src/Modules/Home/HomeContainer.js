@@ -6,7 +6,7 @@ import { ProgressBar } from 'react-bootstrap';
 import SearchComponent from '../General/SearchComponent';
 import SpinnerComponent from '../General/SpinnerComponent';
 import LocalFoodBankComponent from '../Home/LocalFoodBankComponent';
-// import YourPantriesComponent from '../Home/YourPantriesComponent';
+import UsersRegistrations from '../Home/UsersRegistrations';
 import EventNearByComponent from '../Home/EventNearByComponent';
 import { API_URL, RENDER_URL } from '../../Utils/Urls';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
@@ -99,7 +99,7 @@ const HomeContainer = props => {
       let agencyDataSorted = EventHandler(agencyData);
       agencyDataSorted = filterEvents(agencyDataSorted);
       // return <EventListComponent events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
-      return <EventListComponent targetUrl={RENDER_URL.REGISTRATION_EVENT_DETAILS_URL} events={agencyDataSorted} zipCode={zipCode} showHeader= {false} />;
+      return <EventListComponent targetUrl={RENDER_URL.REGISTRATION_EVENT_DETAILS_URL} events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
     }
     return <SpinnerComponent variant = "small" />;
   };
@@ -124,8 +124,8 @@ const HomeContainer = props => {
             )}
           </div>
           <div className="foodbank-and-events">
-            <LocalFoodBankComponent zipCode= {zipCode}/>
-            {/* <UsersRegistrations /> */}
+            <LocalFoodBankComponent />
+            <UsersRegistrations/>
             <EventNearByComponent EventList= {EventList}/> 
           </div>
           {/* {!loading && <EventList />} */}
