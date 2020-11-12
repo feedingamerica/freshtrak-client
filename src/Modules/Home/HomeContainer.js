@@ -124,7 +124,7 @@ const HomeContainer = props => {
             )}
           </div>
           <div className="foodbank-and-events">
-            <LocalFoodBankComponent />
+            <LocalFoodBankComponent zipCode= {zipCode}/>
             <UsersRegistrations/>
             <EventNearByComponent EventList= {EventList}/> 
           </div>

@@ -55,6 +55,7 @@ const UsersRegistrations = props => {
       <h2 className="font-weight-bold mt-60">
         Your UpComing Reservations
       </h2>
+      <div className="search-results-list">
       <div className="row mt-5">
             <div className="col-md-12">
               <div className="day-view">
@@ -72,6 +73,7 @@ const UsersRegistrations = props => {
               </div>
             </div>
           </div>
+      </div>
     </Fragment>
   );
 };
