@@ -58,7 +58,7 @@ const HomeContainer = props => {
   const onSubmit = data => {
     if (data) {
       const { zip_code } = data;
-      localStorage.setItem("zip_code", zip_code)
+      // localStorage.setItem("zip_code", zip_code)
       // props.history.push({
       //   pathname: `/home`,
       // });
