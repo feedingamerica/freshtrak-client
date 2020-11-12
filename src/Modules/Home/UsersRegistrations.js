@@ -59,15 +59,9 @@ const UsersRegistrations = props => {
       <div className="row mt-5">
             <div className="col-md-12">
               <div className="day-view">
-                <div className="row">
-                  <div className="col-md-12">
-                    <span className="day-view-title">
-                    </span>
-                  </div>
-                </div>
                 <div className="row mt-2">
                 {events && events.map(event => (
-                    <EventCardComponent key={event.id} event={event} registrationView = {true}/>
+                    <EventCardComponent key={event.id} event={event}/>
                 ))}
                 </div>
               </div>
