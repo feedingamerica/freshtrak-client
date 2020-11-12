@@ -11,7 +11,6 @@ const LocalFoodBankComponent = props => {
   let [foodBankData, setFoodBankData] = useState({});
   const [ foodBankResponse, setFoodBankResponse] = useState(false);
   const [serverError, setServerError] = useState(false);
-  // const { zipCode } = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   let [searchDetails, setSearchDetails] = useState({});

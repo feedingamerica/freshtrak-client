@@ -83,7 +83,7 @@ const EventCardComponent = props => {
   }
 
   const ButtonView = () => {
-    let targetUrl = props.targetUrl != undefined ?  `${props.targetUrl}/${id}`:`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`
+    let targetUrl = props.targetUrl !== undefined ?  `${props.targetUrl}/${id}`:`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`
     if(registrationView) {
       return null;
     }
