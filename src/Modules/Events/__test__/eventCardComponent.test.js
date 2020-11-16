@@ -10,9 +10,9 @@ test('should display the events', () => {
       <EventCardComponent event={preformattedEventData} />
     </MemoryRouter>
   );
-  getByText(preformattedEventData.agencyName);
   getByText(preformattedEventData.eventName);
   getByText(preformattedEventData.eventService);
+  getByText(preformattedEventData.agencyName);
 });
 
 test(`should not display the exceptionNote if exceptionNote equals ''`, () => {
