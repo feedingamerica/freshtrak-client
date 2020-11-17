@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { useParams, withRouter } from 'react-router-dom';
+import {withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { API_URL } from '../../Utils/Urls';
 import SpinnerComponent from '../General/SpinnerComponent';
@@ -11,7 +11,6 @@ const LocalFoodBankComponent = props => {
   let [foodBankData, setFoodBankData] = useState({});
   const [ foodBankResponse, setFoodBankResponse] = useState(false);
   const [serverError, setServerError] = useState(false);
-  // const { zipCode } = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   let [searchDetails, setSearchDetails] = useState({});
