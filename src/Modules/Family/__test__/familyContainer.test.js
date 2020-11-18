@@ -32,7 +32,7 @@ test('it should render without errors', () => {
     render(
       <Provider store={store}>
         <Router>
-          <FamilyContainer event={mockEvent} />
+          <FamilyContainer />
         </Router>
       </Provider>
     );

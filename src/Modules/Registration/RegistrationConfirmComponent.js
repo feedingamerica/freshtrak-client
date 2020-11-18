@@ -12,13 +12,14 @@ import EventCardComponent from '../Events/EventCardComponent';
 const RegistrationConfirmComponent = props => {
   const user_data = props.location.state.user;
   const event = useSelector(selectEvent);
+  let HOME_OR_ROOT_URL = RENDER_URL.HOME_URL;
 
-  // Need to have isFBLoggedIn => true in local storage to show loggedin home page(Returning Users)
-  localStorage.setItem('isFBLoggedIn', false);
-  localStorage.removeItem('userToken');
-  localStorage.removeItem('tokenExpiresAt');
-
-  const HOME_OR_ROOT_URL = localStorage.getItem('isFBLoggedIn') === "true" ? RENDER_URL.HOME_URL : RENDER_URL.ROOT_URL
+  if (!JSON.parse(localStorage.getItem('isFBLoggedIn'))){
+    HOME_OR_ROOT_URL = RENDER_URL.ROOT_URL;
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('tokenExpiresAt');
+    localStorage.removeItem('search_zip');
+  }
 
   const formatPhoneNumber = input => {
     const regExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;

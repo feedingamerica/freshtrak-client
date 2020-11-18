@@ -8,7 +8,8 @@ import axios from 'axios';
 import alarmIcon from '../../Assets/img/alarm.svg';
 
 const EventSlotsModalComponent = (props) => {
-  const { event: { id: eventDateId, acceptReservations } } = props;
+  // const { event: { id: eventDateId, acceptReservations } } = props;
+  const { event: { id: eventDateId, acceptReservations }, targetUrl } = props;
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [eventHour, setEventHour] = useState([]);
@@ -87,7 +88,8 @@ const EventSlotsModalComponent = (props) => {
           >
             Go Back
           </button>
-          <LinkContainer to={`${RENDER_URL.REGISTRATION_FORM_URL}/${eventDateId}/${event_slot_id}`}>
+          {/* <LinkContainer to={`${RENDER_URL.REGISTRATION_FORM_URL}/${eventDateId}/${event_slot_id}`}> */}
+          <LinkContainer to={`${targetUrl || RENDER_URL.REGISTRATION_FORM_URL}/${eventDateId}/${event_slot_id}`}>
             <button
               type="submit"
               disabled={!event_slot_id}

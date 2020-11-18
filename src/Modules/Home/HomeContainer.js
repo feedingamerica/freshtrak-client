@@ -4,10 +4,11 @@ import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ProgressBar } from 'react-bootstrap';
 import SearchComponent from '../General/SearchComponent';
-import LocalFoodBankComponent from '../Pantry/LocalFoodBankComponent';
-// import YourPantriesComponent from '../Pantry/YourPantriesComponent';
-import EventNearByComponent from '../Pantry/EventNearByComponent';
-import { API_URL } from '../../Utils/Urls';
+import SpinnerComponent from '../General/SpinnerComponent';
+import LocalFoodBankComponent from '../Home/LocalFoodBankComponent';
+import UsersRegistrations from '../Home/UsersRegistrations';
+import EventNearByComponent from '../Home/EventNearByComponent';
+import { API_URL, RENDER_URL } from '../../Utils/Urls';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
@@ -15,10 +16,10 @@ import EventListComponent from '../Events/EventListComponent';
 import { EventHandler } from '../../Utils/EventHandler';
 import moment from 'moment';
 
-const PantryContainer = props => {
+const HomeContainer = props => {
   const [agencyResponse, setAgencyResponse] = useState(false);
   const [agencyData, setAgencyData] = useState({});
-  const [zipCode, setZipCode] = useState(localStorage.getItem("zip_code"));
+  const [zipCode, setZipCode] = useState(localStorage.getItem("search_zip"));
   let [searchDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const PantryContainer = props => {
   const onSubmit = data => {
     if (data) {
       const { zip_code } = data;
-      localStorage.setItem("zip_code", zip_code)
+      // localStorage.setItem("zip_code", zip_code)
       // props.history.push({
       //   pathname: `/home`,
       // });
@@ -77,7 +78,7 @@ const PantryContainer = props => {
     const filterEvents = (eventList) => {
       if (props.filter === "today"){
         const todayDate = moment(new Date()).format("YYYY-MM-DD");
-        return { [todayDate]: eventList[todayDate]}
+        return eventList[todayDate] ? { [todayDate]: eventList[todayDate]}: {};
       }
       if (props.filter === "week"){
         const todayDate = moment(new Date()).format("YYYY-MM-DD");
@@ -97,11 +98,11 @@ const PantryContainer = props => {
     if (agencyResponse) {
       let agencyDataSorted = EventHandler(agencyData);
       agencyDataSorted = filterEvents(agencyDataSorted);
-      return <EventListComponent events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
+      // return <EventListComponent events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
+      return <EventListComponent targetUrl={RENDER_URL.REGISTRATION_EVENT_DETAILS_URL} events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
     }
-    return null;
+    return <SpinnerComponent variant = "small" />;
   };
-  
 
   return (
     <div>
@@ -123,7 +124,8 @@ const PantryContainer = props => {
             )}
           </div>
           <div className="foodbank-and-events">
-            <LocalFoodBankComponent />
+            <LocalFoodBankComponent zipCode= {zipCode}/>
+            <UsersRegistrations/>
             <EventNearByComponent EventList= {EventList}/> 
           </div>
           {/* {!loading && <EventList />} */}
@@ -133,5 +135,5 @@ const PantryContainer = props => {
   );
 };
 
-export default withRouter(PantryContainer);
+export default withRouter(HomeContainer);
           

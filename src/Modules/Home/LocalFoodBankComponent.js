@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { API_URL } from '../../Utils/Urls';
-
+import SpinnerComponent from '../General/SpinnerComponent';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
@@ -17,12 +17,12 @@ const LocalFoodBankComponent = props => {
   let [searchDetails, setSearchDetails] = useState({});
 
 useEffect(() => {
-  const zipCode = localStorage.getItem("zip_code")
+  const zipCode = props.zipCode;
   if (zipCode) {
     dispatch(setCurrentZip(zipCode));
     getFoodbanks(zipCode);
   }
-}, [dispatch]);
+}, [dispatch, props.zipCode]);
 
   const getFoodbanks = async zip => {
     if (zip) {
@@ -35,7 +35,7 @@ useEffect(() => {
           params: { zip_code: zip },
         });
         const { data } = resp;
-        setFoodBankData(data?.foodbanks?.[0]||{});
+        setFoodBankData(data?.foodbanks?.[0] || "no_foodbanks_found");
         setFoodBankResponse(true);
         setLoading(false);
       } catch (err) {
@@ -44,12 +44,13 @@ useEffect(() => {
       }
     }
   };
-
   return (
     <Fragment>
       <h2 className="font-weight-bold mobile-text-left">
               Your Local Food Bank
       </h2>
+      {Object.keys(foodBankData).length === 0 ? <SpinnerComponent/>: 
+       foodBankData === "no_foodbanks_found"? "NO FOOD BANKS FOUND WITHIN THE ZIP CODE":
        <div className="row align-items-center mt-2">
           <div className="col-lg-4 col-sm-6">
             <div className="d-flex align-items-center">
@@ -75,7 +76,8 @@ useEffect(() => {
             </div>
           </div>
         </div>
-    </Fragment>
+  }
+  </Fragment>
   );
 };
 

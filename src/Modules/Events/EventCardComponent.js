@@ -33,35 +33,64 @@ const EventCardComponent = props => {
     },
     registrationView
   } = props;
+  const showRsvp = acceptInterest && !acceptReservations;
 
-  const ButtonView = () => {
-    if(registrationView) {
-      return null;
-    }
-    if (acceptReservations) {
-      return (
-      <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
+  // const ButtonView = () => {
+  //   if(registrationView) {
+  //     return null;
+  //   }
+  //   if (acceptReservations) {
+  //     return (
+  //     <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
+  //       <button
+  //         type="button"
+  //         className="btn custom-button ml-1 flex-grow-1"
+  //         onClick={() => dispatch(setCurrentEvent(props.event))}
+  //       >
+  //         Reserve Time
+  //       </button>
+  //     </LinkContainer>
+  //     )
+  //   } else if (acceptInterest && !acceptReservations) {
+  //     return (
+  //       <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
+  //         <button
+  //           type="button"
+  //           className="btn custom-button ml-1 flex-grow-1"
+  //           onClick={() => dispatch(setCurrentEvent(props.event))}
+  //         >
+  //           RSVP
+  //         </button>
+  //       </LinkContainer>
+  //     );
+  //   } else {
+  //     return null;
+  //   }
+  // };
+
+  const getButton = (buttonName, targetUrl) => {
+    return (
+      <LinkContainer to={targetUrl}>
         <button
           type="button"
           className="btn custom-button ml-1 flex-grow-1"
           onClick={() => dispatch(setCurrentEvent(props.event))}
         >
-          Reserve Time
+          {buttonName}
         </button>
       </LinkContainer>
       )
-    } else if (acceptInterest && !acceptReservations) {
-      return (
-        <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
-          <button
-            type="button"
-            className="btn custom-button ml-1 flex-grow-1"
-            onClick={() => dispatch(setCurrentEvent(props.event))}
-          >
-            RSVP
-          </button>
-        </LinkContainer>
-      );
+  }
+
+  const ButtonView = () => {
+    let targetUrl = props.targetUrl != undefined ?  `${props.targetUrl}/${id}`:`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`
+    if(registrationView) {
+      return null;
+    }
+    if (acceptReservations) {
+      return getButton('Reserve Time', targetUrl)
+    } else if (showRsvp) {
+      return getButton('RSVP', targetUrl)
     } else {
       return null;
     }
@@ -112,6 +141,7 @@ const EventCardComponent = props => {
               </p>
             </div>
           )}
+         {!!showRsvp && <span className="text-danger font-size-point-85rem">RSVP is required for this event</span>}
           <div className="day-view-item-detail-footer d-flex mt-3">
             {eventDetails && eventDetails.length > 0 && (
               <button

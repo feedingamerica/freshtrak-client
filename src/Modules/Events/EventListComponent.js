@@ -11,7 +11,7 @@ const EventListComponent = props => {
   // const onChangeHandler = (e)=>{
   //     e.preventDefault();
   // };
-  const { events, showHeader = true, zipCode } = props;
+  const { events, showHeader = true, zipCode, targetUrl, registrationView } = props;
   return (
     <div className="search-results-list" aria-live="polite">
       {showHeader && (
@@ -55,7 +55,8 @@ const EventListComponent = props => {
                 </div>
                 <div className="row mt-2">
                   {event && event.map(event => (
-                    <EventCardComponent key={event.id} event={event} />
+                    // <EventCardComponent key={event.id} event={event} />
+                    <EventCardComponent key={event.id} event={event} targetUrl={targetUrl} registrationView = {registrationView}/>
                   ))}
                 </div>
               </div>

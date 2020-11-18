@@ -32,7 +32,7 @@ const RegistrationContainer = lazy(() => import('../Modules/Registration/Registr
 const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEventListContainer'));
 const RegistrationEventDetailsContainer = lazy(() => import('../Modules/Registration/RegistrationEventDetailsContainer'));
 const RegistrationConfirmComponent = lazy(() => import('../Modules/Registration/RegistrationConfirmComponent'));
-const PantryContainer = lazy(() => import('../Modules/Pantry/PantryContainer'));
+const HomeContainer = lazy(() => import('../Modules/Home/HomeContainer'));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -60,7 +60,7 @@ const Routes = () => {
             {/* Flag to turn off/on Home Page Container for Loggedin user feature */}
             <Route
               exact path={RENDER_URL.HOME_URL}
-              component={PantryContainer}
+              component={HomeContainer}
             />
 
             {/* Out of Scope */}

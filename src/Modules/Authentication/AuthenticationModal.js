@@ -7,6 +7,7 @@ import FacebookLoginComponent from './FacebookLoginComponent';
 const AuthenticationModalComponent = ({show, setshow, onLogin}) => {
   const handleClose = () => setshow(false);
   const onGuestLogin =  () => {
+    localStorage.setItem('isFBLoggedIn', false);
     onLogin();
     TagManager.dataLayer({
       dataLayer: {
