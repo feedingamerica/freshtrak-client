@@ -16,3 +16,8 @@ export const RENDER_URL = {
     EVENT_LIST_URL:'/events/list',
     WELLNESS_ASSESS_URL: '/assessment/wellness'
 };
+
+export const ASSESSMENT_URL = {
+    QUESTIONS : "http://192.168.21.50:8888/api/assessment_questions"
+    //QUESTIONS : "http://localhost:8888/api/assessment_questions"
+};

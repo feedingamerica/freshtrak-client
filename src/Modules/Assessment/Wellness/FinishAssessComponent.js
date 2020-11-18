@@ -5,7 +5,11 @@ const FinishAssessComponent = (props) => {
 
     return (
 		<>
-			<h2> Thank you</h2>
+		 <div className="thank-you-wrapper">
+		 <h2> Thank you</h2>
+
+		 </div>
+			
 		</>
     )
 
