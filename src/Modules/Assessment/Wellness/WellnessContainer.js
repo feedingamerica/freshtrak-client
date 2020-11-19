@@ -56,16 +56,10 @@ const WellnessContainer = (props) => {
 
 	    
     useEffect(() => {
-		if(assessmentData !== null){
-			//console.log("assessmentData[currPage] is >>",assessmentData[currPage])
-		}
-		
 		setAssessmentQuestions()
     },[]);
 
 	const loadPage = (currPage) => {
-			
-			console.log("load page called for >>",currPage)
 			switch(currPage){
 			case -1 : return <BeginAssessComponent />
 			break;
@@ -138,7 +132,6 @@ const WellnessContainer = (props) => {
 			break;
 			case 13: return setProgress(100);	//9
 			break;
-			//default: return setProgress(10*context.currPage);
 			default: return setProgress(10*currPage);
 				}
 				
@@ -146,7 +139,6 @@ const WellnessContainer = (props) => {
 
 
 	const handleBackProgress = (page)=>{
-		console.log("back progress called for page ",page)
 		setProgress(page)
 	}
 	const handlePageTransition = (type) => {
@@ -169,7 +161,6 @@ const WellnessContainer = (props) => {
 
 		Object.keys(context.answers).map((item,index )=>{
 		console.log(`context.answers`+`${[index]}`,context.answers[index])
-		//console.log("index is>>",index)
 		});
 	}
 		    
