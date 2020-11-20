@@ -16,6 +16,7 @@ const EventSlotsModalComponent = (props) => {
   const [show, setShow] = useState(false);
   const { register, watch } = useForm();
   const event_slot_id = watch('time_slot');
+  console.log("****************in time slot",event_slot_id)
 
   const home = useHistory();
   const backHome = () => {
@@ -62,6 +63,7 @@ const EventSlotsModalComponent = (props) => {
           <div className="container">
             {eventHour.map((item, index) => (
               item.event_slots.filter((e, i) => (e.open_slots > 0)).map((e, i) => {
+                console.log("******************* e slot ",item)
                 return (
                   <div className="form-check p-2" key={index + '-' + i}>
                     <input
