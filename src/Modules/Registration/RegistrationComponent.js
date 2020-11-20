@@ -62,7 +62,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   }
 
   const sanatizeInput = data => {
-    const keys = ["first_name", "middle_name", "last_name", "date_of_birth","gender", "address_line_1", "address_line_2", "city", "state","zip_code", "phone", "email"];
+    const keys = ["first_name", "middle_name", "last_name", "date_of_birth","gender", "address_line_1", "address_line_2", "city", "state","zip_code"];
     keys.forEach(key => {
     data[key] = santizeString(data[key]);
     })
