@@ -87,8 +87,13 @@ const Routes = () => {
               component={RegistrationEventDetailsContainer}
             />
 
-            <Route
+             <Route exact
               path={`${RENDER_URL.REGISTRATION_FORM_URL}/:eventDateId`}
+              component={RegistrationContainer}
+            />
+
+            <Route
+              path={`${RENDER_URL.REGISTRATION_FORM_URL}/:eventDateId/:eventSlotId`}
               component={RegistrationContainer}
             />
 
