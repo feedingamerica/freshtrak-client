@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
@@ -13,6 +14,7 @@ const RegistrationConfirmComponent = props => {
   const user_data = props.location.state.user;
   const event = useSelector(selectEvent);
   let HOME_OR_ROOT_URL = RENDER_URL.HOME_URL;
+  const location = useLocation();
 
   if (!JSON.parse(localStorage.getItem('isFBLoggedIn'))){
     HOME_OR_ROOT_URL = RENDER_URL.ROOT_URL;
@@ -44,7 +46,7 @@ const RegistrationConfirmComponent = props => {
     identification_code,
     license_plate,
   } = user_data;
-
+ 
   return (
     <Fragment>
       {event && (
@@ -60,9 +62,14 @@ const RegistrationConfirmComponent = props => {
               <div className="date-wrapper">
                 {formatDateDayAndDate(event.date)}
               </div>
+              {location.state?.eventTimeStamp?.start_time?
+              <div className="timing-wrapper">
+                {location.state?.eventTimeStamp.start_time} - {location.state?.eventTimeStamp.end_time}
+              </div>:
               <div className="timing-wrapper">
                 {event.startTime} -{event.endTime}
               </div>
+              } 
             </div>
             <div className="mt-5">
               <h2>
