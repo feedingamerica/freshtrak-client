@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import TagManager from 'react-gtm-module'
 import { setCurrentEvent, selectEvent } from '../../Store/Events/eventSlice';
@@ -16,7 +16,7 @@ import { NotifyToast, showToast } from '../Notifications/NotifyToastComponent';
 const RegistrationContainer = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const location = useLocation();
   const { eventDateId, eventSlotId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(undefined);
@@ -92,17 +92,19 @@ const RegistrationContainer = (props) => {
       console.error(e);
     }
   };
+  const getReservationText = () => {
+    return location.state? `Your reservation time is at ${location.state.event_slot.start_time} - ${location.state.event_slot.end_time} on ${location.state.event_date}. `: "";
+  }
 
   const notify = (msg, error) => {
     let formatted_msg = msg.user_id[0]
     showToast(formatted_msg, error);
   }
-
   const send_sms = async user => {
     const { TWILIO_SMS } = API_URL;
     let to_phone_number = user['phone']
     let identification_code =  user['identification_code']
-    let message = "You're Registered, Identification Code is " + identification_code.toUpperCase()
+    let message = `You have successfully registered for FreshTrak, ${getReservationText()}Your confirmation code is ${identification_code.toUpperCase()}`
     let search_zip = localStorage.getItem('search_zip')
     if (search_zip) {
       setLoading(true);
