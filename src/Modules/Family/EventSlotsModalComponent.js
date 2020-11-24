@@ -14,12 +14,25 @@ const EventSlotsModalComponent = (props) => {
   const handleShow = () => setShow(true);
   const [eventHour, setEventHour] = useState([]);
   const [show, setShow] = useState(false);
+  const [eventDate, setEventDate] = useState("");
   const { register, watch } = useForm();
   const event_slot_id = watch('time_slot');
-
   const home = useHistory();
   const backHome = () => {
     home.goBack();
+  }
+
+  const findEventSlot = (event_slot_id) => {
+    let found = {};
+    const event_slots = eventHour.reduce((acc, element, ind, arr) => {
+        acc.push(...element.event_slots);
+        return acc;
+    }, []);
+
+    found = event_slots.find( (event_slot) => {
+        return  event_slot_id == event_slot.event_slot_id;
+    })
+    return found;
   }
 
   useEffect(() => {
@@ -42,6 +55,7 @@ const EventSlotsModalComponent = (props) => {
         data.event_date.event_hours !== undefined
       ) {
         setEventHour(data.event_date.event_hours);
+        setEventDate(data.event_date.date);
       }
     } catch (e) {
       console.error(e);
@@ -89,7 +103,13 @@ const EventSlotsModalComponent = (props) => {
             Go Back
           </button>
           {/* <LinkContainer to={`${RENDER_URL.REGISTRATION_FORM_URL}/${eventDateId}/${event_slot_id}`}> */}
-          <LinkContainer to={`${targetUrl || RENDER_URL.REGISTRATION_FORM_URL}/${eventDateId}/${event_slot_id}`}>
+          <LinkContainer to={{
+            pathname: `${targetUrl || RENDER_URL.REGISTRATION_FORM_URL}/${eventDateId}/${event_slot_id}`,
+            state: {
+              event_slot: findEventSlot(event_slot_id),
+              event_date: eventDate
+            }
+            }}>
             <button
               type="submit"
               disabled={!event_slot_id}
@@ -104,5 +124,4 @@ const EventSlotsModalComponent = (props) => {
     </Fragment>
   );
 };
-
 export default EventSlotsModalComponent;
