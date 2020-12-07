@@ -97,7 +97,7 @@ const RegistrationContainer = (props) => {
   }
 
   const notify = (msg, error) => {
-    let formatted_msg = msg.user_id[0]
+    let formatted_msg = (msg.user_id && msg.user_id[0]) || "Something Went Wrong"
     showToast(formatted_msg, error);
   }
   const send_sms = async user => {
@@ -159,6 +159,9 @@ const RegistrationContainer = (props) => {
         state: { user: {...user,identification_code:currentUser.identification_code}, eventDateId: eventDateId, eventTimeStamp : {start_time: location.state?.event_slot?.start_time, end_time: location.state?.event_slot?.end_time} }
       });
     } catch (e) {
+      if (!e.response){
+        e.response = {data: {"user_id": ["Something Went Wrong"]}}
+      }
       notify(e.response.data, 'error')
       setTimeout(()=> window.scrollTo(0, 0))
       setDisabled(disabled);
