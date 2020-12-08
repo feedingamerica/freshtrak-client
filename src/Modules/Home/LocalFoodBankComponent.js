@@ -50,6 +50,7 @@ useEffect(() => {
       </h2>
       {Object.keys(foodBankData).length === 0 ? <SpinnerComponent/>: 
        foodBankData === "no_foodbanks_found"? "NO FOOD BANKS FOUND WITHIN THE ZIP CODE":
+      <div className="local-foodbank-list">
        <div className="row align-items-center mt-2">
           <div className="col-lg-4 col-sm-6">
             <div className="d-flex align-items-center">
@@ -75,6 +76,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
+      </div>
   }
   </Fragment>
   );
