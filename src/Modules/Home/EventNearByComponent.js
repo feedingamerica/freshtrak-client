@@ -25,7 +25,7 @@ const EventNearByComponent = props => {
       <Accordion.Toggle  variant="link" eventKey="0">
         Events Today
       </Accordion.Toggle>
-      <span >👇🏻</span>
+      <span role='img' aria-label='emoji'>👇🏻</span>
     </Card.Header>
     <Accordion.Collapse eventKey="0">
       <Card.Body><props.EventList filter="today"/></Card.Body>
@@ -36,7 +36,7 @@ const EventNearByComponent = props => {
       <Accordion.Toggle  variant="link" eventKey="1">
         Events for Next 7 days
       </Accordion.Toggle>
-      <span >👇🏻</span>
+      <span role='img' aria-label='emoji'>👇🏻</span>
     </Card.Header>
     <Accordion.Collapse eventKey="1">
       <Card.Body><props.EventList filter="week"/></Card.Body>
@@ -47,7 +47,7 @@ const EventNearByComponent = props => {
       <Accordion.Toggle  variant="link" eventKey="2">
         Events for Next 30 days
       </Accordion.Toggle>
-      <span >👇🏻</span>
+      <span role='img' aria-label='emoji'>👇🏻</span>
     </Card.Header>
     <Accordion.Collapse eventKey="2">
       <Card.Body><props.EventList /></Card.Body>
