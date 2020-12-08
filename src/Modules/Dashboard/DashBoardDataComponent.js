@@ -15,7 +15,6 @@ const DashBoardDataComponent = props => {
   // },[localStorage.getItem('isLoggedIn')]);
 
   const { register, errors, handleSubmit } = useForm();
-  const localUserToken = localStorage.getItem('userToken');
   const isFaceBookLoggedIn = localStorage.getItem('isFBLoggedIn');
   
   //Flag to turn off/on Home Page Container for Loggedin user feature

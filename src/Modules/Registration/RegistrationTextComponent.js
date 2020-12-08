@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import '../../Assets/scss/main.scss';
-import { userSlice } from '../../Store/userSlice';
 
 const RegistrationTextComponent = ({event}) => {
   const [isRegRequired, setRegRequired] = useState()
@@ -13,7 +12,7 @@ const RegistrationTextComponent = ({event}) => {
     else {
       setRegRequired(REQUIRED)
     }
-  } )
+  },[event])
 
   return (
     <div>
