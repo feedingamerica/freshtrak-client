@@ -66,14 +66,6 @@ const HomeContainer = props => {
     }
   };
 
-  // const EventList = () => {
-  //   if (agencyResponse) {
-  //     const agencyDataSorted = EventHandler(agencyData);
-  //     return <EventListComponent events={agencyDataSorted} zipCode={zipCode} />;
-  //   }
-  //   return null;
-  // };
-
   const EventList = (props) => {
     const filterEvents = (eventList) => {
       if (props.filter === "today"){
@@ -98,7 +90,6 @@ const HomeContainer = props => {
     if (agencyResponse) {
       let agencyDataSorted = EventHandler(agencyData);
       agencyDataSorted = filterEvents(agencyDataSorted);
-      // return <EventListComponent events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
       return <EventListComponent targetUrl={RENDER_URL.REGISTRATION_EVENT_DETAILS_URL} events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
     }
     return <SpinnerComponent variant = "small" />;
