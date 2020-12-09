@@ -1,18 +1,15 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router-dom';
 import '../../Assets/scss/main.scss';
 import axios from 'axios';
 import { API_URL} from '../../Utils/Urls';
 import { HomeEventFormat } from '../../Utils/EventHandler';
-import EventListComponent from '../Events/EventListComponent';
 import EventCardComponent from '../Events/EventCardComponent';
-import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import '../../Assets/scss/main.scss';
 
 const UsersRegistrations = props => {
   const [events,setEvents] = useState();
   const [usersReservation,setUsersReservation] = useState();
-  const [loading, setLoading] = useState(true);
 
   useEffect( () =>{
     const usersReservation = getUsersReservations();
@@ -26,7 +23,6 @@ const UsersRegistrations = props => {
       });
       setUsersReservation(usersRegData.data);
       getEvents(usersRegData.data);
-      // setLoading();
     } catch (e) {
       console.log(e);
     } 
@@ -61,7 +57,7 @@ const UsersRegistrations = props => {
               <div className="day-view">
                 <div className="row mt-2">
                 {events && events.map(event => (
-                    <EventCardComponent key={event.id} event={event}/>
+                    <EventCardComponent key={event.id} event={event} alreadyRegistered = {true}/>
                 ))}
                 </div>
               </div>

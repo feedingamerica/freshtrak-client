@@ -9,6 +9,21 @@ import RegistrationConfirmComponent from '../RegistrationConfirmComponent';
 
 const mockStore = configureStore([]);
 
+function mockFunction() {
+  const original = require.requireActual('react-router-dom');
+  return {
+    ...original,
+    useLocation: jest.fn().mockReturnValue({
+      pathname: '/another-route',
+      search: '',
+      hash: '',
+      state: null
+    }),
+  };
+}
+
+jest.mock('react-router-dom', () => mockFunction());
+
 test('should load without errors', () => {
   const store = mockStore({ event: { event: null } });
   const user_mock_data = {state:{user: mockFamily}}
