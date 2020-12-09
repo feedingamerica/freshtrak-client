@@ -31,7 +31,8 @@ const EventCardComponent = props => {
       eventDetails,
       exceptionNote
     },
-    registrationView
+    registrationView,
+    alreadyRegistered
   } = props;
   const showRsvp = acceptInterest && !acceptReservations;
 
@@ -84,7 +85,7 @@ const EventCardComponent = props => {
 
   const ButtonView = () => {
     let targetUrl = props.targetUrl != undefined ?  `${props.targetUrl}/${id}`:`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`
-    if(registrationView) {
+    if(registrationView || alreadyRegistered) {
       return null;
     }
     if (acceptReservations) {
