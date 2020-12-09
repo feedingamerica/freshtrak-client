@@ -1,16 +1,47 @@
-import React, { useContext } from 'react';
+import React, { useContext,useState,useEffect } from 'react';
+import {ASSESSMENT_URL} from '../../../Utils/Urls';
+import WellnessContext from './WellnessContext';
+import axios from 'axios';
+import moment from 'moment';
+
 
 const BeginAssessComponent = (props) => {
+	const [firstCardData,setfirstCardData] = useState(null);
+	let context = useContext(WellnessContext);
 
+
+const setAssessmentData = async() => {
+	let assessmentUri = ASSESSMENT_URL.FIRST_CARD;
+	try {
+		const resp = await axios.get(assessmentUri);
+		// console.log("RESP FOR FIRST CARD IS>>",resp)
+		 
+		if(resp && resp.data && 
+			resp.data.data !== null){
+				console.log("RESP.data.data>>",resp.data.data.description)
+			setfirstCardData(resp.data.data)
+		}
+		
+	} catch (err) {
+		console.log("ERROR LOADING FIRST CARD DATA",err)
+	}
+};
+	    
+useEffect(() => {
+	setAssessmentData()
+	setfirstCardData()
+	context.start_time = moment().format('YYYY-MM-DD hh:mm');
+},[]);
+console.log("firstCardData is>>",firstCardData)
     return ( 
     	<>
 	        <div className="d-flex justify-content-between align-items-center mt-2 mb-2">
-		        <div className="small-text">10 Questions</div> 
-		        <div className="small-text text-right">Esimated Time: 10 Min</div>
+		<div className="small-text">{firstCardData !==null && firstCardData !== undefined ? firstCardData.total_question : " "} Questions</div> 
+		        <div className="small-text text-right">Esimated Time: {firstCardData !==null && firstCardData !== undefined ? firstCardData.duration : " "} Min</div>
 		    </div>
 
 	        <div className = "assesment-content d-flex mt-3 mb-3" >
-	        <span className="font-weight-bold">Thanks for taking the Wellness Assessment. We are going to ask about your current life circumstances to help match you with the best programs and organizations to supplement your wellness.</span> 
+		<span className="font-weight-bold">{firstCardData !==null && firstCardData !== undefined ? firstCardData.description : " "}</span> 
 	        </div> 
         </>
     )

@@ -8,6 +8,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import ScrollContainer from "./ScrollContainer";
 const DashBoardContainer = lazy(() =>
   import("../Modules/Dashboard/DashBoardContainer")
 );
@@ -15,22 +16,40 @@ const EventContainer = lazy(() => import("../Modules/Events/EventContainer"));
 const WrapperComponent = lazy(() =>
   import("../Modules/General/WrapperComponent")
 );
+const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
+// Out of scope
+// const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
+// const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
+
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
+
+const RegistrationContainer = lazy(() => import('../Modules/Registration/RegistrationContainer'));
+// const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
+// Out of scope
+// const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
+// const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
+const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEventListContainer'));
+const RegistrationEventDetailsContainer = lazy(() => import('../Modules/Registration/RegistrationEventDetailsContainer'));
+const RegistrationConfirmComponent = lazy(() => import('../Modules/Registration/RegistrationConfirmComponent'));
+const HomeContainer = lazy(() => import('../Modules/Home/HomeContainer'));
+
 const TriggerAssess = lazy(() =>
   import("../Modules/Assessment/Wellness/TriggerAssess")
 );
+
 const Routes = () => {
 
   return (
     <Router basename="/">
+      <ScrollContainer />
       <Suspense fallback={<div className="displayNone"> </div>}>
         <WrapperComponent>
           <Switch>
             <Route
               exact
-              path={RENDER_URL.HOME_URL}
+              path={RENDER_URL.ROOT_URL}
               component={DashBoardContainer}
             />
             <Route
@@ -39,6 +58,26 @@ const Routes = () => {
               component={EventContainer}
             />
             <Route
+              exact path={RENDER_URL.ADD_FAMILY_URL}
+              component={FamilyContainer}
+            />
+            {/* Flag to turn off/on Home Page Container for Loggedin user feature */}
+            <Route
+              exact path={RENDER_URL.HOME_URL}
+              component={HomeContainer}
+            />
+
+            {/* Out of Scope */}
+            {/* <Route
+              exact path={RENDER_URL.EDIT_FAMILY_URL}
+              component={EditFamilyContainer}
+            />
+
+            <Route
+              exact path={RENDER_URL.SIGN_IN}
+              component={SignInContainer}
+            /> */}
+            <Route
               path={RENDER_URL.FRESHTRAK_WORKING}
               component={StaticPageContainer}
             />
@@ -46,6 +85,43 @@ const Routes = () => {
               path={RENDER_URL.FRESHTRAK_ABOUT}
               component={StaticPageContainer}
             />
+
+            <Route
+              path={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/:id`}
+              component={RegistrationEventDetailsContainer}
+            />
+
+            <Route
+              path={`${RENDER_URL.REGISTRATION_FORM_URL}/:eventDateId`}
+              component={RegistrationContainer}
+            />
+
+            <Route
+              path={`${RENDER_URL.REGISTRATION_CONFIRM_URL}`}
+              component={RegistrationConfirmComponent}
+            />
+
+            <Route
+              path={`${RENDER_URL.AGENCY_EVENT_LIST}/:agencyId`}
+              component={AgencyEventListContainer}
+            />
+
+            {/* Out of Scope */}
+            {/* <Route
+              exact path={RENDER_URL.ADD_FAMILY_URL}
+              component={FamilyContainer}
+            />
+
+            <Route
+              exact path={RENDER_URL.EDIT_FAMILY_URL}
+              component={EditFamilyContainer}
+            />
+
+            <Route
+              exact path={RENDER_URL.SIGN_IN}
+              component={SignInContainer}
+            /> */}
+
             <Route
               path={RENDER_URL.WELLNESS_ASSESS_URL}
               component={TriggerAssess}

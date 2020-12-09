@@ -16,6 +16,9 @@ body {
             color: $high-light-color;
         }
     }
+    .relative{
+        position: relative;
+    }
     .big-title {
         font-size: 4rem;
         letter-spacing: -1px;
@@ -28,6 +31,9 @@ body {
                 margin-bottom: 0.2rem !important;
             }
         }
+    }
+    .med-title {
+        font-size: 2rem;
     }
     .medium-title {
         font-size: 18px;
@@ -59,9 +65,15 @@ body {
     .mt-60 {
         margin-top: 60px;
     }
+    .mt-100 {
+        margin-top: 100px;
+    }
     .caption-text {
         font-family: $font-varela;
         letter-spacing: 0.4px;
+        .link-wrap {
+            word-wrap: break-word;
+        }
     }
     .navbar-toggler {
         .navbar-toggler-icon {
@@ -331,6 +343,19 @@ body {
                 }
             }
         }
+
+        &-sign-in {
+            color: $color-white;
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            &:hover {
+                color: $color-white;
+                text-decoration: none;
+            }
+        }
     }
     // nav-only
     .navbar-green {
@@ -569,6 +594,15 @@ body {
             min-width: auto;
             padding: 1.5rem;
             margin-top: -140px;
+            .search-order-1{
+                order:1;
+            }
+            .search-order-2{
+                order:2;
+            }
+            .search-order-3{
+                order:3;
+            }
         }
         @include responsive(smaller-devices) {
             width: 90%;
@@ -613,7 +647,25 @@ body {
                 color: $secondary-color;
             }
         }
+
     }
+    .suggestions-container{
+            @include border-radius(5px);
+            @include box-shadow(0px, 4px, 8px, $shadow-color);
+            background: $color-white;
+            max-height: 200px;
+            overflow: auto;
+            z-index: 1;
+            position: absolute;
+            word-break: break-all;
+            > div{
+                cursor: pointer;
+                padding: 6px 15px;
+                &:hover{
+                    background: $inner-gray;
+                }
+            }
+        }
     .search-results-list {
         max-width: 900px;
         margin: auto;
@@ -624,6 +676,11 @@ body {
     }
     .gray-bg {
         background: $gray-color;
+        
+        .foodbank-and-events{
+            padding-left: 105px;
+            padding-right: 105px;
+        }
     }
     .gray-bg-inner {
         background: $inner-gray;
@@ -686,7 +743,6 @@ body {
             @include border-radius(8px);
             background: $color-white;
             @include box-shadow(0px, 4px, 8px, $shadow-color);
-            min-height: 100%;
             .custom-button,
             .default-button {
                 padding-left: inherit;
@@ -861,6 +917,7 @@ body {
                 }
                 .desktop-view{
                     display: block;
+                    margin: 0 auto;
                     }
         }
         @include responsive(medium-devices) {
@@ -876,11 +933,22 @@ body {
 }
 
 
+.kep-login-facebook {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+.loading-spinner-height {
+    height: 10em;
+    width: 10em;
+  }
+  
 // Added for fixing Search button
 .validationError {
     font-size: .7rem;
     position: absolute;
     color: #ff0000;
+
     }
     
 // Added for Wellness Assessment
@@ -1053,4 +1121,85 @@ body {
     background: $list-header-bg;
     border-color: $list-header-bg;
     color: $color-white;
+}
+
+//}
+
+.loading-spinner-small {
+    height: 5em;
+    width: 5em;
+}
+
+.local-foodbank {
+    background: $color-white;
+    border: 1px solid $default-button;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-family: Noto Sans;
+    font-style: normal;
+    color: $color-black;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    top: 28px; 
+    padding:16px;
+    left: 0px;
+    right: 0px;
+    height: 22px;
+    position: absolute;
+    margin-bottom: 20px; 
+    flex: none;
+    .foodbank-name{    
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 20px;
+        text-transform: capitalize;
+    }
+    .foodbank-address{
+        padding-bottom:16px;
+    }
+    .foodbank-contact{
+        padding-bottom:4px;
+        color: $text-color; 
+    }
+    .Toastify__toast-container--top-left {
+        top: 4em !important;
+        left: 10em !important;
+    }
+    .yourpantries-header{
+        position: static;
+        width: 122px; 
+        top: calc(50% - 20px/2 - 37px);
+        font-weight: bold;
+        font-size: 18px;
+        display: flex;
+        align-items: flex-end;
+        text-transform: capitalize;
+        color: $color-light; 
+        order: 0;
+        align-self: flex-start;
+        margin: 0px 8px;
+    }
+    .yourpantries{
+        position: static;
+        height: 66px;
+        line-height: 22px;
+        color: $color-light-grey;  
+        order: 1;
+        align-self: center;
+        margin: 0px 8px;  
+    }
+    .events-nearby-header{
+        line-height: 22px;
+        color: $content-text-color;
+    }
+    .list-of-events{
+        line-height: 22px;
+        color: $content-text-color;
+    }
+}
+
+.font-size-point-85rem{
+    font-size: .85rem;
+    font-family: $font-varela;
 }

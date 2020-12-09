@@ -1,9 +1,25 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render ,wait } from '@testing-library/react';
 import CheckboxQstnComponent from '../CheckboxQstnComponent';
+import { mockCheckboxComponent } from '../../../../Testing/mock-assessment';
 
 
+console.log("mockCheckboxComponent in test file >>",mockCheckboxComponent)
 
-test('should display the events', () => {
-    const { getByText } = render(<CheckboxQstnComponent />);
+const originalWarn = console.warn.bind(console.warn);
+beforeAll(() => {
+  console.warn = msg =>
+    !msg.toString().includes('Deprecation warning') && originalWarn(msg);
+});
+afterAll(() => {
+  console.warn = originalWarn;
+});
+
+test('should display the CheckboxQstnComponent', async () => {
+    const { getByText } = render(<CheckboxQstnComponent content={mockCheckboxComponent}/>);
+
+     await wait(() => {
+       getByText('check hai');
+    });
   });
+

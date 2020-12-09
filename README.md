@@ -1,11 +1,17 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## First Steps
 
-In the project directory, you can run:
+Make sure you have [yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/) installed.
 
-### `yarn start`
+In root folder run
+
+### `yarn` or  `npm i`
+
+to get the dependencies.
+
+### `yarn start` or `npm start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -28,51 +34,19 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Address Autocomplete
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Autocomplete feature is setup with Google Places API on dev environment.
+API key is intentionally removed from env variables. Contact Mark for the API key or ping `@ashikvarma11` 
+You'll see error on console as Invalid key while typing on Search component without proper API key.
+Styles are added on main.scss under `.search-area`.
 
 ## Deployment to AWS
 
-This project is deployed to AWS as CloudFront distribution.
-The cloudformation template can be found in the `infrastructure` directory.
+This project is deployed to AWS as a CloudFront distribution.
+The cloudformation template can be found in [freshtrak-infrastructure](https://github.com/midohiofoodbank/freshtrak-infrastructure)
 
 ```
-AWS_PROFILE=<profile> AWS_REGION=us-east-2 ./deploy.sh beta
+AWS_PROFILE=<profile> AWS_REGION=us-east-2 ./deploy.sh <env>
 ```

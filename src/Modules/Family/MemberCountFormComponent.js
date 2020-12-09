@@ -1,153 +1,167 @@
-import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
-import ReactDOM from 'react-dom';
+import React, { Fragment, forwardRef } from 'react';
 
-const MemberCountFormComponent = (props) => {
-    const [countSenior, setCountSenior] = React.useState(0);
-    const [countMiddle, setCountMiddle] = React.useState(0);
-    const [countJunior, setCountJunior] = React.useState(0);
-    const [value, setValue] = React.useState(0);
+const MemberCountFormComponent = forwardRef(({ register, event, watch, setValue }, ref) => {
+  const countSenior = watch('seniors_in_household') || 0 ;
+  const countAdult = watch('adults_in_household') || 0 ;
+  const countKid = watch('children_in_household') || 0 ;
 
+  const seniorDecrementFunction = e => {
+    e.preventDefault();
+    const newCount = countSenior - 1;
+    if (newCount >= 0) {
+      setValue('seniors_in_household', newCount);
+    }
+  };
 
-    const buildMemberCount = (e) => {
-        e.preventDefault();
-        let { name, value } = e.target;
-        switch (name) {
-            case 'countSenior':
-                setCountSenior(value);
-                break;
-            case 'countMiddle':
-                setCountMiddle(value);
-                break;
-            case 'countJunior':
-                setCountJunior(value);
-                break;
-            default:
-                break;
-        }
-    };
+  const seniorIncrementFunction = e => {
+    e.preventDefault();
+    setValue('seniors_in_household', Number(countSenior) + 1);
+  };
 
-    React.useEffect(() => {
-        handleChange();
-    }, [countSenior, countMiddle, countJunior]);
+  const adultDecrementFunction = e => {
+    const newCount = countAdult - 1
+    e.preventDefault();
+    if (newCount >= 0) {
+      setValue('adults_in_household', newCount);
+    }
+  };
 
-    const handleChange = () => {
-        let  childFamilyData= { memberCountData :{
-            countSenior: countSenior,
-            countMiddle: countMiddle,
-            countJunior: countJunior,
-        }
-        };
-        props.onSelectedChild(childFamilyData);
-    };
+  const adultIncrementFunction = e => {
+    e.preventDefault();
+    setValue('adults_in_household', Number(countAdult) + 1);
+  };
 
+  const kidDecrementFunction = e => {
+    const newCount = countKid - 1
+    e.preventDefault();
+    if (newCount >= 0) {
+      setValue('children_in_household', newCount);
+    }
+  };
 
+  const kidIncrementFunction = e => {
+    e.preventDefault();
+    setValue('children_in_household', Number(countKid) + 1);
+  };
 
+  return (
+    <Fragment>
+      <div className="form-sub-title font-weight-bold mt-2">
+        <h2>Tell us about your family</h2>
+        How many additional family members are in each age group? (Do not include yourself)
+        <div className="mt-3 pt-1">
+          <div className="d-flex align-items-center pt-2 pb-2">
+            <div className="member-age">Seniors ({event.seniorAge}+)</div>
+            <div className="button-wrap d-flex flex-grow-1"></div>
+            <button
+              onClick={seniorDecrementFunction}
+              data-testid="count_senior_dec"
+              className="rounded-button"
+              type="button"
+            >
+              <span className="sr-only">Decrease number of seniors</span>
+              <span aria-hidden="true">-</span>
+            </button>
+            <label className="sr-only" htmlFor="seniors_in_household">Number of Seniors (60+)</label>
+            <input
+              type="text"
+              className="number member-count"
+              name="seniors_in_household"
+              id="seniors_in_household"
+              value={countSenior}
+              onChange={() => {}}
+              ref={register}
+            ></input>
+            <button
+              onClick={seniorIncrementFunction}
+              data-testid="count_senior_inc"
+              className="rounded-button"
+            >
+              <span className="sr-only">Increase number of seniors</span>
+              <span aria-hidden="true">+</span>
+            </button>
+          </div>
 
-    const incrementFunctionlogic=(event) =>{
-        event.preventDefault();
-        let name = event.target.name;
-        switch (name) {
-            case 'count_senior_inc':
-                alert('inc');
-                if(countSenior < 13) {
-                    setCountSenior(countSenior + 1)
-                }
-                break;
-            case 'count_senior_dec':
-                alert('dec');
-                if(value < 13) {
-                    setCountSenior(countSenior - 1)
-                }
-                break;
-            default:
-                break;
-        }
+          <div className="d-flex align-items-center pt-2 pb-2">
+              <div className="member-age">Adults ({event.adultAge}+)</div>
+              <div className="button-wrap d-flex flex-grow-1"></div>
+            <button
+              onClick={adultDecrementFunction}
+              data-testid="count_adult_dec"
+              className="rounded-button"
+              type="button"
+            >
+              <span className="sr-only">Decrease number of adults</span>
+              <span aria-hidden="true">-</span>
+            </button>
+            <label className="sr-only" htmlFor="adults_in_household">Number of Adults ({event.adultAge}+)</label>
+            <input
+              type="text"
+              className="number member-count"
+              name="adults_in_household"
+              id="adults_in_household"
+              value={countAdult}
+              onChange={() => {}}
+              ref={register}
+            ></input>
+            <button
+              onClick={adultIncrementFunction}
+              data-testid="count_adult_inc"
+              className="rounded-button"
+            >
+              <span className="sr-only">Increase number of Adults</span>
+              <span aria-hidden="true">+</span>
+            </button>
+          </div>
 
-    };
-
-    const seniorDecrementFunction=(e)=> {
-        e.preventDefault();
-        if (value) {
-                setValue(value - 1)
-        }
-    };
-
-    const seniorIncrementFunction=(e)=> {
-        e.preventDefault();
-
-        if (value<13) {
-                setValue(value + 1)
-        }
-    };const adultDecrementFunction=(e)=> {
-        e.preventDefault();
-        if (countMiddle) {
-            setCountMiddle(countMiddle - 1)
-        }
-    };
-
-    const adultIncrementFunction=(e)=> {
-        e.preventDefault();
-
-        if (countMiddle<13) {
-                setCountMiddle(countMiddle + 1)
-        }
-    };const kidDecrementFunction=(e)=> {
-        e.preventDefault();
-        if (countJunior) {
-                setCountJunior(countJunior - 1)
-        }
-    };
-
-    const kidIncrementFunction=(e)=> {
-        e.preventDefault();
-
-        if (countJunior<13) {
-            setCountJunior(countJunior + 1)
-        }
-    };
-
-
-
-
-    return (
-        <div>
-        <div className="form-sub-title font-weight-bold">
-            Total Number of Household Members
-            <div className="mt-3 pt-1">
-            <div className="d-flex align-items-center pt-2 pb-2">
-                <div className="member-age">Seniors (65+)</div>
-                <div className="button-wrap d-flex flex-grow-1">
-                
-                <button onClick={seniorDecrementFunction} name="count_senior_dec" className="rounded-button" type="button"><span>-</span></button>
-                <input type="text" className="number member-count" value={value}></input>
-                <button onClick={seniorIncrementFunction} name="count_senior_inc" className="rounded-button"><span>+</span></button>
-                </div>
-            </div>
-            <div className="d-flex align-items-center pt-2 pb-2">
-                <div className="member-age">Adults (18+)</div>
-                <div className="button-wrap d-flex flex-grow-1">
-                
-                <button onClick={adultDecrementFunction} name="count_adult_inc" className="rounded-button"><span>-</span></button>
-                <input type="text" className="number member-count" value={countMiddle}></input>
-                <button onClick={adultIncrementFunction} name="count_adult_dec" className="rounded-button"><span>+</span></button>
-                </div>
-            </div>
-            <div className="d-flex align-items-center pt-2 pb-2">
-                <div className="member-age">Kids (Under 18)</div>
-                <div className="button-wrap d-flex flex-grow-1">
-                
-                <button onClick={kidDecrementFunction} name="count_kids_inc" className="rounded-button"><span>-</span></button>
-                <input type="text" className="number member-count" value={countJunior}></input>
-                <button onClick={kidIncrementFunction} name="count_kids_dec" className="rounded-button"><span>+</span></button>
-                </div>
-            </div>
-            </div>
+          <div className="d-flex align-items-center pt-2 pb-2">
+              <div className="member-age">Kids</div>
+              <div className="button-wrap d-flex flex-grow-1"></div>
+            <button
+              onClick={kidDecrementFunction}
+              data-testid="count_kid_dec"
+              className="rounded-button"
+              type="button"
+            >
+              <span className="sr-only">Decrease number of kids</span>
+              <span aria-hidden="true">-</span>
+            </button>
+            <label className="sr-only" htmlFor="children_in_household">Number of Kids</label>
+            <input
+              type="text"
+              className="number member-count"
+              name="children_in_household"
+              id="children_in_household"
+              value={countKid}
+              onChange={() => {}}
+              ref={register}
+            ></input>
+            <button
+              onClick={kidIncrementFunction}
+              data-testid="count_kid_inc"
+              className="rounded-button"
+            >
+              <span className="sr-only">Increase number of kids</span>
+              <span aria-hidden="true">+</span>
+            </button>
+          </div>
         </div>
-        </div>
-
-    )
-
-};
+      </div>
+      <div className="form-group">
+        <label htmlFor="license_plate">License Plate</label>
+        <input
+          type="text"
+          className="form-control"
+          name="license_plate"
+          id="license_plate"
+          ref={register}
+        />
+        <small>
+          If you will arrive at the distribution in a vehicle and know the license plate, please include it here. Sharing your license plate enables expedited check-in at some distributions.
+        </small>
+      </div>
+    </Fragment>
+  );
+});
 
 export default MemberCountFormComponent;

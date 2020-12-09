@@ -1,17 +1,24 @@
 
-import React,{useContext} from 'react';
+import React,{useContext,useEffect,useState} from 'react';
 import ButtonComponent from '../../General/ButtonComponent';
 import WellnessContext from './WellnessContext';
 const SelectQstnComponent = (props) => {
 let {id,question,description,option} = props.content;
 let context = useContext(WellnessContext);
+const [selected,setSelected] = useState(null); 
 
 const setValue = (e) =>{
 Object.keys(context.answers).map((value,index)=>{
     if(value == id-1) context.answers[value] = e.target.value
-    console.log("context.answers[value] >>",context.answers[value])
+    setSelected(e.target.value)
+   // console.log("context.answers[value] >>",context.answers[value])
 });
 }
+
+useEffect(()=>{
+    setSelected(context.answers[id-1])
+    //console.log("useEffect in YesOrNo",selected)
+},[props.content.question,props.content.id,props.content.option])
 
     return (
 		<>
@@ -26,7 +33,7 @@ Object.keys(context.answers).map((value,index)=>{
                                     	option.map((value,index)=>{
                                         return <div key={index} className="form-group">
                                             <label htmlFor={index} className="radio">
-                                                <input type="radio" name="selection" onChange={setValue} value ={value} id={index} />
+                                                <input type="radio" name="selection" onChange={setValue} value ={value} id={index} checked={selected === value}/>
                                                 <span>{value}</span>
                                               </label>
                                         </div>

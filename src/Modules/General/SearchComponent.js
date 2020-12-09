@@ -1,110 +1,154 @@
-import React from 'react';
-import ButtonComponent from '../General/ButtonComponent';
-import useForm from '../../Utils/UseForm';
+import React, { forwardRef } from "react";
 
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
 
-const SearchComponent = (props, ref) => {
-    const [searchData, setSearchData] = React.useState([]);
-    const [street, setStreet] = React.useState('');
-    const [zip, setZip] = React.useState('');
-    let data;
+const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchData}, ref) => {
+  const default_zipcode = (searchData && searchData.length > 0)? searchData : "";
+  const search_zipcode = localStorage.getItem("search_zip");
+  const [address, setAddress] = React.useState("");
+  // const [zip] = React.useState("");
+  const [lat, setLat] = React.useState("");
+  const [long, setLong] = React.useState("");
+  const [showAddress, setShowAddress] = React.useState(false);
+  const handleSelect = async value => {
+    setAddress(value);
+    const results = await geocodeByAddress(value);
+    let destructuredAddress = getDestructured(results[0]["address_components"]);
+    setAddress(destructuredAddress["street_number"]!==undefined?`${destructuredAddress["street_number"]} ${destructuredAddress["route"]}`:'');
+    
+    //  Here we get the coordinates lat and long.
+    const coordinates = await getLatLng(results[0]);
+    setLat(coordinates.lat);
+    setLong(coordinates.lng);
+  };
 
-    React.useEffect(() => {
-        if(props.dataToChild){
-            let propData = props.dataToChild;
-            setStreet(propData.street);
-            setZip(propData.zip_code);
-        }
-    },[props.dataToChild]);
+  const getDestructured = address_components => {
+    let destructured = {};
+    // eslint-disable-next-line array-callback-return
+    address_components.filter(component => {
+      switch (component["types"][0]) {
+        case "street_number":
+          destructured["street_number"] = component.long_name;
+          break;
+        case "route":
+          destructured["route"] = component.long_name;
+          break;
+          default:return null;
+      }
+    });
+    return destructured;
+  };
+  return (
+    <div className=" row align-items-end">
+      <div className="col-sm-6 col-md-6 col-lg-7 col-xl-8 search-order-1">
+        <div className="d-flex">
+          {showAddress && (
+            <div className="form-group flex-grow-1" data-testid="search-street">
+              <label htmlFor="street">Street</label>
+              <PlacesAutocomplete
+                onSelect={handleSelect}
+                value={address}
+                onChange={setAddress}
+              >
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                  loading,
+                }) => (
+                  <>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="street"
+                      id="street"
+                      {...getInputProps({ placeholder: "Type Address" })}
+                      ref={register}
+                    />
 
-    const buildData = (e) => {
-        let { name, value } = e.target;
-        let setFunction = '';
-        switch (name) {
-            case 'street':
-                setFunction = setStreet;
-                break;
-            case 'zip':
-                setFunction = setZip;
-                break;
-            default:
-                break;
-        }
+                    {/* No spinners are set here as of now. You can re-use the loader from EventContainer page; 
+                    though the size of the spinner is set as 10em,fixed in main.scss file. */}
+                    {loading ? "Loading..." : null}
 
-        if (setFunction !== '') {
-            setFunction(value);
-        }
-    };
-
-    React.useEffect(() => {
-        handleChange();
-    }, [street, zip]);
-
-    const handleChange = () => {
-        data = { searchData :{
-            street: street,
-            zip: zip
-        }
-        };
-        setSearchData(data);
-    };
-
-    const dataToParent = () => {
-        props.onSelectedChild(searchData);
-    };
-
-    const { errors, handleErrors } =
-        useForm(props, {
-            'zip' : ['required', 'min:3']
-        }, dataToParent, true);
-
-    const handleFormValidation = (e) => {
-        e.preventDefault();
-        handleChange();
-        let componentErrors = [];
-        componentErrors.push(handleErrors(data.searchData));
-        if( componentErrors.includes(true) || Object.keys(errors).length !== 0){
-            return false;
-        }
-    };
-
-    return (
-        <form>
-            <div className=" row align-items-end">
-                <div className="col-sm-6 col-md-6 col-lg-7 col-xl-8">
-                    <div className="d-flex">
-                        {/* <div className="form-group flex-grow-1">
-                            <label>Street</label>
-                            <input type="text" className="form-control" name="street"
-                                   value={street || ''}
-                                   onChange={buildData} />
-                        </div> */}
-                        <div className="form-group zip-code">
-                            <label htmlFor="zip">Zip</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="zip"
-                                name="zip"
-                                value={zip || ''}
-                                onChange={buildData}
-                            />
-
-                            {errors.zip && (
-                                <span className="validationError">{errors.zip}</span>
-                            )}
-                        </div>
-                    </div>
-                </div>
-                <div className="col-sm-6 col-md-6 col-lg-5 col-xl-4 text-right">
-                    <ButtonComponent type ='submit' name="searchForResources" dataid= ''
-                                     id="search-resource" value="Search For Resources"
-                                     className = 'btn custom-button search-button'
-                                     onClickfunction={handleFormValidation} />
-                </div>
+                    {suggestions.length > 0 && (
+                      <div
+                        data-testid="suggestions"
+                        className="suggestions-container"
+                      >
+                        {suggestions.map(suggestion => {
+                          return (
+                            <div {...getSuggestionItemProps(suggestion)} key={suggestion.id} >
+                              {suggestion.description}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </>
+                )}
+              </PlacesAutocomplete>
             </div>
-        </form>
-    )
-};
-export default SearchComponent;
+          )}
+          <div className={showAddress ? "form-group" : "form-group zip-code"}>
+            <label htmlFor="zip_code">Zip</label>
+            <input
+              type="text"
+              className="form-control zip"
+              id="zip_code"
+              name="zip_code"
+              defaultValue={default_zipcode || search_zipcode}
+              onChange={e =>
+                {
+                  if(e.target.value.length === 5){
+                    setShowAddress(false)
+                    onSubmitHandler({"zip_code":e.target.value, "lat":lat, "long":long, "street": address})
+                  }
+                  // else{
+                  //   setShowAddress(false)
+                  // }
+              }}
+              ref={register({ required: true })}
+            />
 
+            {errors.zip_code && (
+              <span className="validationError">This field is required</span>
+            )}
+          </div>
+          <input
+            type="hidden"
+            defaultValue={lat || ""}
+            ref={register}
+            name="lat"
+          />
+          <input
+            type="hidden"
+            defaultValue={long || ""}
+            ref={register}
+            name="long"
+          />
+        </div>
+      </div>
+      <div className="col-sm-6 col-md-6 col-lg-5 col-xl-4 text-right search-order-3">
+        <button
+          type="submit"
+          name="searchForResources"
+          dataid=""
+          id="search-resource"
+          value="Search For Resources"
+          className="btn custom-button search-button"
+        >
+          Search For Resources
+        </button>
+      </div>
+      <div className="col-12 search-order-2 mt-2">
+        {address.length === 0 && showAddress && (
+          <p>Enter your address for customized results (Optional) </p>
+        )}
+      </div>
+    </div>
+  );
+});
+export default SearchComponent;

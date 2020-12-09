@@ -1,36 +1,53 @@
-import * as React from 'react';
-import {withRouter} from 'react-router-dom';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import SearchComponent from '../General/SearchComponent';
 import DashboardCreateAccountComponent from './DashboardCreateAccountComponent';
-import '../../Assets/scss/main.scss';
-const DashBoardDataComponent = (props) => {
-    // Login is out of scope
-    // const [isLoggedIn, setIsLoggedIn] = React.useState(localStorage.getItem('isLoggedIn'));
+import { useForm } from 'react-hook-form';
 
-    // React.useEffect(()=>{
-    //     if (localStorage.getItem('isLoggedIn')!=undefined ){
-    //         setIsLoggedIn(true);
-    //     }
-    // },[localStorage.getItem('isLoggedIn')]);
+const DashBoardDataComponent = props => {
+  // Login is out of scope
+  // const [isLoggedIn, setIsLoggedIn] = React.useState(localStorage.getItem('isLoggedIn'));
 
-    const handleSubmit = (data) => {
-        if(Object.keys(data)[0]) {
-            props.history.push({
-                pathname : '/events/list',
-                state: { searchData: data }
-            });
-        }
+  // React.useEffect(()=>{
+  //     if (localStorage.getItem('isLoggedIn')!=undefined ){
+  //         setIsLoggedIn(true);
+  //     }
+  // },[localStorage.getItem('isLoggedIn')]);
 
-    };
+  const { register, errors, handleSubmit } = useForm();
+  const localUserToken = localStorage.getItem('userToken');
+  const isFaceBookLoggedIn = localStorage.getItem('isFBLoggedIn');
+  
+  //Flag to turn off/on Home Page Container for Loggedin user feature
+  if (isFaceBookLoggedIn == true){
+    props.history.push({
+      pathname: `/home`,
+    }); 
+  }
 
-    return (
-        <div className="container pt-150 pb-150">
-            <div className="search-area text-left">
-                <SearchComponent onSelectedChild = {handleSubmit} />
-            </div>
+  const onSubmit = data => {
+    if (data) {
+      const { zip_code } = data;
+      props.history.push({
+        pathname: `/events/list/${zip_code}`,
+      });
+    }
+  };
 
-            <DashboardCreateAccountComponent />
-        </div>
-    )
+  return (
+    <div className="container pt-150 pb-150">
+      <div className="search-area text-left">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <SearchComponent
+            register={register}
+            errors={errors}
+            onSubmitHandler={onSubmit}
+          />
+        </form>
+      </div>
+
+      <DashboardCreateAccountComponent />
+    </div>
+  );
 };
 export default withRouter(DashBoardDataComponent);

@@ -1,26 +1,43 @@
 import React,{useState,useContext, useEffect} from 'react';
 import WellnessContext from './WellnessContext';
 const RangeQstnComponent = (props) => {
-	let {question,description,id, option_start_value,option_end_value,is_money,step} = props.content;
-	const [currVal,setCurrVal] = useState(option_start_value);
-	//const [currVal,setCurrVal] = useState(0);
+	//console.log("props are>>",props)
+	let {question,
+		description,
+		id, 
+		option_start_value,
+		option_end_value,
+		is_money,step} = props.content;
+	
 	let context = useContext(WellnessContext);
+	const [currVal,setCurrVal] = useState(option_start_value);
 
 	const showSliderValue = (e)=>{
 		if(e && e.target && e.target.value){
 			setCurrVal(e.target.value)
 			Object.keys(context.answers).map((value,index)=>{
-		if(value == id-1) context.answers[value] =  is_money?`$${Number(e.target.value)} - $${Number(e.target.value)+step}`: e.target.value
-		console.log("answer recorded>>",context.answers[value])
+		if(value == id-1) {
+			context.answers[value] =  is_money?`$${Number(e.target.value)} - $${Number(e.target.value)+step}`: e.target.value}
 	});
 		}
 		
 	}
 	useEffect(()=>{
-		//setCurrVal(option_start_value);
-		console.log("props.content in range qstn cmpnt is >>",props.content.option_start_value)
-		console.log("currVal is >>",currVal)
-	})
+		if(context.answers[id-1] !== ""){
+			
+			if(context.answers[id-1].length <=2){
+				setCurrVal(context.answers[id-1]);
+			}
+			else{
+			setCurrVal(context.answers[id-1].slice(1,5));
+		}
+
+		}
+		else{
+			setCurrVal(props.content.option_start_value);
+		}
+		
+	},[props.content])
 
 
 
@@ -35,7 +52,7 @@ const RangeQstnComponent = (props) => {
            </div>
          <div className="ac-slider">
           <h3>{is_money? `$${Number(currVal)} - $${Number(currVal)+step}`: currVal}</h3>
-		  <input type="range" onChange={(e)=>showSliderValue(e)} min={option_start_value} max={option_end_value} step={step} value={currVal} />
+		  <input type="range" onChange={(e)=>showSliderValue(e)} min={option_start_value} max={is_money? option_end_value - step : option_end_value} step={step} value={currVal} />
 			
  	     </div>
  	     </div>
