@@ -1,50 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react';
-// import { withRouter } from 'react-router-dom';
+import React, { Fragment } from 'react';
 import '../../Assets/scss/main.scss';
-import axios from 'axios';
-import { API_URL} from '../../Utils/Urls';
-import { HomeEventFormat } from '../../Utils/EventHandler';
 import EventCardComponent from '../Events/EventCardComponent';
 import '../../Assets/scss/main.scss';
 
 const UsersRegistrations = props => {
-  const [events,setEvents] = useState();
-  const [usersReservation,setUsersReservation] = useState();
-
-  useEffect( () =>{
-    const usersReservation = getUsersReservations();
-  }, []);
-  const getUsersReservations = async () =>{
-    const userToken = localStorage.getItem('userToken');
-    const {CREATE_RESERVATION, EVENT_URL} = API_URL;
-    try {
-      const usersRegData = await axios.get(CREATE_RESERVATION, {
-        headers: { Authorization: `Bearer ${userToken}` }
-      });
-      setUsersReservation(usersRegData.data);
-      getEvents(usersRegData.data);
-    } catch (e) {
-      console.log(e);
-    } 
-  }
-  const getEvents = async (userRegData) =>{
-    const userRegEvents = []; 
-    const {EVENT_URL} = API_URL;
-    userRegData.map( (userReg) => {
-      userRegEvents.push(axios.get(`${EVENT_URL}?event_date_id=${userReg.event_date_id}`))
-    }
-    )
-    const regEvents = await axios.all(userRegEvents)
-    const events = [];
-    regEvents.forEach((event, index) => {
-      let filteredEvents;
-      if (event.data?.events[0]){
-         filteredEvents = HomeEventFormat(event.data.events[0],userRegData[index].event_date_id) 
-      }
-      filteredEvents && events.push(filteredEvents)
-    });
-    setEvents(events);
-  }
+  const events = props.reservedEvents;
+  // const [usersReservation,setUsersReservation] = useState();
 
   return (
     <Fragment>
