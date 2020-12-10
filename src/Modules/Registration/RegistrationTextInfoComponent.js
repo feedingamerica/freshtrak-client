@@ -8,7 +8,7 @@ import BackButtonComponent from '../General/BackButtonComponent';
 import { getItemLocalStorage } from '../../Utils/Util';
 
 const RegistrationTextInfoComponent = ({event, onRegisterNow}) => {
-const isFBLoggedIn = JSON.parse(getItemLocalStorage("isFBLoggedIn"));
+const isLoggedIn = JSON.parse(getItemLocalStorage("isLoggedIn"));
   const clickedRegisterNow = () => {
     onRegisterNow(true)
     TagManager.dataLayer({
@@ -20,7 +20,7 @@ const isFBLoggedIn = JSON.parse(getItemLocalStorage("isFBLoggedIn"));
   return (
     <Fragment>
       <BackButtonComponent />
-      {!isFBLoggedIn && <RegistrationHeaderComponent event={event} />}
+      {!isLoggedIn && <RegistrationHeaderComponent event={event} />}
       { event &&
         <div className="col-6">
           <div className="day-view">
