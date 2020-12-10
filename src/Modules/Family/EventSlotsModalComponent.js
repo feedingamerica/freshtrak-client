@@ -30,7 +30,7 @@ const EventSlotsModalComponent = (props) => {
     }, []);
 
     found = event_slots.find( (event_slot) => {
-        return  event_slot_id == event_slot.event_slot_id;
+        return  event_slot_id === event_slot.event_slot_id;
     })
     return found;
   }
