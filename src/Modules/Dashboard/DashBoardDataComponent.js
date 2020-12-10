@@ -18,7 +18,7 @@ const DashBoardDataComponent = props => {
   const isFaceBookLoggedIn = localStorage.getItem('isLoggedIn');
   
   //Flag to turn off/on Home Page Container for Loggedin user feature
-  if (isFaceBookLoggedIn == true){
+  if (isFaceBookLoggedIn === true){
     props.history.push({
       pathname: `/home`,
     }); 
