@@ -43,6 +43,10 @@ const HeaderComponent = (props) => {
     localStorage.setItem('isLoggedIn', false);
     setIsLoggedIn(false);
 
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('tokenExpiresAt');
+    localStorage.removeItem('search_zip');
+    window.FB.logout()
   }
   
   return (

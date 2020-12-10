@@ -16,7 +16,7 @@ const RegistrationConfirmComponent = props => {
   let HOME_OR_ROOT_URL = RENDER_URL.HOME_URL;
   const location = useLocation();
 
-  if (!JSON.parse(localStorage.getItem('isFBLoggedIn'))){
+  if (!JSON.parse(localStorage.getItem('isLoggedIn'))){
     HOME_OR_ROOT_URL = RENDER_URL.ROOT_URL;
     localStorage.removeItem('userToken');
     localStorage.removeItem('tokenExpiresAt');
