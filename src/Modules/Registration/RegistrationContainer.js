@@ -104,7 +104,7 @@ const RegistrationContainer = (props) => {
     const { TWILIO_SMS } = API_URL;
     let to_phone_number = user['phone']
     let identification_code =  user['identification_code']
-    let message = `You have successfully registered for FreshTrak, ${getReservationText()}Your confirmation code is ${identification_code.toUpperCase()}`
+    let message = `You have successfully registered for FreshTrak, ${getReservationText()} Your confirmation code is ${identification_code.toUpperCase()}`
     let search_zip = localStorage.getItem('search_zip')
     if (search_zip) {
       setLoading(true);

@@ -24,14 +24,16 @@ const EventSlotsModalComponent = (props) => {
 
   const findEventSlot = (event_slot_id) => {
     let found = {};
+
     const event_slots = eventHour.reduce((acc, element, ind, arr) => {
         acc.push(...element.event_slots);
         return acc;
     }, []);
 
     found = event_slots.find( (event_slot) => {
-        return  event_slot_id === event_slot.event_slot_id;
-    })
+        return  parseInt(event_slot_id) === event_slot.event_slot_id;
+    });
+
     return found;
   }
 
