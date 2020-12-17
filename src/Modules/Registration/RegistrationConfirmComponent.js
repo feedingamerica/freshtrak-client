@@ -1,21 +1,43 @@
-import React, { Fragment } from 'react';
-import { useSelector } from 'react-redux';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useSelector,useDispatch } from 'react-redux';
+import { API_URL, RENDER_URL, BASE_URL } from '../../Utils/Urls';
+import axios from 'axios';
+import { setCurrentEvent, selectEvent } from '../../Store/Events/eventSlice';
+import { setCurrentUser, selectUser } from '../../Store/userSlice';
+// import React, { Fragment } from 'react';
+// import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { RENDER_URL } from '../../Utils/Urls';
-import { selectEvent } from '../../Store/Events/eventSlice';
+// import { RENDER_URL } from '../../Utils/Urls';
+// import { selectEvent } from '../../Store/Events/eventSlice';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { Link } from 'react-router-dom';
 import identificationCodeImg1 from '../../Assets/img/id_code1.png';
 import identificationCodeImg2 from '../../Assets/img/id_code2.png';
 import idImg from '../../Assets/img/id_img.png';
+import { EventFormat } from '../../Utils/EventHandler';
+import { formatMMDDYYYY } from '../../Utils/DateFormat';
 import EventCardComponent from '../Events/EventCardComponent';
 import QRCode from 'qrcode.react';
 
 const RegistrationConfirmComponent = props => {
   const user_data = props.location.state.user;
+  const dispatch = useDispatch();
+  const [isLoading, setLoading] = useState(false);
   const event = useSelector(selectEvent);
   let HOME_OR_ROOT_URL = RENDER_URL.HOME_URL;
   const location = useLocation();
+  const [userToken, setUserToken] = useState(undefined);
+  const [isError, setIsError] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(event);
+  const [errors, setErrors] = useState([]);
+  const [pageError, setPageError] = useState(false);
+  const currentUser = useSelector(selectUser);
+  const [user, setUser] = useState(currentUser);
+  const eventDateId = sessionStorage.getItem("registeredEventDateID");
+
+  // Need to have isLoggedIn => true in local storage to show loggedin home page(Returning Users)
+  localStorage.setItem('isLoggedIn', true);
+  // localStorage.setItem('isLoggedIn', false);
 
   if (!JSON.parse(localStorage.getItem('isLoggedIn'))){
     HOME_OR_ROOT_URL = RENDER_URL.ROOT_URL;
@@ -30,6 +52,68 @@ const RegistrationConfirmComponent = props => {
       return input.replace(regExp, '($1) $2-$3');
     } else {
       return '';
+    }
+  };
+
+  const getUser = async token => {
+    setLoading(true);
+    const { GUEST_USER } = API_URL;
+    try {
+      const resp = await axios.get(GUEST_USER, {
+        params: {},
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const { data } = resp;
+      if (data["date_of_birth"] !== null){
+        data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
+      }
+      if (data["phone"] !== null){
+        const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+        data["phone"] = data["phone"].replace(phoneRegex, '($1) $2-$3')
+      }
+      dispatch(setCurrentUser(data));
+      setUser(data);
+      setLoading(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(fetchBusinesses, []);
+
+  function fetchBusinesses(){
+    setUserToken(localStorage.getItem('userToken'));
+    if (!isError && !pageError) {
+      if(Object.keys(selectedEvent).length === 0) {
+        getEvent();
+      }
+      if(user === null) {
+        getUser(localStorage.getItem('userToken'));
+      }
+    }
+  }
+
+  const getEvent = async () => {
+    try {
+      const resp = await axios.get(
+        `${BASE_URL}api/event_dates/${eventDateId}/event_details`
+      )
+      const { data } = resp;
+      if (data && data.event !== undefined) {
+        const eventData = EventFormat(data.event, eventDateId);
+        dispatch(setCurrentEvent(eventData));
+        setSelectedEvent(eventData);
+      } else {
+        setPageError(true);
+        setErrors(data.errors || []);
+      }
+    } catch (e) {
+      console.error(e);
+      setIsError(true);
+      if(e.response){
+        setPageError(true);
+        setErrors(e.response.data);
+      }
     }
   };
 
