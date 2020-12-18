@@ -35,10 +35,6 @@ const RegistrationConfirmComponent = props => {
   const [user, setUser] = useState(currentUser);
   const eventDateId = sessionStorage.getItem("registeredEventDateID");
 
-  // Need to have isLoggedIn => true in local storage to show loggedin home page(Returning Users)
-  localStorage.setItem('isLoggedIn', true);
-  // localStorage.setItem('isLoggedIn', false);
-
   if (!JSON.parse(localStorage.getItem('isLoggedIn'))){
     HOME_OR_ROOT_URL = RENDER_URL.ROOT_URL;
     localStorage.removeItem('userToken');
