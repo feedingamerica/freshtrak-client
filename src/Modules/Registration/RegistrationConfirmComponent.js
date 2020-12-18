@@ -17,6 +17,7 @@ import idImg from '../../Assets/img/id_img.png';
 import { EventFormat } from '../../Utils/EventHandler';
 import { formatMMDDYYYY } from '../../Utils/DateFormat';
 import EventCardComponent from '../Events/EventCardComponent';
+import QRCode from 'qrcode.react';
 
 const RegistrationConfirmComponent = props => {
   const user_data = props.location.state.user;
@@ -155,6 +156,13 @@ const RegistrationConfirmComponent = props => {
               <h2>
                 Your Confirmation Number <br />
                 <b> {identification_code.toUpperCase()} </b>
+              </h2>
+              <br />
+            </div>
+            <div className="mt-1">
+              <h2>
+                Your QR Code <br />
+                <QRCode value= "https://secure.pantrytrak.com/mobile/qr_code_processing.php?code={identification_code.toUpperCase()}" />
               </h2>
               <br />
             </div>
