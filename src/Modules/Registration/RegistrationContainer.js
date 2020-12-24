@@ -96,6 +96,10 @@ const RegistrationContainer = (props) => {
     return location.state? `Your reservation time is at ${location.state.event_slot.start_time} - ${location.state.event_slot.end_time} on ${location.state.event_date}. `: "";
   }
 
+  const getCodeURL = (identification_code) => {
+    return `Your QRCode for the Reservation http://localhost:5000/qrcode/${identification_code}  `;
+  }
+
   const notify = (msg, error) => {
     let formatted_msg = (msg.user_id && msg.user_id[0]) || msg.event_date_id[0] || "Something Went Wrong"
     showToast(formatted_msg, error);
@@ -104,7 +108,8 @@ const RegistrationContainer = (props) => {
     const { TWILIO_SMS } = API_URL;
     let to_phone_number = user['phone']
     let identification_code =  user['identification_code']
-    let message = `You have successfully registered for FreshTrak, ${getReservationText()} Your confirmation code is ${identification_code.toUpperCase()}`
+    let message = `You have successfully registered for FreshTrak, ${getReservationText()} Your confirmation code is ${identification_code.toUpperCase()}.
+    ${getCodeURL(identification_code)}`
     let search_zip = localStorage.getItem('search_zip')
     if (search_zip) {
       setLoading(true);

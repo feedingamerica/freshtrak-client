@@ -33,6 +33,7 @@ const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEven
 const RegistrationEventDetailsContainer = lazy(() => import('../Modules/Registration/RegistrationEventDetailsContainer'));
 const RegistrationConfirmComponent = lazy(() => import('../Modules/Registration/RegistrationConfirmComponent'));
 const HomeContainer = lazy(() => import('../Modules/Home/HomeContainer'));
+const QRCodeComponent = lazy(() => import('../Modules/Registration/QRCodeComponent'));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -101,6 +102,11 @@ const Routes = () => {
               path={`${RENDER_URL.REGISTRATION_CONFIRM_URL}`}
               component={RegistrationConfirmComponent}
             />
+
+            <Route
+              path={`${RENDER_URL.QRCODE_URL}/:code`}
+              component={QRCodeComponent}
+            />  
 
             <Route
               path={`${RENDER_URL.AGENCY_EVENT_LIST}/:agencyId`}
