@@ -30,6 +30,7 @@ const RegistrationContainer = (props) => {
 
   const currentUser = useSelector(selectUser);
   const [user, setUser] = useState(currentUser);
+  const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
   useEffect(fetchBusinesses, []);
 
@@ -97,7 +98,7 @@ const RegistrationContainer = (props) => {
   }
 
   const getCodeURL = (identification_code) => {
-    return `Your QRCode for the Reservation http://localhost:5000/qrcode/${identification_code}  `;
+    return `Your QRCode for the Reservation ${ CLIENT_URL+identification_code}`;
   }
 
   const notify = (msg, error) => {
