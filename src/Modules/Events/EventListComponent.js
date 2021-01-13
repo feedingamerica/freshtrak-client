@@ -11,7 +11,13 @@ const EventListComponent = props => {
   // const onChangeHandler = (e)=>{
   //     e.preventDefault();
   // };
-  const { events, showHeader = true, zipCode, targetUrl, registrationView } = props;
+  const { events, showHeader = true, zipCode, targetUrl, registrationView, reservedEvents} = props;
+  const isRegisteredEvent = (event) => {
+    const found = reservedEvents && reservedEvents.find( (reservedEvent) =>{
+      return reservedEvent.id === event.id;
+    })
+    return !!found;
+  }
   return (
     <div className="search-results-list" aria-live="polite">
       {showHeader && (
@@ -56,7 +62,7 @@ const EventListComponent = props => {
                 <div className="row mt-2">
                   {event && event.map(event => (
                     // <EventCardComponent key={event.id} event={event} />
-                    <EventCardComponent key={event.id} event={event} targetUrl={targetUrl} registrationView = {registrationView}/>
+                    <EventCardComponent key={event.id} event={event} targetUrl={targetUrl} registrationView = {registrationView} alreadyRegistered = {isRegisteredEvent(event)}/>
                   ))}
                 </div>
               </div>

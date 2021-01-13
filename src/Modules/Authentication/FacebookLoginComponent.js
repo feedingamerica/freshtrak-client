@@ -4,7 +4,9 @@ import FacebookLogin from 'react-facebook-login';
 const FacebookLoginComponent = ({onFbLogin} ) => {
   const responseFacebook = async (response) => {
     console.log(response);
-    onFbLogin(response);
+    if (response.status !== 'unknown') {
+      onFbLogin(response);
+    }
   }
   const FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
 

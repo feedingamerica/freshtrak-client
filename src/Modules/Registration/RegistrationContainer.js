@@ -97,14 +97,14 @@ const RegistrationContainer = (props) => {
   }
 
   const notify = (msg, error) => {
-    let formatted_msg = msg.user_id[0]
+    let formatted_msg = (msg.user_id && msg.user_id[0]) || msg.event_date_id[0] || "Something Went Wrong"
     showToast(formatted_msg, error);
   }
   const send_sms = async user => {
     const { TWILIO_SMS } = API_URL;
     let to_phone_number = user['phone']
     let identification_code =  user['identification_code']
-    let message = `You have successfully registered for FreshTrak, ${getReservationText()}Your confirmation code is ${identification_code.toUpperCase()}`
+    let message = `You have successfully registered for FreshTrak, ${getReservationText()} Your confirmation code is ${identification_code.toUpperCase()}`
     let search_zip = localStorage.getItem('search_zip')
     if (search_zip) {
       setLoading(true);
@@ -154,11 +154,15 @@ const RegistrationContainer = (props) => {
       if(user['permission_to_text']){
         send_sms(user)
       }
+      sessionStorage.setItem("registeredEventDateID", eventDateId);
       history.push({
         pathname: RENDER_URL.REGISTRATION_CONFIRM_URL,
         state: { user: {...user,identification_code:currentUser.identification_code}, eventDateId: eventDateId, eventTimeStamp : {start_time: location.state?.event_slot?.start_time, end_time: location.state?.event_slot?.end_time} }
       });
     } catch (e) {
+      if (!e.response){
+        e.response = {data: {"user_id": ["Something Went Wrong"]}}
+      }
       notify(e.response.data, 'error')
       setTimeout(()=> window.scrollTo(0, 0))
       setDisabled(disabled);

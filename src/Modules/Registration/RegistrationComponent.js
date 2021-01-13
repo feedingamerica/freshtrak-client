@@ -72,7 +72,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const santizeString = input =>{
     let modifiedInput = input.trim();
     modifiedInput = modifiedInput.replace(/\s\s+/g, ' ');
-    modifiedInput = modifiedInput.replace(/[^A-Za-z0-9 \-.@'` ]/g, '');
+    modifiedInput = modifiedInput.replace(/[^A-Za-z0-9 \-_.@'`]/g, '');
     return modifiedInput;
   }
   

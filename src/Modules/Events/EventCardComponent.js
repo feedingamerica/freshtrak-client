@@ -84,7 +84,7 @@ const EventCardComponent = props => {
   }
 
   const ButtonView = () => {
-    let targetUrl = props.targetUrl != undefined ?  `${props.targetUrl}/${id}`:`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`
+    let targetUrl = props.targetUrl !== undefined ?  `${props.targetUrl}/${id}`:`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`
     if(registrationView || alreadyRegistered) {
       return null;
     }
@@ -143,6 +143,7 @@ const EventCardComponent = props => {
             </div>
           )}
          {!!showRsvp && <span className="text-danger font-size-point-85rem">RSVP is required for this event</span>}
+         {alreadyRegistered && <span className="text-danger font-size-point-85rem">Already Registered</span>}
           <div className="day-view-item-detail-footer d-flex mt-3">
             {eventDetails && eventDetails.length > 0 && (
               <button
