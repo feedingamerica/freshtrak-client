@@ -55,10 +55,10 @@ const HeaderComponent = (props) => {
         className={`navbar navbar-expand-md navbar-light fixed-top ${navbarShrink} ${shortHeader}`}
         id="mainNav"
       >
-        <div className="container">
+        <div className="container-fluid">
           <Navbar expand="md" className="w-100">
-            <Navbar.Brand className="my-auto mobile-view">
-              <span className="my-auto mobile-view">
+            <Navbar.Brand className=" mobile-view">
+              <span className="mobile-view">
                 <Link to={RENDER_URL.ROOT_URL}>
                   <img
                     src={mainLogo}

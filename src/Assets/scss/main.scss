@@ -237,7 +237,7 @@ body {
             }
         }
         .mobile-view {
-            margin: auto;
+            // margin: auto;
             line-height: 0;
         }
         .navbar-collapse {
@@ -408,9 +408,9 @@ body {
                 }
             }
         }
-        .mobile-view {
-            margin: auto;
-        }
+        // .mobile-view {
+        //     margin: auto;
+        // }
         .navbar-collapse {
             &.show {
                 background: $primaryColor;
@@ -997,4 +997,68 @@ body {
 .font-size-point-85rem{
     font-size: .85rem;
     font-family: $font-varela;
+}
+// profile
+.profile-page-wrapper{
+    .profile-initial-wrapper{
+        overflow:hidden;
+        display:flex;
+        float:left;
+        width:auto;
+        height:auto;
+        position: relative;
+        border-radius:50%;
+        border: 10px solid $supporting-color;
+        border-right:10px solid transparent;
+        z-index: 9;
+        width: 120px;
+        height: 120px;
+        transform: rotate(45deg);
+        padding: 1rem;
+        align-items: center;
+        justify-content: center;
+        .profile-initial{
+            background: $profile-letter-bg;
+            padding: .5rem;
+            font-size: 1.5rem;
+            color: $profile-initials;
+            @include border-radius(50%);
+            width: 82px;
+            height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transform: rotate(-45deg);
+            flex-shrink: 0;
+        }
+    }
+    
+    .profile-name{
+        font-size: 1.1rem;
+    }
+   
+}
+.profile-tabs-wrapper{
+    .nav-tabs{
+        justify-content: center;
+        border: none;
+        a{  border:none;
+            border-bottom: 2px solid transparent;
+            margin: 0 2rem;
+            padding: 0;
+            color: $content-text-color;
+            &.active{
+                border-color: $secondary-color;
+                color: $secondary-color;
+                font-weight: 600;
+            }
+        }
+    }
+}
+.take-the-assessment-wrapper{
+    min-height: 450px;
+    background: $primaryColor;
+    color: $color-white;
+    margin-top: 4rem;
 }

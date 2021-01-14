@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
 
 const FooterComponent = () => (
-  <div className="container pt-50">
+  <div className="container-fluid pt-50">
     <div className="row">
       <LogoComponent/>
       <div className="col-lg-6 col-xl-6">
