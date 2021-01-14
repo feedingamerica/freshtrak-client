@@ -266,13 +266,13 @@ body {
     }
     .header {
         background: $primaryColor url(../img/banner-bg.png) no-repeat center center;
-        height: 509px;
+        height: 400px;
         @include responsive(extra-smaller-devices) {
             height: 300px;
             background-size: cover;
         }
         @include responsive(smaller-devices) {
-            height: 509px;
+            height: 400px;
         }
         @include responsive(medium-devices) {
         }
