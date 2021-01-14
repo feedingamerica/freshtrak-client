@@ -32,5 +32,5 @@ export const RENDER_URL = {
   HOME_URL: '/home',
   QRCODE_URL: '/qrcode',
   PRIVACY: '/privacy',
-  Terms: '/terms',
+  TERMS: '/terms',
 };
