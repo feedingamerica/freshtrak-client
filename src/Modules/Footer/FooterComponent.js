@@ -14,11 +14,15 @@ const FooterComponent = () => (
       <div className="col-lg-6 col-xl-6">
         <div className="row">
           <div className="col-md-4">
-            <span className="list-title">Privacy Policy</span>
+            <span className="list-title">Our Policies</span>
             <ul>
               <li>
-                <Link to="https://policies.google.com/privacy?hl=en-US">
-                  Privacy
+                <Link to={RENDER_URL.PRIVACY}>
+                  PrivacyPolicy
+                </Link>
+                <br/>
+                <Link to={RENDER_URL.TERMS}>
+                  Terms of Use
                 </Link>
               </li>
             </ul>
