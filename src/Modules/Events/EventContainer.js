@@ -12,7 +12,7 @@ import axios from 'axios';
 import '../../Assets/scss/main.scss';
 
 const EventContainer = props => {
-  const { zipCode } = useParams();
+  const { zipCode = '', distance = '10' } = useParams();
   const [foodBankResponse, setFoodBankResponse] = useState(false);
   let [foodBankData, setFoodBankData] = useState({});
   let [searchDetails, setSearchDetails] = useState({});
@@ -60,13 +60,17 @@ const EventContainer = props => {
     }
   };
 
-  const onSubmit = data => {
-    if (data) {
-      const { zip_code } = data;
-      props.history.push({
-        pathname: `/events/list/${zip_code}`,
-      });
+  const onSubmit = ({zip_code, distance}) => {
+    let url = `/events/list/`;
+    if (zip_code){
+      url += zip_code + '/';
     }
+    if (distance){
+      url += distance + '/';
+    }
+    props.history.push({
+      pathname: url
+    });
   };
   // const localUserToken = localStorage.getItem('userToken');
   localStorage.setItem('search_zip', `${zipCode}`);
@@ -82,6 +86,8 @@ const EventContainer = props => {
                 errors={errors}
                 onSubmitHandler={onSubmit}
                 searchData={searchDetails}
+                z_code={zipCode}
+                range = {distance}
               />
             </form>
             {loading && (
@@ -91,7 +97,7 @@ const EventContainer = props => {
             )}
             {!loading && <ResourceList />}
           </div>
-          { <EventListContainer zipCode={zipCode} />}
+          { <EventListContainer zipCode={zipCode} distance={distance}/>}
         </div>
       </section>
     </div>
