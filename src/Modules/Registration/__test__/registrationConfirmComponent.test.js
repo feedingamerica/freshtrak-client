@@ -8,6 +8,13 @@ import { preformattedEventData, mockFamily } from '../../../Testing';
 import RegistrationConfirmComponent from '../RegistrationConfirmComponent';
 
 const mockStore = configureStore([]);
+window.HTMLCanvasElement.prototype.getContext = () => {}
+
+describe('MyComponent should render', () => {
+  it('should render', () => {
+    window.HTMLCanvasElement.prototype.getContext = () => {}
+ })
+})
 
 function mockFunction() {
   const original = require.requireActual('react-router-dom');
