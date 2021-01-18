@@ -11,29 +11,30 @@ const EventListContainer = ({ zipCode , distance}) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const getEvents = async () => {
-      if (zipCode) {
-        setLoading(true);
-        try {
-          const resp = await axios.get(API_URL.EVENTS_LIST, {
-            params: { zip_code: zipCode, distance: distance },
-          });
-          const {
-            data: { agencies },
-          } = resp;
-          setAgencyData(agencies);
-          setAgencyResponse(true);
-          setLoading(false);
-        } catch (err) {
-          console.error(err);
-          setLoading(false);
-        }
-      }
-    };
     if (zipCode) {
       getEvents();
     }
-  }, [zipCode, distance, ]);
+  }, [zipCode, distance]);
+
+  const getEvents = async () => {
+    if (zipCode) {
+      setLoading(true);
+      try {
+        const resp = await axios.get(API_URL.EVENTS_LIST, {
+          params: { zip_code: zipCode, distance: distance },
+        });
+        const {
+          data: { agencies },
+        } = resp;
+        setAgencyData(agencies);
+        setAgencyResponse(true);
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setLoading(false);
+      }
+    }
+  };
 
   const EventList = () => {
     if (agencyResponse) {

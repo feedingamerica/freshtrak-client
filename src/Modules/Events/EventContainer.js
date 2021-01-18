@@ -10,9 +10,10 @@ import { API_URL } from '../../Utils/Urls';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
+import {DEFAULT_DISTANCE} from '../../Utils/Constants'
 
 const EventContainer = props => {
-  const { zipCode = '', distance = '10' } = useParams();
+  const { zipCode = '', distance = DEFAULT_DISTANCE } = useParams();
   const [foodBankResponse, setFoodBankResponse] = useState(false);
   let [foodBankData, setFoodBankData] = useState({});
   let [searchDetails, setSearchDetails] = useState({});

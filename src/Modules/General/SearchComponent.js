@@ -1,4 +1,5 @@
 import React, { forwardRef, useState, useEffect } from "react";
+import {DEFAULT_DISTANCE} from '../../Utils/Constants'
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -25,12 +26,6 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
     setLat(coordinates.lat);
     setLong(coordinates.lng);
   };
-
-  useEffect(() => {
-    if(zipCode || distance){
-      onSubmitHandler({"zip_code":zipCode, "distance": distance});
-    }
-  }, [zipCode, distance, onSubmitHandler])
 
   const getDestructured = address_components => {
     let destructured = {};
@@ -113,6 +108,8 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
                     setshowDistance(true)
                     setShowAddress(false)
                     setZipCode(e.target.value)
+                    setDistance(DEFAULT_DISTANCE)
+                    onSubmitHandler({"zip_code": e.target.value, distance: DEFAULT_DISTANCE});
                   }
                   else{
                     setshowDistance(false)
@@ -134,12 +131,15 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
                 name="distance"
                 id="distance"
                 defaultValue={distance}
-                onChange={ (e) => { setDistance(e.target.value) }
+                onChange={ (e) => {
+                  setDistance(e.target.value)
+                  onSubmitHandler({"zip_code":zipCode, "distance": e.target.value});
+                  }
                 }
               >
                 <option value="" defaultValue></option>
-                <option value="3">1 mi</option>
-                <option value="5">3 mi</option>
+                <option value="3">3 mi</option>
+                <option value="5">5 mi</option>
                 <option value="10">10 mi</option>
                 <option value="25">25 mi</option>
                 <option value="50">50 mi</option>
