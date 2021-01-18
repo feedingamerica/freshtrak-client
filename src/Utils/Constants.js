@@ -20,4 +20,4 @@ export const STATUS_CODES = {
 };
 
 // Set Default Distance to 10 Miles.
-export const DEFAULT_DISTANCE = 5;
+export const DEFAULT_DISTANCE = 10;
