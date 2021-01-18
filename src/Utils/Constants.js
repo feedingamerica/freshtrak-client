@@ -18,3 +18,6 @@ export const STATUS_CODES = {
     HTTP_500: 500,
     HTTP_501: 501,
 };
+
+// Set Default Distance to 10 Miles.
+export const DEFAULT_DISTANCE = 5;
