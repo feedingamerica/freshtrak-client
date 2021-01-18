@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from "react";
+import React, { forwardRef, useState } from "react";
 import {DEFAULT_DISTANCE} from '../../Utils/Constants'
 
 import PlacesAutocomplete, {
