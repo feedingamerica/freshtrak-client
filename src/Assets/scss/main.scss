@@ -38,6 +38,10 @@ body {
     .small-title {
         font-size: 14px;
     }
+    .section-title{
+        font-size: 1.3rem;
+        color: $color-light;
+    }
     .pt-200 {
         padding-top: 200px;
     }
@@ -64,6 +68,12 @@ body {
     }
     .mt-100 {
         margin-top: 100px;
+    }
+    .card-title{
+        font-weight: 600;
+        font-size: 1.2rem;
+        color:$color-light ;
+        margin-bottom: .25rem;
     }
     .caption-text {
         font-family: $font-varela;
@@ -1130,4 +1140,47 @@ body {
         max-width: 100%;
         max-height: 100%;
     }
+}
+.edit-icon {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    img{
+        max-width: 100%;
+    }
+  }
+  .user-name-icon{
+      .blocks{
+          width: 32px;
+          height: 32px;
+          flex-shrink: 0;
+          background: rgba($color: $secondary-color, $alpha: .4);
+          @include border-radius(50%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: .5rem;
+          font-weight: 600;
+          font-size: .85rem;
+      }
+  }
+  .message-wrapper-lists{
+      list-style: none;
+      li{
+          padding: 1rem;
+          @include border-radius(.5rem);
+          border-bottom: 1px solid $inner-gray;
+          margin-bottom: .5rem;
+          &.new{
+              background: $color-white;
+          }
+      }
+  }
+  .status-new-text{
+      color: $primaryColor;
+      font-size: .8rem;
+  }
+  .status-read-text{
+    color: $color-light-grey;
+    font-size: .8rem;
 }

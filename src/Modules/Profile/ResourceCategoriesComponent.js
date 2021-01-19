@@ -8,7 +8,7 @@ import homeImage from '../../Assets/img/home.png';
 const ResourceCategoryComponent = () => {
   return (
     <>
-    <h5 className="font-weight-bold">Resource Categories</h5>
+    <h5 className="section-title font-weight-bold">Resource Categories</h5>
      <p>Description</p>
      <div className="row">
        <div className="col-12 col-lg-4 col-xl-4 mb-3">

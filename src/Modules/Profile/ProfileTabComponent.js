@@ -3,7 +3,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tabs";
 import TabContainer from "react-bootstrap/TabContainer";
 import SummaryTabComponent from "../Profile/SummaryTabComponent"
-import MemoryTabComponent from "../Profile/MemoryTabComponent"
+import MessagesTabComponent from "./MessagesTabComponent"
 import AccountTabComponent from "../Profile/AccountTabComponent"
 const ProfileTabComponent = () => {
   return (
@@ -16,7 +16,7 @@ const ProfileTabComponent = () => {
         </Tab>
         <Tab eventKey="messages" title="Messages">
           <TabContainer>
-            <MemoryTabComponent/>
+            <MessagesTabComponent/>
           </TabContainer>
         </Tab>
         <Tab eventKey="account" title="Account">
