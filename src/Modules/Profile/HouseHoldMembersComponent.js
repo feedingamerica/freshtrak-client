@@ -53,6 +53,9 @@ const HouseHoldMembersComponent = () => {
           <div className="small">Child</div>
         </div>
       </div>
+      <div className="text-center">
+      <a href="">Add Household Member</a>
+      </div>
     </div>
   );
 };
