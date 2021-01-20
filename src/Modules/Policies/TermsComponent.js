@@ -13,7 +13,7 @@ const TermsComponent = props => {
         </div>
       </div>
       <h2 className="font-weight-bold mobile-text-left">
-      FreshTrak Terms of Use
+      <center>FreshTrak Terms of Use</center>
       </h2>
       <p className="mobile-text-left caption-text">Effective Date: January 01, 2021</p>
       <p className="mobile-text-left caption-text">
