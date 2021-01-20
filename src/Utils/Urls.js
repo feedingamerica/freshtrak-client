@@ -31,4 +31,6 @@ export const RENDER_URL = {
   AGENCY_EVENT_LIST: '/agency/events',
   HOME_URL: '/home',
   QRCODE_URL: '/qrcode',
+  PRIVACY: '/privacy',
+  TERMS: '/terms',
 };

@@ -34,6 +34,8 @@ const RegistrationEventDetailsContainer = lazy(() => import('../Modules/Registra
 const RegistrationConfirmComponent = lazy(() => import('../Modules/Registration/RegistrationConfirmComponent'));
 const HomeContainer = lazy(() => import('../Modules/Home/HomeContainer'));
 const QRCodeComponent = lazy(() => import('../Modules/Registration/QRCodeComponent'));
+const PrivacyComponent = lazy(() => import('../Modules/Policies/PrivacyComponent'));
+const TermsComponent = lazy(() => import('../Modules/Policies/TermsComponent'));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -106,6 +108,16 @@ const Routes = () => {
             <Route
               path={`${RENDER_URL.QRCODE_URL}/:code`}
               component={QRCodeComponent}
+            />  
+
+            <Route
+              path={`${RENDER_URL.PRIVACY}`}
+              component={PrivacyComponent}
+            />
+
+             <Route
+              path={`${RENDER_URL.TERMS}`}
+              component={TermsComponent}
             />  
 
             <Route
