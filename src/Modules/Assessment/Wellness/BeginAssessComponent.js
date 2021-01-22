@@ -18,8 +18,11 @@ const setAssessmentData = async() => {
 		 
 		if(resp && resp.data && 
 			resp.data.data !== null){
-				console.log("RESP.data.data>>",resp.data.data.description)
+				//console.log("RESP.data.data.desc>>",resp.data.data.description)
+				// console.log("RESP.data.data>>",resp.data.data)
+				// console.log("RESP.data.data.name>>",resp.data.data.name)
 			setfirstCardData(resp.data.data)
+			context.assessmentTitle = resp.data.data.name;
 		}
 		
 	} catch (err) {
@@ -32,7 +35,7 @@ useEffect(() => {
 	setfirstCardData()
 	context.start_time = moment().format('YYYY-MM-DD hh:mm');
 },[]);
-console.log("firstCardData is>>",firstCardData)
+//console.log("firstCardData is>>",firstCardData)
     return ( 
     	<>
 	        <div className="d-flex justify-content-between align-items-center mt-2 mb-2">
