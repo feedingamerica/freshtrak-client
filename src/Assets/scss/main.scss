@@ -163,6 +163,14 @@ body {
         0% {opacity: 0;}
         100% {opacity: 1;}
      }
+     .qrcode{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+
 
 
      
@@ -261,13 +269,13 @@ body {
     }
     .header {
         background: $primaryColor url(../img/banner-bg.png) no-repeat center center;
-        height: 509px;
+        height: 400px;
         @include responsive(extra-smaller-devices) {
             height: 300px;
             background-size: cover;
         }
         @include responsive(smaller-devices) {
-            height: 509px;
+            height: 400px;
         }
         @include responsive(medium-devices) {
         }
@@ -1211,4 +1219,11 @@ body {
 .font-size-point-85rem{
     font-size: .85rem;
     font-family: $font-varela;
+}
+
+.privacy{
+    // background-color: #FFFFFF;
+    // // width: 280px;
+    // margin: 5px auto;
+    // border: 1px solid black; /* width, style, colour */
 }

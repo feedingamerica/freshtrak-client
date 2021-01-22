@@ -20,7 +20,7 @@ import '../../../Assets/scss/main.scss';
 import closeBtn from '../../../Assets/img/close.svg';
 import backBtn from '../../../Assets/img/back-green.svg';
 //API CALL FOR ASSESSMENT QUESTIONS
-import {ASSESSMENT_URL} from '../../../Utils/Urls';
+import {RENDER_URL} from '../../../Utils/Urls';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -47,7 +47,7 @@ const WellnessContainer = (props) => {
 
 	
     const setAssessmentQuestions = async() => {
-			let assessmentUri = ASSESSMENT_URL.QUESTIONS;
+			let assessmentUri = RENDER_URL.QUESTIONS;
             try {
                 const resp = await axios.get(assessmentUri);
 				if(resp && resp.data && 
@@ -182,7 +182,7 @@ const WellnessContainer = (props) => {
 	}
 
 	const handleSubmit = async()=>{
-		let assessmentUri = ASSESSMENT_URL.SUBMIT_ASSESSMENT;
+		let assessmentUri = RENDER_URL.SUBMIT_ASSESSMENT;
 		const userToken = localStorage.getItem('userToken');
 		let ansArray = [];
 		Object.keys(context.answers).map((item,index )=>{	

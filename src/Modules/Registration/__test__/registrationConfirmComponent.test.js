@@ -8,6 +8,13 @@ import { preformattedEventData, mockFamily } from '../../../Testing';
 import RegistrationConfirmComponent from '../RegistrationConfirmComponent';
 
 const mockStore = configureStore([]);
+window.HTMLCanvasElement.prototype.getContext = () => {}
+
+describe('MyComponent should render', () => {
+  it('should render', () => {
+    window.HTMLCanvasElement.prototype.getContext = () => {}
+ })
+})
 
 function mockFunction() {
   const original = require.requireActual('react-router-dom');
@@ -25,12 +32,15 @@ function mockFunction() {
 jest.mock('react-router-dom', () => mockFunction());
 
 test('should load without errors', () => {
-  const store = mockStore({ event: { event: null } });
+  const store = mockStore({ event: { event: {} }, user: mockFamily });
   const user_mock_data = {state:{user: mockFamily}}
+  const history = createMemoryHistory({ initialEntries: [''] });
   expect(() => {
     render(
       <Provider store={store}>
-        <RegistrationConfirmComponent location={user_mock_data} />
+        <Router history={history}>
+          <RegistrationConfirmComponent location={user_mock_data} />
+        </Router>
       </Provider>
     );
   }).not.toThrowError();
@@ -40,7 +50,7 @@ test('show the event data and user data', () => {
   const { agencyName } = preformattedEventData;
   const user_mock_data = {state:{user: mockFamily}}
   const { identification_code } = mockFamily;
-  const store = mockStore({ event: { event: preformattedEventData } });
+  const store = mockStore({ event: { event: preformattedEventData }, user: mockFamily });
   const history = createMemoryHistory({ initialEntries: [''] });
   const { getByText } = render(
     <Provider store={store}>

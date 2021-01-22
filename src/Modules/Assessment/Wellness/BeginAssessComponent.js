@@ -1,5 +1,5 @@
 import React, { useContext,useState,useEffect } from 'react';
-import {ASSESSMENT_URL} from '../../../Utils/Urls';
+import {RENDER_URL} from '../../../Utils/Urls';
 import WellnessContext from './WellnessContext';
 import axios from 'axios';
 import moment from 'moment';
@@ -11,7 +11,7 @@ const BeginAssessComponent = (props) => {
 
 
 const setAssessmentData = async() => {
-	let assessmentUri = ASSESSMENT_URL.FIRST_CARD;
+	let assessmentUri = RENDER_URL.FIRST_CARD;
 	try {
 		const resp = await axios.get(assessmentUri);
 		// console.log("RESP FOR FIRST CARD IS>>",resp)
