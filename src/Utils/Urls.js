@@ -30,4 +30,7 @@ export const RENDER_URL = {
   REGISTRATION_CONFIRM_URL: '/register/confirm',
   AGENCY_EVENT_LIST: '/agency/events',
   HOME_URL: '/home',
+  QRCODE_URL: '/qrcode',
+  PRIVACY: '/privacy',
+  TERMS: '/terms',
 };
