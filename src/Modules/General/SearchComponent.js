@@ -1,18 +1,20 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
+import {DEFAULT_DISTANCE} from '../../Utils/Constants'
 
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
 
-const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchData}, ref) => {
-  const default_zipcode = (searchData && searchData.length > 0)? searchData : "";
-  const search_zipcode = localStorage.getItem("search_zip");
-  const [address, setAddress] = React.useState("");
+const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchData, z_code, range}, ref) => {
+  const [address, setAddress] = useState("");
   // const [zip] = React.useState("");
-  const [lat, setLat] = React.useState("");
-  const [long, setLong] = React.useState("");
-  const [showAddress, setShowAddress] = React.useState(false);
+  const [lat, setLat] = useState("");
+  const [long, setLong] = useState("");
+  const [showAddress, setShowAddress] = useState(false);
+  const [showDistance, setshowDistance] = useState(z_code.length > 4 ? true : false);
+  const [zipCode, setZipCode] = useState(z_code);
+  const [distance, setDistance] = useState(range);
   const handleSelect = async value => {
     setAddress(value);
     const results = await geocodeByAddress(value);
@@ -92,23 +94,26 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
               </PlacesAutocomplete>
             </div>
           )}
-          <div className={showAddress ? "form-group" : "form-group zip-code"}>
+          <div className={showDistance ? "form-group" : "form-group zip-code"}>
             <label htmlFor="zip_code">Zip</label>
             <input
               type="text"
               className="form-control zip"
               id="zip_code"
               name="zip_code"
-              defaultValue={default_zipcode || search_zipcode}
+              defaultValue={zipCode}
               onChange={e =>
                 {
                   if(e.target.value.length === 5){
+                    setshowDistance(true)
                     setShowAddress(false)
-                    onSubmitHandler({"zip_code":e.target.value, "lat":lat, "long":long, "street": address})
+                    setZipCode(e.target.value)
+                    setDistance(DEFAULT_DISTANCE)
+                    onSubmitHandler({"zip_code": e.target.value, distance: DEFAULT_DISTANCE});
                   }
-                  // else{
-                  //   setShowAddress(false)
-                  // }
+                  else{
+                    setshowDistance(false)
+                  }
               }}
               ref={register({ required: true })}
             />
@@ -117,6 +122,30 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
               <span className="validationError">This field is required</span>
             )}
           </div>
+
+          { showDistance && (
+            <div className="form-group flex-grow-1" >
+              <label htmlFor="distance">Distance</label>
+              <select
+                className= {`form-control`}
+                name="distance"
+                id="distance"
+                defaultValue={distance}
+                onChange={ (e) => {
+                  setDistance(e.target.value)
+                  onSubmitHandler({"zip_code":zipCode, "distance": e.target.value});
+                  }
+                }
+              >
+                <option value="" defaultValue></option>
+                <option value="3">3 mi</option>
+                <option value="5">5 mi</option>
+                <option value="10">10 mi</option>
+                <option value="25">25 mi</option>
+                <option value="50">50 mi</option>
+              </select>
+            </div>
+          )}
           <input
             type="hidden"
             defaultValue={lat || ""}
@@ -151,4 +180,9 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
     </div>
   );
 });
+
+SearchComponent.defaultProps = {
+  range: '',
+  z_code: ''
+}
 export default SearchComponent;
