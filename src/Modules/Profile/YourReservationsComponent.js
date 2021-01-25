@@ -21,7 +21,7 @@ const YourReservationsComponent = () => {
                   <span className="pl-3">3.30 PM</span>
                 </div>
                 <div className="mt-2">
-                  <span class="badge badge-info">In Person</span>
+                  <span className="badge badge-info">In Person</span>
                 </div>
               </div>
               <div className="ml-4 d-flex flex-column justify-content-between align-items-end">
@@ -48,7 +48,7 @@ const YourReservationsComponent = () => {
                   <span className="pl-3">3.30 PM</span>
                 </div>
                 <div className="mt-2">
-                  <span class="badge badge-info">In Person</span>
+                  <span className="badge badge-info">In Person</span>
                 </div>
               </div>
               <div className="ml-4 d-flex flex-column justify-content-between align-items-end">

@@ -31,19 +31,17 @@ const RegistrationContainer = lazy(() =>
 // Out of scope
 // const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
 // const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
-const AgencyEventListContainer = lazy(() =>
-  import("../Modules/Events/AgencyEventListContainer")
-);
-const RegistrationEventDetailsContainer = lazy(() =>
-  import("../Modules/Registration/RegistrationEventDetailsContainer")
-);
-const RegistrationConfirmComponent = lazy(() =>
-  import("../Modules/Registration/RegistrationConfirmComponent")
-);
-const HomeContainer = lazy(() => import("../Modules/Home/HomeContainer"));
-const ProfileContainer = lazy(() =>
-  import("../Modules/Profile/ProfileContainer")
-);
+
+
+const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEventListContainer'));
+const RegistrationEventDetailsContainer = lazy(() => import('../Modules/Registration/RegistrationEventDetailsContainer'));
+const RegistrationConfirmComponent = lazy(() => import('../Modules/Registration/RegistrationConfirmComponent'));
+const HomeContainer = lazy(() => import('../Modules/Home/HomeContainer'));
+const QRCodeComponent = lazy(() => import('../Modules/Registration/QRCodeComponent'));
+const PrivacyComponent = lazy(() => import('../Modules/Policies/PrivacyComponent'));
+const TermsComponent = lazy(() => import('../Modules/Policies/TermsComponent'));
+const ProfileContainer = lazy(() => import("../Modules/Profile/ProfileContainer"));
+
 const Routes = () => {
   React.useEffect(() => {}, []);
 
@@ -110,6 +108,21 @@ const Routes = () => {
               path={`${RENDER_URL.REGISTRATION_CONFIRM_URL}`}
               component={RegistrationConfirmComponent}
             />
+
+            <Route
+              path={`${RENDER_URL.QRCODE_URL}/:code`}
+              component={QRCodeComponent}
+            />  
+
+            <Route
+              path={`${RENDER_URL.PRIVACY}`}
+              component={PrivacyComponent}
+            />
+
+             <Route
+              path={`${RENDER_URL.TERMS}`}
+              component={TermsComponent}
+            />  
 
             <Route
               path={`${RENDER_URL.AGENCY_EVENT_LIST}/:agencyId`}

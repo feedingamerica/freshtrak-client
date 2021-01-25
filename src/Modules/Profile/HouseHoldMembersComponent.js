@@ -13,7 +13,7 @@ const HouseHoldMembersComponent = () => {
           </div>
           <div className="small">Senior</div>
           <div className="mt-2">
-            <span class="badge badge-success">FreshTrak User</span>
+            <span className="badge badge-success">FreshTrak User</span>
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@ const HouseHoldMembersComponent = () => {
           </div>
           <div className="small">Adult</div>
           <div className="mt-2">
-            <span class="badge badge-success">FreshTrak User</span>
+            <span className="badge badge-success">FreshTrak User</span>
           </div>
         </div>
       </div>
