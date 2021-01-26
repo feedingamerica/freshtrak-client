@@ -1,7 +1,3 @@
-/**
- * Created by Basil on 04/04/20.
- */
-
 import React, { useEffect, useState, Fragment } from "react";
 
 import mainLogo from "../../Assets/img/logo.png";
