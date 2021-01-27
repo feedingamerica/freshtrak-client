@@ -19,7 +19,7 @@ export const API_URL = {
 
 export const RENDER_URL = {
   ROOT_URL: '/',
-  EVENT_LIST_URL: '/events/list/:zipCode',
+  EVENT_LIST_URL: '/events/list/:zipCode/:distance?',
   REGISTRATION_EVENT_DETAILS_URL: '/register/event',
   ADD_FAMILY_URL: '/family/create',
   SIGN_IN: '/family/sign-in',
@@ -30,4 +30,7 @@ export const RENDER_URL = {
   REGISTRATION_CONFIRM_URL: '/register/confirm',
   AGENCY_EVENT_LIST: '/agency/events',
   HOME_URL: '/home',
+  QRCODE_URL: '/qrcode',
+  PRIVACY: '/privacy',
+  TERMS: '/terms',
 };
