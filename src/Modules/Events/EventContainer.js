@@ -13,7 +13,7 @@ import '../../Assets/scss/main.scss';
 import {DEFAULT_DISTANCE} from '../../Utils/Constants'
 
 const EventContainer = props => {
-  const { zipCode = '', distance = DEFAULT_DISTANCE } = useParams();
+  const { zipCode = '', distance = DEFAULT_DISTANCE, serviceCat } = useParams();
   const [foodBankResponse, setFoodBankResponse] = useState(false);
   let [foodBankData, setFoodBankData] = useState({});
   let [searchDetails, setSearchDetails] = useState({});
@@ -61,13 +61,16 @@ const EventContainer = props => {
     }
   };
 
-  const onSubmit = ({zip_code, distance}) => {
+  const onSubmit = ({zip_code, distance, serviceCat}) => {
     let url = `/events/list/`;
     if (zip_code){
       url += zip_code + '/';
     }
     if (distance){
       url += distance + '/';
+    }
+    if (serviceCat){
+      url += serviceCat + '/';
     }
     props.history.push({
       pathname: url
@@ -98,7 +101,7 @@ const EventContainer = props => {
             )}
             {!loading && <ResourceList />}
           </div>
-          { <EventListContainer zipCode={zipCode} distance={distance}/>}
+          { <EventListContainer zipCode={zipCode} distance={distance} serviceCat={serviceCat}/>}
         </div>
       </section>
     </div>
