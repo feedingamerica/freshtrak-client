@@ -5,23 +5,17 @@ import { API_URL } from '../../Utils/Urls';
 import SpinnerComponent from '../General/SpinnerComponent';
 import axios from 'axios';
 
-const EventListContainer = ({ zipCode , distance}) => {
+const EventListContainer = ({ zipCode , distance, serviceCat}) => {
   const [agencyResponse, setAgencyResponse] = useState(false);
   const [agencyData, setAgencyData] = useState({});
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (zipCode) {
-      getEvents();
-    }
-  }, [zipCode, distance]);
 
   const getEvents = async () => {
     if (zipCode) {
       setLoading(true);
       try {
         const resp = await axios.get(API_URL.EVENTS_LIST, {
-          params: { zip_code: zipCode, distance: distance },
+          params: { zip_code: zipCode, distance: distance , category: serviceCat}
         });
         const {
           data: { agencies },
@@ -35,6 +29,12 @@ const EventListContainer = ({ zipCode , distance}) => {
       }
     }
   };
+
+  useEffect(() => {
+    if (zipCode) {
+      getEvents();
+    }
+  }, [ zipCode, distance, serviceCat]);
 
   const EventList = () => {
     if (agencyResponse) {

@@ -47,6 +47,7 @@ const DashBoardDataComponent = props => {
             errors={errors}
             onSubmitHandler={onSubmit}
             range={DEFAULT_DISTANCE}
+            enableFilter={false}
           />
         </form>
       </div>
