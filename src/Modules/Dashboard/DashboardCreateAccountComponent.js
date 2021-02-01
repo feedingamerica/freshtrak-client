@@ -9,11 +9,11 @@ import '../../Assets/scss/main.scss';
 import localization from '../Localization/LocalizationComponent'
 
 const DashboardCreateAccountComponent = () => {
-  const [lang, setLang] = useState("en");
-  const change = (event) => {
-    localization.setLanguage(event.target.value);
-    setLang(event.target.value);
-  }
+  // const [lang, setLang] = useState("en");
+  // const change = (event) => {
+  //   localization.setLanguage(event.target.value);
+  //   setLang(event.target.value);
+  // }
   return (
     <div>
       <h2 className="mb-5 font-weight-bold mobile-text-left text-center">
@@ -21,12 +21,19 @@ const DashboardCreateAccountComponent = () => {
         {/* FreshTrak is here to help! */}
       </h2>
       <center>
-      <div>
+      {/* <div>
         <select onChange={change} value={lang}>
           <option value= "en"> English </option>
-          <option value= "sp"> Spanish </option>
+          <option value= "spa"> Spanish </option>
+          <option value= "som"> Somali </option>
+          <option value= "rus"> Russian </option>
+          <option value= "tur"> Turkish </option>
+          <option value= "ara"> Arabic </option>
+          <option value= "zho"> Chinese </option>
+          <option value= "hi"> Hindi </option>
+          <option value= "np"> Nepali </option>
         </select>
-      </div>
+      </div> */}
       </center>
       <div className="row text-center justify-content-between">
         <BoxComponent

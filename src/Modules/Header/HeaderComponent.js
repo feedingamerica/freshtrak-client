@@ -5,6 +5,11 @@ import closeIcon from '../../Assets/img/close.svg';
 // import navBarIcon from "../../Assets/img/menu.svg";
 import { Link } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap';
+import localization from '../Localization/LocalizationComponent';
+import { useDispatch } from 'react-redux';
+import {setCurrentLanguage} from '../../Store/languageSlice';
+// import CountryListComponent from '../Localization/countryListComponent'
+import { useSelector } from 'react-redux';
 import {
   Nav,
   Navbar,
@@ -15,7 +20,13 @@ const HeaderComponent = (props) => {
   const [navbarShrink, setNavbarShrink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const shortHeader = props.shortHeader || "";
-
+  const dispatch = useDispatch();
+  const language = useSelector(state => state.language.language);
+  console.log("inside header comp", language);
+  const change = (event) => {
+    localization.setLanguage(event.target.value);
+    dispatch(setCurrentLanguage(event.target.value));
+  }
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
   const [showMobileMenu, setMobileMenu] = useState(false);
   const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
@@ -133,6 +144,21 @@ const HeaderComponent = (props) => {
                 </button>
               </LinkContainer>
             )}
+            <div>
+              <label>Select Language ?</label>
+              <select onChange={change} value={language.language}>
+                <option value= "en"> English </option>
+                <option value= "spa"> Spanish </option>
+                <option value= "som"> Somali </option>
+                <option value= "rus"> Russian </option>
+                <option value= "tur"> Turkish </option>
+                <option value= "ara"> Arabic </option>
+                <option value= "zho"> Chinese </option>
+                <option value= "hi"> Hindi </option>
+                <option value= "np"> Nepali </option>
+              </select>
+            </div>
+            {/* <CountryListComponent/> */}
           </Navbar>
         </div>
       </Nav>
