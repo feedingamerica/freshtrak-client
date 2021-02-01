@@ -4,7 +4,7 @@ import { RENDER_URL } from '../../Utils/Urls';
 import { useLocation, matchPath } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectZip } from '../../Store/Search/searchSlice';
-// import localization from '../Localization/LocalizationComponent'
+import localization from '../Localization/LocalizationComponent'
 
 const HeaderDataComponent = () => {
   const location = useLocation();
@@ -24,8 +24,8 @@ const HeaderDataComponent = () => {
         <div className="banner-content">
           {currentPath !== RENDER_URL.EVENT_LIST_URL ? (
             <h1 className="text-center">
-              {/* {localization.home_freshtrack} */}
-              Find food resources in your neighborhood.
+              {localization.home_freshtrack}
+              {/* Find food resources in your neighborhood. */}
             </h1>
           ) : (
             <h1 className="text-center">Resource Events In Zip Code {zip}</h1>
