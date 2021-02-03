@@ -8,7 +8,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import { Fragment } from "react";
 
-const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchData, z_code, range}, ref) => {
+const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, z_code, range, categories}, ref) => {
   const [address, setAddress] = useState("");
   // const [zip] = React.useState("");
   const [lat, setLat] = useState("");
@@ -171,7 +171,6 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
               show: showDistance,
               defaultValue: distance,
               onChangeHandler: (e) => {
-                console.log(e.target.value)
                 setDistance(e.target.value)
                 onSubmitHandler({"zip_code":zipCode, "distance": e.target.value, "serviceCat": serviceCat});
                 }
@@ -179,8 +178,8 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
             serviceCat={{
               show: showDistance,
               defaultValue: serviceCat,
+              data: categories,
               onChangeHandler: (e) => {
-                console.log(e.target.value)
                 setServiceCat(e.target.value)
                 onSubmitHandler({"zip_code":zipCode, "distance": distance, "serviceCat": e.target.value});
                 }

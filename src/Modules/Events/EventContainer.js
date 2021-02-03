@@ -11,6 +11,7 @@ import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
 import {DEFAULT_DISTANCE} from '../../Utils/Constants'
+import serviceCatFilter from '../../Utils/serviceCatFilter';
 
 const EventContainer = props => {
   const { zipCode = '', distance = DEFAULT_DISTANCE, serviceCat } = useParams();
@@ -19,7 +20,39 @@ const EventContainer = props => {
   let [searchDetails, setSearchDetails] = useState({});
   const [serverError, setServerError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [agencyData, setAgencyData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [zip, setZip] = useState(null);
   const dispatch = useDispatch();
+  const categories = serviceCatFilter(filteredData);
+
+  const getEvents = async () => {
+    if (zipCode) {
+      setLoading(true);
+      try {
+        const resp = await axios.get(API_URL.EVENTS_LIST, {
+          params: { zip_code: zipCode, distance: distance , category: serviceCat}
+        });
+        const {
+          data: { agencies },
+        } = resp;
+        setAgencyData(agencies);
+        if(zip !== zipCode || filteredData.length === 0) {
+          setZip(zipCode);
+          setFilteredData(agencies)
+        }
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (zipCode) {
+      getEvents();
+    }
+  }, [zipCode, distance, serviceCat]);
 
   useEffect(() => {
     if (zipCode) {
@@ -92,6 +125,8 @@ const EventContainer = props => {
                 searchData={searchDetails}
                 z_code={zipCode}
                 range = {distance}
+                agencyData={agencyData}
+                categories={categories}
               />
             </form>
             {loading && (
@@ -101,7 +136,7 @@ const EventContainer = props => {
             )}
             {!loading && <ResourceList />}
           </div>
-          { <EventListContainer zipCode={zipCode} distance={distance} serviceCat={serviceCat}/>}
+          { <EventListContainer agencyData={agencyData} zipCode={zipCode} distance={distance} serviceCat={serviceCat}/>}
         </div>
       </section>
     </div>
