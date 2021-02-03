@@ -12,6 +12,7 @@ import axios from 'axios';
 import '../../Assets/scss/main.scss';
 import {DEFAULT_DISTANCE} from '../../Utils/Constants'
 import serviceCatFilter from '../../Utils/serviceCatFilter';
+import SpinnerComponent from '../General/SpinnerComponent';
 
 const EventContainer = props => {
   const { zipCode = '', distance = DEFAULT_DISTANCE, serviceCat } = useParams();
@@ -136,7 +137,8 @@ const EventContainer = props => {
             )}
             {!loading && <ResourceList />}
           </div>
-          { <EventListContainer agencyData={agencyData} zipCode={zipCode} distance={distance} serviceCat={serviceCat}/>}
+          {!loading && <EventListContainer agencyData={agencyData} zipCode={zipCode} distance={distance} serviceCat={serviceCat}/>}
+          {loading && <SpinnerComponent />}
         </div>
       </section>
     </div>
