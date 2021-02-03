@@ -32,8 +32,7 @@ const HeaderDataComponent = () => {
           )}
           {currentPath !== RENDER_URL.EVENT_LIST_URL && (
             <p className="text-center" data-testid="subtext-on-header">
-              We’re here to help! Input your zip code to find food access
-              resources in your community.
+              {localization.home_header_component}
             </p>
           )}
         </div>
