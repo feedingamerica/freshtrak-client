@@ -60,15 +60,7 @@ const FilterComponent = forwardRef(({distance, serviceCat, closeFilter}, ref) =>
                     }
                   >
                     <option value="" defaultValue></option>
-                    <option value="Choice Pantry">Choice Pantry</option>
-                    <option value="Prepack Pantry">Prepack Pantry</option>
-                    <option value="Produce">Produce</option>
-                    <option value="Meal">Meal</option>
-                    <option value="Supportive Services">Supportive Services</option>
-                    <option value="CSFP">CSFP</option>
-                    <option value="Case Management">Case Management</option>
-                    <option value="Water">Water</option>
-                    <option value="Purchased Products">Purchased Products</option>
+                    {serviceCat.data.map(item => <option key={item.id} value={item.service_category_name}>{item.service_category_name}</option>)}
                   </select>
                 </div>
               )}
