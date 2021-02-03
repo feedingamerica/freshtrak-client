@@ -1,25 +1,24 @@
-/**
- * Created by Basil on 04/04/20.
- */
-
 import React from 'react';
 import BoxComponent from '../General/BoxComponent';
 // import ButtonComponent from '../General/ButtonComponent';
 import PredictIcon from '../../Assets/img/predict.svg';
 import ServeFoodIcon from '../../Assets/img/serve-food.svg';
 import MoveQuickIcon from '../../Assets/img/move-quick.svg';
+import localization from '../Localization/LocalizationComponent'
 const DashBoardFoodBankComponent = () => (
   <div className="container pt-150 pb-150">
     <div className="text-uppercase mobile-text-left text-center">
       For Foodbanks
     </div>
     <h2 className="mb-2 font-weight-bold mobile-text-left text-center">
-      Serve More Families
+    {localization.home_dashboard}
+      {/* Serve More Families */}
     </h2>
     <p className="mobile-text-left text-center caption-text">
-      Prepare your organization for the influx of demand for food by
+    {localization.home_dashboard_org}
+      {/* Prepare your organization for the influx of demand for food by
       streamlining registration, planning service windows, and forecasting
-      needs. Serve more families—both current and new—in your community.
+      needs. Serve more families—both current and new—in your community. */}
     </p>
     <div className="row mt-5 text-center">
       <BoxComponent

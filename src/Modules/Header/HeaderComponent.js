@@ -153,8 +153,8 @@ const HeaderComponent = (props) => {
                 <option value= "tur"> Turkish </option>
                 <option value= "ara"> Arabic </option>
                 <option value= "zho"> Chinese </option>
-                <option value= "hi"> Hindi </option>
-                <option value= "np"> Nepali </option>
+                <option value= "hin"> Hindi </option>
+                <option value= "nep"> Nepali </option>
               </select>
             </div>
             {/* <CountryListComponent/> */}
