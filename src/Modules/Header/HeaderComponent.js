@@ -8,8 +8,9 @@ import { LinkContainer } from 'react-router-bootstrap';
 import localization from '../Localization/LocalizationComponent';
 import { useDispatch } from 'react-redux';
 import {setCurrentLanguage} from '../../Store/languageSlice';
-// import CountryListComponent from '../Localization/countryListComponent'
+import CountryListComponent from '../Localization/countryListComponent'
 import { useSelector } from 'react-redux';
+import 'semantic-ui-css/semantic.min.css'
 import {
   Nav,
   Navbar,
@@ -21,11 +22,10 @@ const HeaderComponent = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const shortHeader = props.shortHeader || "";
   const dispatch = useDispatch();
-  const language = useSelector(state => state.language.language);
-  console.log("inside header comp", language);
-  const change = (event) => {
-    localization.setLanguage(event.target.value);
-    dispatch(setCurrentLanguage(event.target.value));
+  // const language = useSelector(state => state.language.language);
+  const change = (event,data) => {
+    localization.setLanguage(data.value);
+    dispatch(setCurrentLanguage(data.value));
   }
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
   const [showMobileMenu, setMobileMenu] = useState(false);
@@ -144,7 +144,7 @@ const HeaderComponent = (props) => {
                 </button>
               </LinkContainer>
             )}
-            <div>
+            {/* <div>
               <label>Select Language ?</label>
               <select onChange={change} value={language.language}>
                 <option value= "en"> English </option>
@@ -157,8 +157,8 @@ const HeaderComponent = (props) => {
                 <option value= "hin"> Hindi </option>
                 <option value= "nep"> Nepali </option>
               </select>
-            </div>
-            {/* <CountryListComponent/> */}
+            </div> */}
+            <CountryListComponent change={change}/>
           </Navbar>
         </div>
       </Nav>
