@@ -60,7 +60,7 @@ const FilterComponent = forwardRef(({distance, serviceCat, closeFilter}, ref) =>
                       }
                     }
                   >
-                    <option value="" defaultValue></option>
+                    <option value="" defaultValue>All</option>
                     {serviceCat.data.map(item => <option key={item.id} value={item.service_category_name}>{item.service_category_name}</option>)}
                   </select>
                 </div>
