@@ -28,7 +28,7 @@ const FooterComponent = () => (
             </ul>
           </div>
           <div className="col-md-4">
-            <span className="list-title">FIND RESOURCES</span>
+            <span className="list-title">Find Resources</span>
             <ul>
               <li>
                 <Link to={RENDER_URL.FRESHTRAK_ABOUT}>
@@ -38,11 +38,11 @@ const FooterComponent = () => (
             </ul>
           </div>
           <div className="col-md-4">
-            <span className="list-title">FOR FOODBANKS</span>
+            <span className="list-title">For Foodbanks & Agencies</span>
             <ul>
               <li>
                 <Link to={RENDER_URL.FRESHTRAK_WORKING}>
-                  Working with FreshTrak
+                  FreshTrak: Partners
                 </Link>
               </li>
             </ul>
