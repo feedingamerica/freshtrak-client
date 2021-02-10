@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import { Fragment } from "react";
 import closeIcon from '../../Assets/img/close.svg';
+import funnelIcon from '../../Assets/img/funnel.svg';
 
 const FilterComponent = forwardRef(({distance, serviceCat, closeFilter}, ref) => {
  
@@ -10,7 +11,7 @@ const FilterComponent = forwardRef(({distance, serviceCat, closeFilter}, ref) =>
         <div className="advance-search-results search-results px-5">
           <div className="row">
             <div className="col-md-12">
-              <span className="search-list-title">Refine your results</span>
+              <span className="search-list-title"><img alt="filter" className="pb-1" src={funnelIcon}/> Refine your results</span>
               {/* <span
                 className="day-view-title float-right"
                 onClick={ (e) => closeFilter(e)}
@@ -59,16 +60,8 @@ const FilterComponent = forwardRef(({distance, serviceCat, closeFilter}, ref) =>
                       }
                     }
                   >
-                    <option value="" defaultValue></option>
-                    <option value="Choice Pantry">Choice Pantry</option>
-                    <option value="Prepack Pantry">Prepack Pantry</option>
-                    <option value="Produce">Produce</option>
-                    <option value="Meal">Meal</option>
-                    <option value="Supportive Services">Supportive Services</option>
-                    <option value="CSFP">CSFP</option>
-                    <option value="Case Management">Case Management</option>
-                    <option value="Water">Water</option>
-                    <option value="Purchased Products">Purchased Products</option>
+                    <option value="" defaultValue>All</option>
+                    {serviceCat.data.map(item => <option key={item.id} value={item.service_category_name}>{item.service_category_name}</option>)}
                   </select>
                 </div>
               )}

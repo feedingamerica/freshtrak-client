@@ -49,7 +49,7 @@ test("Successful Api with no Events dates", async () => {
 });
 
 test("Successful Api with Events dates", async () => {
-  const testAgencyWithEventDates = {
+  const testAgencyWithEventDates = [{
     ...mockAgency,
     events: [
       {
@@ -58,14 +58,11 @@ test("Successful Api with Events dates", async () => {
         forms: [{ ...mockForms }],
       },
     ],
-  };
-  axios.get.mockImplementation(() =>
-    Promise.resolve({ data: { agencies: [testAgencyWithEventDates] } })
-  );
+  }];
   const { getByText } = render(
     <Provider store={store}>
       <Router>
-        <EventListContainer zipCode={mockAgency.zip} />
+        <EventListContainer zipCode={mockAgency.zip} agencyData={testAgencyWithEventDates}/>
       </Router>
     </Provider>
   );
