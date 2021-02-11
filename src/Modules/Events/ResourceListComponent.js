@@ -1,10 +1,11 @@
-import React from 'react';
+import { React, Fragment } from 'react';
 // import { Button } from 'react-bootstrap';
 // import { LinkContainer } from 'react-router-bootstrap';
 // import { RENDER_URL } from '../../Utils/Urls';
 import { useSelector } from 'react-redux';
 import { selectZip } from '../../Store/Search/searchSlice';
 import FoodbankTextComponent from '../General/FoodbankTextComponent';
+import HouseHoldEligibilityComponent from '../General/HouseHoldEligibilityComponent';
 
 const ResourceListComponent = ({ dataToChild }) => {
   const [foodBankArray, setFoodBankArray] = React.useState([]);
@@ -80,6 +81,16 @@ const ResourceListComponent = ({ dataToChild }) => {
               {foodbank_texts.map((value, index) => {
                 return (
                   <li className="list-group-item" key={index}>
+                    {value.show_eligibilty_box === 1 && (
+                      <Fragment>
+                        <HouseHoldEligibilityComponent
+                          header={value.eligibility_header}
+                          body={value.eligibility_body}
+                          footer={value.eligibility_footer}
+                        />
+                        <hr />
+                      </Fragment>
+                    )}
                     <FoodbankTextComponent
                       text={value.text}
                       imageUrl={value.image_resource}

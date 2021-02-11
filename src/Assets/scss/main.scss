@@ -1015,3 +1015,27 @@ body {
 .filter-close {
   background: #392947;
 }
+
+.modal-dialog {
+  &.light {
+    .modal-content {
+      background: $color-white;
+      color: #000000;
+      .modal-title {
+        color: #495057;
+      }
+      .close {
+        color: #495057;
+      }
+    }
+  }
+}
+
+a {
+  &.link {
+    text-decoration: underline;
+    color: #007bff;
+    cursor: pointer;
+    padding-left: 20px;
+  }
+}
