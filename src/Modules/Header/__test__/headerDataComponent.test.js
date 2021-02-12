@@ -1,25 +1,34 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { renderWithRouter } from '../../../Testing';
+import { renderWithRouter, mockFoodBank } from '../../../Testing';
 import HeaderDataComponent from '../HeaderDataComponent';
 import { RENDER_URL } from '../../../Utils/Urls';
-import localization from '../Localization/LocalizationComponent'
-
+// import localization from '../../Localization/LocalizationComponent'
 const mockStore = configureStore([]);
+const store = mockStore({
+  language: {},
+  addressSearch: {
+    zipCode: 43214
+  }
+});
 
 test('should render without errors', () => {
   expect(() => {
-    renderWithRouter(<HeaderDataComponent />);
+    renderWithRouter(<Provider store={store}>
+      <HeaderDataComponent />
+    </Provider>,);
   }).not.toThrowError();
 });
 
 test(`should render 'Find food resources...' if location is not the event list url`, () => {
-  const { getByText, getByTestId } = renderWithRouter(<HeaderDataComponent />, {
+  const { getByText, getByTestId } = renderWithRouter(<Provider store={store}>
+    <HeaderDataComponent />
+  </Provider>, {
     route: RENDER_URL.REGISTRATION_FORM_URL,
   });
-  getByText(`${localization.home_freshtrack}`/i);
-  // getByText(/Find food resources in your neighborhood./i);
+  // getByText(${localization.home_freshtrack}/i);
+  getByText(/Find food resources in your neighborhood./i);
   getByTestId('subtext-on-header');
 });
 
