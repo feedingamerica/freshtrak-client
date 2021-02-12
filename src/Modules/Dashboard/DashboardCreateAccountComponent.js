@@ -18,22 +18,8 @@ const DashboardCreateAccountComponent = () => {
     <div>
       <h2 className="mb-5 font-weight-bold mobile-text-left text-center">
       {localization.home_freshtrack}
-        {/* FreshTrak is here to help! */}
       </h2>
       <center>
-      {/* <div>
-        <select onChange={change} value={lang}>
-          <option value= "en"> English </option>
-          <option value= "spa"> Spanish </option>
-          <option value= "som"> Somali </option>
-          <option value= "rus"> Russian </option>
-          <option value= "tur"> Turkish </option>
-          <option value= "ara"> Arabic </option>
-          <option value= "zho"> Chinese </option>
-          <option value= "hi"> Hindi </option>
-          <option value= "np"> Nepali </option>
-        </select>
-      </div> */}
       </center>
       <div className="row text-center justify-content-between">
         <BoxComponent
