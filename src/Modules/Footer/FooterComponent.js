@@ -14,7 +14,9 @@ const FooterComponent = () => (
       <LogoComponent/>
       <div className="col-lg-6 col-xl-6">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
+          </div>
+          <div className="col-md-4">
             <span className="list-title">Our Policies</span>
             <ul>
               <li>
@@ -38,7 +40,7 @@ const FooterComponent = () => (
               </li>
             </ul>
           </div> */}
-          <div className="col-md-6">
+          <div className="col-md-4">
             <span className="list-title">For Foodbanks & Agencies</span>
             <ul>
               <li>
