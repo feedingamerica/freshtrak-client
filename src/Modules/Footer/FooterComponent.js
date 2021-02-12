@@ -27,7 +27,7 @@ const FooterComponent = () => (
               </li>
             </ul>
           </div>
-          <div className="col-md-4">
+          {/* <div className="col-md-4">
             <span className="list-title">FIND RESOURCES</span>
             <ul>
               <li>
@@ -36,7 +36,7 @@ const FooterComponent = () => (
                 </Link>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div className="col-md-4">
             <span className="list-title">FOR FOODBANKS</span>
             <ul>
