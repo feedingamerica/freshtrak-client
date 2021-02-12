@@ -41,9 +41,7 @@ const FooterComponent = () => (
             <span className="list-title">For Foodbanks & Agencies</span>
             <ul>
               <li>
-                <Link to={RENDER_URL.FRESHTRAK_WORKING}>
-                  FreshTrak: Partners
-                </Link>
+                <a href={RENDER_URL.FRESHTRAK_WORKING} target="_blank">FreshTrak: Partner</a>
               </li>
             </ul>
           </div>
