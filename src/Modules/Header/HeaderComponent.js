@@ -22,6 +22,7 @@ const HeaderComponent = (props) => {
 
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
   const [showMobileMenu, setMobileMenu] = useState(false);
+  const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
   useEffect(() => {
     let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
     if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
@@ -157,7 +158,7 @@ const HeaderComponent = (props) => {
               <div className="menu-item-title">For Foodbanks & Agencies</div>
               <ul className="mt-2">
                 <li>
-                  <a href={RENDER_URL.FRESHTRAK_WORKING} target="_blank">FreshTrak: Partner</a>
+                  <a href={FRESHTRAK_PARTNERS_URL} target="_blank" rel="noopener noreferrer" > FreshTrak: Partner </a>
                 </li>
               </ul>
             </div>

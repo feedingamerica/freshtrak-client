@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
 
+const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
 const FooterComponent = () => (
   <div className="container pt-50">
     <div className="row">
@@ -41,7 +42,7 @@ const FooterComponent = () => (
             <span className="list-title">For Foodbanks & Agencies</span>
             <ul>
               <li>
-                <a href={RENDER_URL.FRESHTRAK_WORKING} target="_blank">FreshTrak: Partner</a>
+                <a href={FRESHTRAK_PARTNERS_URL} target="_blank" rel="noopener noreferrer" > FreshTrak: Partner </a>
               </li>
             </ul>
           </div>
