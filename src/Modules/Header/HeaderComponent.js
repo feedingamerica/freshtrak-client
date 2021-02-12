@@ -154,12 +154,10 @@ const HeaderComponent = (props) => {
               </ul>
             </div>
             <div className="mobile-menu-items mt-4 mb-4">
-              <div className="menu-item-title">FOR FOODBANKS</div>
+              <div className="menu-item-title">For Foodbanks & Agencies</div>
               <ul className="mt-2">
                 <li>
-                  <Link to={RENDER_URL.FRESHTRAK_WORKING}>
-                    Working with FreshTrak
-                  </Link>
+                  <a href={RENDER_URL.FRESHTRAK_WORKING} target="_blank">FreshTrak: Partner</a>
                 </li>
               </ul>
             </div>
