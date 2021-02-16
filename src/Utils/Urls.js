@@ -4,6 +4,7 @@
 
 export const BASE_URL = process.env.REACT_APP_PANTRY_FINDER_API;
 const REGISTRATION_URL = process.env.REACT_APP_REGISTRATION_API;
+const LOCAL_URL = "http://localhost:4444/api/";
 export const API_URL = {
     EVENTS_LIST : BASE_URL + 'api/agencies',
     FOODBANK_LIST : BASE_URL + 'api/foodbanks',
@@ -15,16 +16,20 @@ export const API_URL = {
     CREATE_RESERVATION: `${REGISTRATION_URL}api/reservations`,
     FB_AUTH: `${REGISTRATION_URL}auth_callbacks/facebook`,
     TWILIO_SMS: `${REGISTRATION_URL}twilio/sms`,
+    USER_INFORMATION : `${LOCAL_URL}profiles/user_data`,
+    USER_ADDRESS : `${LOCAL_URL}profiles/user_address`,
+    USER_CONTACT : `${LOCAL_URL}profiles/user_contact_details`,
+    USER_VEHICLE : `${LOCAL_URL}profiles/user_vehicle_details`
+    
 };
 
 export const RENDER_URL = {
   ROOT_URL: '/',
-  EVENT_LIST_URL: '/events/list/:zipCode',
+  EVENT_LIST_URL: '/events/list/:zipCode/:distance?/:serviceCat?',
   REGISTRATION_EVENT_DETAILS_URL: '/register/event',
   ADD_FAMILY_URL: '/family/create',
   SIGN_IN: '/family/sign-in',
   EDIT_FAMILY_URL: '/family/edit',
-  FRESHTRAK_WORKING: '/freshtrak-working',
   FRESHTRAK_ABOUT: '/freshtrak-about',
   REGISTRATION_FORM_URL: '/register/form',
   REGISTRATION_CONFIRM_URL: '/register/confirm',

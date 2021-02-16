@@ -1,14 +1,15 @@
 import React from 'react';
+import { propTypes } from 'react-bootstrap/esm/Image';
 import editIcon from "../../../Assets/img/edit.png";
 
-const ContactComponent = () =>{
+const ContactComponent = (props) =>{
   return(
     <div className="card p-3 mb-3">
       <div className="d-flex">
         <div className="card-title flex-grow-1">Contact</div>
         <div className="edit-icon ml-1">
           <span className="edit-icon">
-            <img src={editIcon} />
+            <img src={editIcon} onClick={()=>props.onEditClick()}/>
           </span>
         </div>
       </div>

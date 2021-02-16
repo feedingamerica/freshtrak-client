@@ -1,18 +1,24 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
+import {DEFAULT_DISTANCE} from '../../Utils/Constants'
+import FilterComponent from './FilterComponent';
 
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import { Fragment } from "react";
 
-const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchData}, ref) => {
-  const default_zipcode = (searchData && searchData.length > 0)? searchData : "";
-  const search_zipcode = localStorage.getItem("search_zip");
-  const [address, setAddress] = React.useState("");
+const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, z_code, range, categories}, ref) => {
+  const [address, setAddress] = useState("");
   // const [zip] = React.useState("");
-  const [lat, setLat] = React.useState("");
-  const [long, setLong] = React.useState("");
-  const [showAddress, setShowAddress] = React.useState(false);
+  const [lat, setLat] = useState("");
+  const [long, setLong] = useState("");
+  const [showAddress, setShowAddress] = useState(false);
+  const showDistance = z_code.length > 4 ? true : false;
+  const [zipCode, setZipCode] = useState(z_code);
+  const [distance, setDistance] = useState(range);
+  const [serviceCat, setServiceCat] = useState('');
+  const [showFilter, setShowFilter] = useState(z_code !== undefined);
   const handleSelect = async value => {
     setAddress(value);
     const results = await geocodeByAddress(value);
@@ -42,113 +48,151 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, searchD
     return destructured;
   };
   return (
-    <div className=" row align-items-end">
-      <div className="col-sm-6 col-md-6 col-lg-7 col-xl-8 search-order-1">
-        <div className="d-flex">
-          {showAddress && (
-            <div className="form-group flex-grow-1" data-testid="search-street">
-              <label htmlFor="street">Street</label>
-              <PlacesAutocomplete
-                onSelect={handleSelect}
-                value={address}
-                onChange={setAddress}
-              >
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,
-                  loading,
-                }) => (
-                  <>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="street"
-                      id="street"
-                      {...getInputProps({ placeholder: "Type Address" })}
-                      ref={register}
-                    />
+    <Fragment>
+      <div className=" row align-items-end">
+        <div className="col-sm-6 col-md-6 col-lg-7 col-xl-8 search-order-1">
+          <div className="d-flex">
+            {showAddress && (
+              <div className="form-group flex-grow-1" data-testid="search-street">
+                <label htmlFor="street">Street</label>
+                <PlacesAutocomplete
+                  onSelect={handleSelect}
+                  value={address}
+                  onChange={setAddress}
+                >
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading,
+                  }) => (
+                    <>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="street"
+                        id="street"
+                        {...getInputProps({ placeholder: "Type Address" })}
+                        ref={register}
+                      />
 
-                    {/* No spinners are set here as of now. You can re-use the loader from EventContainer page; 
-                    though the size of the spinner is set as 10em,fixed in main.scss file. */}
-                    {loading ? "Loading..." : null}
+                      {/* No spinners are set here as of now. You can re-use the loader from EventContainer page;
+                      though the size of the spinner is set as 10em,fixed in main.scss file. */}
+                      {loading ? "Loading..." : null}
 
-                    {suggestions.length > 0 && (
-                      <div
-                        data-testid="suggestions"
-                        className="suggestions-container"
-                      >
-                        {suggestions.map(suggestion => {
-                          return (
-                            <div {...getSuggestionItemProps(suggestion)} key={suggestion.id} >
-                              {suggestion.description}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </>
-                )}
-              </PlacesAutocomplete>
-            </div>
-          )}
-          <div className={showAddress ? "form-group" : "form-group zip-code"}>
-            <label htmlFor="zip_code">Zip</label>
-            <input
-              type="text"
-              className="form-control zip"
-              id="zip_code"
-              name="zip_code"
-              defaultValue={default_zipcode || search_zipcode}
-              onChange={e =>
-                {
-                  if(e.target.value.length === 5){
-                    setShowAddress(false)
-                    onSubmitHandler({"zip_code":e.target.value, "lat":lat, "long":long, "street": address})
-                  }
-                  // else{
-                  //   setShowAddress(false)
-                  // }
-              }}
-              ref={register({ required: true })}
-            />
-
-            {errors.zip_code && (
-              <span className="validationError">This field is required</span>
+                      {suggestions.length > 0 && (
+                        <div
+                          data-testid="suggestions"
+                          className="suggestions-container"
+                        >
+                          {suggestions.map(suggestion => {
+                            return (
+                              <div {...getSuggestionItemProps(suggestion)} key={suggestion.id} >
+                                {suggestion.description}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </PlacesAutocomplete>
+              </div>
             )}
+            <div className= "form-group zip-code">
+              <label htmlFor="zip_code">Zip</label>
+              <input
+                type="text"
+                className="form-control zip"
+                id="zip_code"
+                name="zip_code"
+                defaultValue={zipCode}
+                onChange={e =>
+                  {
+                    if(e.target.value.length === 5){
+                      setShowAddress(false)
+                      setZipCode(e.target.value)
+                      setDistance(DEFAULT_DISTANCE)
+                      setShowFilter(true)
+                      setServiceCat(null);
+                      onSubmitHandler({"zip_code": e.target.value, distance: DEFAULT_DISTANCE, "serviceCat": null});
+                    }
+                    else{
+                      setShowFilter(false)
+                    }
+                }}
+                ref={register({ required: true })}
+              />
+
+              {errors.zip_code && (
+                <span className="validationError">This field is required</span>
+              )}
+            </div>
+            <input
+              type="hidden"
+              defaultValue={lat || ""}
+              ref={register}
+              name="lat"
+            />
+            <input
+              type="hidden"
+              defaultValue={long || ""}
+              ref={register}
+              name="long"
+            />
           </div>
-          <input
-            type="hidden"
-            defaultValue={lat || ""}
-            ref={register}
-            name="lat"
-          />
-          <input
-            type="hidden"
-            defaultValue={long || ""}
-            ref={register}
-            name="long"
-          />
+        </div>
+        <div className="col-sm-6 col-md-6 col-lg-5 col-xl-4 text-right search-order-3">
+          <button
+            type="submit"
+            name="searchForResources"
+            dataid=""
+            id="search-resource"
+            value="Search For Resources"
+            className="btn custom-button search-button"
+          >
+            Search For Resources
+          </button>
+        </div>
+        <div className="col-12 search-order-2 mt-2">
+          {address.length === 0 && showAddress && (
+            <p>Enter your address for customized results (Optional) </p>
+          )}
         </div>
       </div>
-      <div className="col-sm-6 col-md-6 col-lg-5 col-xl-4 text-right search-order-3">
-        <button
-          type="submit"
-          name="searchForResources"
-          dataid=""
-          id="search-resource"
-          value="Search For Resources"
-          className="btn custom-button search-button"
-        >
-          Search For Resources
-        </button>
-      </div>
-      <div className="col-12 search-order-2 mt-2">
-        {address.length === 0 && showAddress && (
-          <p>Enter your address for customized results (Optional) </p>
+      <Fragment>
+        {showFilter && (
+          <FilterComponent
+            closeFilter={() => {
+              setShowFilter(false)
+              onSubmitHandler({"zip_code":zipCode, "distance": null, "serviceCat": null});
+            }}
+            distance={{
+              show: showDistance,
+              defaultValue: distance,
+              onChangeHandler: (e) => {
+                setDistance(e.target.value)
+                onSubmitHandler({"zip_code":zipCode, "distance": e.target.value, "serviceCat": serviceCat});
+                }
+            }}
+            serviceCat={{
+              show: showDistance,
+              defaultValue: serviceCat,
+              data: categories,
+              onChangeHandler: (e) => {
+                setServiceCat(e.target.value)
+                onSubmitHandler({"zip_code":zipCode, "distance": distance, "serviceCat": e.target.value});
+                }
+            }}
+          />
         )}
-      </div>
-    </div>
+      </Fragment>
+    </Fragment>
   );
 });
+
+SearchComponent.defaultProps = {
+  range: '',
+  z_code: ''
+}
 export default SearchComponent;

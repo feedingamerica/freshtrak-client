@@ -10,15 +10,50 @@ import { API_URL } from '../../Utils/Urls';
 import { setCurrentZip } from '../../Store/Search/searchSlice';
 import axios from 'axios';
 import '../../Assets/scss/main.scss';
+import {DEFAULT_DISTANCE} from '../../Utils/Constants'
+import serviceCatFilter from '../../Utils/serviceCatFilter';
+import SpinnerComponent from '../General/SpinnerComponent';
 
 const EventContainer = props => {
-  const { zipCode } = useParams();
+  const { zipCode = '', distance = DEFAULT_DISTANCE, serviceCat } = useParams();
   const [foodBankResponse, setFoodBankResponse] = useState(false);
   let [foodBankData, setFoodBankData] = useState({});
   let [searchDetails, setSearchDetails] = useState({});
   const [serverError, setServerError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [agencyData, setAgencyData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [zip, setZip] = useState(null);
   const dispatch = useDispatch();
+  const categories = serviceCatFilter(filteredData);
+
+  const getEvents = async () => {
+    if (zipCode) {
+      setLoading(true);
+      try {
+        const resp = await axios.get(API_URL.EVENTS_LIST, {
+          params: { zip_code: zipCode, distance: distance , category: serviceCat}
+        });
+        const {
+          data: { agencies },
+        } = resp;
+        setAgencyData(agencies);
+        if(zip !== zipCode || filteredData.length === 0) {
+          setZip(zipCode);
+          setFilteredData(agencies)
+        }
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (zipCode) {
+      getEvents();
+    }
+  }, [zipCode, distance, serviceCat]);
 
   useEffect(() => {
     if (zipCode) {
@@ -60,13 +95,20 @@ const EventContainer = props => {
     }
   };
 
-  const onSubmit = data => {
-    if (data) {
-      const { zip_code } = data;
-      props.history.push({
-        pathname: `/events/list/${zip_code}`,
-      });
+  const onSubmit = ({zip_code, distance, serviceCat}) => {
+    let url = `/events/list/`;
+    if (zip_code){
+      url += zip_code + '/';
     }
+    if (distance){
+      url += distance + '/';
+    }
+    if (serviceCat){
+      url += serviceCat + '/';
+    }
+    props.history.push({
+      pathname: url
+    });
   };
   // const localUserToken = localStorage.getItem('userToken');
   localStorage.setItem('search_zip', `${zipCode}`);
@@ -82,6 +124,10 @@ const EventContainer = props => {
                 errors={errors}
                 onSubmitHandler={onSubmit}
                 searchData={searchDetails}
+                z_code={zipCode}
+                range = {distance}
+                agencyData={agencyData}
+                categories={categories}
               />
             </form>
             {loading && (
@@ -91,7 +137,8 @@ const EventContainer = props => {
             )}
             {!loading && <ResourceList />}
           </div>
-          { <EventListContainer zipCode={zipCode} />}
+          {!loading && <EventListContainer agencyData={agencyData} zipCode={zipCode} distance={distance} serviceCat={serviceCat}/>}
+          {loading && <SpinnerComponent />}
         </div>
       </section>
     </div>

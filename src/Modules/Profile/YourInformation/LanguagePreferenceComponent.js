@@ -8,7 +8,7 @@ const LanguagePreferenceComponent = () =>{
         <div className="card-title flex-grow-1">Language Preference</div>
         <div className="edit-icon ml-1">
           <span className="edit-icon">
-            <img src={editIcon} />
+            <img src={editIcon} onClick={()=>console.log("lang pref clicked")}/>
           </span>
         </div>
       </div>

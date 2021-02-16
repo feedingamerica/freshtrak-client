@@ -25,6 +25,7 @@ const RegistrationConfirmComponent = props => {
   const [isLoading, setLoading] = useState(false);
   const event = useSelector(selectEvent);
   let HOME_OR_ROOT_URL = RENDER_URL.HOME_URL;
+  let PROFILE_ROOT = RENDER_URL.PROFILE_URL;
   const location = useLocation();
   const [userToken, setUserToken] = useState(undefined);
   const [isError, setIsError] = useState(false);
@@ -70,6 +71,7 @@ const RegistrationConfirmComponent = props => {
       dispatch(setCurrentUser(data));
       setUser(data);
       setLoading(false);
+      console.log("data is >>",data)
     } catch (e) {
       console.error(e);
     }
@@ -79,6 +81,8 @@ const RegistrationConfirmComponent = props => {
 
   function fetchBusinesses(){
     setUserToken(localStorage.getItem('userToken'));
+    let tok = localStorage.getItem('userToken');
+    console.log("setUserToken called >>",tok)
     if (!isError && !pageError) {
       if(Object.keys(selectedEvent).length === 0) {
         getEvent();
@@ -90,6 +94,8 @@ const RegistrationConfirmComponent = props => {
   }
 
   const getEvent = async () => {
+    let TOKENNN = getUser(localStorage.getItem('userToken'))
+    console.log("TOKENNN >> ",TOKENNN)
     try {
       const resp = await axios.get(
         `${BASE_URL}api/event_dates/${eventDateId}/event_details`
@@ -135,7 +141,28 @@ const RegistrationConfirmComponent = props => {
           <section className="container pt-100 pb-100 register-confirmation">
             <h1 className="big-title med-title mt-5 mb-5 mobile-mb">
               You're Registered
+              
             </h1>
+            {/* <span>
+                  Special Instructions Link <b> Hii </b>
+                </span> */}
+
+            <Link to={PROFILE_ROOT}>
+              <div className="button-wrap mt-4">
+                <button
+                  type="submit"
+                  className="btn custom-button"
+                  data-testid="continue button"
+                >
+                  Go To Profile
+                </button>
+              </div>
+            </Link>
+
+
+
+
+
             <h4>
               <b> {event.agencyName} </b>
             </h4>

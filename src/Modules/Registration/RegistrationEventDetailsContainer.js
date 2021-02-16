@@ -74,6 +74,7 @@ const RegistrationEventDetailsContainer = (props) => {
         } = resp;
         localStorage.setItem('userToken', token);
         localStorage.setItem('tokenExpiresAt', expires_at);
+        localStorage.setItem('isLoggedIn', true);
       }
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     } catch (e) {
@@ -86,7 +87,7 @@ const RegistrationEventDetailsContainer = (props) => {
   const getUserToken = (response) => {
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
-
+    console.log("Response is>>",response)
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
       showAuthenticationModal ? fetchUserToken(response) : setshowAuthenticationModal(true);
     } else {

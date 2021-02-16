@@ -8,7 +8,7 @@ const VehiclesComponent = () =>{
         <div className="card-title flex-grow-1">Vehicles</div>
         <div className="edit-icon ml-1">
           <span className="edit-icon">
-            <img src={editIcon} />
+            <img src={editIcon} onClick={()=>console.log("vehicle clicked")}/>
           </span>
         </div>
       </div>
