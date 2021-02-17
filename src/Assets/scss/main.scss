@@ -1,6 +1,7 @@
 @import "./variables";
 @import "./mixins";
 @import "./form-elements";
+@import "./fonts";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 
@@ -41,6 +42,12 @@ body {
     .section-title{
         font-size: 1.3rem;
         color: $color-light;
+    }
+    .f-18 {
+        font-size: 1.125rem;
+      }
+    .pointer{
+        cursor: pointer;
     }
     .pt-200 {
         padding-top: 200px;
@@ -1207,3 +1214,32 @@ body {
 .filter-close {
   background: #392947;
 }
+//edit drawer
+.overlay {
+    background: rgba($color: $black, $alpha: 0.2);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-end;
+    .edit-tray {
+      width: 376px;
+      padding: 2.5rem 2rem;
+      background: $white;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      line-height: normal;
+      .tray-header {
+        margin-bottom: 2rem;
+        .tray-title {
+          font-size: 1.5rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
