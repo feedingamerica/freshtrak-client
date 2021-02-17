@@ -1,6 +1,7 @@
 import React, { forwardRef, useState } from "react";
 import {DEFAULT_DISTANCE} from '../../Utils/Constants'
 import FilterComponent from './FilterComponent';
+import localization from '../Localization/LocalizationComponent'
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -151,7 +152,7 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, z_code,
             value="Search For Resources"
             className="btn custom-button search-button"
           >
-            Search For Resources
+            {localization.search_for_resources}
           </button>
         </div>
         <div className="col-12 search-order-2 mt-2">
