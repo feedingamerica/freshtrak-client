@@ -24,8 +24,7 @@ const HeaderDataComponent = () => {
         <div className="banner-content">
           {currentPath !== RENDER_URL.EVENT_LIST_URL ? (
             <h1 className="text-center">
-              {/* {localization.home_freshtrack} */}
-              Find food resources in your neighborhood.
+              {localization.home_freshtrack}
             </h1>
           ) : (
             <h1 className="text-center">Resource Events In Zip Code {zip}</h1>
