@@ -15,7 +15,8 @@ let localization = new LocalizedStrings({
    home_before_footer3: "Remove the bottleneck from distribution with online customer pre-registration. Serve more customers, safely!",
    home_before_footer1_header: "Predict Need",
    home_before_footer2_header: "Serve Food",
-   home_before_footer3_header:"Move Quickly"
+   home_before_footer3_header:"Move Quickly",
+   search_for_resources: "Search For Resources"
 
  },
  spa: {
@@ -32,7 +33,8 @@ let localization = new LocalizedStrings({
    home_before_footer3: "Elimine el cuello de botella de la distribución con el registro previo del cliente en línea. ¡Atienda a más clientes de forma segura!",
    home_before_footer1_header: "Predecir la necesidadd",
    home_before_footer2_header: "Servir comida",
-   home_before_footer3_header:"Muévete rápido"
+   home_before_footer3_header:"Muévete rápido",
+   search_for_resources: "Buscar recursos"
  },
  som: {
   home_freshtrack:"FreshTrak waxay halkan u joogtaa inay ku caawiso!",
@@ -48,7 +50,8 @@ let localization = new LocalizedStrings({
   home_before_footer3: "Ka saar culeyska ka jira qaybinta adoo diiwaangelinaya macaamiisha qadka tooska ah. U adeeg macaamiil badan, si badbaado leh!",
   home_before_footer1_header: "Saadaal Baahi",
   home_before_footer2_header: "Cunso Cunto",
-  home_before_footer3_header:"Si Deg Deg Ah U Dhaqaaq"
+  home_before_footer3_header:"Si Deg Deg Ah U Dhaqaaq",
+  search_for_resources: "Raadi Kheyraad"
 },
 rus: {
   home_freshtrack:"FreshTrak здесь, чтобы помочь!",
@@ -64,7 +67,8 @@ rus: {
   home_before_footer3: "Устраните узкое место в распространении с помощью предварительной онлайн-регистрации клиентов. Безопасно обслуживайте больше клиентов!",
   home_before_footer1_header: "Прогнозировать потребность",
   home_before_footer2_header: "Подавать еду",
-  home_before_footer3_header:"Быстро двигаться"
+  home_before_footer3_header:"Быстро двигаться",
+  search_for_resources: "Поиск ресурсов"
 },
  tur: {
   home_freshtrack:"FreshTrak yardım etmek için burada!",
@@ -80,7 +84,8 @@ rus: {
   home_before_footer3: "Çevrimiçi müşteri ön kaydı ile darboğazı dağıtımdan kaldırın. Daha fazla müşteriye güvenle hizmet verin!",
   home_before_footer1_header: "İhtiyacı Tahmin Et",
   home_before_footer2_header: "Yemek servis etmek",
-  home_before_footer3_header:"Hızlı hareket et"
+  home_before_footer3_header:"Hızlı hareket et",
+  search_for_resources: "Kaynakları Ara"
 },
 ara: {
   home_freshtrack:"FreshTrak هنا للمساعدة!",
@@ -96,7 +101,8 @@ ara: {
   home_before_footer3: "قم بإزالة عنق الزجاجة من التوزيع مع التسجيل المسبق للعملاء عبر الإنترنت. خدمة المزيد من العملاء بأمان!",
   home_before_footer1_header: "توقع الحاجة",
   home_before_footer2_header: "تقديم الطعام",
-  home_before_footer3_header:"تحرك بسرعة"
+  home_before_footer3_header:"تحرك بسرعة",
+  search_for_resources: "ابحث عن الموارد"
 },
 zho: {
   home_freshtrack:"FreshTrak在這里為您提供幫助",
@@ -112,7 +118,8 @@ zho: {
   home_before_footer3: "通过在线客户预先注册，消除了分销的瓶颈。安全地服务更多的客户！",
   home_before_footer1_header: "预测需求",
   home_before_footer2_header: "提供食物",
-  home_before_footer3_header: "动作快点"
+  home_before_footer3_header: "动作快点",
+  search_for_resources: "搜索资源"
 },
 hin: {
   home_freshtrack:"FreshTrak मदद करने के लिए यहाँ है!",
@@ -128,7 +135,8 @@ hin: {
   home_before_footer3: "ऑनलाइन ग्राहक पूर्व पंजीकरण के साथ वितरण से अड़चन को दूर करें। अधिक ग्राहकों की सेवा करें, सुरक्षित रूप से!",
   home_before_footer1_header: "भविष्यवाणी की जरूरत है",
   home_before_footer2_header: "भोजन परोसे",
-  home_before_footer3_header:"जल्दी चलो"
+  home_before_footer3_header:"जल्दी चलो",
+  search_for_resources: "संसाधनों के लिए खोज"
 },
 nep: {
   home_freshtrack:"फ्रेशट्र्याक मद्दत गर्न यहाँ छ!",
@@ -144,7 +152,8 @@ nep: {
   home_before_footer3: "अनलाइन ग्राहक पूर्व-दर्ता संग वितरण बाट अवरोध हटाउनुहोस्। अधिक ग्राहकहरूको सेवा गर्नुहोस्, सुरक्षित रूपमा!",
   home_before_footer1_header: "भविष्यवाणी आवश्यकता",
   home_before_footer2_header: "खाना परोस",
-  home_before_footer3_header:"द्रुत रूपमा सार्नुहोस्"
+  home_before_footer3_header:"द्रुत रूपमा सार्नुहोस्",
+  search_for_resources: "संसाधनहरूको लागि खोजी गर्नुहोस्"
 }
 });
 
