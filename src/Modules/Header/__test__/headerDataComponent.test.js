@@ -4,7 +4,6 @@ import configureStore from 'redux-mock-store';
 import { renderWithRouter, mockFoodBank } from '../../../Testing';
 import HeaderDataComponent from '../HeaderDataComponent';
 import { RENDER_URL } from '../../../Utils/Urls';
-// import localization from '../../Localization/LocalizationComponent'
 const mockStore = configureStore([]);
 const store = mockStore({
   language: {},
@@ -27,8 +26,6 @@ test(`should render 'Find food resources...' if location is not the event list u
   </Provider>, {
     route: RENDER_URL.REGISTRATION_FORM_URL,
   });
-  // getByText(${localization.home_freshtrack}/i);
-  getByText(/Find food resources in your neighborhood./i);
   getByTestId('subtext-on-header');
 });
 
