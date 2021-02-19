@@ -76,10 +76,12 @@ const Routes = () => {
               exact path={RENDER_URL.SIGN_IN}
               component={SignInContainer}
             /> */}
-            <Route
+
+            {/* Out of Scope - redirection chnaged to Freshtrak Partners*/}
+            {/* <Route
               path={RENDER_URL.FRESHTRAK_WORKING}
               component={StaticPageContainer}
-            />
+            /> */}
             <Route
               path={RENDER_URL.FRESHTRAK_ABOUT}
               component={StaticPageContainer}

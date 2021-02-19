@@ -24,7 +24,6 @@ export const RENDER_URL = {
   ADD_FAMILY_URL: '/family/create',
   SIGN_IN: '/family/sign-in',
   EDIT_FAMILY_URL: '/family/edit',
-  FRESHTRAK_WORKING: '/freshtrak-working',
   FRESHTRAK_ABOUT: '/freshtrak-about',
   REGISTRATION_FORM_URL: '/register/form',
   REGISTRATION_CONFIRM_URL: '/register/confirm',
