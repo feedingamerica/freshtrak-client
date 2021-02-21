@@ -22,7 +22,7 @@ const EligibilityModalComponent = ({
       </Modal.Header>
       <Modal.Body>
         <div className="mb-5">
-          <span> Move Slider to Increase Household Size </span>
+          <span> Member Size </span>
           <Slider
             value={slideValue}
             min={1}
