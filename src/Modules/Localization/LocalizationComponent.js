@@ -22,7 +22,10 @@ let localization = new LocalizedStrings({
    no_events_scheduled:"No Events Currently Scheduled",
    refine_your_results:"REFINE YOUR RESULTS",
    by_distance: "by Distance",
-   by_service_catogory: "by Service Category"
+   by_service_catogory: "by Service Category",
+   register: "Register Now.",
+   save_time: "Save Time.",
+   stay_safe: "Stay Safe."
 
  },
  spa: {
@@ -46,7 +49,10 @@ let localization = new LocalizedStrings({
    no_events_scheduled:"No hay eventos programados actualmente",
    refine_your_results:"REFINA TUS RESULTADOS",
    by_distance: "a distancia",
-   by_service_catogory: "por categoría de servicio"
+   by_service_catogory: "por categoría de servicio",
+   register: "Regístrate ahora.",
+   save_time: "Ahorrar tiempo.",
+   stay_safe: "Mantente segura"
  },
  som: {
   home_freshtrack:"FreshTrak waxay halkan u joogtaa inay ku caawiso!",
@@ -69,7 +75,10 @@ let localization = new LocalizedStrings({
   no_events_scheduled:"Dhacdooyin Majiraan Waqtigaan la qorsheeyay",
   refine_your_results:"NATIIJADA NATIIJADAADA",
   by_distance: "by Maskaxdii Dunid",
-  by_service_catogory: "by Qaybta Adeegga"
+  by_service_catogory: "by Qaybta Adeegga",
+  register: "Isdiiwaangeli Hada.",
+  save_time: "Waqti Badbaadi.",
+  stay_safe: "Ammaan ahaw"
 },
 rus: {
   home_freshtrack:"FreshTrak здесь, чтобы помочь!",
@@ -92,7 +101,10 @@ rus: {
   no_events_scheduled:"В настоящее время нет запланированных мероприятий",
   refine_your_results:"Уточните свои результаты",
   by_distance: "по расстоянию",
-  by_service_catogory: "по категории услуг"
+  by_service_catogory: "по категории услуг",
+  register: "Зарегистрируйтесь сейчас.",
+  save_time: "Экономьте время.",
+  stay_safe: "Оставайтесь в безопасности."
 },
  tur: {
   home_freshtrack:"FreshTrak yardım etmek için burada!",
@@ -115,7 +127,10 @@ rus: {
   no_events_scheduled:"Şu anda Planlanmış Etkinlik Yok",
   refine_your_results:"SONUÇLARINIZI DÜZELTİN",
   by_distance: "Mesafeye göre",
-  by_service_catogory: "Hizmet Kategorisine göre"
+  by_service_catogory: "Hizmet Kategorisine göre",
+  register: "Şimdi üye Ol.",
+  save_time: "Zamandan tasarruf.",
+  stay_safe: "Güvende kal."
 },
 ara: {
   home_freshtrack:"FreshTrak هنا للمساعدة!",
@@ -138,7 +153,10 @@ ara: {
   no_events_scheduled:"لا توجد أحداث مجدولة حاليا",
   refine_your_results:"حسّن نتائجك",
   by_distance: "عن طريق المسافة",
-  by_service_catogory: "حسب فئة الخدمة"
+  by_service_catogory: "حسب فئة الخدمة",
+  register: "سجل الان.",
+  save_time: "وفر الوقت.",
+  stay_safe: "ابق آمنًا."
 },
 zho: {
   home_freshtrack:"FreshTrak在這里為您提供幫助",
@@ -161,7 +179,10 @@ zho: {
   no_events_scheduled:"目前未安排活动",
   refine_your_results:"完善您的结果",
   by_distance: "按距离",
-  by_service_catogory: "按服务类别"
+  by_service_catogory: "按服务类别",
+  register: "现在注册。",
+  save_time: "省时间。",
+  stay_safe: "注意安全。"
 },
 hin: {
   home_freshtrack:"FreshTrak मदद करने के लिए यहाँ है!",
@@ -184,7 +205,10 @@ hin: {
   no_events_scheduled:"वर्तमान में कोई कार्यक्रम निर्धारित नहीं है",
   refine_your_results:"अपने परिणामों को पढ़ें",
   by_distance: "दूरी द्वारा",
-  by_service_catogory: "सेवा श्रेणी द्वारा"
+  by_service_catogory: "सेवा श्रेणी द्वारा",
+  register: "अभी पंजीकरण करें।",
+  save_time: "समय बचाओ।",
+  stay_safe: "सुरक्षित रहें।"
 },
 nep: {
   home_freshtrack:"फ्रेशट्र्याक मद्दत गर्न यहाँ छ!",
@@ -207,7 +231,10 @@ nep: {
   no_events_scheduled:"हाल कुनै कार्यक्रमहरू तालिकाबद्ध गरिएको छैन",
   refine_your_results:"तपाइँका परिणामहरूलाई परिष्कृत गर्नुहोस",
   by_distance: "दूरी बाट",
-  by_service_catogory: "सेवा कोटी द्वारा"
+  by_service_catogory: "सेवा कोटी द्वारा",
+  register: "अहिले नै दर्ता गर्नुहोस।",
+  save_time: "समयकाे बचत गर।",
+  stay_safe: "सुरक्षित रहनुहोस्।"
 }
 });
 
