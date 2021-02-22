@@ -16,7 +16,13 @@ let localization = new LocalizedStrings({
    home_before_footer1_header: "Predict Need",
    home_before_footer2_header: "Serve Food",
    home_before_footer3_header:"Move Quickly",
-   search_for_resources: "Search For Resources"
+   search_for_resources: "Search For Resources",
+   resource_zip_code: "Resource Events In Zip Code",
+   resource_zip_code_events:"Resource Events Serving Residents of Zip Code",
+   no_events_scheduled:"No Events Currently Scheduled",
+   refine_your_results:"REFINE YOUR RESULTS",
+   by_distance: "by Distance",
+   by_service_catogory: "by Service Category"
 
  },
  spa: {
@@ -34,7 +40,13 @@ let localization = new LocalizedStrings({
    home_before_footer1_header: "Predecir la necesidadd",
    home_before_footer2_header: "Servir comida",
    home_before_footer3_header:"Muévete rápido",
-   search_for_resources: "Buscar recursos"
+   search_for_resources: "Buscar recursos",
+   resource_zip_code: "Eventos de recursos en código postal",
+   resource_zip_code_events:"Eventos de recursos que sirven a los residentes del código postal",
+   no_events_scheduled:"No hay eventos programados actualmente",
+   refine_your_results:"REFINA TUS RESULTADOS",
+   by_distance: "a distancia",
+   by_service_catogory: "por categoría de servicio"
  },
  som: {
   home_freshtrack:"FreshTrak waxay halkan u joogtaa inay ku caawiso!",
@@ -51,7 +63,13 @@ let localization = new LocalizedStrings({
   home_before_footer1_header: "Saadaal Baahi",
   home_before_footer2_header: "Cunso Cunto",
   home_before_footer3_header:"Si Deg Deg Ah U Dhaqaaq",
-  search_for_resources: "Raadi Kheyraad"
+  search_for_resources: "Raadi Kheyraad",
+  resource_zip_code: "Dhacdooyinka Kheyraadka ee Lambarka Zip",
+  resource_zip_code_events:"Dhacdooyinka Kheyraadka ee loogu adeegayo Dadka Deggan Zip Code",
+  no_events_scheduled:"Dhacdooyin Majiraan Waqtigaan la qorsheeyay",
+  refine_your_results:"NATIIJADA NATIIJADAADA",
+  by_distance: "by Maskaxdii Dunid",
+  by_service_catogory: "by Qaybta Adeegga"
 },
 rus: {
   home_freshtrack:"FreshTrak здесь, чтобы помочь!",
@@ -68,7 +86,13 @@ rus: {
   home_before_footer1_header: "Прогнозировать потребность",
   home_before_footer2_header: "Подавать еду",
   home_before_footer3_header:"Быстро двигаться",
-  search_for_resources: "Поиск ресурсов"
+  search_for_resources: "Поиск ресурсов",
+  resource_zip_code: "События ресурсов в почтовом индексе",
+  resource_zip_code_events:"События ресурсов, обслуживающие жителей почтового индекса",
+  no_events_scheduled:"В настоящее время нет запланированных мероприятий",
+  refine_your_results:"Уточните свои результаты",
+  by_distance: "по расстоянию",
+  by_service_catogory: "по категории услуг"
 },
  tur: {
   home_freshtrack:"FreshTrak yardım etmek için burada!",
@@ -85,7 +109,13 @@ rus: {
   home_before_footer1_header: "İhtiyacı Tahmin Et",
   home_before_footer2_header: "Yemek servis etmek",
   home_before_footer3_header:"Hızlı hareket et",
-  search_for_resources: "Kaynakları Ara"
+  search_for_resources: "Kaynakları Ara",
+  resource_zip_code: "Posta Kodundaki Kaynak Olayları",
+  resource_zip_code_events:"Posta Kodu Sakinlerine Hizmet Veren Kaynak Olayları",
+  no_events_scheduled:"Şu anda Planlanmış Etkinlik Yok",
+  refine_your_results:"SONUÇLARINIZI DÜZELTİN",
+  by_distance: "Mesafeye göre",
+  by_service_catogory: "Hizmet Kategorisine göre"
 },
 ara: {
   home_freshtrack:"FreshTrak هنا للمساعدة!",
@@ -102,7 +132,13 @@ ara: {
   home_before_footer1_header: "توقع الحاجة",
   home_before_footer2_header: "تقديم الطعام",
   home_before_footer3_header:"تحرك بسرعة",
-  search_for_resources: "ابحث عن الموارد"
+  search_for_resources: "ابحث عن الموارد",
+  resource_zip_code: "أحداث المورد في الرمز البريدي",
+  resource_zip_code_events:"أحداث المورد التي تخدم سكان الرمز البريدي",
+  no_events_scheduled:"لا توجد أحداث مجدولة حاليا",
+  refine_your_results:"حسّن نتائجك",
+  by_distance: "عن طريق المسافة",
+  by_service_catogory: "حسب فئة الخدمة"
 },
 zho: {
   home_freshtrack:"FreshTrak在這里為您提供幫助",
@@ -119,7 +155,13 @@ zho: {
   home_before_footer1_header: "预测需求",
   home_before_footer2_header: "提供食物",
   home_before_footer3_header: "动作快点",
-  search_for_resources: "搜索资源"
+  search_for_resources: "搜索资源",
+  resource_zip_code: "邮政编码中的资源事件",
+  resource_zip_code_events:"为居民提供服务的资源事件",
+  no_events_scheduled:"目前未安排活动",
+  refine_your_results:"完善您的结果",
+  by_distance: "按距离",
+  by_service_catogory: "按服务类别"
 },
 hin: {
   home_freshtrack:"FreshTrak मदद करने के लिए यहाँ है!",
@@ -136,7 +178,13 @@ hin: {
   home_before_footer1_header: "भविष्यवाणी की जरूरत है",
   home_before_footer2_header: "भोजन परोसे",
   home_before_footer3_header:"जल्दी चलो",
-  search_for_resources: "संसाधनों के लिए खोज"
+  search_for_resources: "संसाधनों के लिए खोज",
+  resource_zip_code: "ज़िप कोड में संसाधन घटनाएँ",
+  resource_zip_code_events:"ज़िप कोड के निवासियों की सेवा के संसाधन कार्यक्रम",
+  no_events_scheduled:"वर्तमान में कोई कार्यक्रम निर्धारित नहीं है",
+  refine_your_results:"अपने परिणामों को पढ़ें",
+  by_distance: "दूरी द्वारा",
+  by_service_catogory: "सेवा श्रेणी द्वारा"
 },
 nep: {
   home_freshtrack:"फ्रेशट्र्याक मद्दत गर्न यहाँ छ!",
@@ -153,7 +201,13 @@ nep: {
   home_before_footer1_header: "भविष्यवाणी आवश्यकता",
   home_before_footer2_header: "खाना परोस",
   home_before_footer3_header:"द्रुत रूपमा सार्नुहोस्",
-  search_for_resources: "संसाधनहरूको लागि खोजी गर्नुहोस्"
+  search_for_resources: "संसाधनहरूको लागि खोजी गर्नुहोस्",
+  resource_zip_code: "जिप कोडमा स्रोत घटनाहरू",
+  resource_zip_code_events:"Zip Code को बासिन्दाको सेवा गर्ने स्रोत घटनाक्रम",
+  no_events_scheduled:"हाल कुनै कार्यक्रमहरू तालिकाबद्ध गरिएको छैन",
+  refine_your_results:"तपाइँका परिणामहरूलाई परिष्कृत गर्नुहोस",
+  by_distance: "दूरी बाट",
+  by_service_catogory: "सेवा कोटी द्वारा"
 }
 });
 

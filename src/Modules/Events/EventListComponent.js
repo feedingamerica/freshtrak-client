@@ -5,6 +5,7 @@ import React from 'react';
 import EventCardComponent from './EventCardComponent';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import '../../Assets/scss/main.scss';
+import localization from '../Localization/LocalizationComponent';
 
 const EventListComponent = props => {
   // Out of Scope
@@ -23,7 +24,7 @@ const EventListComponent = props => {
       {showHeader && (
         <div className="row m-0">
           <h2 className="font-weight-bold mobile-text-left">
-            Resource Events Serving Residents of Zip Code {zipCode}
+          {localization.resource_zip_code_events} {zipCode}
           </h2>
           {/* Out of scope */}
           {/* <div className="col-lg-4 col-xl-4 d-none-xs d-none-sm">
@@ -45,7 +46,7 @@ const EventListComponent = props => {
         </div>
       )}
       {Object.keys(events).length === 0 && (
-        <h3>No Events Currently Scheduled</h3>
+        <h3>{localization.no_events_scheduled}</h3>
       )}
       {Object.keys(events).length > 0 &&
         Object.entries(events).map(([date, event]) => (
