@@ -2,6 +2,7 @@ import React, { forwardRef } from "react";
 import { Fragment } from "react";
 import closeIcon from '../../Assets/img/close.svg';
 import funnelIcon from '../../Assets/img/funnel.svg';
+import localization from '../Localization/LocalizationComponent'
 
 const FilterComponent = forwardRef(({distance, serviceCat, closeFilter}, ref) => {
  
@@ -11,7 +12,7 @@ const FilterComponent = forwardRef(({distance, serviceCat, closeFilter}, ref) =>
         <div className="advance-search-results search-results px-5">
           <div className="row">
             <div className="col-md-12">
-              <span className="search-list-title"><img alt="filter" className="pb-1" src={funnelIcon}/> Refine your results</span>
+              <span className="search-list-title"><img alt="filter" className="pb-1" src={funnelIcon}/> {localization.refine_your_results}</span>
               {/* <span
                 className="day-view-title float-right"
                 onClick={ (e) => closeFilter(e)}
@@ -25,7 +26,7 @@ const FilterComponent = forwardRef(({distance, serviceCat, closeFilter}, ref) =>
             <div className="col-sm-3 search-order-1">
               { distance.show && (
                 <div className="form-group" >
-                  <label htmlFor="distance">by Distance</label>
+                  <label htmlFor="distance">{localization.by_distance}</label>
                   <select
                     className= {`form-control`}
                     name="distance"
@@ -49,7 +50,7 @@ const FilterComponent = forwardRef(({distance, serviceCat, closeFilter}, ref) =>
             <div className="col-sm-3 search-order-1">
               { serviceCat.show && (
                 <div className="form-group" >
-                  <label htmlFor="distance">by Service Category</label>
+                  <label htmlFor="distance">{localization.by_service_catogory}</label>
                   <select
                     className= {`form-control`}
                     name="serviceCat"

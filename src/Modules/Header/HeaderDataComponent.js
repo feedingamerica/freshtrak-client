@@ -27,7 +27,7 @@ const HeaderDataComponent = () => {
               {localization.home_freshtrack}
             </h1>
           ) : (
-            <h1 className="text-center">Resource Events In Zip Code {zip}</h1>
+            <h1 className="text-center">{localization.resource_zip_code} {zip}</h1>
           )}
           {currentPath !== RENDER_URL.EVENT_LIST_URL && (
             <p className="text-center" data-testid="subtext-on-header">
