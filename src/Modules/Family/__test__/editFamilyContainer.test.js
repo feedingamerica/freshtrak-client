@@ -1,14 +1,26 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import EditFamilyContainer from '../EditFamilyContainer';
+import configureStore from 'redux-mock-store';
+const mockStore = configureStore([]);
+const store = mockStore({
+  language: {},
+  addressSearch: {
+    zipCode: 43214
+  }
+});
+
 
 test('should render without errors', () => {
   expect(() => {
     render(
       <Router>
-        <EditFamilyContainer />
-      </Router>
+        <Provider store={store}>
+          <EditFamilyContainer />
+        </Provider>,);
+    </Router>
     );
   }).not.toThrowError();
 });
@@ -16,7 +28,9 @@ test('should render without errors', () => {
 test('should show loading till fake data comes', async () => {
   const { getByTestId } = render(
     <Router>
-      <EditFamilyContainer />
+      <Provider store={store}>
+        <EditFamilyContainer />
+      </Provider>,);
     </Router>
   );
 
