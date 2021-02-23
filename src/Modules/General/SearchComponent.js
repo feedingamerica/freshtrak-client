@@ -101,7 +101,7 @@ const SearchComponent = forwardRef(({ register, errors, onSubmitHandler, z_code,
               </div>
             )}
             <div className= "form-group zip-code">
-              <label htmlFor="zip_code">Zip</label>
+              <label htmlFor="zip_code">Household Zip code</label>
               <input
                 type="text"
                 className="form-control zip"
