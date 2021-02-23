@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import '../../Assets/scss/main.scss';
 import RegistrationTextComponent from './RegistrationTextComponent';
+import localization from '../Localization/LocalizationComponent';
 
 const RegistrationHeaderComponent = ({event}) => {
   return (
@@ -9,9 +10,9 @@ const RegistrationHeaderComponent = ({event}) => {
         <div className="col-12">
           <div className="title-wrap">
             <h1 className="big-title mt-5 mb-5 mobile-mb">
-              Register Now.<br />
-              Save Time.<br />
-              Stay Safe.
+            {localization.register}<br />
+            {localization.save_time}<br />
+            {localization.stay_safe}
             </h1>
           </div>
         </div>
