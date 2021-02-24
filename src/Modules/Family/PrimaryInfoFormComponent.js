@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import moment from 'moment';
+import localization from '../Localization/LocalizationComponent'
 
 const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watch }, ref) => {
   const date_of_birth = watch('date_of_birth') || '';
@@ -36,9 +37,9 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
 
   return (
   <div className="mt-4">
-    <h2>Who you are</h2>
+    <h2>{localization.register_who_are_you}</h2>
     <div className="form-group">
-      <label htmlFor="first_name">First Name<span className="text-danger">*</span></label>
+      <label htmlFor="first_name">{localization.first_name}<span className="text-danger">*</span></label>
       <input
         type="text"
         className= {`form-control ${errors.first_name && 'invalid'}`}
@@ -49,7 +50,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       {errors.first_name && <span className="text-danger">This field is required</span>}
     </div>
     <div className="form-group">
-      <label htmlFor="middle_name">Middle Name</label>
+      <label htmlFor="middle_name">{localization.middle_name}</label>
       <input
         type="text"
         className="form-control"
@@ -59,7 +60,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       />
     </div>
     <div className="form-group">
-      <label htmlFor="last_name">Last Name<span className="text-danger">*</span></label>
+      <label htmlFor="last_name">{localization.last_name}<span className="text-danger">*</span></label>
       <input
         type="text"
         className= {`form-control ${errors.last_name && 'invalid'}`}
@@ -70,7 +71,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       {errors.last_name && <span className="text-danger">This field is required</span>}
     </div>
     <div className="form-group">
-      <label htmlFor="suffix">Suffix</label>
+      <label htmlFor="suffix">{localization.suffix}</label>
       <select
         name="suffix"
         id="suffix"
@@ -89,7 +90,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       </select>
     </div>
     <div className="form-group">
-      <label htmlFor="date_of_birth">Date of Birth<span className="text-danger">*</span></label>
+      <label htmlFor="date_of_birth">{localization.dob}<span className="text-danger">*</span></label>
       <input
         type="text"
         className= {`form-control ${errors.date_of_birth && 'invalid'}`}
@@ -106,7 +107,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       }
     </div>
     <div className="form-group">
-      <label htmlFor="gender">Gender<span className="text-danger">*</span></label>
+      <label htmlFor="gender">{localization.gender}<span className="text-danger">*</span></label>
       <select
         className= {`form-control ${errors.gender && 'invalid'}`}
         name="gender"

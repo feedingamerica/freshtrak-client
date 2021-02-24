@@ -1,4 +1,5 @@
 import React, { Fragment, forwardRef } from 'react';
+import localization from '../Localization/LocalizationComponent'
 
 const MemberCountFormComponent = forwardRef(({ register, event, watch, setValue }, ref) => {
   const countSenior = watch('seniors_in_household') || 0 ;
@@ -47,11 +48,11 @@ const MemberCountFormComponent = forwardRef(({ register, event, watch, setValue 
   return (
     <Fragment>
       <div className="form-sub-title font-weight-bold mt-2">
-        <h2>Tell us about your family</h2>
-        How many additional family members are in each age group? (Do not include yourself)
+      <h2>{localization.register_about_family}</h2>
+        {localization.family_count}
         <div className="mt-3 pt-1">
           <div className="d-flex align-items-center pt-2 pb-2">
-            <div className="member-age">Seniors ({event.seniorAge}+)</div>
+            <div className="member-age">{localization.seniors} ({event.seniorAge}+)</div>
             <div className="button-wrap d-flex flex-grow-1"></div>
             <button
               onClick={seniorDecrementFunction}
@@ -83,7 +84,7 @@ const MemberCountFormComponent = forwardRef(({ register, event, watch, setValue 
           </div>
 
           <div className="d-flex align-items-center pt-2 pb-2">
-              <div className="member-age">Adults ({event.adultAge}+)</div>
+              <div className="member-age">{localization.adults} ({event.adultAge}+)</div>
               <div className="button-wrap d-flex flex-grow-1"></div>
             <button
               onClick={adultDecrementFunction}
@@ -115,7 +116,7 @@ const MemberCountFormComponent = forwardRef(({ register, event, watch, setValue 
           </div>
 
           <div className="d-flex align-items-center pt-2 pb-2">
-              <div className="member-age">Kids</div>
+              <div className="member-age">{localization.kids}</div>
               <div className="button-wrap d-flex flex-grow-1"></div>
             <button
               onClick={kidDecrementFunction}
@@ -148,7 +149,7 @@ const MemberCountFormComponent = forwardRef(({ register, event, watch, setValue 
         </div>
       </div>
       <div className="form-group">
-        <label htmlFor="license_plate">License Plate</label>
+        <label htmlFor="license_plate">{localization.license_plate}</label>
         <input
           type="text"
           className="form-control"
@@ -157,7 +158,7 @@ const MemberCountFormComponent = forwardRef(({ register, event, watch, setValue 
           ref={register}
         />
         <small>
-          If you will arrive at the distribution in a vehicle and know the license plate, please include it here. Sharing your license plate enables expedited check-in at some distributions.
+          {localization.arrive_disribution}
         </small>
       </div>
     </Fragment>
