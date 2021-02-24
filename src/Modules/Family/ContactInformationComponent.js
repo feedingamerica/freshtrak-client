@@ -1,5 +1,6 @@
 import React, { forwardRef, Fragment } from 'react';
 import PhoneInputComponent from './PhoneInputComponent';
+import localization from '../Localization/LocalizationComponent'
 
 const ContactInformationComponent = forwardRef(
   ({ register, errors, getValues, setValue, watch }, ref) => {
@@ -10,10 +11,10 @@ const ContactInformationComponent = forwardRef(
 
     return (
       <Fragment>
-        <h2>How to Contact You</h2>
+        <h2>{localization.register_how_to_contact}</h2>
         {showPhonePermissions && (
           <div className="form-group">
-            <label htmlFor="phone">Phone Number (Mobile Preferred)</label>
+            <label htmlFor="phone">{localization.phone_number}</label>
             <PhoneInputComponent
               type="text"
               className= {`form-control ${errors.phone && 'invalid'}`}
@@ -43,7 +44,7 @@ const ContactInformationComponent = forwardRef(
               ref={register}
             />
             <label htmlFor="no_phone_number" className="form-check-label">
-              No Phone Available
+              {localization.no_phone}
 						</label>
           </div>
         )}
@@ -59,8 +60,7 @@ const ContactInformationComponent = forwardRef(
             />
             <label htmlFor="permission_to_text" className="form-check-label">
               <small data-testid="phone permission">
-                Is it okay to contact you with updates and information about
-                your registration, and updates to our network?
+                {localization.phone_contact_you}
 							</small>
             </label>
           </div>
@@ -113,7 +113,7 @@ const ContactInformationComponent = forwardRef(
               ref={register}
             />
             <label htmlFor="no_email" className="form-check-label">
-              No Email Available
+              {localization.no_email}
 						</label>
           </div>
         )}
@@ -129,8 +129,7 @@ const ContactInformationComponent = forwardRef(
             />
             <label htmlFor="permission_to_email" className="form-check-label">
               <small data-testid="email permission">
-                Is it okay to email you with updates and information about your
-                registration, and updates to our network?
+                {localization.email_contact_you}
 							</small>
             </label>
           </div>
