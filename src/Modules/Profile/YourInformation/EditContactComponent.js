@@ -27,29 +27,24 @@ const EditContactComponent = (props) => {
 
   const onSubmit = (data) => {
     props.tabClose()
-    console.log("onSubmit called in contactEditComponent > data >>", data)
-      // let contactData = {
-      //     ...data,
-      //     //start_date: startDate ? moment(startDate).format("MM/DD/YYYY") : "",
-      //     //end_date: endDate ? moment(endDate).format("MM/DD/YYYY") : ""
-      // }
-postData(data)
-
-      
-      //props.onSaveProxy(proxyData)
+    postData(data)
   }
 
   const postData = async (data) =>{
-    const userToken = localStorage.getItem('userToken');
-      try {
-        await axios.post(API_URL.USER_CONTACT, {[data]: data},
-          { headers: { Authorization: `Bearer ${userToken}` } }
-        );
-      } catch (e) {
-        if (!e.response){
-          e.response = {data: {"user_id": ["Something Went Wrong"]}}
-        }
+    let param = {"user":
+    {
+      email : (data.email== null || data.email== "" || data.email== undefined ? email : data.email),
+      phone : (data.phone == null || data.phone== "" || data.phone== undefined ? phone : data.phone)
+    }
   }
+    const userToken = localStorage.getItem('userToken');
+    try {
+      const resp = await axios.put(API_URL.UPDATE_INFORMATION, param,
+        { headers: { Authorization: `Bearer ${userToken}` } }
+      );
+      props.refreshMainTab()
+    } catch (e) {
+}
 }
 
   const onPhoneChange = (e) => {
@@ -59,10 +54,8 @@ postData(data)
         phoneNumber = phoneNumber.substring(0, 10)
         const num = `(${phoneNumber.substring(0, 3)}) ${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6, phoneNumber.length)}`;
         setPhone(num)
-        console.log("num is>>",num)
     }
     else {
-      console.log("num in else is>>",e.target.value)
         setPhone(e.target.value)
     }
 }
@@ -71,7 +64,6 @@ postData(data)
     <div> <form onSubmit={handleSubmit(onSubmit)}>
 
         <div className="form-group">
-            <label>Edit Contact </label>
 
 
 
@@ -85,7 +77,7 @@ postData(data)
                     className= {`form-control ${errors.email && 'invalid'}`}
                     name="email"
                     id="email"
-                    value={email}
+                    value={email !== null ? email : ""}
                     onChange={(e)=>setEmail(e.target.value)}
                     ref={register({ required: true })}
                   />

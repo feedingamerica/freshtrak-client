@@ -78,6 +78,7 @@ const AddressComponent = forwardRef(({ register, errors, addressData, states, se
         });
         return destructured;
     };
+   
 
     return (<div>
         <div className="form-group">
@@ -171,16 +172,17 @@ const AddressComponent = forwardRef(({ register, errors, addressData, states, se
 
 
 
-      <div className="form-group ml-2">
+      <div className="form-group">
       <label htmlFor="state">State<span className="text-danger">*</span></label>
       <select
         className="form-control"
         name="state_code"
         id="state_code"
         //value={state_code}
-        defaultValue={state_code}
-        onChange={(e) => setValue('state_code', e.target.value)}
-        // ref={register({ required: true })}
+        //onSelect={handleSelect}
+        //defaultValue={state_code}
+        //onChange={(e) => setValue('state_code', e.target.value)}
+        ref={register({ required: true })}
       >
         <option value="" defaultValue></option>
         <option value="AK">Alaska</option>
@@ -238,66 +240,6 @@ const AddressComponent = forwardRef(({ register, errors, addressData, states, se
       </select>
       {/* {errors.state && <span className="text-danger">This field is required</span>} */}
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-        {/* <div className="form-group">
-            <label>State </label>
-            <div className="select-wrapper">
-                <select
-                    className="form-control"
-                    name="state_code"
-                    id="state_code"
-                    value={state_code}
-                    onChange={(e) => setValue('state_code', e.target.value)}
-                    ref={register({ required: true })}
-                >
-                    <option value=""></option>
-                    {states.length &&
-                        states.map((stateItem, i) => (
-                            <option value={stateItem.state_code} key={stateItem.state_code + i} >{stateItem.state}</option>
-                        ))}
-                </select>
-                {errors.state_code && (
-                    <span className="text-danger">This field is required</span>
-                )}
-            </div>
-        </div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

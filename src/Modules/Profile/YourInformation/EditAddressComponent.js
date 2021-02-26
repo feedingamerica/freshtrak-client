@@ -2,26 +2,37 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import AddressComponent from "../../General/AddressComponent";
+import axios from 'axios';
+import { API_URL } from '../../../Utils/Urls';
 const EditAddressComponent = (props) => {
 
     const { register, handleSubmit, errors, setValue, watch } = useForm();
 
     const onSubmit = (data) => {
-        console.log("close clicked")
-        // let saveParams = {
-        //     familyAddressData: {
-        //         ...data
-        //     }
-        // }
-        // saveContactAddress({
-        //     saveParams,
-        //     family_id: props.family_id
-        // }).then(res => {
-        //     if (res.data.content) {
-        //         props.tabClose()
-        //         props.loadProfileData(props.resetData);
-        //     }
-        // }).catch(er => console.log(er))
+        props.tabClose()
+        updateAddress(data)
+    }
+    const updateAddress=async(data)=>{
+        let param = {
+            "user" : {
+                address_line_1 : data.address_line_1,
+                address_line_2 : data.address_line_2,
+                city : data.city,
+                state : data.state_code,
+                zip_code : data.zip_code
+            }
+            
+          }
+
+          const userToken = localStorage.getItem('userToken');
+        try {
+          const resp = await axios.put(API_URL.UPDATE_INFORMATION, param,
+            { headers: { Authorization: `Bearer ${userToken}` } }
+          );
+          props.refreshMainTab()
+        } catch (e) {
+          console.log("error occured IN EDIT ADDRESS >",e)
+    }
     }
 
 
@@ -33,6 +44,7 @@ const EditAddressComponent = (props) => {
             //states={props.contactFormData.states}
             setValue={setValue}
             watch={watch}
+            //callback={()=>}
         />
         <div>
             <button

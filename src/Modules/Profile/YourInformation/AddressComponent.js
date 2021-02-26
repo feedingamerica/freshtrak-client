@@ -13,9 +13,10 @@ const AddressComponent = (props) =>{
         </div>
       </div>
       <div className="d-flex flex-column">
-        <div>1223 Cincinnati Rd.</div>
-        <div>Unit 304</div>
-        <div>Hilliard, Ohio 43026</div>
+        <div>{props.data.address1}</div>
+        {props.data.address2 !== null ? <div>{props.data.address2}</div> : null}
+        <div>{props.data.city}</div>
+        <div>{props.data.state}, {props.data.zipcode}</div>
       </div>
       
     </div>

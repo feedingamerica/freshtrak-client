@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
-import PhoneComponent from '../../General/PhoneComponent'
+import PhoneComponent from '../../General/PhoneComponent';
+import { API_URL } from '../../../Utils/Urls';
+import axios from 'axios';
 
 
-const EditContactComponent = (props) => {
+const EditVehicleComponent = (props) => {
   const { register, handleSubmit, errors,setValue,watch } = useForm();
-  const [email, setEmail] = useState(null)
-  const [phone, setPhone] = useState(null)
+  const [vehicle, setVehicle] = useState(null)
 
   useEffect(()=>{
-    if (email == null && phone == null) {
-      setContactDetails()
+    if (vehicle == null ) {
+      setVehicleDetails()
     }
   })
 
-  const setContactDetails=()=>{
-    let ContactDetails = { ...props.contactData }
-    setEmail(ContactDetails.email)
-    setPhone(ContactDetails.phone)
+  const setVehicleDetails=()=>{
+    let VehicleDetails = { ...props.vehicleData }
+    setVehicle(VehicleDetails.vehicle_number)
   }
 
 
@@ -25,36 +25,30 @@ const EditContactComponent = (props) => {
 
   const onSubmit = (data) => {
     props.tabClose()
-    console.log("onSubmit called in contactEditComponent")
-      let contactData = {
-          ...data,
-          //start_date: startDate ? moment(startDate).format("MM/DD/YYYY") : "",
-          //end_date: endDate ? moment(endDate).format("MM/DD/YYYY") : ""
-      }
-      //props.onSaveProxy(proxyData)
+    updateVehicleData(data)
   }
 
-
-  const onPhoneChange = (e) => {
-    const number = e.target.value;
-    let phoneNumber = number.replace(/[^0-9]/ig, "");
-    if (phoneNumber.length > 10) {
-        phoneNumber = phoneNumber.substring(0, 10)
-        const num = `(${phoneNumber.substring(0, 3)}) ${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6, phoneNumber.length)}`;
-        setPhone(num)
-        console.log("num is>>",num)
-    }
-    else {
-      console.log("num in else is>>",e.target.value)
-        setPhone(e.target.value)
-    }
+  const updateVehicleData = async (data) =>{
+    let param = {"user":{license_plate : data.vehicle}}
+    const userToken = localStorage.getItem('userToken');
+      try {
+        const resp = await axios.put(API_URL.UPDATE_INFORMATION, param,
+          { headers: { Authorization: `Bearer ${userToken}` } }
+        );
+        props.refreshMainTab()
+      } catch (e) {
+        console.log("error occured >",e)
+        
+  }
 }
+
+
+
   return (
     
     <div> <form onSubmit={handleSubmit(onSubmit)}>
 
         <div className="form-group">
-            <label>Edit Contact </label>
 
 
 
@@ -62,49 +56,17 @@ const EditContactComponent = (props) => {
 
 
               <div className="form-group">
-                  <label htmlFor="email">Email</label>
                   <input
-                    type="email"
-                    className= {`form-control ${errors.email && 'invalid'}`}
-                    name="email"
-                    id="email"
-                    value={email}
-                    onChange={(e)=>setEmail(e.target.value)}
+                    type="vehicle"
+                    className= {`form-control ${errors.vehicle && 'invalid'}`}
+                    name="vehicle"
+                    id="vehicle"
+                    value={vehicle}
+                    onChange={(e)=>setVehicle(e.target.value)}
                     ref={register({ required: true })}
                   />
-                  <small className="text-muted">
-                    No Email? <a href="https://support.google.com/mail/answer/56256" target="_blank" rel="noopener noreferrer">Get one free from Google.</a>
-                  </small><br />
-                  {errors.email && <span className="text-danger">This field is required</span>}
+                  {errors.vehicle && <span className="text-danger">This field is required</span>}
                 </div>
-
-
-
-
-
-
-
-       
-
-        <div className="form-group">
-            <label htmlFor="phone">Phone Number (Mobile Preferred)</label>
-            <PhoneComponent
-              type="text"
-              className= {`form-control ${errors.phone && 'invalid'}`}
-              name="phone"
-              placeholder="(xxx) xxx-xxxx"
-              id="phone"
-              value={phone}
-              onChange={(e)=>onPhoneChange(e)}
-              register={register}
-            />
-            {/* {errors.phone && (
-              <span className="text-danger">
-                This field is required. If you have no phone check "No Phone
-                Available".
-              </span>
-            )} */}
-          </div>
 
         <div>
             <button
@@ -121,4 +83,4 @@ const EditContactComponent = (props) => {
 
 }
 
-export default EditContactComponent;
+export default EditVehicleComponent;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image';
 import editIcon from "../../../Assets/img/edit.png";
 
 const ContactComponent = (props) =>{
@@ -14,8 +13,8 @@ const ContactComponent = (props) =>{
         </div>
       </div>
       <div className="d-flex flex-column">
-        <div>jneeley@gmail.com (preferred)</div>
-        <div>614-123-4567</div>
+        <div>{props.data.email}</div>
+        <div>{props.data.phone}</div>
       </div>
       
     </div>

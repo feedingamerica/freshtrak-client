@@ -5,6 +5,7 @@ import AddressComponent from './AddressComponent';
 import EditInformationComponent from './EditInformationComponent';
 import EditAddressComponent from "./EditAddressComponent";
 import EditContactComponent from "./EditContactComponent";
+import EditVehicleComponent from "./EditVehicleComponent";
 import ContactComponent from './ContactComponent';
 import InformationComponent from './InformationComponent';
 import LanguagePreferenceComponent from './LanguagePreferenceComponent';
@@ -30,18 +31,35 @@ const YourInformationContainer = () =>{
 
 
   useEffect(() => {
-    if(informationData == null || addressData == null || contactData == null || vehicleData == null){
+    if(informationData == null){
       getInformationDetails()
       getAddressDetails()
       getContactDetails()
       //getLanguageDetails()
       getVehicleDetails()
     }
-  
-    console.log("use effect in yic")
-    
-   
   },[informationData,addressData,contactData,vehicleData])
+
+  const refreshInformationTab=()=>{
+    getInformationDetails()
+  }
+
+  const refreshAddressTab=()=>{
+    getAddressDetails()
+  }
+
+  const refreshContactTab=()=>{
+    getContactDetails()
+  }
+
+  // const refreshLanguagePreferenceTab=()=>{
+  //   getLanguageDetails()
+  // }
+
+  const refreshVehicleTab=()=>{
+    getVehicleDetails()
+  }
+
 
   const getInformationDetails = async () =>{
     const userToken = localStorage.getItem('userToken');
@@ -51,9 +69,6 @@ const YourInformationContainer = () =>{
       const userInfoResp = await axios.get(USER_INFORMATION, {
         headers: { Authorization: `Bearer ${userToken}` }
       });
-      // setUsersReservation(usersRegData.data);
-      //getEventByDateId(usersRegData.data);
-      // setLoading();
       if(userInfoResp.data && userInfoResp.data.data[0]){
         setInformationData(userInfoResp.data.data[0])
       }
@@ -124,7 +139,6 @@ const getContactDetails = async () =>{
 
 const getVehicleDetails = async () =>{
   const userToken = localStorage.getItem('userToken');
-  console.log("userToken is >>",userToken)
   const {USER_VEHICLE} = API_URL;
   try {
     const userVehicleResp = await axios.get(USER_VEHICLE, {
@@ -133,7 +147,6 @@ const getVehicleDetails = async () =>{
     if(userVehicleResp.data && userVehicleResp.data.data[0]){
       setVehicleData(userVehicleResp.data.data[0])
     }
-    console.log("api resp vehicle>>",userVehicleResp.data)
   } catch (e) {
     console.log("api error vehicle >>",e);
   } 
@@ -141,7 +154,6 @@ const getVehicleDetails = async () =>{
 
 
   const setInformationTab = () => {
-    console.log("setting info tray to true")
     if(showInformationTray === true){
       setShowInformationTray(false)
     }else{
@@ -151,7 +163,6 @@ const getVehicleDetails = async () =>{
 
 
   const setAddressTab = () => {
-    console.log("setting address tray to true")
     if(showAddressTray === true){
       setShowAddressTray(false)
     }else{
@@ -161,7 +172,6 @@ const getVehicleDetails = async () =>{
 
 
   const setContactTab = () => {
-    console.log("setting contact tray to true")
     if(showContactTray === true){
       setShowContactTray(false)
     }else{
@@ -172,7 +182,6 @@ const getVehicleDetails = async () =>{
 
 
   const setLangPrefTab = () => {
-    console.log("setting lang pref tray to true")
     if(showLangPrefTray === true){
       setShowLangPrefTray(false)
     }else{
@@ -180,14 +189,12 @@ const getVehicleDetails = async () =>{
     }
   }
   const setVehicleTab = () => {
-    console.log("setting vehicle tray to true")
     if(showVehicleTray === true){
       setShowVehicleTray(false)
     }else{
       setShowVehicleTray(true)
     }
   }
-console.log("information data>>",informationData)
   return(
     
     <div className="d-flex flex-column">
@@ -203,16 +210,15 @@ console.log("information data>>",informationData)
                 {informationData && <EditInformationComponent
                     informationData={informationData}
                     states={[]}
+                    refreshMainTab={()=>refreshInformationTab()}
                     //watch={watch}
                     //resetData={() => setServiceData(null)}
                     tabClose={() => setShowInformationTray(false)}
-                   //editServiceId={editServiceId}
-                    //loadProfileData={props.loadProfileData}
                 />}
       </SideTrayComponent>
-      <InformationComponent 
+      {informationData && <InformationComponent 
       onEditClick={()=>setInformationTab()} 
-      data={informationData}/>
+      data={informationData}/>}
 
 
 
@@ -226,20 +232,18 @@ console.log("information data>>",informationData)
             >
                 {addressData && <EditAddressComponent
                     addressData={addressData}
+                    refreshMainTab={()=>refreshAddressTab()}
                     // states={[]}
                     // watch={watch}
                     // setValue={setValue}
                     // register={register}
                     errors={errors}
-                   // states={[]}
                     //states={addressData.states}
                     //resetData={() => setServiceData(null)}
                     tabClose={() =>setShowAddressTray(false)}
-                   //editServiceId={editServiceId}
-                    //loadProfileData={props.loadProfileData}
                 />}
       </SideTrayComponent>
-      <AddressComponent onEditClick={()=>setAddressTab()}/>
+      {addressData && <AddressComponent onEditClick={()=>setAddressTab()} data={addressData}/>}
 
 
 
@@ -248,20 +252,17 @@ console.log("information data>>",informationData)
 
       <SideTrayComponent
                 show={showContactTray}
-                //header={editServiceId ? "Update Service" : "Schedule Service"}
                 header={"Edit Contact"}
                 onClose={()=> setShowContactTray(false)}
             >
                 {contactData && <EditContactComponent
                     contactData={contactData}
-                    //states={[]}
+                    refreshMainTab={()=>refreshContactTab()}
                     //resetData={() => setServiceData(null)}
                     tabClose={() => setShowContactTray(false)}
-                   //editServiceId={editServiceId}
-                    //loadProfileData={props.loadProfileData}
                 />}
       </SideTrayComponent>
-      <ContactComponent onEditClick={()=>setContactTab()}/>
+      {contactData && <ContactComponent onEditClick={()=>setContactTab()} data={contactData}/>}
 
 
 
@@ -276,6 +277,7 @@ console.log("information data>>",informationData)
                 {lang && <EditInformationComponent
                     informationData={informationData}
                     states={[]}
+                    refreshMainTab={()=>refreshLanguagePreferenceTab()}
                     //resetData={() => setServiceData(null)}
                     tabClose={() => setShowInformationTray(false)}
                    //editServiceId={editServiceId}
@@ -295,19 +297,19 @@ console.log("information data>>",informationData)
 
       <SideTrayComponent
                 show={showVehicleTray}
-                header={"Information Data"}
+                header={"Edit Vehicle"}
                 onClose={()=> setShowVehicleTray(false)}
             >
-                {vehicleData && <EditInformationComponent
+                {vehicleData && <EditVehicleComponent
                     vehicleData={vehicleData}
                     states={[]}
+                    refreshMainTab={()=>refreshVehicleTab()}
+                    
                     //resetData={() => setServiceData(null)}
-                    tabClose={() => setShowInformationTray(false)}
-                   //editServiceId={editServiceId}
-                    //loadProfileData={props.loadProfileData}
+                    tabClose={() => setShowVehicleTray(false)}
                 />}
       </SideTrayComponent>
-      <VehiclesComponent onEditClick={()=>setVehicleTab()}/>
+      {vehicleData && <VehiclesComponent onEditClick={()=>setVehicleTab()} data={vehicleData} />}
     </div>
   )
 }

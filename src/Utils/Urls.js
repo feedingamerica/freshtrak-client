@@ -19,7 +19,12 @@ export const API_URL = {
     USER_INFORMATION : `${LOCAL_URL}profiles/user_data`,
     USER_ADDRESS : `${LOCAL_URL}profiles/user_address`,
     USER_CONTACT : `${LOCAL_URL}profiles/user_contact_details`,
-    USER_VEHICLE : `${LOCAL_URL}profiles/user_vehicle_details`
+    USER_VEHICLE : `${LOCAL_URL}profiles/user_vehicle_details`,
+
+    UPDATE_INFORMATION : `${LOCAL_URL}profiles/update_user_data`,
+    UPDATE_ADDRESS : `${LOCAL_URL}profiles/update_user_address`,
+    UPDATE_CONTACT : `${LOCAL_URL}profiles/update_user_contact`,
+    UPDATE_VEHICLE : `${LOCAL_URL}profiles/update_user_vehicle`,
     
 };
 
