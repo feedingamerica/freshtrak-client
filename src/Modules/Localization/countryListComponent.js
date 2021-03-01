@@ -2,10 +2,10 @@ import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
 
 const countryOptions = [
-  { key: 'en', value: 'en', flag: 'us', text: 'American' },
+  { key: 'en', value: 'en', flag: 'us', text: 'English' },
   { key: 'spa', value: 'spa', flag: 'mx', text: 'Spanish' },
-  { key: 'som', value: 'som', flag: 'so', text: 'Somalia' },
-  { key: 'rus', value: 'rus', flag: 'ru', text: 'Russia' },
+  { key: 'som', value: 'som', flag: 'so', text: 'Somali' },
+  { key: 'rus', value: 'rus', flag: 'ru', text: 'Russian' },
   { key: 'tur', value: 'tur', flag: 'tr', text: 'Turkish' },
   { key: 'ara', value: 'ara', flag: 'ae', text: 'Arabic' },
   { key: 'zho', value: 'zho', flag: 'cn', text: 'China' },

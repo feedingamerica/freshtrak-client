@@ -1,5 +1,6 @@
 import React, { Fragment, forwardRef } from "react";
 import StateDropdownComponent from "./StateDropdownComponent";
+import localization from '../Localization/LocalizationComponent'
 import PlacesAutocomplete, {
   geocodeByAddress,
 } from "react-places-autocomplete";
@@ -57,9 +58,9 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
 
   return (
     <Fragment>
-      <h2>Where you live</h2>
+      <h2>{localization.register_where_you_live}</h2>
       <div className="form-group relative">
-        <label htmlFor="address_line_1">Street Address<span className="text-danger">*</span></label>
+        <label htmlFor="address_line_1">{localization.street_address}<span className="text-danger">*</span></label>
         <PlacesAutocomplete
           value={addressLine1}
           onChange={(e) => setValue('address_line_1', e)}
@@ -109,7 +110,7 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
       </div>
 
       <div className="form-group">
-        <label htmlFor="address_line_2">apt/lot/suite</label>
+        <label htmlFor="address_line_2">{localization.lot_suite}</label>
         <input
           type="text"
           className="form-control"
@@ -121,7 +122,7 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
 
       <div className="d-flex city-state-form">
         <div className="form-group">
-          <label htmlFor="city">City<span className="text-danger">*</span></label>
+          <label htmlFor="city">{localization.city}<span className="text-danger">*</span></label>
           <input
             type="text"
             className= {`form-control ${errors.city && 'invalid'}`}
@@ -141,7 +142,7 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
         />
 
         <div className="form-group ml-2">
-          <label htmlFor="zip_code">Zip Code<span className="text-danger">*</span></label>
+          <label htmlFor="zip_code">{localization.zip_code}<span className="text-danger">*</span></label>
           <input
             type="text"
             className= {`form-control ${errors.zip_code && 'invalid'}`}
