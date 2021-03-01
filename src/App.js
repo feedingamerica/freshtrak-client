@@ -10,9 +10,9 @@ const App = () => {
   const language = useSelector(state => state.language.language);
   console.log("inside app routes app.js lan",language)
   return (
-    <div className="App">
-      <div className="main-wrapper">
-        <Routes language={language}/>
+    <div className="App h-100">
+      <div className="main-wrapper h-100">
+        <Routes />
       </div>
     </div>
   );

@@ -32,4 +32,5 @@ export const RENDER_URL = {
   QRCODE_URL: '/qrcode',
   PRIVACY: '/privacy',
   TERMS: '/terms',
+  USER_LOGIN: '/login',
 };

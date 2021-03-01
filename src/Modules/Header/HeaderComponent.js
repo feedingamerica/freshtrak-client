@@ -8,7 +8,9 @@ import { LinkContainer } from 'react-router-bootstrap';
 import localization from '../Localization/LocalizationComponent';
 import { useDispatch } from 'react-redux';
 import {setCurrentLanguage} from '../../Store/languageSlice';
-import CountryListComponent from '../Localization/countryListComponent'
+import CountryListComponent from '../Localization/countryListComponent';
+import LoginBlockComponent from '../UserModule/LoginBlockComponent';
+import {Modal,Button} from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import 'semantic-ui-css/semantic.min.css'
 import {
@@ -20,6 +22,7 @@ import { RENDER_URL } from "../../Utils/Urls";
 const HeaderComponent = (props) => {
   const [navbarShrink, setNavbarShrink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [show, setShow] = useState(false);
   const shortHeader = props.shortHeader || "";
   const dispatch = useDispatch();
   // const language = useSelector(state => state.language.language);
@@ -56,7 +59,8 @@ const HeaderComponent = (props) => {
     localStorage.removeItem('search_zip');
     window.FB.logout()
   }
-  
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <Fragment>
       <Nav
@@ -133,6 +137,11 @@ const HeaderComponent = (props) => {
                 </Nav.Link>
               </LinkContainer>
             )}*/}
+            {!isLoggedIn && (
+            <button className="sign-in-button" onClick={() => setShow(true)}>
+                Sign In
+             </button>
+             )}
             {isLoggedIn && (
               <LinkContainer to={RENDER_URL.ROOT_URL}>
                 <button
@@ -217,6 +226,16 @@ const HeaderComponent = (props) => {
           </button>
         </div>
       )}
+       <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Sign In / Sign Up</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <LoginBlockComponent />
+        </Modal.Body>
+        <Modal.Footer>          
+        </Modal.Footer>
+      </Modal>
     </Fragment>
   );
 };
