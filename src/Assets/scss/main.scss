@@ -3,7 +3,9 @@
 @import "./form-elements";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
-
+html, body{
+    height: 100%;
+}
 body {
     background: $color-white;
     font-family: $font-noto-sans;
@@ -1014,4 +1016,53 @@ body {
 
 .filter-close {
   background: #392947;
+}
+
+
+
+// login
+
+.login-container{
+    background: $primaryColor url(../img/banner-bg.png) center center;
+    background-size:cover ;
+    overflow: auto;
+    .login-field-container{
+        background:$color-white;
+        width: 420px;
+        box-shadow:-3px 3px 28px -10px rgba(20,20,20,0.61);
+        margin: auto;
+        .p-tabview-nav{
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            li{
+                margin-right: 1rem;
+                cursor: pointer;
+                &:last-child{
+                    margin-right: 0;
+                }
+                &.p-tabview-ink-bar{
+                    display: none;
+                }
+                a{
+                    color: $secondary-color;
+                    font-weight: 600;
+                    padding-bottom: .5rem;
+                    border-bottom: 4px solid transparent;
+                    text-transform: uppercase;
+                    &:hover, &:focus{
+                        text-decoration: none;
+                        outline: none;
+                    }
+                }
+                &.p-tabview-selected{
+                    a{
+                        border-bottom: 4px solid $primaryColor;
+                    }
+                }
+            }
+        }
+    }
 }

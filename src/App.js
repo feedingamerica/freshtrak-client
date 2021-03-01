@@ -6,8 +6,8 @@ import Routes from "./Core/Routes";
 const App = () => {
   React.useEffect(() => {}, []);
   return (
-    <div className="App">
-      <div className="main-wrapper">
+    <div className="App h-100">
+      <div className="main-wrapper h-100">
         <Routes />
       </div>
     </div>
