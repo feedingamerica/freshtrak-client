@@ -8,14 +8,6 @@ import SignUpDetails from "../UserModule/SignUpDetailsComponent"
 const LoginBlockComponent = () => {
   return (
     <div className="w-100">
-      {/* <TabView>
-        <TabPanel header="Log In">
-          <LoginDetails/>
-        </TabPanel>
-        <TabPanel header="Sign Up">
-          <SignUpDetails/>
-        </TabPanel>
-      </TabView> */}
       <Tabs defaultActiveKey="signin" >
         <Tab eventKey="signin" title="Sign In">
           <LoginDetails/>
@@ -23,7 +15,7 @@ const LoginBlockComponent = () => {
         <Tab eventKey="signup" title="Sign Up">
           <SignUpDetails/>
         </Tab>
-        </Tabs>
+      </Tabs>
     </div>
   );
 };
