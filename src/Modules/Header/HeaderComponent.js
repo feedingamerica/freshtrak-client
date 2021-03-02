@@ -138,9 +138,9 @@ const HeaderComponent = (props) => {
               </LinkContainer>
             )}*/}
             {!isLoggedIn && (
-            <button className="sign-in-button" onClick={() => setShow(true)}>
+            <div className="mr-3 font-weight-bold pointer text-white" onClick={() => setShow(true)}>
                 Sign In
-             </button>
+             </div>
              )}
             {isLoggedIn && (
               <LinkContainer to={RENDER_URL.ROOT_URL}>

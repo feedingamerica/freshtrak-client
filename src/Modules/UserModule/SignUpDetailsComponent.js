@@ -17,7 +17,14 @@ const SignUpDetailsComponent = () => {
         <input type="number" className="form-control" />
       </div>
       <button type="submit" class="btn primary-button mt-3 w-100">
-        Login
+        Sign Up
+      </button>
+      <hr/>
+      <button type="submit" class="btn fb-button mt-3 w-100">
+        Login with Facebook
+      </button>
+      <button type="submit" class="btn btn-outline-secondary mt-3 w-100">
+        Continue as Guest
       </button>
     </div>
   );
