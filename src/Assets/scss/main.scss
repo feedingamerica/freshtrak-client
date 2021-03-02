@@ -18,6 +18,12 @@ body {
     .relative{
         position: relative;
     }
+    .text-white{
+        color: $color-white;
+    }
+    .pointer{
+        cursor: pointer;
+    }
     .big-title {
         font-size: 4rem;
         letter-spacing: -1px;

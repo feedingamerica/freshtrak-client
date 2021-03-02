@@ -31,6 +31,13 @@
             width: 100%;
         }
     }
+    &.fb-button{
+        background-color: $fb-blue;
+        color: $color-white;
+        @include responsive(extra-smaller-devices) {
+            width: 100%;
+        }
+    }
     &.primary-button{
         background:$primaryColor;
         color:$color-white;

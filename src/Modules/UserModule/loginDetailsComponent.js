@@ -18,8 +18,16 @@ const loginDetailsComponent = () => {
           Remember Me
         </label>
       </div>
-      <button type="submit" className="btn custom-button mt-3 w-100">
-        Login
+
+      <button type="submit" className="btn primary-button mt-3 w-100">
+        Sign In
+      </button>
+      <hr/>
+      <button type="submit" className="btn fb-button mt-3 w-100">
+        Login with Facebook
+      </button>
+      <button type="submit" className="btn btn-outline-secondary mt-3 w-100">
+        Continue as Guest
       </button>
     </div>
   );

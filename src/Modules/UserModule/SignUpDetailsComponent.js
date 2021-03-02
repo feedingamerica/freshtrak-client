@@ -43,6 +43,13 @@ const SignUpDetailsComponent = (props) => {
           Sign Up
         </button>
       </form>
+        <hr/>
+      <button type="submit" className="btn fb-button mt-3 w-100">
+        Login with Facebook
+      </button>
+      <button type="submit" className="btn btn-outline-secondary mt-3 w-100">
+        Continue as Guest
+      </button> 
     </div>
     
   );
