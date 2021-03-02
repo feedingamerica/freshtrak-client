@@ -208,3 +208,22 @@ select{
         }
     }
 }
+.custom-modal{
+    .modal-dialog{
+        width: 420px;
+        .modal-content{
+            background: $color-white;
+            color: $content-text-color;  
+            .form-group{
+                .form-control  {
+                    border-color: inherit;
+                }
+            }  
+            .modal-header {
+                .close {
+                    color: inherit;  
+                }
+            }
+        }
+    }
+}

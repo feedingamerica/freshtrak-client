@@ -4,10 +4,14 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab'
 import LoginDetails from "../UserModule/loginDetailsComponent";
 import SignUpDetails from "../UserModule/SignUpDetailsComponent"
+import LoginLogo from "../../Assets/img/login-logo.png"
 
 const LoginBlockComponent = () => {
   return (
-    <div className="w-100">
+    <div className="w-100 login-tab-section">
+      <div className="login-logo d-flex justify-content-center">
+        <img src={LoginLogo} />
+      </div>
       {/* <TabView>
         <TabPanel header="Log In">
           <LoginDetails/>

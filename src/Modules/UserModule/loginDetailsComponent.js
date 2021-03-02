@@ -18,7 +18,7 @@ const loginDetailsComponent = () => {
           Remember Me
         </label>
       </div>
-      <button type="submit" class="btn custom-button mt-3 w-100">
+      <button type="submit" class="btn primary-button mt-3 w-100">
         Login
       </button>
     </div>
