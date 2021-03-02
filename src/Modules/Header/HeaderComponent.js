@@ -230,7 +230,7 @@ const HeaderComponent = (props) => {
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body>
-          <LoginBlockComponent />
+          <LoginBlockComponent handleClose={()=>setShow(false)} />
         </Modal.Body>
       </Modal>
     </Fragment>
