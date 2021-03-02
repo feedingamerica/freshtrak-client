@@ -1,25 +1,12 @@
-import React from "react";
+import React ,{useState}from "react";
 import { useForm } from "react-hook-form";
-import { Auth } from 'aws-amplify';
-import awsExports from "../../aws-exports";
-Auth.configure(awsExports);
-const SignUpDetailsComponent = () => {
+
+
+const SignUpDetailsComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (signupData) => {
-      try {
-        let params = {
-            username: signupData.email,
-            password: signupData.password,
-            attributes: {
-                email: signupData.email,
-                phone_number: signupData.phonenumber,
-            }
-         };         
-        const { user } = await Auth.signUp(params);
-    } catch (error) {
-        console.log('error signing up:', error);
-    }
-   };
+      props.onSignUp(signupData);
+  };
    
   return (
     <div className="mt-4 pb-3">
@@ -53,10 +40,9 @@ const SignUpDetailsComponent = () => {
            {errors.phonenumber && <span className="text-danger">Phonenumber is required</span>}
         </div>
         <button type="submit" className="btn custom-button mt-3 w-100">
-          Login
+          Sign Up
         </button>
       </form>
-      
     </div>
     
   );

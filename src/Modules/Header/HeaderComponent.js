@@ -226,15 +226,12 @@ const HeaderComponent = (props) => {
           </button>
         </div>
       )}
-       <Modal show={show} onHide={handleClose}>
+       <Modal show={show} onHide={handleClose} className="custom-modal">
         <Modal.Header closeButton>
-          <Modal.Title>Sign In / Sign Up</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <LoginBlockComponent />
         </Modal.Body>
-        <Modal.Footer>          
-        </Modal.Footer>
       </Modal>
     </Fragment>
   );

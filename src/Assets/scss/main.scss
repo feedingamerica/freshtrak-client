@@ -1088,4 +1088,31 @@ a {
             }
         }
     }
+    
+}
+.login-tab-section{
+    .nav-tabs{
+        border: none;
+        justify-content: center;
+        .nav-link{
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: inherit;
+            padding: 0 0 .5rem 0;
+            margin: 0 1rem;
+            &.active, &:hover{
+                border: none;
+                border: 1px solid transparent;
+                border-bottom: 4px solid $primaryColor;
+            }
+        }
+    }
+}
+.login-logo{
+    height: 30px;
+    margin: 1.5rem 0;
+    img{
+        max-height: 100%;
+        max-width: 100%;
+    }
 }
