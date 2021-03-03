@@ -6,6 +6,7 @@ import RegistrationHeaderComponent from './RegistrationHeaderComponent';
 import EventCardComponent from '../Events/EventCardComponent';
 import BackButtonComponent from '../General/BackButtonComponent';
 import { getItemLocalStorage } from '../../Utils/Util';
+import localization from '../Localization/LocalizationComponent';
 
 const RegistrationTextInfoComponent = ({event, onRegisterNow}) => {
 const isLoggedIn = JSON.parse(getItemLocalStorage("isLoggedIn"));
@@ -36,7 +37,7 @@ const isLoggedIn = JSON.parse(getItemLocalStorage("isLoggedIn"));
           data-testid="continue button"
           onClick={clickedRegisterNow}
         >
-          Register Now
+          {localization.register}
         </button>
       </div>
     </Fragment>
