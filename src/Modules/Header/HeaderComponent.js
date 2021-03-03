@@ -9,7 +9,7 @@ import localization from '../Localization/LocalizationComponent';
 import { useDispatch } from 'react-redux';
 import {setCurrentLanguage} from '../../Store/languageSlice';
 import CountryListComponent from '../Localization/countryListComponent';
-import LoginBlockComponent from '../UserModule/LoginBlockComponent';
+import UserBlockContainer from '../UserModule/UserBlockContainer';
 import {Modal,Button} from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import 'semantic-ui-css/semantic.min.css'
@@ -241,7 +241,7 @@ const HeaderComponent = (props) => {
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body>
-          <LoginBlockComponent handleClose={()=>setShow(false)} />
+          <UserBlockContainer handleClose={()=>setShow(false)} />
         </Modal.Body>
       </Modal>
     </Fragment>
