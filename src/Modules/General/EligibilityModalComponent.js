@@ -8,6 +8,7 @@ const EligibilityModalComponent = ({
   close,
   columnData,
   rowsData,
+  addOnData,
   header,
   footer,
 }) => {
@@ -50,6 +51,7 @@ const EligibilityModalComponent = ({
             </tr>
           </tbody>
         </table>
+        <span>Note: {addOnData}</span>
       </Modal.Body>
       <Modal.Footer className="justify-content-start">
         <span> {footer}</span>

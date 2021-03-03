@@ -5,11 +5,13 @@ const HouseHoldEligibilityComponent = ({ header, body, footer }) => {
   const [showEligibilityModal, setShowEligibilityModal] = useState(false);
   let columnData = [];
   let rowsData = [];
+  let addOnData = '';
 
   if (body) {
-    const { columns, rows } = JSON.parse(body);
+    const { columns, rows, addon } = JSON.parse(body);
     columnData = columns && Array.isArray(columns) ? columns : [];
     rowsData = rows && Array.isArray(rows) ? rows : [];
+    addOnData = addon ? addon : '';
   }
 
   return (
@@ -36,6 +38,7 @@ const HouseHoldEligibilityComponent = ({ header, body, footer }) => {
         close={() => setShowEligibilityModal(false)}
         columnData={columnData}
         rowsData={rowsData}
+        addOnData={addOnData}
         header={header}
         footer={footer}
       />
