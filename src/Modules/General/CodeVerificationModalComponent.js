@@ -1,5 +1,4 @@
-import React, { useEffect, useState }from 'react';
-import Modal from 'react-bootstrap/Modal';
+import React, { useState }from 'react';
 import { useForm } from "react-hook-form";
 const CodeVerificationModalComponent = (props) => {
 
@@ -10,7 +9,9 @@ const CodeVerificationModalComponent = (props) => {
   const onSubmit = async (confirmData) => {
       props.onConfirm(confirmData);
   };
-  
+  const onClickResend = () =>{
+    props.onResendConfirmCode();
+  }
   return (
     <div className="mt-4 pb-3">
       <p className="small text-center">Once you sign up, you can register in advance for services, speed up your check-in time at the pantry, and find other programs that may benefit you.</p>
@@ -23,6 +24,7 @@ const CodeVerificationModalComponent = (props) => {
              ref={register({ required: true })}
           />
            {errors.code && <span className="text-danger">Code is required</span>}
+           <div onClick={onClickResend}>Resend Code</div>
         </div>
         <button type="submit" className="btn custom-button mt-3 w-100">
           Confirm

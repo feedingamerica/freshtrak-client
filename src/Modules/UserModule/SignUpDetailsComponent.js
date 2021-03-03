@@ -17,7 +17,7 @@ const SignUpDetailsComponent = (props) => {
           <input type="text" className="form-control"
              name="email"
              id="email"
-            ref={register({ required: true })}
+             ref={register({ required: true })}
           />
           {errors.email && <span className="text-danger">Email is required</span>}
         </div>

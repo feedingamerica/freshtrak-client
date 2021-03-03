@@ -19,6 +19,10 @@ import {
 } from "react-bootstrap";
 
 import { RENDER_URL } from "../../Utils/Urls";
+import { Auth } from 'aws-amplify';
+import awsExports from "../../aws-exports";
+Auth.configure(awsExports);
+
 const HeaderComponent = (props) => {
   const [navbarShrink, setNavbarShrink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -50,14 +54,21 @@ const HeaderComponent = (props) => {
     };
   }, [localIsLoggedIn, isLoggedIn]);
 
-  const logOut = () => {
+  const logOut = async() => {
     localStorage.setItem('isLoggedIn', false);
-    setIsLoggedIn(false);
+    await Auth.signOut({ global: true })
+          .then(res => { 
+              localStorage.setItem('isLoggedIn', false);
+          })
+          .catch(err => { 
+              console.log(err);
+          }); 
+    /*setIsLoggedIn(false);
 
     localStorage.removeItem('userToken');
     localStorage.removeItem('tokenExpiresAt');
     localStorage.removeItem('search_zip');
-    window.FB.logout()
+    window.FB.logout()*/
   }
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
