@@ -51,7 +51,9 @@ let localization = new LocalizedStrings({
    adults: "Adults",
    kids: "Kids",
    license_plate: "License Plate",
-   arrive_disribution: "If you will arrive at the distribution in a vehicle and know the license plate, please include it here. Sharing your license plate enables expedited check-in at some distributions." 
+   arrive_disribution: "If you will arrive at the distribution in a vehicle and know the license plate, please include it here. Sharing your license plate enables expedited check-in at some distributions.",
+   house_hold_zip: "Household Zip code",
+   registartion_register: "Register"
 
  },
  spa: {
@@ -104,7 +106,9 @@ let localization = new LocalizedStrings({
    adults: "Adultas",
    kids: "Niñas/Niños",
    license_plate: "Placa",
-   arrive_disribution: "Si va a llegar a la distribución en un vehículo y conoce la placa, inclúyala aquí. Compartir su matrícula permite hacer el check-in rápido en algunas distribuciones."
+   arrive_disribution: "Si va a llegar a la distribución en un vehículo y conoce la placa, inclúyala aquí. Compartir su matrícula permite hacer el check-in rápido en algunas distribuciones.",
+   house_hold_zip: "Código postal del hogar",
+   registartion_register: "Registrarse"
  },
  som: {
   home_freshtrack:"FreshTrak waxay halkan u joogtaa inay ku caawiso!",
@@ -156,7 +160,9 @@ let localization = new LocalizedStrings({
   adults: "Dadka waaweyn",
   kids: "Carruurta",
   license_plate: "Taarikada Liisanka",
-  arrive_disribution: "Haddii aad ku imaan doontid qeybinta gawaarida oo aad taqaan taarikada, fadlan ku dar halkan. Wadaagista taarikada liisankaaga ayaa awood u siinaysa hubinta degdegga ah qaybinta qaarkood."
+  arrive_disribution: "Haddii aad ku imaan doontid qeybinta gawaarida oo aad taqaan taarikada, fadlan ku dar halkan. Wadaagista taarikada liisankaaga ayaa awood u siinaysa hubinta degdegga ah qaybinta qaarkood.",
+  house_hold_zip: "Lambarka boostada guriga",
+  registartion_register: "Diiwaangeli"
 },
 rus: {
   home_freshtrack:"FreshTrak здесь, чтобы помочь!",
@@ -208,7 +214,9 @@ rus: {
   adults: "взрослые люди",
   kids: "Дети",
   license_plate: "Номерной знак",
-  arrive_disribution: "Если вы приедете на раздачу на автомобиле и знаете номерной знак, укажите его здесь. Совместное использование номерного знака позволяет ускорить регистрацию на рейс в некоторых магазинах."
+  arrive_disribution: "Если вы приедете на раздачу на автомобиле и знаете номерной знак, укажите его здесь. Совместное использование номерного знака позволяет ускорить регистрацию на рейс в некоторых магазинах.",
+  house_hold_zip: "Почтовый индекс домашнего хозяйства",
+  registartion_register: "регистр"
 },
  tur: {
   home_freshtrack:"FreshTrak yardım etmek için burada!",
@@ -260,7 +268,10 @@ rus: {
   adults: "Yetişkinler",
   kids: "Çocuklar",
   license_plate: "Plaka",
-  arrive_disribution: "Dağıtıma bir araçla gelecekseniz ve plakayı biliyorsanız, lütfen buraya ekleyin. Plakanızı paylaşmak, bazı dağıtımlarda hızlı check-in yapmanızı sağlar."
+  arrive_disribution: "Dağıtıma bir araçla gelecekseniz ve plakayı biliyorsanız, lütfen buraya ekleyin. Plakanızı paylaşmak, bazı dağıtımlarda hızlı check-in yapmanızı sağlar.",
+  house_hold_zip: "Ev Posta kodu",
+  registartion_register: "Kayıt ol"
+
 },
 ara: {
   home_freshtrack:"FreshTrak هنا للمساعدة!",
@@ -312,7 +323,9 @@ ara: {
   adults: "الكبار",
   kids: "أطفال",
   license_plate: "لوحة الترخيص",
-  arrive_disribution: "إذا كنت ستصل إلى التوزيع في سيارة وتعرف لوحة الترخيص ، فيرجى تضمينها هنا. تتيح مشاركة لوحة الترخيص الخاصة بك تسجيل الوصول السريع في بعض التوزيعات."
+  arrive_disribution: "إذا كنت ستصل إلى التوزيع في سيارة وتعرف لوحة الترخيص ، فيرجى تضمينها هنا. تتيح مشاركة لوحة الترخيص الخاصة بك تسجيل الوصول السريع في بعض التوزيعات.",
+  house_hold_zip: "الرمز البريدي للمنزل",
+  registartion_register: "يسجل"
 },
 zho: {
   home_freshtrack:"FreshTrak在這里為您提供幫助",
@@ -364,7 +377,9 @@ zho: {
   adults: "成年人",
   kids: "孩子们",
   license_plate: "牌照",
-  arrive_disribution: "如果您将乘坐汽车到达配送区，并且知道车牌，请在此处提供。共享您的车牌可以在某些发行版中加快签到。"
+  arrive_disribution: "如果您将乘坐汽车到达配送区，并且知道车牌，请在此处提供。共享您的车牌可以在某些发行版中加快签到。",
+  house_hold_zip: "家用邮政编码",
+  registartion_register: "登记"
 },
 hin: {
   home_freshtrack:"FreshTrak मदद करने के लिए यहाँ है!",
@@ -416,7 +431,9 @@ hin: {
   adults: "वयस्कों",
   kids: "बच्चे",
   license_plate: "लाइसेंस प्लेट",
-  arrive_disribution: "यदि आप एक वाहन में वितरण पर पहुंचेंगे और लाइसेंस प्लेट को जानेंगे, तो कृपया इसे यहां शामिल करें। अपनी लाइसेंस प्लेट साझा करना कुछ वितरणों में शीघ्र चेक-इन सक्षम बनाता है।"
+  arrive_disribution: "यदि आप एक वाहन में वितरण पर पहुंचेंगे और लाइसेंस प्लेट को जानेंगे, तो कृपया इसे यहां शामिल करें। अपनी लाइसेंस प्लेट साझा करना कुछ वितरणों में शीघ्र चेक-इन सक्षम बनाता है।",
+  house_hold_zip: "घरेलू ज़िप कोड",
+  registartion_register: "रजिस्टर करें"
 },
 nep: {
   home_freshtrack:"फ्रेशट्र्याक मद्दत गर्न यहाँ छ!",
@@ -468,7 +485,9 @@ nep: {
   adults: "वयस्कहरू",
   kids: "बच्चाहरू",
   license_plate: "नम्बर प्लेट",
-  arrive_disribution: "यदि तपाईं गाडीमा वितरणमा आइपुग्नुहुनेछ र इजाजतपत्र प्लेट थाहा पाउनुहुनेछ भने, कृपया यहाँ समावेश गर्नुहोस्। तपाइँको इजाजत पत्र प्लेट साझा केहि वितरण मा छिटो चेक-इन सक्षम गर्दछ।"
+  arrive_disribution: "यदि तपाईं गाडीमा वितरणमा आइपुग्नुहुनेछ र इजाजतपत्र प्लेट थाहा पाउनुहुनेछ भने, कृपया यहाँ समावेश गर्नुहोस्। तपाइँको इजाजत पत्र प्लेट साझा केहि वितरण मा छिटो चेक-इन सक्षम गर्दछ।",
+  house_hold_zip: "घरेलु जिप कोड",
+  registartion_register: "रेजिष्टर गर्नुहोस्"
 }
 });
 
