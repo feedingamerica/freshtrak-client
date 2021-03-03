@@ -13,7 +13,7 @@ const EligibilityModalComponent = ({
   footer,
 }) => {
   const handleClose = () => close();
-  const [slideValue, setSlideValue] = useState(1);
+  const [slideValue, setSlideValue] = useState(4);
   const rowItem =
     rowsData.length >= slideValue - 1 ? rowsData[slideValue - 1] : [];
   return (
