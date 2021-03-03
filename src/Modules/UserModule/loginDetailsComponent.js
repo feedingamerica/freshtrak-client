@@ -12,12 +12,17 @@ const loginDetailsComponent = () => {
         <label>Password</label>
         <input type="password" className="form-control" />
       </div>
-      <div className="form-check">
+     <div className="d-flex justify-content-between">
+     <div className="form-check">
         <input type="checkbox" className="form-check-input" id="rememberme" />
         <label className="form-check-label" htmlFor="rememberme">
           Remember Me
         </label>
       </div>
+      <div>
+        <a className="pointer font-weight-bold">Forgot Password ?</a>
+      </div>
+     </div>
 
       <button type="submit" className="btn primary-button mt-3 w-100">
         Sign In
