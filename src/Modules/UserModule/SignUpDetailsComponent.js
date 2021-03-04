@@ -11,7 +11,7 @@ const SignUpDetailsComponent = (props) => {
   return (
     <div className="mt-4 pb-3">
       <p className="small text-center">Once you sign up, you can register in advance for services, speed up your check-in time at the pantry, and find other programs that may benefit you.</p>
-      <form onSubmit={handleSubmit(onSubmit)} className="sign-in-form">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
           <label>Email</label>
           <input type="text" className="form-control"
@@ -32,12 +32,19 @@ const SignUpDetailsComponent = (props) => {
         </div>
         <div className="form-group">
           <label>Phone Number</label>
+          <div class="input-group phone-input">
+          <span class="input-group-btn">
+							<select className="form-control">
+                <option>+91</option>
+              </select>
+						</span>
           <input type="text" className="form-control" 
              name="phonenumber"
              id="phonenumber"
              ref={register({ required: true })}
           />
            {errors.phonenumber && <span className="text-danger">Phonenumber is required</span>}
+        </div>
         </div>
         <button type="submit" className="btn custom-button mt-3 w-100">
           Sign Up

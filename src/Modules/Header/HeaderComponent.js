@@ -20,8 +20,8 @@ import {
 
 import { RENDER_URL } from "../../Utils/Urls";
 import { Auth } from 'aws-amplify';
-import awsExports from "../../aws-exports";
-Auth.configure(awsExports);
+// import awsExports from "../../aws-exports";
+// Auth.configure(awsExports);
 
 const HeaderComponent = (props) => {
   const [navbarShrink, setNavbarShrink] = useState("");

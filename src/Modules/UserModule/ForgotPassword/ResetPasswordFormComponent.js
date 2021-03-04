@@ -12,7 +12,7 @@ const ResetPasswordFormComponent = (props) => {
     <div className="mt-4 pb-3">
       <p className="font-weight-bold text-center">Reset password !</p>
       <p className="small text-center">The verification code is send to {props.destinationEmail}</p>
-      <form onSubmit={handleSubmit(onSubmit)} className="sign-in-form">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
           <label>Verification Code</label>
           <input type="text" className="form-control"
