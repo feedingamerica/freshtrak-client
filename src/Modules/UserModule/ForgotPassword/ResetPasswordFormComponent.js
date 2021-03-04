@@ -4,13 +4,14 @@ import { useForm } from "react-hook-form";
 
 const ResetPasswordFormComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = async (signupData) => {
-      //props.onSignUp(signupData);
+  const onSubmit = async (resetData) => {
+    props.onResetPassword(resetData);
   };
    
   return (
     <div className="mt-4 pb-3">
       <p className="font-weight-bold text-center">Reset password !</p>
+      <p className="small text-center">The verification code is send to {props.destinationEmail}</p>
       <form onSubmit={handleSubmit(onSubmit)} className="sign-in-form">
         <div className="form-group">
           <label>Verification Code</label>

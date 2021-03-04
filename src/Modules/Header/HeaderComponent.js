@@ -56,7 +56,7 @@ const HeaderComponent = (props) => {
 
   const logOut = async() => {
     localStorage.setItem('isLoggedIn', false);
-    await Auth.signOut({ global: true })
+    await Auth.signOut()
           .then(res => { 
               localStorage.setItem('isLoggedIn', false);
           })

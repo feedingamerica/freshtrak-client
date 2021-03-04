@@ -5,7 +5,8 @@ import Tab from 'react-bootstrap/Tab';
 import LoginLogo from "../../Assets/img/login-logo.png";
 import LoginDetails from "../UserModule/LoginDetailsComponent";
 import SignUpDetails from "../UserModule/SignUpDetailsComponent";
-import ForgotPasswordContainer from "../UserModule/ForgotPassword/ForgotPasswordContainer"
+import ForgotPasswordContainer from "../UserModule/ForgotPassword/ForgotPasswordContainer";
+import SignInConfirmComponent from "../UserModule/SignInConfirmComponent";
 
 import CodeVerificationModalComponent from '../General/CodeVerificationModalComponent';
 import { Auth } from 'aws-amplify';
@@ -15,6 +16,9 @@ Auth.configure(awsExports);
 const UserBlockContainer = (props) => {
   const [mode, setMode] = useState('form');
   const [username, setUserName] = useState('');
+  const [user,setUser] = useState({});
+  const [destinationphone, setDestinationPhone] = useState('');
+  const [mfaType, setMfaType] = useState('');
   const onSignUp = async (signupData)=>{
     let status = false, data = {}; 
    
@@ -31,7 +35,7 @@ const UserBlockContainer = (props) => {
                 status = true; 
                 data = res;
                 setUserName(data.user.username);
-                setMode('signupconfirm')
+                setMode('signupconfirm');
             })
             .catch(err => { 
                 status = false;
@@ -75,10 +79,18 @@ const UserBlockContainer = (props) => {
           .then(res =>{
             status = true;
             data = res;
-            console.log(data);   
-            localStorage.setItem('isLoggedIn', true);         
-            props.handleClose();
-          }).catch(err=>{
+             if (data.challengeName === 'SMS_MFA' || data.challengeName === 'SOFTWARE_TOKEN_MFA') { 
+              debugger;
+                setUser(data);
+                setDestinationPhone(data.challengeParam.CODE_DELIVERY_DESTINATION);
+                setMfaType(data.challengeName);
+                setMode('signinconfirm');
+             } else {
+                localStorage.setItem('isLoggedIn', true);         
+                props.handleClose();
+             }
+            
+          }).catch(err => {
             status =false;
             data = err;
             console.log('data',err);
@@ -88,6 +100,29 @@ const UserBlockContainer = (props) => {
   const onForgotPassword = async() => {
     setMode('forgotpassword')
   }
+
+  const onResetNewPassword = async() =>{
+    setMode('form')
+  }
+  
+  const onConfirmPhone = async (confirmCode) => {
+    let code = confirmCode.code;
+    let status=false,data={};
+
+    await Auth.confirmSignIn(user,code,mfaType)
+          .then(res => {
+            status = true;
+            data = res;
+            console.log(data);
+            localStorage.setItem('isLoggedIn', true);         
+            props.handleClose();
+          }).catch(err=>{
+            status =false;
+            data = err;
+            console.log('data',err);
+          });
+  }
+
   const renderFrom = () => {
     switch(mode) {
 
@@ -103,11 +138,14 @@ const UserBlockContainer = (props) => {
           case  "signupconfirm" : return (<div>
                                     <CodeVerificationModalComponent onConfirm={onConfirm} onResendConfirmCode ={onResendConfirmCode}/>
                                     </div>);
-           case "forgotpassword" : return (<div>
-                                             <ForgotPasswordContainer />
+          case "forgotpassword" : return (<div>
+                                             <ForgotPasswordContainer onResetNewPassword={onResetNewPassword}/>
                                            </div>
                                           );
 
+          case "signinconfirm"  : return (<div>
+                                    <SignInConfirmComponent onConfirmPhone={onConfirmPhone} destinationPhone= {destinationphone}/>
+                                    </div>);
           default : return (<Tabs defaultActiveKey="signin" >
                                     <Tab eventKey="signin" title="Sign In">
                                     <LoginDetails onSignIn={onSignIn}/>
