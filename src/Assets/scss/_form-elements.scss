@@ -234,3 +234,12 @@ select{
         }
     }
 }
+
+.input-group-btn{
+    select{
+        background: url(../img/down.svg) no-repeat 82% center $color-white  !important;
+        padding-right: 30px;
+        border-radius: 4px 0px 0px 4px;
+        border-right: 0;
+    }
+}

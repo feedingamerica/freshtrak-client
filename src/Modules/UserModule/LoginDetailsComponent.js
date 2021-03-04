@@ -11,7 +11,7 @@ const LoginDetailsComponent = (props) => {
   return (
     <div className="mt-4 pb-3">
       <p className="font-weight-bold text-center">Welcome Back !</p>
-      <form onSubmit={handleSubmit(onSubmit)} className="sign-in-form">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
           <label>Username</label>
           <input type="text" 

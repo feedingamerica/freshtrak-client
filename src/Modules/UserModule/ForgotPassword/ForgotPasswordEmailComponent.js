@@ -9,7 +9,7 @@ const ForgotPasswordEmailComponent = (props) => {
   return (
     <div className="mt-4 pb-3">
       <p className="font-weight-bold text-center">Forgot password !</p>
-      <form onSubmit={handleSubmit(onSubmit)} className="sign-in-form">        
+      <form onSubmit={handleSubmit(onSubmit)}>        
         <div className="form-group">
           <label>Email</label>
           <input type="text" className="form-control" 
