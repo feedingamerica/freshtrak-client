@@ -9,7 +9,7 @@ const SignInConfirmComponent = (props) => {
   return (
     <div className="mt-4 pb-3">
       <p className="font-weight-bold text-center">Confirm Sign In!</p>
-      <p className="small text-center">The verification code is send to {props.destinationPhone}</p>
+      <p className="small text-center">The verification code is send to {props.destinationMedium}</p>
       <form onSubmit={handleSubmit(onSubmit)} className="sign-in-form">        
         <div className="form-group">
           <label>Verifcation Code</label>

@@ -17,23 +17,25 @@ const UserBlockContainer = (props) => {
   const [mode, setMode] = useState('form');
   const [username, setUserName] = useState('');
   const [user,setUser] = useState({});
-  const [destinationphone, setDestinationPhone] = useState('');
+  const [destinationMedium, setDestinationMedium] = useState('');
   const [mfaType, setMfaType] = useState('');
+  const [dialcode,setDialCode] = useState('+91');
   const onSignUp = async (signupData)=>{
     let status = false, data = {}; 
-   
-        let params = {
-            username: signupData.email,
-            password: signupData.password,
-            attributes: {
-                email: signupData.email,
-                phone_number: signupData.phonenumber,
-            }
-         };         
+    let phone_number = onPhoneNumberFormat(signupData.phonenumber);
+    let params = {
+        username: signupData.email,
+        password: signupData.password,
+        attributes: {
+            email: signupData.email,
+            phone_number: phone_number,
+        }
+     };      
      await Auth.signUp(params)
             .then(res => { 
                 status = true; 
                 data = res;
+                setDestinationMedium(data.codeDeliveryDetails.Destination);
                 setUserName(data.user.username);
                 setMode('signupconfirm');
             })
@@ -41,7 +43,7 @@ const UserBlockContainer = (props) => {
                 status = false;
                 data = err;
             });   
-            //return {status, data};   
+            return {status, data};   
   
   }
   const onConfirm = async (confirmData)=>{
@@ -50,7 +52,7 @@ const UserBlockContainer = (props) => {
           .then(res => {
             status = true;
             data = res;
-            console.log(data);
+            setMode('form');
           }).catch(err=>{
             status =false;
             data = err;
@@ -79,10 +81,9 @@ const UserBlockContainer = (props) => {
           .then(res =>{
             status = true;
             data = res;
-             if (data.challengeName === 'SMS_MFA' || data.challengeName === 'SOFTWARE_TOKEN_MFA') { 
-              debugger;
+             if (data.challengeName === 'SMS_MFA' || data.challengeName === 'SOFTWARE_TOKEN_MFA') {               
                 setUser(data);
-                setDestinationPhone(data.challengeParam.CODE_DELIVERY_DESTINATION);
+                setDestinationMedium(data.challengeParam.CODE_DELIVERY_DESTINATION);
                 setMfaType(data.challengeName);
                 setMode('signinconfirm');
              } else {
@@ -93,7 +94,6 @@ const UserBlockContainer = (props) => {
           }).catch(err => {
             status =false;
             data = err;
-            console.log('data',err);
           });
   }
 
@@ -113,16 +113,16 @@ const UserBlockContainer = (props) => {
           .then(res => {
             status = true;
             data = res;
-            console.log(data);
             localStorage.setItem('isLoggedIn', true);         
             props.handleClose();
           }).catch(err=>{
             status =false;
             data = err;
-            console.log('data',err);
           });
   }
-
+  const onPhoneNumberFormat = (phone_number) => {
+    return `${dialcode}${phone_number.replace(/[-()\s]/g, '')}`;
+  }
   const renderFrom = () => {
     switch(mode) {
 
@@ -136,7 +136,7 @@ const UserBlockContainer = (props) => {
                                  </Tabs>
                                )
           case  "signupconfirm" : return (<div>
-                                    <CodeVerificationModalComponent onConfirm={onConfirm} onResendConfirmCode ={onResendConfirmCode}/>
+                                    <CodeVerificationModalComponent onConfirm={onConfirm} onResendConfirmCode ={onResendConfirmCode} destinationMedium= {destinationMedium}/>
                                     </div>);
           case "forgotpassword" : return (<div>
                                              <ForgotPasswordContainer onResetNewPassword={onResetNewPassword}/>
@@ -144,7 +144,7 @@ const UserBlockContainer = (props) => {
                                           );
 
           case "signinconfirm"  : return (<div>
-                                    <SignInConfirmComponent onConfirmPhone={onConfirmPhone} destinationPhone= {destinationphone}/>
+                                    <SignInConfirmComponent onConfirmPhone={onConfirmPhone} destinationMedium= {destinationMedium}/>
                                     </div>);
           default : return (<Tabs defaultActiveKey="signin" >
                                     <Tab eventKey="signin" title="Sign In">

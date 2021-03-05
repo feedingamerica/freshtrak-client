@@ -2,8 +2,10 @@ import React ,{useState}from "react";
 import { useForm } from "react-hook-form";
 import FacebookSignInComponent from "../UserModule/FacebookSignInComponent";
 import GuestSignInComponent from "../UserModule/GuestSignInComponent";
+import PhoneInputComponent from '../Family/PhoneInputComponent';
 const SignUpDetailsComponent = (props) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors,setValue,watch } = useForm();
+  const phonenumber = watch('phonenumber') || '';
   const onSubmit = async (signupData) => {
       props.onSignUp(signupData);
   };
@@ -31,19 +33,19 @@ const SignUpDetailsComponent = (props) => {
         </div>
         <div className="form-group">
           <label>Phone Number</label>
-          <div className="input-group phone-input">
-          <span className="input-group-btn">
-							<select className="form-control">
-                <option>+91</option>
-              </select>
-						</span>
-          <input type="text" className="form-control" 
-             name="phonenumber"
-             id="phonenumber"
-             ref={register({ required: true })}
-          />
-           {errors.phonenumber && <span className="text-danger">Phonenumber is required</span>}
-        </div>
+          <div className="input-group phone-input">     
+             <PhoneInputComponent
+                type="text"
+                className= {`form-control ${errors.phonenumber && 'invalid'}`}
+                name="phonenumber"
+                placeholder="(xxx) xxx-xxxx"
+                id="phonenumber"
+                value={phonenumber}
+                onChange={(e) => { setValue('phonenumber', e) }}
+                register={register}
+              />           
+          </div>
+          {errors.phonenumber && <span className="text-danger">Phonenumber is required</span>}
         </div>
         <button type="submit" className="btn custom-button mt-3 w-100">
           Sign Up

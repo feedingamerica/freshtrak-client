@@ -14,7 +14,8 @@ const CodeVerificationModalComponent = (props) => {
   }
   return (
     <div className="mt-4 pb-3">
-      <p className="small text-center">Once you sign up, you can register in advance for services, speed up your check-in time at the pantry, and find other programs that may benefit you.</p>
+    <p className="font-weight-bold text-center">Confirm Sign Up!</p>
+      <p className="small text-center">The verification code is send to {props.destinationMedium}</p>
       <form onSubmit={handleSubmit(onSubmit)} className="sign-in-form">        
         <div className="form-group">
           <label>Verifcation Code</label>
