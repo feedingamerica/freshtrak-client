@@ -20,7 +20,7 @@ const ForgotPasswordEmailComponent = (props) => {
            {errors.username && <span className="text-danger">Code is required</span>}
         </div>
         <button type="submit" className="btn custom-button mt-3 w-100">
-          Confirm
+          Submit
         </button>
       </form>
     </div>

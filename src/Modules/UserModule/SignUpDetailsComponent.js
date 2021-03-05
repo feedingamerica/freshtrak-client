@@ -1,13 +1,12 @@
 import React ,{useState}from "react";
 import { useForm } from "react-hook-form";
-
-
+import FacebookSignInComponent from "../UserModule/FacebookSignInComponent";
+import GuestSignInComponent from "../UserModule/GuestSignInComponent";
 const SignUpDetailsComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (signupData) => {
       props.onSignUp(signupData);
   };
-   
   return (
     <div className="mt-4 pb-3">
       <p className="small text-center">Once you sign up, you can register in advance for services, speed up your check-in time at the pantry, and find other programs that may benefit you.</p>
@@ -32,8 +31,8 @@ const SignUpDetailsComponent = (props) => {
         </div>
         <div className="form-group">
           <label>Phone Number</label>
-          <div class="input-group phone-input">
-          <span class="input-group-btn">
+          <div className="input-group phone-input">
+          <span className="input-group-btn">
 							<select className="form-control">
                 <option>+91</option>
               </select>
@@ -51,12 +50,8 @@ const SignUpDetailsComponent = (props) => {
         </button>
       </form>
         <hr/>
-      <button type="submit" className="btn fb-button mt-3 w-100">
-        Login with Facebook
-      </button>
-      <button type="submit" className="btn btn-outline-secondary mt-3 w-100">
-        Continue as Guest
-      </button> 
+      <FacebookSignInComponent/>
+      <GuestSignInComponent />
     </div>
     
   );

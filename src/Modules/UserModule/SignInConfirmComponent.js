@@ -1,10 +1,6 @@
 import React, { useState }from 'react';
 import { useForm } from "react-hook-form";
 const SignInConfirmComponent = (props) => {
-
- // const [showCode, setShowCode] = useState(props.showCode);
- //const handleClose1 = () => setShowCode(false);
-  // const handleShow = () => setShowCode(true);
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (confirmCode) => {
       props.onConfirmPhone(confirmCode);

@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import LoginLogo from "../../Assets/img/login-logo.png";
-import LoginDetails from "../UserModule/LoginDetailsComponent";
+import SignInDetails from "../UserModule/SignInDetailsComponent";
 import SignUpDetails from "../UserModule/SignUpDetailsComponent";
 import ForgotPasswordContainer from "../UserModule/ForgotPassword/ForgotPasswordContainer";
 import SignInConfirmComponent from "../UserModule/SignInConfirmComponent";
@@ -128,7 +128,7 @@ const UserBlockContainer = (props) => {
 
             case "form" : return (<Tabs defaultActiveKey="signin" >
                                     <Tab eventKey="signin" title="Sign In">
-                                      <LoginDetails onSignIn={onSignIn} onForgotPassword = {onForgotPassword}/>
+                                      <SignInDetails onSignIn={onSignIn} onForgotPassword = {onForgotPassword}/>
                                     </Tab>
                                     <Tab eventKey="signup" title="Sign Up">
                                       <SignUpDetails onSignUp={onSignUp}/>
@@ -148,7 +148,7 @@ const UserBlockContainer = (props) => {
                                     </div>);
           default : return (<Tabs defaultActiveKey="signin" >
                                     <Tab eventKey="signin" title="Sign In">
-                                    <LoginDetails onSignIn={onSignIn}/>
+                                    <SignInDetails onSignIn={onSignIn}/>
                                     </Tab>
                                     <Tab eventKey="signup" title="Sign Up">
                                     <SignUpDetails onSignUp={onSignUp}/>

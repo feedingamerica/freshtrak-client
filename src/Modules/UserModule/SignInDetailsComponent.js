@@ -1,6 +1,8 @@
 import React ,{useState}from "react";
 import { useForm } from "react-hook-form";
-const LoginDetailsComponent = (props) => {
+import FacebookSignInComponent from "../UserModule/FacebookSignInComponent";
+import GuestSignInComponent from "../UserModule/GuestSignInComponent";
+const SignInDetailsComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (signinData) => {
       props.onSignIn(signinData);
@@ -48,13 +50,9 @@ const LoginDetailsComponent = (props) => {
         </button>
       </form>
       <hr/>
-      <button type="submit" className="btn fb-button mt-3 w-100">
-        Login with Facebook
-      </button>
-      <button type="submit" className="btn btn-outline-secondary mt-3 w-100">
-        Continue as Guest
-      </button>
+      <FacebookSignInComponent />
+      <GuestSignInComponent />
     </div>
   );
 };
-export default LoginDetailsComponent;
+export default SignInDetailsComponent;

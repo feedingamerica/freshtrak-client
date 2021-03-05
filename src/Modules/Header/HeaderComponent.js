@@ -20,8 +20,8 @@ import {
 
 import { RENDER_URL } from "../../Utils/Urls";
 import { Auth } from 'aws-amplify';
-// import awsExports from "../../aws-exports";
-// Auth.configure(awsExports);
+import awsExports from "../../aws-exports";
+Auth.configure(awsExports);
 
 const HeaderComponent = (props) => {
   const [navbarShrink, setNavbarShrink] = useState("");
@@ -34,10 +34,17 @@ const HeaderComponent = (props) => {
     localization.setLanguage(data.value);
     dispatch(setCurrentLanguage(data.value));
   }
+
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
   const [showMobileMenu, setMobileMenu] = useState(false);
   const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
-  useEffect(() => {
+  useEffect(() => {    
+    
+    getCurrentUser().then(isLogin => { 
+      localStorage.setItem('isLoggedIn', isLogin);
+      setIsLoggedIn(isLogin);
+    });
+
     let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
     if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
       setIsLoggedIn(false);
@@ -53,15 +60,15 @@ const HeaderComponent = (props) => {
       }
     };
   }, [localIsLoggedIn, isLoggedIn]);
-
+  
   const logOut = async() => {
-    localStorage.setItem('isLoggedIn', false);
+    //localStorage.setItem('isLoggedIn', false);
     await Auth.signOut()
           .then(res => { 
               localStorage.setItem('isLoggedIn', false);
           })
           .catch(err => { 
-              console.log(err);
+              
           }); 
     /*setIsLoggedIn(false);
 
@@ -72,6 +79,12 @@ const HeaderComponent = (props) => {
   }
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const getCurrentUser = ()=> {
+    return Auth.currentAuthenticatedUser()
+      .then(userData => true)
+      .catch(() => false);
+  }
   return (
     <Fragment>
       <Nav
