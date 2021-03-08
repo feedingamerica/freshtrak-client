@@ -8,11 +8,12 @@ const EligibilityModalComponent = ({
   close,
   columnData,
   rowsData,
+  addOnData,
   header,
   footer,
 }) => {
   const handleClose = () => close();
-  const [slideValue, setSlideValue] = useState(1);
+  const [slideValue, setSlideValue] = useState(4);
   const rowItem =
     rowsData.length >= slideValue - 1 ? rowsData[slideValue - 1] : [];
   return (
@@ -50,6 +51,7 @@ const EligibilityModalComponent = ({
             </tr>
           </tbody>
         </table>
+        <span>Note: {addOnData}</span>
       </Modal.Body>
       <Modal.Footer className="justify-content-start">
         <span> {footer}</span>
