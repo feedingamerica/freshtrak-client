@@ -7,6 +7,7 @@ import MemberCountFormComponent from '../Family/MemberCountFormComponent';
 import EventSlotsModalComponent from '../Family/EventSlotsModalComponent';
 import { formatDateForServer } from '../../Utils/DateFormat';
 import BackButtonComponent from '../General/BackButtonComponent';
+import localization from '../Localization/LocalizationComponent';
 
 const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
@@ -123,7 +124,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
                     disabled={disabled}
                     data-testid="continue button"
                   >
-                    Register
+                    {localization.registartion_register}
                   </button>
                 </div>
               </form>
