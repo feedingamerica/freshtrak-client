@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-//import { TabView, TabPanel } from "primereact/tabview";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import LoginLogo from "../../Assets/img/login-logo.png";
@@ -11,17 +10,19 @@ import SignInConfirmComponent from "../UserModule/SignInConfirmComponent";
 import CodeVerificationModalComponent from '../General/CodeVerificationModalComponent';
 import { Auth } from 'aws-amplify';
 import awsExports from "../../aws-exports";
+import {ErrorHandler} from "../../Utils/ErrorHandler";
 Auth.configure(awsExports);
 
 const UserBlockContainer = (props) => {
   const [mode, setMode] = useState('form');
   const [username, setUserName] = useState('');
+  const [customError,setCustomError] = useState({});
   const [user,setUser] = useState({});
   const [destinationMedium, setDestinationMedium] = useState('');
   const [mfaType, setMfaType] = useState('');
   const [dialcode,setDialCode] = useState('+91');
   const onSignUp = async (signupData)=>{
-    let status = false, data = {}; 
+    let status = false, data = {},err; 
     let phone_number = onPhoneNumberFormat(signupData.phonenumber);
     let params = {
         username: signupData.email,
@@ -40,10 +41,10 @@ const UserBlockContainer = (props) => {
                 setMode('signupconfirm');
             })
             .catch(err => { 
-                status = false;
-                data = err;
+               let errorValue =  ErrorHandler(err);
+               setCustomError(errorValue);
             });   
-            return {status, data};   
+            //return {status, data};   
   
   }
   const onConfirm = async (confirmData)=>{
@@ -53,10 +54,9 @@ const UserBlockContainer = (props) => {
             status = true;
             data = res;
             setMode('form');
-          }).catch(err=>{
-            status =false;
-            data = err;
-            console.log('data',err);
+          }).catch(err => {
+            let errorValue =  ErrorHandler(err);
+            setCustomError(errorValue);
           });
     
   }
@@ -92,8 +92,8 @@ const UserBlockContainer = (props) => {
              }
             
           }).catch(err => {
-            status =false;
-            data = err;
+            let errorValue =  ErrorHandler(err);
+            setCustomError(errorValue);
           });
   }
 
@@ -116,27 +116,28 @@ const UserBlockContainer = (props) => {
             localStorage.setItem('isLoggedIn', true);         
             props.handleClose();
           }).catch(err=>{
-            status =false;
-            data = err;
+            let errorValue =  ErrorHandler(err);
+            setCustomError(errorValue);
           });
   }
   const onPhoneNumberFormat = (phone_number) => {
     return `${dialcode}${phone_number.replace(/[-()\s]/g, '')}`;
   }
+ 
   const renderFrom = () => {
     switch(mode) {
 
             case "form" : return (<Tabs defaultActiveKey="signin" >
                                     <Tab eventKey="signin" title="Sign In">
-                                      <SignInDetails onSignIn={onSignIn} onForgotPassword = {onForgotPassword}/>
+                                      <SignInDetails onSignIn={onSignIn} onForgotPassword = {onForgotPassword} customError={customError}/>
                                     </Tab>
                                     <Tab eventKey="signup" title="Sign Up">
-                                      <SignUpDetails onSignUp={onSignUp}/>
+                                      <SignUpDetails onSignUp={onSignUp} customError={customError}/>
                                     </Tab>
                                  </Tabs>
                                )
           case  "signupconfirm" : return (<div>
-                                    <CodeVerificationModalComponent onConfirm={onConfirm} onResendConfirmCode ={onResendConfirmCode} destinationMedium= {destinationMedium}/>
+                                    <CodeVerificationModalComponent onConfirm={onConfirm} onResendConfirmCode ={onResendConfirmCode} destinationMedium= {destinationMedium} customError={customError}/>
                                     </div>);
           case "forgotpassword" : return (<div>
                                              <ForgotPasswordContainer onResetNewPassword={onResetNewPassword}/>
@@ -144,14 +145,14 @@ const UserBlockContainer = (props) => {
                                           );
 
           case "signinconfirm"  : return (<div>
-                                    <SignInConfirmComponent onConfirmPhone={onConfirmPhone} destinationMedium= {destinationMedium}/>
+                                    <SignInConfirmComponent onConfirmPhone={onConfirmPhone} destinationMedium= {destinationMedium} customError={customError}/>
                                     </div>);
           default : return (<Tabs defaultActiveKey="signin" >
                                     <Tab eventKey="signin" title="Sign In">
-                                    <SignInDetails onSignIn={onSignIn}/>
+                                      <SignInDetails onSignIn={onSignIn} onForgotPassword = {onForgotPassword} customError={customError}/>
                                     </Tab>
                                     <Tab eventKey="signup" title="Sign Up">
-                                    <SignUpDetails onSignUp={onSignUp}/>
+                                      <SignUpDetails onSignUp={onSignUp} customError={customError}/>
                                     </Tab>
                                  </Tabs>
                                )

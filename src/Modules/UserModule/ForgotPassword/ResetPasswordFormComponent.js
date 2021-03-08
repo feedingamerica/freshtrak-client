@@ -1,9 +1,11 @@
-import React ,{useState}from "react";
+import React ,{useState,useRef}from "react";
 import { useForm } from "react-hook-form";
 
 
 const ResetPasswordFormComponent = (props) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors ,watch} = useForm();
+  const newpassword = useRef({});
+  newpassword.current = watch("newpassword", "");
   const onSubmit = async (resetData) => {
     props.onResetPassword(resetData);
   };
@@ -20,7 +22,8 @@ const ResetPasswordFormComponent = (props) => {
              id="code"
              ref={register({ required: true })}
           />
-          {errors.code && <span className="text-danger">Email is required</span>}
+          {errors.code && <span className="text-danger">Code is required</span>}
+          {props.customError.codeError && <span className="text-danger">{props.customError.codeError}</span>}
         </div>
         <div className="form-group">
           <label>New Passoword</label>
@@ -36,9 +39,15 @@ const ResetPasswordFormComponent = (props) => {
           <input type="text" className="form-control" 
              name="confirmpassword"
              id="confirmpassword"
-             ref={register({ required: true })}
+             ref={register({ 
+          validate: value =>
+            value === newpassword.current || "The passwords do not match"
+         })}
           />
-           {errors.confirmpassword && <span className="text-danger">Confirm Password is required</span>}
+          
+           {errors.confirmpassword && <span className="text-danger">{errors.confirmpassword.message}</span>}
+           {props.customError.passowrdError && <span className="text-danger">{props.customError.passowrdError}</span>}
+           {props.customError.limitError && <span className="text-danger">{props.customError.limitError}</span>}
         </div>
         <button type="submit" className="btn custom-button mt-3 w-100">
           Reset Password

@@ -1,10 +1,6 @@
 import React, { useState }from 'react';
 import { useForm } from "react-hook-form";
 const CodeVerificationModalComponent = (props) => {
-
- // const [showCode, setShowCode] = useState(props.showCode);
- //const handleClose1 = () => setShowCode(false);
-  // const handleShow = () => setShowCode(true);
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (confirmData) => {
       props.onConfirm(confirmData);
@@ -25,6 +21,7 @@ const CodeVerificationModalComponent = (props) => {
              ref={register({ required: true })}
           />
            {errors.code && <span className="text-danger">Code is required</span>}
+           {props.customError.codeError && <span className="text-danger">{props.customError.codeError}</span>}
            <div onClick={onClickResend}>Resend Code</div>
         </div>
         <button type="submit" className="btn custom-button mt-3 w-100">

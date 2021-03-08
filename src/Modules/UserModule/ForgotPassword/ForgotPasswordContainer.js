@@ -3,12 +3,16 @@ import ForgotPasswordEmailForm from './ForgotPasswordEmailComponent';
 import ResetPasswordFormComponent from './ResetPasswordFormComponent';
 import { Auth } from 'aws-amplify';
 import awsExports from "../../../aws-exports";
+import {ErrorHandler} from "../../../Utils/ErrorHandler";
 Auth.configure(awsExports);
+
 
 const ForgotPasswordContainer = (props) => {
   const [show, setShow] = useState(false);
   const [username,setUserName] = useState('');
   const [destinationemail,setDestinationEmail] = useState('');
+  const [customError,setCustomError] = useState({});
+
   const onSendEmail = (user) => {
       let username = user.username, status = false, data = {};
       Auth.forgotPassword(username)
@@ -19,8 +23,8 @@ const ForgotPasswordContainer = (props) => {
             setDestinationEmail(data.CodeDeliveryDetails.Destination);
             setShow(true);
           }).catch(err => {
-            status =false;
-            data = err;            
+            let errorValue = ErrorHandler(err);     
+            setCustomError(errorValue);  
           });
   }
   const onResetPassword = async (resetData)=> {
@@ -31,16 +35,16 @@ const ForgotPasswordContainer = (props) => {
           .then(res => {
             props.onResetNewPassword();
           }).catch(err => {
-            status =false;
-            data = err;            
+             let errorValue = ErrorHandler(err);     
+             setCustomError(errorValue);           
           });
     
   }
   return (
     <div>
         {show ?
-           <ResetPasswordFormComponent onResetPassword={onResetPassword} destinationEmail= {destinationemail}/>:   
-          <ForgotPasswordEmailForm  onSendEmail = {onSendEmail}/>  
+           <ResetPasswordFormComponent onResetPassword={onResetPassword} destinationEmail= {destinationemail} customError={customError}/>:   
+          <ForgotPasswordEmailForm  onSendEmail = {onSendEmail} customError={customError}/>  
         }    
     </div>
   )

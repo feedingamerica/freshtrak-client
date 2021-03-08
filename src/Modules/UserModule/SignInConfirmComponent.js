@@ -18,7 +18,8 @@ const SignInConfirmComponent = (props) => {
              id="code"
              ref={register({ required: true })}
           />
-           {errors.code && <span className="text-danger">Code is required</span>}           
+           {errors.code && <span className="text-danger">Code is required</span>} 
+           {props.customError.codeError && <span className="text-danger">{props.customError.codeError}</span>}          
         </div>
         <button type="submit" className="btn custom-button mt-3 w-100">
           Confirm

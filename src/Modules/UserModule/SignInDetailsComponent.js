@@ -20,9 +20,16 @@ const SignInDetailsComponent = (props) => {
             className="form-control"
             name="username"
             id="username"
-            ref={register({ required: true })}
+            ref={register({ required: 'Email is required' ,
+                             pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                    message: "Enter a valid e-mail address",
+                                  }, 
+
+                           })
+                  }
           />
-          {errors.username && <span className="text-danger">Username is required</span>}
+          {errors.username && <span className="text-danger">{errors.username.message}</span>}
         </div>
         <div className="form-group">
           <label>Password</label>
@@ -32,7 +39,8 @@ const SignInDetailsComponent = (props) => {
             id="password"
             ref={register({ required: true })}
           />
-          {errors.password && <span className="text-danger">Password is required</span>}
+          {errors.password && <span className="text-danger">Password is required</span>}   
+           {props.customError.userError && <span className="text-danger">{props.customError.userError}</span>}        
         </div>
         <div className="d-flex justify-content-between">
           <div className="form-check">

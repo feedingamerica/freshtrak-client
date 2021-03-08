@@ -18,9 +18,16 @@ const SignUpDetailsComponent = (props) => {
           <input type="text" className="form-control"
              name="email"
              id="email"
-             ref={register({ required: true })}
+             ref={register({ required: 'Email is required' ,
+                             pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                    message: "Enter a valid e-mail address",
+                                  },
+                            })
+                  }
           />
-          {errors.email && <span className="text-danger">Email is required</span>}
+          {errors.email && <span className="text-danger">{errors.email.message}</span>}
+          {props.customError.emailError && <span className="text-danger">{props.customError.emailError}</span>}
         </div>
         <div className="form-group">
           <label>Password</label>
@@ -30,6 +37,7 @@ const SignUpDetailsComponent = (props) => {
              ref={register({ required: true })}
           />
           {errors.password && <span className="text-danger">Password is required</span>}
+          {props.customError.passowrdError && <span className="text-danger">{props.customError.passowrdError}</span>}
         </div>
         <div className="form-group">
           <label>Phone Number</label>
