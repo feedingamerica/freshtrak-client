@@ -99,7 +99,7 @@ const RegistrationContainer = (props) => {
   }
 
   const getCodeURL = (identification_code) => {
-    return `Your QRCode for the Reservation ${CLIENT_URL}qrcode/${identification_code}`;
+    return `Your QRCode for the Reservation ${CLIENT_URL}qrcode/${identification_code}/${eventDateId}`;
   }
 
   const notify = (msg, error) => {
