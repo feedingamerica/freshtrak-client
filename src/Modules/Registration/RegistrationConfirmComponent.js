@@ -162,7 +162,7 @@ const RegistrationConfirmComponent = props => {
             <div className="mt-1">
               <h2>
                 Your QR Code <br />
-                <QRCode value= "https://secure.pantrytrak.com/mobile/qr_code_processing.php?code={identification_code.toUpperCase()}" />
+                <QRCode value= "https://secure.pantrytrak.com/mobile/qr_code_processing.php?code={identification_code.toUpperCase()}&event_date_id={eventDateId}" />
               </h2>
               <br />
             </div>
