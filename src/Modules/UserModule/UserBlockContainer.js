@@ -43,10 +43,9 @@ const UserBlockContainer = (props) => {
             .catch(err => { 
                let errorValue =  ErrorHandler(err);
                setCustomError(errorValue);
-            });   
-            //return {status, data};   
-  
+            }); 
   }
+  
   const onConfirm = async (confirmData)=>{
     let code = confirmData.code, status = false, data = {}; 
     await Auth.confirmSignUp(username, code)
@@ -68,9 +67,8 @@ const UserBlockContainer = (props) => {
             data = res;
             console.log(data);
           }).catch(err=>{
-            status =false;
-            data = err;
-            console.log('data',err);
+            let errorValue =  ErrorHandler(err);
+            setCustomError(errorValue);
           });
   }
   const onSignIn = async (signinData)=> {

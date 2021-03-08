@@ -9,7 +9,6 @@ import {
   Redirect,
 } from "react-router-dom";
 import ScrollContainer from "./ScrollContainer";
-import userModuleContainer from "../Modules/UserModule/UserModuleContainer";
 const DashBoardContainer = lazy(() =>
   import("../Modules/Dashboard/DashBoardContainer")
 );
@@ -37,7 +36,6 @@ const HomeContainer = lazy(() => import('../Modules/Home/HomeContainer'));
 const QRCodeComponent = lazy(() => import('../Modules/Registration/QRCodeComponent'));
 const PrivacyComponent = lazy(() => import('../Modules/Policies/PrivacyComponent'));
 const TermsComponent = lazy(() => import('../Modules/Policies/TermsComponent'));
-const UserModuleComponent = lazy(() => import('../Modules/UserModule/UserModuleContainer'));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -123,11 +121,7 @@ const Routes = () => {
               path={`${RENDER_URL.TERMS}`}
               component={TermsComponent}
             />  
-
-            <Route
-              path={`${RENDER_URL.USER_LOGIN}`}
-              component={UserModuleComponent}
-            />  
+            
 
             <Route
               path={`${RENDER_URL.AGENCY_EVENT_LIST}/:agencyId`}
