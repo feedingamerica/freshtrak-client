@@ -21,3 +21,9 @@ export const STATUS_CODES = {
 
 // Set Default Distance to 10 Miles.
 export const DEFAULT_DISTANCE = 10;
+
+export const CONFIRMATION_EMAIL = {
+    FROM: 'sarathpyerra@gmail.com',
+    SUBJECT: 'FreshTrak: Event Reservation Confirmed.',
+    CONTENT: 'You have successfully registered for FreshTrak, Your confirmation code is '
+};
