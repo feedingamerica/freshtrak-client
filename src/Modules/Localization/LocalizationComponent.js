@@ -53,7 +53,14 @@ let localization = new LocalizedStrings({
    license_plate: "License Plate",
    arrive_disribution: "If you will arrive at the distribution in a vehicle and know the license plate, please include it here. Sharing your license plate enables expedited check-in at some distributions.",
    house_hold_zip: "Household Zip code",
-   registartion_register: "Register"
+   registartion_register: "Register",
+   for_foodbanks: "For Foodbanks",
+   advance_registration: "Registering in advance is",
+   by_registration: "By registering now, you can save time time on-site and keep yourself and our volunteers safe.",
+   male: "Male",
+   female: "Female",
+   other: "Other",
+   not_to_say: "Prefer Not To Specify"
 
  },
  
@@ -109,7 +116,15 @@ let localization = new LocalizedStrings({
   license_plate: "Matrícula",   
   arrive_disribution: "Si va a llegar a la distribución en un vehículo y sabe laplaca, inclúyala aquí. Compartir su matrícula permite hacer el check-in rápido enalgunas distribuciones.",
   house_hold_zip: "Código postal del hogar",
-  registartion_register: "Registrarse"
+  registartion_register: "Registrarse",
+  for_foodbanks: "Para bancos de alimentos",
+  advance_registration: "Registrarse con anticipación es",
+  by_registration: "Al registrarse ahora, puede ahorrar tiempo en el sitio y mantenerse a salvo a usted y a nuestros voluntarios.",
+  male: "Masculina",
+  female: "Mujer",
+  other: "Otra/Otro",
+  not_to_say: "Prefiero no especificar"
+
  },
  som: {
   home_freshtrack:"FreshTrak waxay halkan u joogtaa inay ku caawiso!",
@@ -163,7 +178,15 @@ let localization = new LocalizedStrings({
   license_plate: "Taarikada Liisanka",
   arrive_disribution: "Haddii aad ku imaan doontid qeybinta gawaarida oo aad taqaan taarikada, fadlan ku dar halkan. Wadaagista taarikada liisankaaga ayaa awood u siinaysa hubinta degdegga ah qaybinta qaarkood.",
   house_hold_zip: "Lambarka boostada guriga",
-  registartion_register: "Diiwaangeli"
+  registartion_register: "Diiwaangeli",
+  for_foodbanks: "For Foodbanks",
+  advance_registration: "Isdiiwaangalinta hore waa",
+  by_registration: "Marka aad isdiiwaangaliso hada, waxaad waqti kuheli kartaa goobta isla markaana naftaada iyo tabaruceyaasheena badbaadin kartaa.",
+  male: "Lab",
+  female: "Dheddig",
+  other: "Kale",
+  not_to_say: "Doorbida Inaan Cadeyn"
+
 },
 rus: {
   home_freshtrack:"FreshTrak здесь, чтобы помочь!",
@@ -217,7 +240,15 @@ rus: {
   license_plate: "Номерной знак",
   arrive_disribution: "Если вы приедете на раздачу на автомобиле и знаете номерной знак, укажите его здесь. Совместное использование номерного знака позволяет ускорить регистрацию на рейс в некоторых магазинах.",
   house_hold_zip: "Почтовый индекс домашнего хозяйства",
-  registartion_register: "регистр"
+  registartion_register: "регистр",
+  for_foodbanks: "Для Фудбанков",
+  advance_registration: "Предварительная регистрация - это",
+  by_registration: "Регистрируясь сейчас, вы можете сэкономить время на работе и обезопасить себя и наших волонтеров.",
+  male: "Мужской",
+  female: "женский",
+  other: "Другой",
+  not_to_say: "Предпочитаю не указывать"
+
 },
  tur: {
   home_freshtrack:"FreshTrak yardım etmek için burada!",
@@ -271,7 +302,15 @@ rus: {
   license_plate: "Plaka",
   arrive_disribution: "Dağıtıma bir araçla gelecekseniz ve plakayı biliyorsanız, lütfen buraya ekleyin. Plakanızı paylaşmak, bazı dağıtımlarda hızlı check-in yapmanızı sağlar.",
   house_hold_zip: "Ev Posta kodu",
-  registartion_register: "Kayıt ol"
+  registartion_register: "Kayıt ol",
+  for_foodbanks: "Foodbanks için",
+  advance_registration: "Önceden kayıt olmak",
+  by_registration: "Şimdi kaydolarak, yerinde zaman kazanabilir ve kendinizi ve gönüllülerimizi güvende tutabilirsiniz.",
+  male: "Erkek",
+  female: "Kadın",
+  other: "Diğer",
+  not_to_say: "Belirtmemeyi Tercih Et"
+
 
 },
 ara: {
@@ -326,7 +365,15 @@ ara: {
   license_plate: "لوحة الترخيص",
   arrive_disribution: "إذا كنت ستصل إلى التوزيع في سيارة وتعرف لوحة الترخيص ، فيرجى تضمينها هنا. تتيح مشاركة لوحة الترخيص الخاصة بك تسجيل الوصول السريع في بعض التوزيعات.",
   house_hold_zip: "الرمز البريدي للمنزل",
-  registartion_register: "يسجل"
+  registartion_register: "يسجل",
+  for_foodbanks: "لبنوك الطعام",
+  advance_registration: "التسجيل مقدما هو",
+  by_registration: "من خلال التسجيل الآن ، يمكنك توفير الوقت في الموقع والحفاظ على سلامتك أنت ومتطوعينا.",
+  male: "ذكر",
+  female: "أنثى",
+  other: "آخر",
+  not_to_say: "تفضل عدم التحديد"
+
 },
 zho: {
   home_freshtrack:"FreshTrak在這里為您提供幫助",
@@ -380,7 +427,15 @@ zho: {
   license_plate: "牌照",
   arrive_disribution: "如果您将乘坐汽车到达配送区，并且知道车牌，请在此处提供。共享您的车牌可以在某些发行版中加快签到。",
   house_hold_zip: "家用邮政编码",
-  registartion_register: "登记"
+  registartion_register: "登记",
+  for_foodbanks: "对于食品银行",
+  advance_registration: "提前注册为",
+  by_registration: "通过立即注册，您可以节省现场时间，并确保自己和我们的志愿者的安全。",
+  male: "男性",
+  female: "女性",
+  other: "其他",
+  not_to_say: "不想指定"
+
 },
 hin: {
   home_freshtrack:"FreshTrak मदद करने के लिए यहाँ है!",
@@ -434,7 +489,15 @@ hin: {
   license_plate: "लाइसेंस प्लेट",
   arrive_disribution: "यदि आप एक वाहन में वितरण पर पहुंचेंगे और लाइसेंस प्लेट को जानेंगे, तो कृपया इसे यहां शामिल करें। अपनी लाइसेंस प्लेट साझा करना कुछ वितरणों में शीघ्र चेक-इन सक्षम बनाता है।",
   house_hold_zip: "घरेलू ज़िप कोड",
-  registartion_register: "रजिस्टर करें"
+  registartion_register: "रजिस्टर करें",
+  for_foodbanks: "फूडबैंक के लिए",
+  advance_registration: "अग्रिम में पंजीकरण है",
+  by_registration: "अब पंजीकरण करके, आप साइट पर समय बचा सकते हैं और अपने आप को और हमारे स्वयंसेवकों को सुरक्षित रख सकते हैं।",
+  male: "पुरुष",
+  female: "महिला",
+  other: "अन्य",
+  not_to_say: "निर्दिष्ट नहीं करना चाहते हैं"
+
 },
 nep: {
   home_freshtrack:"फ्रेशट्र्याक मद्दत गर्न यहाँ छ!",
@@ -488,7 +551,15 @@ nep: {
   license_plate: "नम्बर प्लेट",
   arrive_disribution: "यदि तपाईं गाडीमा वितरणमा आइपुग्नुहुनेछ र इजाजतपत्र प्लेट थाहा पाउनुहुनेछ भने, कृपया यहाँ समावेश गर्नुहोस्। तपाइँको इजाजत पत्र प्लेट साझा केहि वितरण मा छिटो चेक-इन सक्षम गर्दछ।",
   house_hold_zip: "घरेलु जिप कोड",
-  registartion_register: "रेजिष्टर गर्नुहोस्"
+  registartion_register: "रेजिष्टर गर्नुहोस्",
+  for_foodbanks: "Foodbanks को लागी",
+  advance_registration: "अग्रिम दर्ता गर्नु हो",
+  by_registration: "अहिले दर्ता गरेर, तपाईं साइटमा समय बचत गर्न सक्नुहुनेछ र आफैलाई र हाम्रा स्वयंसेवकहरूलाई सुरक्षित राख्न सक्नुहुन्छ।",
+  male: "नर",
+  female: "महिला",
+  other: "अन्य",
+  not_to_say: "निर्दिष्ट नगर्न मन पर्छ"
+
 }
 });
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../Assets/scss/main.scss';
+import localization from '../Localization/LocalizationComponent';
 
 const RegistrationTextComponent = ({event}) => {
   const [isRegRequired, setRegRequired] = useState()
@@ -19,9 +20,9 @@ const RegistrationTextComponent = ({event}) => {
       <div className="content-wrapper page-info-wrap">
         <p>
           <span className="font-weight-bold">
-            Registering in advance is {isRegRequired}.
+          {localization.advance_registration} {isRegRequired}.
           </span>{' '}
-          By registering now, you can save time time on-site and keep yourself and our volunteers safe.
+          {localization.by_registration}
         </p>
       </div>
     </div>

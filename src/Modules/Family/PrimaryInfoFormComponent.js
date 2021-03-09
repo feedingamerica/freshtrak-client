@@ -115,10 +115,10 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
         ref={register({required: true})}
       >
         <option value="" defaultValue></option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-        <option value="not_specify">Prefer Not To Specify</option>
+        <option value="male">{localization.male}</option>
+        <option value="female">{localization.female}</option>
+        <option value="other">{localization.other}</option>
+        <option value="not_specify">{localization.not_to_say}</option>
       </select>
       {errors.gender && <span className="text-danger">This field is required</span>}
     </div>
