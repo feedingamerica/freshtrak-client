@@ -8,7 +8,7 @@ import localization from '../Localization/LocalizationComponent'
 const DashBoardFoodBankComponent = () => (
   <div className="container pt-150 pb-150">
     <div className="text-uppercase mobile-text-left text-center">
-      For Foodbanks
+    {localization.for_foodbanks}
     </div>
     <h2 className="mb-2 font-weight-bold mobile-text-left text-center">
     {localization.home_dashboard}
