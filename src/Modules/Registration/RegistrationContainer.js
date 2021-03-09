@@ -99,7 +99,7 @@ const RegistrationContainer = (props) => {
   }
 
   const getCodeURL = (identification_code) => {
-    return `Your QRCode for the Reservation ${CLIENT_URL}qrcode/${identification_code}/${eventDateId}`;
+    return `Your QRCode for the Reservation ${CLIENT_URL}qrcode/${identification_code}/${eventDateId}${eventSlotId?"/" + eventSlotId: ""}`;
   }
 
   const notify = (msg, error) => {
@@ -167,7 +167,14 @@ const RegistrationContainer = (props) => {
       sessionStorage.setItem("registeredEventDateID", eventDateId);
       history.push({
         pathname: RENDER_URL.REGISTRATION_CONFIRM_URL,
-        state: { user: {...user,identification_code:currentUser.identification_code}, eventDateId: eventDateId, eventTimeStamp : {start_time: location.state?.event_slot?.start_time, end_time: location.state?.event_slot?.end_time} }
+        state: { user: {...user,identification_code:currentUser.identification_code},
+                 eventDateId: eventDateId,
+                 eventTimeStamp : {
+                   start_time: location.state?.event_slot?.start_time,
+                   end_time: location.state?.event_slot?.end_time,
+                   event_slot_id: event_slot_id
+                  }
+                   }
       });
     } catch (e) {
       if (!e.response){
