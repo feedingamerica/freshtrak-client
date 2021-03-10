@@ -1,6 +1,6 @@
 import React, { useState }from 'react';
 import { useForm } from "react-hook-form";
-const CodeVerificationModalComponent = (props) => {
+const SignUpConfirmComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (confirmData) => {
       props.onConfirm(confirmData);
@@ -22,7 +22,10 @@ const CodeVerificationModalComponent = (props) => {
           />
            {errors.code && <span className="text-danger">Code is required</span>}
            {props.customError.codeError && <span className="text-danger">{props.customError.codeError}</span>}
-           <div onClick={onClickResend}>Resend Code</div>
+           
+           <div>
+            <a className="pointer font-weight-bold" onClick={onClickResend}>Resend Code ?</a>
+          </div>
         </div>
         <button type="submit" className="btn custom-button mt-3 w-100">
           Confirm
@@ -32,4 +35,4 @@ const CodeVerificationModalComponent = (props) => {
   );
 };
 
-export default CodeVerificationModalComponent;
+export default SignUpConfirmComponent;

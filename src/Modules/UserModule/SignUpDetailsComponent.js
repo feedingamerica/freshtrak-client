@@ -1,7 +1,7 @@
 import React ,{useState}from "react";
 import { useForm } from "react-hook-form";
-import FacebookSignInComponent from "../UserModule/FacebookSignInComponent";
-import GuestSignInComponent from "../UserModule/GuestSignInComponent";
+import FacebookSignInComponent from "./FacebookSignInComponent";
+import GuestSignInComponent from "./GuestSignInComponent";
 import PhoneInputComponent from '../Family/PhoneInputComponent';
 const SignUpDetailsComponent = (props) => {
   const { register, handleSubmit, errors,setValue,watch } = useForm();

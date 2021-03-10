@@ -1,7 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import FacebookSignInComponent from "../UserModule/FacebookSignInComponent";
-import GuestSignInComponent from "../UserModule/GuestSignInComponent";
+import FacebookSignInComponent from "./FacebookSignInComponent";
+import GuestSignInComponent from "./GuestSignInComponent";
+
 const SignInDetailsComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (signinData) => {
