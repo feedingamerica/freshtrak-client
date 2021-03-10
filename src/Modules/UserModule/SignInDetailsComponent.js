@@ -15,7 +15,7 @@ const SignInDetailsComponent = (props) => {
       <p className="font-weight-bold text-center">Welcome Back !</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
-          <label>Username</label>
+          <label>Email</label>
           <input type="text" 
             className="form-control"
             name="username"

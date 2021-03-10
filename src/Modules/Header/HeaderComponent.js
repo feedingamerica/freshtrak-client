@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from "react";
 
 import mainLogo from "../../Assets/img/logo.png";
 import closeIcon from '../../Assets/img/close.svg';
+import userIcon from "../../Assets/img/Mask.svg";
 // import navBarIcon from "../../Assets/img/menu.svg";
 import { Link } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap';
@@ -16,6 +17,8 @@ import 'semantic-ui-css/semantic.min.css'
 import {
   Nav,
   Navbar,
+  NavDropdown,
+  DropdownItem
 } from "react-bootstrap";
 
 import { RENDER_URL } from "../../Utils/Urls";
@@ -62,6 +65,7 @@ const HeaderComponent = (props) => {
       let data = res.data;
       if(res.status){
         localStorage.setItem('isLoggedIn', false);
+        setIsLoggedIn(false);
       } else {
         console.log("error",data)
       }
@@ -166,7 +170,22 @@ const HeaderComponent = (props) => {
              </div>
              )}
             {isLoggedIn && (
-              <LinkContainer to={RENDER_URL.ROOT_URL}>
+              <div className="user-avatar">
+                                <NavDropdown
+                                    title={
+                                        <img
+                                        className="thumbnail-image"
+                                        src={userIcon}
+                                        alt="user pic"
+                                        />}>
+                                    <DropdownItem
+                                        onClick={logOut}
+                                        >
+                                        <i className="fa fa-sign-out"></i> Logout
+                                    </DropdownItem>
+                                </NavDropdown>
+                            </div>
+              /*<LinkContainer to={RENDER_URL.ROOT_URL}>
                 <button
                 type="submit"
                 className="btn btn-link header-sign-in"
@@ -174,7 +193,7 @@ const HeaderComponent = (props) => {
                 >
                   LOG OUT
                 </button>
-              </LinkContainer>
+              </LinkContainer>*/
             )}
             {/* <div>
               <label>Select Language ?</label>
