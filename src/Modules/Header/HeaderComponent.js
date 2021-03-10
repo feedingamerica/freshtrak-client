@@ -19,7 +19,7 @@ import {
   Navbar,
   NavDropdown,
   DropdownItem
-} from "react-bootstrap";
+} from 'react-bootstrap';
 
 import { RENDER_URL } from "../../Utils/Urls";
 
@@ -38,11 +38,15 @@ const HeaderComponent = (props) => {
   }
 
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
+  const userType = localStorage.getItem("userType");
   const [showMobileMenu, setMobileMenu] = useState(false);
   const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
   useEffect(() => {   
-
-    getCurrentUser();
+    //debugger
+    if(!userType){
+      getCurrentUser();
+    }
+   
 
     let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
     if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
@@ -61,21 +65,30 @@ const HeaderComponent = (props) => {
   }, [localIsLoggedIn, isLoggedIn]);
   
   const logOut = async() => { 
-    await LogOut().then(res => {
-      let data = res.data;
-      if(res.status){
-        localStorage.setItem('isLoggedIn', false);
-        setIsLoggedIn(false);
-      } else {
-        console.log("error",data)
-      }
-    })
-    /*setIsLoggedIn(false);
+    if(!userType){
+      await LogOut().then(res => {
+        let data = res.data;
+        if(res.status){
+          //console.log("res is >>",res)
+          localStorage.setItem('isLoggedIn', false);
+          setIsLoggedIn(false);
+        } else {
+          console.log("error",data)
+        }
+      })
+    }
+    else{
+      setIsLoggedIn(false);
+      localStorage.removeItem('userToken');
+      localStorage.removeItem('tokenExpiresAt');
+      localStorage.removeItem('search_zip');
+      localStorage.removeItem('userType');
+    }
+   
+    
 
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('tokenExpiresAt');
-    localStorage.removeItem('search_zip');
-    window.FB.logout()*/
+    
+    //window.FB.logout()
   }
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -170,22 +183,24 @@ const HeaderComponent = (props) => {
              </div>
              )}
             {isLoggedIn && (
-              <div className="user-avatar">
-                                <NavDropdown
-                                    title={
-                                        <img
-                                        className="thumbnail-image"
-                                        src={userIcon}
-                                        alt="user pic"
-                                        />}>
-                                    <DropdownItem
-                                        onClick={logOut}
-                                        >
-                                        <i className="fa fa-sign-out"></i> Logout
-                                    </DropdownItem>
-                                </NavDropdown>
-                            </div>
-              /*<LinkContainer to={RENDER_URL.ROOT_URL}>
+              // <div className="user-avatar">
+              //                   <NavDropdown
+              //                       title={
+              //                           <img
+              //                           className="thumbnail-image"
+              //                           src={userIcon}
+              //                           alt="user pic"
+              //                           />}>
+              //                        <DropdownItem
+              //                           onClick={logOut}
+              //                           >
+              //                           <i className="fa fa-sign-out"></i> Logout
+              //                       </DropdownItem> 
+
+                                    
+              //                   </NavDropdown>
+              //               </div>
+              <LinkContainer to={RENDER_URL.ROOT_URL}>
                 <button
                 type="submit"
                 className="btn btn-link header-sign-in"
@@ -193,7 +208,7 @@ const HeaderComponent = (props) => {
                 >
                   LOG OUT
                 </button>
-              </LinkContainer>*/
+              </LinkContainer>
             )}
             {/* <div>
               <label>Select Language ?</label>

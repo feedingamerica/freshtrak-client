@@ -8,7 +8,11 @@ import axios from 'axios';
 import RegistrationTextInfoComponent from '../Registration/RegistrationTextInfoComponent';
 import AuthenticationModalComponent from '../Authentication/AuthenticationModal';
 import { EventFormat } from '../../Utils/EventHandler';
-import TagManager from 'react-gtm-module'
+import TagManager from 'react-gtm-module';
+
+//new changes for 18.1 User Module
+import UserBlockContainer from '../UserModule/UserBlockContainer';
+import {Modal,Button} from 'react-bootstrap';
 
 const RegistrationEventDetailsContainer = (props) => {
   const history = useHistory();
@@ -51,6 +55,7 @@ const RegistrationEventDetailsContainer = (props) => {
   };
 
   const fetchUserToken = async (response) => {
+    console.log("fetchUserToken called")
     setLoading(true);
     const { GUEST_AUTH, FB_AUTH} = API_URL;
     try {
@@ -68,6 +73,7 @@ const RegistrationEventDetailsContainer = (props) => {
         localStorage.setItem('userToken', authentication.token);
         localStorage.setItem('tokenExpiresAt', authentication.expires_at);
       }else{
+        console.log("in else,GUEST_AUTH called")
         const resp = await axios.post(GUEST_AUTH);
         const {
           data: { token, expires_at },
@@ -86,23 +92,43 @@ const RegistrationEventDetailsContainer = (props) => {
   const getUserToken = (response) => {
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
+    console.log("getUserToken clicked")
 
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
+      console.log("in if")
+      console.log("showAuthenticationModal >>",showAuthenticationModal)
       showAuthenticationModal ? fetchUserToken(response) : setshowAuthenticationModal(true);
     } else {
+      console.log("in else of getUserToken")
       setUserToken(localUserToken);
       setshowAuthenticationModal(false);
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     }
   };
 
+  const handleClose = () => setshowAuthenticationModal(false);
+  const handleShow = () => setshowAuthenticationModal(true);
+
   return (
     <Fragment>
       {isLoading && <SpinnerComponent />}
-      <AuthenticationModalComponent
+      {/* <AuthenticationModalComponent
             show={showAuthenticationModal}
             setshow={setshowAuthenticationModal}
-            onLogin={getUserToken} />
+            onLogin={getUserToken} /> */}
+
+
+    <Modal show={showAuthenticationModal} onHide={handleClose} className="custom-modal">
+        <Modal.Header closeButton>
+        </Modal.Header>
+        <Modal.Body>
+          <UserBlockContainer
+          onLogin={()=>getUserToken}
+          handleClose={()=>setshowAuthenticationModal(false)} />
+        </Modal.Body>
+      </Modal>
+
+
       {!isLoading && isSuccessful && (
         <div className="mt-4">
           <section className="container pt-100 pb-100 register-confirmation">
