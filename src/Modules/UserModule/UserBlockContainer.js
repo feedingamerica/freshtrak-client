@@ -2,12 +2,11 @@ import React, {useState} from "react";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import LoginLogo from "../../Assets/img/login-logo.png";
-import SignInDetails from "../UserModule/SignInDetailsComponent";
-import SignUpDetails from "../UserModule/SignUpDetailsComponent";
-import ForgotPasswordContainer from "../UserModule/ForgotPassword/ForgotPasswordContainer";
-import SignInConfirmComponent from "../UserModule/SignInConfirmComponent";
-
-import CodeVerificationModalComponent from '../General/CodeVerificationModalComponent';
+import SignInDetails from "./SignInDetailsComponent";
+import SignUpDetails from "./SignUpDetailsComponent";
+import ForgotPasswordContainer from "./ForgotPassword/ForgotPasswordContainer";
+import SignInConfirmComponent from "./SignInConfirmComponent";
+import SignUpConfirmComponent from './SignUpConfirmComponent';
 import {ErrorHandler} from "../../Utils/ErrorHandler";
 import {SignUp, SignUpConfirm,ResendConfirmCode, SignIn,ConfirmSignIn} from "../../Utils/CognitoHandler";
 
@@ -126,7 +125,7 @@ const UserBlockContainer = (props) => {
                                  </Tabs>
                                )
           case  "signupconfirm" : return (<div>
-                                    <CodeVerificationModalComponent onConfirm={onConfirm} onResendConfirmCode ={onResendConfirmCode} destinationMedium= {destinationMedium} customError={customError}/>
+                                    <SignUpConfirmComponent onConfirm={onConfirm} onResendConfirmCode ={onResendConfirmCode} destinationMedium= {destinationMedium} customError={customError}/>
                                     </div>);
           case "forgotpassword" : return (<div>
                                              <ForgotPasswordContainer onResetNewPassword={onResetNewPassword}/>
