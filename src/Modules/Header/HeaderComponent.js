@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from "react";
 
 import mainLogo from "../../Assets/img/logo.png";
 import closeIcon from '../../Assets/img/close.svg';
+import userIcon from "../../Assets/img/Mask.svg";
 // import navBarIcon from "../../Assets/img/menu.svg";
 import { Link } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap';
@@ -16,12 +17,13 @@ import 'semantic-ui-css/semantic.min.css'
 import {
   Nav,
   Navbar,
+  NavDropdown,
+  DropdownItem
 } from "react-bootstrap";
 
 import { RENDER_URL } from "../../Utils/Urls";
-import { Auth } from 'aws-amplify';
-import awsExports from "../../aws-exports";
-Auth.configure(awsExports);
+
+import {LogOut, CurrentUser} from "../../Utils/CognitoHandler";
 
 const HeaderComponent = (props) => {
   const [navbarShrink, setNavbarShrink] = useState("");
@@ -38,12 +40,9 @@ const HeaderComponent = (props) => {
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
   const [showMobileMenu, setMobileMenu] = useState(false);
   const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
-  useEffect(() => {    
-    
-    getCurrentUser().then(isLogin => { 
-      localStorage.setItem('isLoggedIn', isLogin);
-      setIsLoggedIn(isLogin);
-    });
+  useEffect(() => {   
+
+    getCurrentUser();
 
     let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
     if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
@@ -61,15 +60,16 @@ const HeaderComponent = (props) => {
     };
   }, [localIsLoggedIn, isLoggedIn]);
   
-  const logOut = async() => {
-    //localStorage.setItem('isLoggedIn', false);
-    await Auth.signOut()
-          .then(res => { 
-              localStorage.setItem('isLoggedIn', false);
-          })
-          .catch(err => { 
-              
-          }); 
+  const logOut = async() => { 
+    await LogOut().then(res => {
+      let data = res.data;
+      if(res.status){
+        localStorage.setItem('isLoggedIn', false);
+        setIsLoggedIn(false);
+      } else {
+        console.log("error",data)
+      }
+    })
     /*setIsLoggedIn(false);
 
     localStorage.removeItem('userToken');
@@ -80,10 +80,13 @@ const HeaderComponent = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const getCurrentUser = ()=> {
-    return Auth.currentAuthenticatedUser()
-      .then(userData => true)
-      .catch(() => false);
+  const getCurrentUser = async ()=> {
+    await CurrentUser().then(res=> {
+        let isLogin = res.status;
+        localStorage.setItem('isLoggedIn', isLogin);
+        localStorage.setItem('authtoken', res.token);
+        setIsLoggedIn(isLogin);      
+    })
   }
   return (
     <Fragment>
@@ -167,7 +170,22 @@ const HeaderComponent = (props) => {
              </div>
              )}
             {isLoggedIn && (
-              <LinkContainer to={RENDER_URL.ROOT_URL}>
+              <div className="user-avatar">
+                                <NavDropdown
+                                    title={
+                                        <img
+                                        className="thumbnail-image"
+                                        src={userIcon}
+                                        alt="user pic"
+                                        />}>
+                                    <DropdownItem
+                                        onClick={logOut}
+                                        >
+                                        <i className="fa fa-sign-out"></i> Logout
+                                    </DropdownItem>
+                                </NavDropdown>
+                            </div>
+              /*<LinkContainer to={RENDER_URL.ROOT_URL}>
                 <button
                 type="submit"
                 className="btn btn-link header-sign-in"
@@ -175,7 +193,7 @@ const HeaderComponent = (props) => {
                 >
                   LOG OUT
                 </button>
-              </LinkContainer>
+              </LinkContainer>*/
             )}
             {/* <div>
               <label>Select Language ?</label>

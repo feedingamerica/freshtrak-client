@@ -12,7 +12,7 @@ const ForgotPasswordEmailComponent = (props) => {
       <form onSubmit={handleSubmit(onSubmit)}>        
         <div className="form-group">
           <label>Email</label>
-          <input type="text" className="form-control" 
+          <input type="text" className="form-control" autocomplete="off"
              name="username"
              id="username"
              ref={register({ required: 'Email is required' ,

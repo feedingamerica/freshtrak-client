@@ -1,10 +1,8 @@
 import React,{useState} from 'react';
 import ForgotPasswordEmailForm from './ForgotPasswordEmailComponent';
 import ResetPasswordFormComponent from './ResetPasswordFormComponent';
-import { Auth } from 'aws-amplify';
-import awsExports from "../../../aws-exports";
 import {ErrorHandler} from "../../../Utils/ErrorHandler";
-Auth.configure(awsExports);
+import {ForgotPassword, ResetPassword} from "../../../Utils/CognitoHandler";
 
 
 const ForgotPasswordContainer = (props) => {
@@ -13,32 +11,31 @@ const ForgotPasswordContainer = (props) => {
   const [destinationemail,setDestinationEmail] = useState('');
   const [customError,setCustomError] = useState({});
 
-  const onSendEmail = (user) => {
-      let username = user.username, status = false, data = {};
-      Auth.forgotPassword(username)
-          .then(res =>{
-            status = true;
-            data = res;
-            setUserName(username);
-            setDestinationEmail(data.CodeDeliveryDetails.Destination);
-            setShow(true);
-          }).catch(err => {
-            let errorValue = ErrorHandler(err);     
-            setCustomError(errorValue);  
-          });
+  const onSendEmail = async(user) => {
+      let username = user.username;;
+      await ForgotPassword(username).then(res => {
+        let data = res.data;
+        if(res.status){
+          setUserName(username);
+          setDestinationEmail(data.CodeDeliveryDetails.Destination);
+          setShow(true);
+        } else {
+          let errorValue = ErrorHandler(data);     
+          setCustomError(errorValue);
+        }
+      });
   }
+
   const onResetPassword = async (resetData)=> {
-    let status = false, data = {};
-    let code = resetData.code;
-    let new_password = resetData.newpassword
-    Auth.forgotPasswordSubmit(username, code, new_password)
-          .then(res => {
-            props.onResetNewPassword();
-          }).catch(err => {
-             let errorValue = ErrorHandler(err);     
-             setCustomError(errorValue);           
-          });
-    
+    await ResetPassword(username,resetData).then(res=>{
+      let data = res.data;
+      if(res.status){
+        props.onResetNewPassword();
+      } else {
+        let errorValue = ErrorHandler(data);     
+        setCustomError(errorValue);
+      }
+    })    
   }
   return (
     <div>

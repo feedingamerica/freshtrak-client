@@ -8,10 +8,9 @@ import ForgotPasswordContainer from "../UserModule/ForgotPassword/ForgotPassword
 import SignInConfirmComponent from "../UserModule/SignInConfirmComponent";
 
 import CodeVerificationModalComponent from '../General/CodeVerificationModalComponent';
-import { Auth } from 'aws-amplify';
-import awsExports from "../../aws-exports";
 import {ErrorHandler} from "../../Utils/ErrorHandler";
-Auth.configure(awsExports);
+import {SignUp, SignUpConfirm,ResendConfirmCode, SignIn,ConfirmSignIn} from "../../Utils/CognitoHandler";
+
 
 const UserBlockContainer = (props) => {
   const [mode, setMode] = useState('form');
@@ -21,8 +20,8 @@ const UserBlockContainer = (props) => {
   const [destinationMedium, setDestinationMedium] = useState('');
   const [mfaType, setMfaType] = useState('');
   const [dialcode,setDialCode] = useState('+91');
-  const onSignUp = async (signupData)=>{
-    let status = false, data = {},err; 
+
+  const onSignUp = async (signupData) => {
     let phone_number = onPhoneNumberFormat(signupData.phonenumber);
     let params = {
         username: signupData.email,
@@ -31,68 +30,61 @@ const UserBlockContainer = (props) => {
             email: signupData.email,
             phone_number: phone_number,
         }
-     };      
-     await Auth.signUp(params)
-            .then(res => { 
-                status = true; 
-                data = res;
-                setDestinationMedium(data.codeDeliveryDetails.Destination);
-                setUserName(data.user.username);
-                setMode('signupconfirm');
-            })
-            .catch(err => { 
-               let errorValue =  ErrorHandler(err);
-               setCustomError(errorValue);
-            }); 
+     };  
+     await SignUp(params).then(res => {
+       let data = res.data;    
+       if(res.status){
+          setDestinationMedium(data.codeDeliveryDetails.Destination);
+          setUserName(data.user.username);
+          setMode('signupconfirm');
+       } else {
+          let errorValue =  ErrorHandler(data);
+          setCustomError(errorValue);
+       }
+     })   
   }
   
-  const onConfirm = async (confirmData)=>{
-    let code = confirmData.code, status = false, data = {}; 
-    await Auth.confirmSignUp(username, code)
-          .then(res => {
-            status = true;
-            data = res;
-            setMode('form');
-          }).catch(err => {
-            let errorValue =  ErrorHandler(err);
-            setCustomError(errorValue);
-          });
-    
+  const onConfirm = async (confirmData) => {
+    let code = confirmData.code;
+    await SignUpConfirm(username,code).then(res => {
+      let data = res.data;
+      if(res.status) {
+        setMode('form');
+      } else {
+        let errorValue =  ErrorHandler(data);
+        setCustomError(errorValue);
+      }
+    })
   }
-  const onResendConfirmCode = async ()=>{
-      let status = false, data = {}; 
-      await Auth.resendSignUp(username)
-          .then(res => {
-            status = true;
-            data = res;
-            console.log(data);
-          }).catch(err=>{
-            let errorValue =  ErrorHandler(err);
-            setCustomError(errorValue);
-          });
+
+  const onResendConfirmCode = async ()=> {
+      await ResendConfirmCode(username).then(res => {
+        let data = res.data;
+        if(!res.status){
+          let errorValue =  ErrorHandler(data);
+          setCustomError(errorValue);
+        }
+      })
   }
-  const onSignIn = async (signinData)=> {
-    let status = false, data = {}; 
-    let username = signinData.username;
-    let password = signinData.password;
-    await Auth.signIn(username, password)
-          .then(res =>{
-            status = true;
-            data = res;
-             if (data.challengeName === 'SMS_MFA' || data.challengeName === 'SOFTWARE_TOKEN_MFA') {               
-                setUser(data);
-                setDestinationMedium(data.challengeParam.CODE_DELIVERY_DESTINATION);
-                setMfaType(data.challengeName);
-                setMode('signinconfirm');
-             } else {
-                localStorage.setItem('isLoggedIn', true);         
-                props.handleClose();
-             }
-            
-          }).catch(err => {
-            let errorValue =  ErrorHandler(err);
-            setCustomError(errorValue);
-          });
+  
+  const onSignIn = async (signinData) => {
+    await SignIn(signinData).then(res => {
+      let data = res.data;
+      if(res.status){
+          if (data.challengeName === 'SMS_MFA' || data.challengeName === 'SOFTWARE_TOKEN_MFA') {               
+            setUser(data);
+            setDestinationMedium(data.challengeParam.CODE_DELIVERY_DESTINATION);
+            setMfaType(data.challengeName);
+            setMode('signinconfirm');
+          } else {
+            localStorage.setItem('isLoggedIn', true);         
+            props.handleClose();
+          }
+      } else {
+          let errorValue =  ErrorHandler(data);
+          setCustomError(errorValue);
+      }
+    })
   }
 
   const onForgotPassword = async() => {
@@ -105,23 +97,22 @@ const UserBlockContainer = (props) => {
   
   const onConfirmPhone = async (confirmCode) => {
     let code = confirmCode.code;
-    let status=false,data={};
-
-    await Auth.confirmSignIn(user,code,mfaType)
-          .then(res => {
-            status = true;
-            data = res;
-            localStorage.setItem('isLoggedIn', true);         
-            props.handleClose();
-          }).catch(err=>{
-            let errorValue =  ErrorHandler(err);
-            setCustomError(errorValue);
-          });
+    await ConfirmSignIn(user,code,mfaType).then(res => {
+      let data = res.data;
+      if(res.status){
+        localStorage.setItem('isLoggedIn', true);  
+        props.handleClose();  
+      } else {
+        let errorValue =  ErrorHandler(data);
+        setCustomError(errorValue);
+      }
+    })
   }
+
   const onPhoneNumberFormat = (phone_number) => {
     return `${dialcode}${phone_number.replace(/[-()\s]/g, '')}`;
   }
- 
+  
   const renderFrom = () => {
     switch(mode) {
 

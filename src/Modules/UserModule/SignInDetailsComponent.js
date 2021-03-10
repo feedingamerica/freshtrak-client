@@ -15,11 +15,12 @@ const SignInDetailsComponent = (props) => {
       <p className="font-weight-bold text-center">Welcome Back !</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
-          <label>Username</label>
+          <label>Email</label>
           <input type="text" 
             className="form-control"
             name="username"
             id="username"
+            autocomplete="off"
             ref={register({ required: 'Email is required' ,
                              pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
@@ -37,6 +38,7 @@ const SignInDetailsComponent = (props) => {
             className="form-control"
             name="password"
             id="password"
+            autocomplete="off"
             ref={register({ required: true })}
           />
           {errors.password && <span className="text-danger">Password is required</span>}   
