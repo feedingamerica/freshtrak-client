@@ -162,7 +162,7 @@ const RegistrationContainer = (props) => {
         send_sms(user)
       }
       if(user['permission_to_email']){
-        sendRegistrationConfirmationEmail(user)
+        sendRegistrationConfirmationEmail(user, location)
       }
       sessionStorage.setItem("registeredEventDateID", eventDateId);
       history.push({
