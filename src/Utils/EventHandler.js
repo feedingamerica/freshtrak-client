@@ -49,6 +49,8 @@ export const eventDateMapper = (event, phone, name, estimated_distance) => {
         start_time,
         end_time,
         date,
+        reserved,
+        capacity,
       } = dateOfEvent;
       return {
         id,
@@ -58,6 +60,8 @@ export const eventDateMapper = (event, phone, name, estimated_distance) => {
         acceptWalkin: accept_walkin,
         startTime: start_time,
         endTime: end_time,
+        reserved: reserved,
+        capacity: capacity,
         date,
         eventAddress: event.address,
         eventCity: event.city,
@@ -156,6 +160,8 @@ export const HomeEventFormat = (event, eventDateId) => {
       accept_walkin: acceptWalkin,
       start_time: startTime,
       end_time: endTime,
+      reserved,
+      capacity,
       date,
     } = eventDate;
   
@@ -165,6 +171,8 @@ export const HomeEventFormat = (event, eventDateId) => {
       acceptReservations,
       acceptInterest,
       acceptWalkin,
+      reserved,
+      capacity,
       startTime,
       endTime,
       date,

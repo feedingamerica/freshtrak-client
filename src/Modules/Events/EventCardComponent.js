@@ -29,13 +29,14 @@ const EventCardComponent = props => {
       acceptReservations,
       acceptInterest,
       eventDetails,
-      exceptionNote
+      exceptionNote,
+      capacity,
+      reserved,
     },
     registrationView,
     alreadyRegistered
   } = props;
-  const showRsvp = acceptInterest && !acceptReservations;
-
+  const showRsvp = acceptInterest && !acceptReservations && capacity > reserved;
   // const ButtonView = () => {
   //   if(registrationView) {
   //     return null;
@@ -88,7 +89,7 @@ const EventCardComponent = props => {
     if(registrationView || alreadyRegistered) {
       return null;
     }
-    if (acceptReservations) {
+    if (acceptReservations && capacity > reserved) {
       return getButton('Reserve Time', targetUrl)
     } else if (showRsvp) {
       return getButton('RSVP', targetUrl)
