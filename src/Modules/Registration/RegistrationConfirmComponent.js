@@ -27,7 +27,7 @@ const RegistrationConfirmComponent = props => {
   const event = useSelector(selectEvent);
   let HOME_OR_ROOT_URL = RENDER_URL.HOME_URL;
   const location = useLocation();
-  const event_slot_id = location.state.eventTimeStamp?.event_slot_id;
+  const event_slot_id = location.state?.eventTimeStamp?.event_slot_id;
   const [userToken, setUserToken] = useState(undefined);
   const [isError, setIsError] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(event);
