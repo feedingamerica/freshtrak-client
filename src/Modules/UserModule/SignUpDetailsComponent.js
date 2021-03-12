@@ -18,7 +18,7 @@ const SignUpDetailsComponent = (props) => {
           <input type="text" className="form-control"
              name="email"
              id="email"
-             autocomplete="off"
+             autoComplete="off"
              ref={register({ required: 'Email is required' ,
                              pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
@@ -35,7 +35,7 @@ const SignUpDetailsComponent = (props) => {
           <input type="password" className="form-control" 
              name="password"
              id="password"
-             autocomplete="off"
+             autoComplete="off"
              ref={register({ required: true })}
           />
           {errors.password && <span className="text-danger">Password is required</span>}
@@ -50,7 +50,7 @@ const SignUpDetailsComponent = (props) => {
                 name="phonenumber"
                 placeholder="(xxx) xxx-xxxx"
                 id="phonenumber"
-                autocomplete="off"
+                autoComplete="off"
                 value={phonenumber}
                 onChange={(e) => { setValue('phonenumber', e) }}
                 register={register}

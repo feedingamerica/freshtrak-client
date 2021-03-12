@@ -11,6 +11,10 @@ import {ErrorHandler} from "../../Utils/ErrorHandler";
 import {SignUp, SignUpConfirm,ResendConfirmCode, SignIn,ConfirmSignIn} from "../../Utils/CognitoHandler";
 
 
+import FacebookSignInComponent from "../UserModule/FacebookSignInComponent";
+import GuestSignInComponent from "../UserModule/GuestSignInComponent";
+
+
 const UserBlockContainer = (props) => {
   const [mode, setMode] = useState('form');
   const [username, setUserName] = useState('');
@@ -148,6 +152,9 @@ const UserBlockContainer = (props) => {
           } 
   }
   return (
+    <div>
+
+    
       <div className="w-100 login-tab-section">
         <div className="login-logo d-flex justify-content-center">
           <img src={LoginLogo} />
@@ -156,6 +163,7 @@ const UserBlockContainer = (props) => {
           renderFrom()
 
         }
+      </div>
       </div>
   );
 };
