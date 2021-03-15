@@ -183,32 +183,32 @@ const HeaderComponent = (props) => {
              </div>
              )}
             {isLoggedIn && (
-              // <div className="user-avatar">
-              //                   <NavDropdown
-              //                       title={
-              //                           <img
-              //                           className="thumbnail-image"
-              //                           src={userIcon}
-              //                           alt="user pic"
-              //                           />}>
-              //                        <DropdownItem
-              //                           onClick={logOut}
-              //                           >
-              //                           <i className="fa fa-sign-out"></i> Logout
-              //                       </DropdownItem> 
+              <div className="user-avatar">
+                                <NavDropdown
+                                    title={
+                                        <img
+                                        className="thumbnail-image"
+                                        src={userIcon}
+                                        alt="user pic"
+                                        />}>
+                                     <DropdownItem
+                                        onClick={logOut}
+                                        >
+                                        <i className="fa fa-sign-out"></i> Logout
+                                    </DropdownItem> 
 
                                     
-              //                   </NavDropdown>
-              //               </div>
-              <LinkContainer to={RENDER_URL.ROOT_URL}>
-                <button
-                type="submit"
-                className="btn btn-link header-sign-in"
-                onClick={logOut}
-                >
-                  LOG OUT
-                </button>
-              </LinkContainer>
+                                </NavDropdown>
+                            </div>
+              // <LinkContainer to={RENDER_URL.ROOT_URL}>
+              //   <button
+              //   type="submit"
+              //   className="btn btn-link header-sign-in"
+              //   onClick={logOut}
+              //   >
+              //     LOG OUT
+              //   </button>
+              // </LinkContainer>
             )}
             {/* <div>
               <label>Select Language ?</label>

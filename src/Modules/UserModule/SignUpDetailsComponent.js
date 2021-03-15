@@ -10,7 +10,7 @@ const SignUpDetailsComponent = (props) => {
       props.onSignUp(signupData);
   };
   return (
-    <div className="mt-4 pb-3">
+    <div className="mt-4 pb-3" data-testid="user-signup">
       <p className="small text-center">Once you sign up, you can register in advance for services, speed up your check-in time at the pantry, and find other programs that may benefit you.</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
@@ -19,7 +19,7 @@ const SignUpDetailsComponent = (props) => {
              name="email"
              id="email"
              autoComplete="off"
-             ref={register({ required: 'Email is required' ,
+             ref={register({ required: 'This field is required' ,
                              pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                                     message: "Enter a valid e-mail address",
@@ -38,7 +38,7 @@ const SignUpDetailsComponent = (props) => {
              autoComplete="off"
              ref={register({ required: true })}
           />
-          {errors.password && <span className="text-danger">Password is required</span>}
+          {errors.password && <span className="text-danger">This field is required</span>}
           {props.customError.passowrdError && <span className="text-danger">{props.customError.passowrdError}</span>}
         </div>
         <div className="form-group">
@@ -56,9 +56,9 @@ const SignUpDetailsComponent = (props) => {
                 register={register}
               />           
           </div>
-          {errors.phonenumber && <span className="text-danger">Phonenumber is required</span>}
+          {errors.phonenumber && <span className="text-danger">This field is required</span>}
         </div>
-        <button type="submit" className="btn custom-button mt-3 w-100">
+        <button type="submit" className="btn custom-button mt-3 w-100" data-testid="signup">
           Sign Up
         </button>
       </form>

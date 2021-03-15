@@ -12,7 +12,7 @@ const SignInDetailsComponent = (props) => {
     props.onForgotPassword();
   }
   return (
-    <div className="mt-4 pb-3">
+    <div className="mt-4 pb-3" data-testid="user-signin">
       <p className="font-weight-bold text-center">Welcome Back !</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
@@ -22,7 +22,8 @@ const SignInDetailsComponent = (props) => {
             name="username"
             id="username"
             autoComplete="off"
-            ref={register({ required: 'Email is required' ,
+            data-testid="username"
+            ref={register({ required: 'This field is required' ,
                              pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                                     message: "Enter a valid e-mail address",
@@ -40,9 +41,10 @@ const SignInDetailsComponent = (props) => {
             name="password"
             id="password"
             autoComplete="off"
+            data-testid="password"
             ref={register({ required: true })}
           />
-          {errors.password && <span className="text-danger">Password is required</span>}   
+          {errors.password && <span className="text-danger">This field is required</span>}   
            {props.customError.userError && <span className="text-danger">{props.customError.userError}</span>}        
         </div>
         <div className="d-flex justify-content-between">
@@ -53,10 +55,10 @@ const SignInDetailsComponent = (props) => {
             </label>
           </div>
           <div>
-            <a className="pointer font-weight-bold" onClick={onForgotPassword}>Forgot Password ?</a>
+            <a className="pointer font-weight-bold" onClick={onForgotPassword} data-testid="forgot-password">Forgot Password ?</a>
           </div>
         </div>
-        <button type="submit" className="btn primary-button mt-3 w-100">
+        <button type="submit" className="btn primary-button mt-3 w-100" data-testid="signin">
           Sign In
         </button>
       </form>
