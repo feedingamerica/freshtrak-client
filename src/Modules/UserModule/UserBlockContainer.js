@@ -11,11 +11,8 @@ import {ErrorHandler} from "../../Utils/ErrorHandler";
 import {SignUp, SignUpConfirm,ResendConfirmCode, SignIn,ConfirmSignIn} from "../../Utils/CognitoHandler";
 
 
-import FacebookSignInComponent from "../UserModule/FacebookSignInComponent";
-import GuestSignInComponent from "../UserModule/GuestSignInComponent";
-
-
 const UserBlockContainer = (props) => {
+
   const [mode, setMode] = useState('form');
   const [username, setUserName] = useState('');
   const [customError,setCustomError] = useState({});
@@ -120,10 +117,10 @@ const UserBlockContainer = (props) => {
     switch(mode) {
 
             case "form" : return (<Tabs defaultActiveKey="signin" >
-                                    <Tab eventKey="signin" title="Sign In">
-                                      <SignInDetails onSignIn={onSignIn} onForgotPassword = {onForgotPassword} customError={customError}/>
+                                    <Tab eventKey="signin" data-test-id="signin-form" title="Sign In">
+                                      <SignInDetails onSignIn={onSignIn} onForgotPassword = {onForgotPassword} customError={customError} />
                                     </Tab>
-                                    <Tab eventKey="signup" title="Sign Up">
+                                    <Tab eventKey="signup" data-testid="signup-form" title="Sign Up">
                                       <SignUpDetails onSignUp={onSignUp} customError={customError}/>
                                     </Tab>
                                  </Tabs>
