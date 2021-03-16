@@ -15,6 +15,9 @@ export const API_URL = {
     CREATE_RESERVATION: `${REGISTRATION_URL}api/reservations`,
     FB_AUTH: `${REGISTRATION_URL}auth_callbacks/facebook`,
     TWILIO_SMS: `${REGISTRATION_URL}twilio/sms`,
+    COGNITO_AUTH : `${REGISTRATION_URL}cognito_authentications/user_add_details`,
+    COGNITO_TEMP_CODE_FIX : `${REGISTRATION_URL}cognito_authentications/user_signup`,
+    COGNITO_USER_DATA : `${REGISTRATION_URL}cognito_authentications/user_data`
 };
 
 export const RENDER_URL = {

@@ -39,6 +39,7 @@ const RegistrationEventDetailsContainer = (props) => {
       const resp = await axios.get(
         `${BASE_URL}api/event_dates/${eventDateId}/event_details`
       ).catch(error=>{
+        console.log("error in getEvent")
         setIsError(true);
       })
       const { data } = resp;
@@ -47,6 +48,7 @@ const RegistrationEventDetailsContainer = (props) => {
         setLoading(false);
         setSuccessful(true);
       } else {
+        console.log("in else of getEvent")
         setPageError(true);
       }
     } catch (e) {
@@ -72,16 +74,23 @@ const RegistrationEventDetailsContainer = (props) => {
         TagManager.dataLayer({ dataLayer: { event: "returning-customer-login" } })
         localStorage.setItem('userToken', authentication.token);
         localStorage.setItem('tokenExpiresAt', authentication.expires_at);
+        setLoading(false);
       }else{
-        console.log("in else,GUEST_AUTH called")
+        //debugger
+        console.log("in else,fetchUserToken called")
         const resp = await axios.post(GUEST_AUTH);
         const {
           data: { token, expires_at },
         } = resp;
         localStorage.setItem('userToken', token);
         localStorage.setItem('tokenExpiresAt', expires_at);
-      }
+        console.log("going to push reg url in fetchUsertoken outside else")
+      setLoading(false);
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
+      }
+      // console.log("going to push reg url in fetchUsertoken outside else")
+      // setLoading(false);
+      // history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     } catch (e) {
       console.error(e);
       setshowAuthenticationModal(false);
@@ -92,16 +101,17 @@ const RegistrationEventDetailsContainer = (props) => {
   const getUserToken = (response) => {
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
-    console.log("getUserToken clicked")
+    //debugger
 
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
-      console.log("in if")
-      console.log("showAuthenticationModal >>",showAuthenticationModal)
+      console.log("in if of getUserToken")
+      setLoading(false);
       showAuthenticationModal ? fetchUserToken(response) : setshowAuthenticationModal(true);
+      
     } else {
-      console.log("in else of getUserToken")
       setUserToken(localUserToken);
       setshowAuthenticationModal(false);
+      setLoading(false);
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     }
   };

@@ -12,7 +12,7 @@ import {setCurrentLanguage} from '../../Store/languageSlice';
 import CountryListComponent from '../Localization/countryListComponent';
 import UserBlockContainer from '../UserModule/UserBlockContainer';
 import {Modal,Button} from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { setCurrentEvent } from '../../Store/Events/eventSlice';
 import 'semantic-ui-css/semantic.min.css'
 import {
   Nav,
@@ -83,6 +83,9 @@ const HeaderComponent = (props) => {
       localStorage.removeItem('tokenExpiresAt');
       localStorage.removeItem('search_zip');
       localStorage.removeItem('userType');
+      localStorage.removeItem('selectedEventId');
+      console.log("dispatching empty event on logout")
+      dispatch(setCurrentEvent({}))
     }
    
     
@@ -99,6 +102,8 @@ const HeaderComponent = (props) => {
         localStorage.setItem('isLoggedIn', isLogin);
         localStorage.setItem('authtoken', res.token);
         setIsLoggedIn(isLogin);      
+    }).catch(error=>{
+console.log("Error in getCurrentUser",error)
     })
   }
   return (

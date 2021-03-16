@@ -16,7 +16,7 @@ const SignInConfirmComponent = (props) => {
           <input type="text" className="form-control" 
              name="code"
              id="code"
-             autocomplete="off"
+             autoComplete="off"
              ref={register({ required: true })}
           />
            {errors.code && <span className="text-danger">Code is required</span>} 

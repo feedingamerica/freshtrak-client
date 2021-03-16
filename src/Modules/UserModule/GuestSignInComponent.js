@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
 
-const GuestSignInComponent = () => {  
+const GuestSignInComponent = (props) => {  
   const history = useHistory();
 
   const [isLoading, setLoading] = useState(false);
@@ -27,11 +27,20 @@ const GuestSignInComponent = () => {
         localStorage.setItem('tokenExpiresAt', expires_at);
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('userType', 1);
-
+        console.log("pushing reg url in guestsignincomp")
+        if(selectedEvent && selectedEvent.id){
+          console.log("going to reg url")
+          history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
+        }else{
+          console.log("going to home")
+          props.handleClose()
+          setLoading(false)
+          history.push(`${RENDER_URL.ROOT_URL}`);
+        }
+        
     } catch (e) {
       console.error(e);
     }
-    history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     
   };
 

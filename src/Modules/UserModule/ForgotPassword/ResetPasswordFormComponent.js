@@ -20,7 +20,7 @@ const ResetPasswordFormComponent = (props) => {
           <input type="text" className="form-control"
              name="code"
              id="code"
-             autocomplete="off"
+             autoComplete="off"
              ref={register({ required: true })}
           />
           {errors.code && <span className="text-danger">Code is required</span>}
@@ -31,7 +31,7 @@ const ResetPasswordFormComponent = (props) => {
           <input type="password" className="form-control" 
              name="newpassword"
              id="newpassword"
-             autocomplete="off"
+             autoComplete="off"
              ref={register({ required: true })}
           />
           {errors.newpassword && <span className="text-danger">New Password is required</span>}
@@ -41,7 +41,7 @@ const ResetPasswordFormComponent = (props) => {
           <input type="text" className="form-control" 
              name="confirmpassword"
              id="confirmpassword"
-             autocomplete="off"
+             autoComplete="off"
              ref={register({ 
           validate: value =>
             value === newpassword.current || "The passwords do not match"
