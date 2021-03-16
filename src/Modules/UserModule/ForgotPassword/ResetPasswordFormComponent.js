@@ -11,7 +11,7 @@ const ResetPasswordFormComponent = (props) => {
   };
    
   return (
-    <div className="mt-4 pb-3">
+    <div className="mt-4 pb-3" data-testid="reset-password-form">
       <p className="font-weight-bold text-center">Reset password !</p>
       <p className="small text-center">The verification code is send to {props.destinationEmail}</p>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -21,9 +21,10 @@ const ResetPasswordFormComponent = (props) => {
              name="code"
              id="code"
              autoComplete="off"
+             data-testid="code"
              ref={register({ required: true })}
           />
-          {errors.code && <span className="text-danger">Code is required</span>}
+          {errors.code && <span className="text-danger">This field is required</span>}
           {props.customError.codeError && <span className="text-danger">{props.customError.codeError}</span>}
         </div>
         <div className="form-group">
@@ -32,9 +33,10 @@ const ResetPasswordFormComponent = (props) => {
              name="newpassword"
              id="newpassword"
              autoComplete="off"
+             data-testid="newpassword"
              ref={register({ required: true })}
           />
-          {errors.newpassword && <span className="text-danger">New Password is required</span>}
+          {errors.newpassword && <span className="text-danger">This field is required</span>}
         </div>
         <div className="form-group">
           <label>Confirm Password</label>
@@ -42,6 +44,7 @@ const ResetPasswordFormComponent = (props) => {
              name="confirmpassword"
              id="confirmpassword"
              autoComplete="off"
+             data-testid="confirmpassword"
              ref={register({ 
           validate: value =>
             value === newpassword.current || "The passwords do not match"
@@ -52,7 +55,7 @@ const ResetPasswordFormComponent = (props) => {
            {props.customError.passowrdError && <span className="text-danger">{props.customError.passowrdError}</span>}
            {props.customError.limitError && <span className="text-danger">{props.customError.limitError}</span>}
         </div>
-        <button type="submit" className="btn custom-button mt-3 w-100">
+        <button type="submit" className="btn custom-button mt-3 w-100" data-testid="reset-password">
           Reset Password
         </button>
       </form>

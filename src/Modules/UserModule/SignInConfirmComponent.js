@@ -7,7 +7,7 @@ const SignInConfirmComponent = (props) => {
   };
  
   return (
-    <div className="mt-4 pb-3">
+    <div className="mt-4 pb-3" data-testid="signin-confirm-form">
       <p className="font-weight-bold text-center">Confirm Sign In!</p>
       <p className="small text-center">The verification code is send to {props.destinationMedium}</p>
       <form onSubmit={handleSubmit(onSubmit)} className="sign-in-form">        
@@ -19,10 +19,10 @@ const SignInConfirmComponent = (props) => {
              autoComplete="off"
              ref={register({ required: true })}
           />
-           {errors.code && <span className="text-danger">Code is required</span>} 
+           {errors.code && <span className="text-danger">This field is required</span>} 
            {props.customError.codeError && <span className="text-danger">{props.customError.codeError}</span>}          
         </div>
-        <button type="submit" className="btn custom-button mt-3 w-100">
+        <button type="submit" className="btn custom-button mt-3 w-100" data-testid="signin-confirm">
           Confirm
         </button>
       </form>

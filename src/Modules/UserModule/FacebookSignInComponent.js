@@ -1,15 +1,12 @@
 import React, { useState }from 'react';
 import { Auth } from 'aws-amplify';
-import awsExports from "../../aws-exports";
-
 
 import { useSelector } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
-import {useHistory } from 'react-router-dom';
-import { RENDER_URL } from '../../Utils/Urls';
+import {COGNITO_CONFIG} from '../../Utils/Constants';
 
 
-Auth.configure(awsExports);
+Auth.configure(COGNITO_CONFIG);
 
 const FacebookSignInComponent = () => { 
 

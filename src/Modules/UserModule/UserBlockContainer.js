@@ -180,10 +180,10 @@ const UserBlockContainer = (props) => {
     switch(mode) {
 
             case "form" : return (<Tabs defaultActiveKey="signin" >
-                                    <Tab eventKey="signin" title="Sign In">
+                                    <Tab eventKey="signin" data-testid="signin-form" title="Sign In">
                                       <SignInDetails handleClose={handleClose} onSignIn={onSignIn} onForgotPassword = {onForgotPassword} customError={customError}/>
                                     </Tab>
-                                    <Tab eventKey="signup" title="Sign Up">
+                                    <Tab eventKey="signup" data-testid="signin-form" title="Sign Up">
                                       <SignUpDetails handleClose={handleClose} onSignUp={onSignUp} customError={customError}/>
                                     </Tab>
                                  </Tabs>
