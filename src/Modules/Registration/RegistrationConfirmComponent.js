@@ -4,11 +4,7 @@ import { API_URL, RENDER_URL, BASE_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import { setCurrentEvent, selectEvent } from '../../Store/Events/eventSlice';
 import { setCurrentUser, selectUser } from '../../Store/userSlice';
-// import React, { Fragment } from 'react';
-// import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-// import { RENDER_URL } from '../../Utils/Urls';
-// import { selectEvent } from '../../Store/Events/eventSlice';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { Link } from 'react-router-dom';
 import identificationCodeImg1 from '../../Assets/img/id_code1.png';
@@ -70,7 +66,10 @@ const RegistrationConfirmComponent = props => {
       dispatch(setCurrentUser(data));
       setUser(data);
       setLoading(false);
+      console.log("success gettingUser in regConfirmComp")
     } catch (e) {
+      setLoading(false);
+      console.log("error gettingUser in regConfirmComp")
       console.error(e);
     }
   };
@@ -85,6 +84,7 @@ const RegistrationConfirmComponent = props => {
       }
       if(user === null) {
         getUser(localStorage.getItem('userToken'));
+        console.log("calling fetchBusinesses")
       }
     }
   }
@@ -97,6 +97,7 @@ const RegistrationConfirmComponent = props => {
       const { data } = resp;
       if (data && data.event !== undefined) {
         const eventData = EventFormat(data.event, eventDateId);
+        console.log("dispatching setCurrentEvent")
         dispatch(setCurrentEvent(eventData));
         setSelectedEvent(eventData);
       } else {

@@ -42,4 +42,9 @@ export const COGNITO_CONFIG = {
         "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS"
-}
+};
+
+export const USER_TYPES = {
+    CUSTOMER :0,
+    GUEST : 1
+};

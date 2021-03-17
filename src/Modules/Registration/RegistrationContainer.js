@@ -12,6 +12,7 @@ import RegistrationComponent from './RegistrationComponent';
 import { EventFormat } from '../../Utils/EventHandler';
 import { formatMMDDYYYY } from '../../Utils/DateFormat';
 import { NotifyToast, showToast } from '../Notifications/NotifyToastComponent';
+import {USER_TYPES} from '../../Utils/Constants';
 
 const RegistrationContainer = (props) => {
   const dispatch = useDispatch();
@@ -29,22 +30,28 @@ const RegistrationContainer = (props) => {
   const [selectedEvent, setSelectedEvent] = useState(event);
 
   const currentUser = useSelector(selectUser);
+  //debugger
   const [user, setUser] = useState(currentUser);
   const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
   useEffect(fetchBusinesses, []);
 
   function fetchBusinesses(){
-    setUserToken(localStorage.getItem('userToken'));
+    console.log(localStorage.getItem('authtoken'))
+    //setUserToken(localStorage.getItem('userToken'));
+    setUserToken(localStorage.getItem('authtoken'));
+    debugger
     if (!isError && !pageError) {
       if(Object.keys(selectedEvent).length === 0) {
         getEvent();
       }
-      if(user === null) {
-        getUser(localStorage.getItem('userToken'));
-      }
+      if(user === null ) {
+        //getUser(localStorage.getItem('userToken'));
+        getUser(localStorage.getItem('authtoken'));
+        let userType = localStorage.getItem("userType");
     }
   }
+}
   
   const getEvent = async () => {
     try {
@@ -70,15 +77,26 @@ const RegistrationContainer = (props) => {
     }
   };
 
+
+
+
+
   const getUser = async token => {
-    setLoading(true);
+    let userType = localStorage.getItem("userType");
     const { GUEST_USER } = API_URL;
-    try {
-      const resp = await axios.get(GUEST_USER, {
+    const { COGNITO_USER_DATA } = API_URL;
+    console.log("checking usertype")
+    //if(userType == USER_TYPES.GUEST) {
+     // if(userType == USER_TYPES.GUEST) {
+      try {
+      setLoading(true);
+      //const resp = await axios.get(GUEST_USER, {
+        const resp = await axios.get(COGNITO_USER_DATA, {
         params: {},
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `${token}` },
       });
       const { data } = resp;
+      console.log("resp >>",resp)
       if (data["date_of_birth"] !== null){
         data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
       }
@@ -89,10 +107,16 @@ const RegistrationContainer = (props) => {
       dispatch(setCurrentUser(data));
       setUser(data);
       setLoading(false);
+      console.log("success gettingUser...")
     } catch (e) {
-      console.error(e);
+      setLoading(false);
+      console.error("error in reg container gteUser",e);
     }
+  //}
   };
+
+
+
   const getReservationText = () => {
     return location.state? `Your reservation time is at ${location.state.event_slot.start_time} - ${location.state.event_slot.end_time} on ${location.state.event_date}. `: "";
   }
@@ -138,12 +162,17 @@ const RegistrationContainer = (props) => {
     const event_date_id = parseInt(eventDateId, 10);
     const event_slot_id = parseInt(eventSlotId, 10);
     // First save user
-    const { GUEST_USER, CREATE_RESERVATION } = API_URL;
+    let userType = localStorage.getItem("userType");
+    const { GUEST_USER, CREATE_RESERVATION,COGNITO_AUTH } = API_URL;
+    
+  if(userType == USER_TYPES.GUEST){ 
     try {
       await axios.post(GUEST_USER, { user }, {
         headers: { Authorization: `Bearer ${userToken}` }
       });
+      console.log("success register in reg container")
     } catch (e) {
+      console.log("error while registering")
       console.log(e);
     }
     try {
@@ -172,9 +201,26 @@ const RegistrationContainer = (props) => {
       notify(e.response.data, 'error')
       setTimeout(()=> window.scrollTo(0, 0))
       setDisabled(disabled);
-      console.error(e);
       setErrors(e);
     }
+    }
+    else{
+
+    let data = {
+      user,
+      reservation: eventSlotId ? {event_date_id, event_slot_id} : {event_date_id}
+    }
+
+      try {
+        const resp = await axios.post(COGNITO_AUTH, { data }, {
+          headers: { Authorization: `Bearer ${userToken}` }
+        });
+      } catch (e) {
+        console.log(e);
+      }
+
+    }
+
   }
 
   if(pageError) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BoxComponent from '../General/BoxComponent';
 // import ButtonComponent from '../General/ButtonComponent';
 import CalenderIcon from '../../Assets/img/calendar.svg';
@@ -6,14 +6,34 @@ import CalenderIcon from '../../Assets/img/calendar.svg';
 import FindFoodIcon from '../../Assets/img/findfood.svg';
 // import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
-import localization from '../Localization/LocalizationComponent'
+import localization from '../Localization/LocalizationComponent';
+
+
+
+import { useSelector } from 'react-redux';
+import { selectEvent } from '../../Store/Events/eventSlice';
+import {useHistory } from 'react-router-dom';
+import { RENDER_URL } from '../../Utils/Urls';
 
 const DashboardCreateAccountComponent = () => {
+  const history = useHistory();
+  const event = useSelector(selectEvent);
+  const [selectedEvent, setSelectedEvent] = useState(event);
   // const [lang, setLang] = useState("en");
   // const change = (event) => {
   //   localization.setLanguage(event.target.value);
   //   setLang(event.target.value);
   // }
+  useEffect( () =>{
+    console.log("selectedEvent in DashboardCreateAccountComponent",selectedEvent)
+    let eventId = localStorage.getItem('selectedEventId');
+    if(eventId !== null && eventId !== ""){
+      history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${eventId}`);
+    }
+    console.log("selectedEvent in localstorage",eventId)
+  }, []);
+
+
   return (
     <div>
       <h2 className="mb-5 font-weight-bold mobile-text-left text-center">

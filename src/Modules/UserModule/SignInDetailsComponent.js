@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import FacebookSignInComponent from "./FacebookSignInComponent";
 import GuestSignInComponent from "./GuestSignInComponent";
 
 const SignInDetailsComponent = (props) => {
+
+
+
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (signinData) => {
       props.onSignIn(signinData);
@@ -64,7 +67,7 @@ const SignInDetailsComponent = (props) => {
       </form>
       <hr/>
       <FacebookSignInComponent />
-      <GuestSignInComponent />
+      <GuestSignInComponent handleClose={()=> props.handleClose()}/>
     </div>
   );
 };
