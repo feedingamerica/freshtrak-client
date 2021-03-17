@@ -30,27 +30,25 @@ const RegistrationContainer = (props) => {
   const [selectedEvent, setSelectedEvent] = useState(event);
 
   const currentUser = useSelector(selectUser);
+  //debugger
   const [user, setUser] = useState(currentUser);
   const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
   useEffect(fetchBusinesses, []);
 
   function fetchBusinesses(){
-    console.log("In fetch business, user is >>",user)
-    setUserToken(localStorage.getItem('userToken'));
-    
+    console.log(localStorage.getItem('authtoken'))
+    //setUserToken(localStorage.getItem('userToken'));
+    setUserToken(localStorage.getItem('authtoken'));
+    debugger
     if (!isError && !pageError) {
       if(Object.keys(selectedEvent).length === 0) {
         getEvent();
       }
       if(user === null ) {
+        //getUser(localStorage.getItem('userToken'));
+        getUser(localStorage.getItem('authtoken'));
         let userType = localStorage.getItem("userType");
-        if(userType == USER_TYPES.GUEST) {
-        getUser(localStorage.getItem('userToken'));
-      }
-      else{
-        getCognitoUser()
-      }
     }
   }
 }
@@ -63,7 +61,6 @@ const RegistrationContainer = (props) => {
       const { data } = resp;
       if (data && data.event !== undefined) {
         const eventData = EventFormat(data.event, eventDateId);
-        console.log("dispatching setCurrentEvent in reg container")
         dispatch(setCurrentEvent(eventData));
         setSelectedEvent(eventData);
       } else {
@@ -80,34 +77,23 @@ const RegistrationContainer = (props) => {
     }
   };
 
-  const getCognitoUser = async () =>{
-    debugger
-    let authtoken = localStorage.getItem("authtoken");
-const { COGNITO_USER_DATA } = API_URL;
-    try {
-      const resp = await axios.get(COGNITO_USER_DATA, {
-      headers: { Authorization: `${authtoken}` },
-    });
-    console.log("response on calling cognito user >>",resp)
-      }
-    catch(e){
-      console.log("error on calling cognito user >>",e)
-    }
-  }
+
 
 
 
   const getUser = async token => {
     let userType = localStorage.getItem("userType");
     const { GUEST_USER } = API_URL;
+    const { COGNITO_USER_DATA } = API_URL;
     console.log("checking usertype")
     //if(userType == USER_TYPES.GUEST) {
-      if(userType == USER_TYPES.GUEST) {
+     // if(userType == USER_TYPES.GUEST) {
       try {
       setLoading(true);
-      const resp = await axios.get(GUEST_USER, {
+      //const resp = await axios.get(GUEST_USER, {
+        const resp = await axios.get(COGNITO_USER_DATA, {
         params: {},
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `${token}` },
       });
       const { data } = resp;
       console.log("resp >>",resp)
@@ -126,7 +112,7 @@ const { COGNITO_USER_DATA } = API_URL;
       setLoading(false);
       console.error("error in reg container gteUser",e);
     }
-  }
+  //}
   };
 
 
@@ -215,7 +201,6 @@ const { COGNITO_USER_DATA } = API_URL;
       notify(e.response.data, 'error')
       setTimeout(()=> window.scrollTo(0, 0))
       setDisabled(disabled);
-      console.error("error occured in reg container",e);
       setErrors(e);
     }
     }
@@ -225,16 +210,12 @@ const { COGNITO_USER_DATA } = API_URL;
       user,
       reservation: eventSlotId ? {event_date_id, event_slot_id} : {event_date_id}
     }
-    console.log("data is >>",data)
-    console.log("userToken is >>",userToken)
 
       try {
         const resp = await axios.post(COGNITO_AUTH, { data }, {
           headers: { Authorization: `Bearer ${userToken}` }
         });
-        console.log("cognito authcalled",resp)
       } catch (e) {
-        console.log("error while registering in ")
         console.log(e);
       }
 

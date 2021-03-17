@@ -56,8 +56,6 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
     })
   }, [user, reset])
   const onSubmit = data => {
-    console.log("user in onSubmit is >>",user)
-    console.log("data in onSubmit is >>",data)
     data['identification_code'] = user['identification_code']
     data["date_of_birth"] = formatDateForServer(data["date_of_birth"])
     data = sanatizeInput(data)

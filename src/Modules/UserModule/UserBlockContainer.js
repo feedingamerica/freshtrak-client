@@ -59,7 +59,6 @@ const UserBlockContainer = (props) => {
     let code = confirmData.code;
     const { COGNITO_TEMP_CODE_FIX } = API_URL;
     let authtoken = localStorage.getItem("authtoken");
-    console.log("authtoken is >>",authtoken)
     await SignUpConfirm(username,code).then(res => {
       let data = res.data;
       if(res.status) {
@@ -74,28 +73,12 @@ const UserBlockContainer = (props) => {
       const resp = await axios.get(COGNITO_TEMP_CODE_FIX, {
         headers: { Authorization: `${authtoken}` },
       });
-    console.log("resp after confrim code >>",resp)
     } catch (e) {
       console.log("error",e);
     }
-
-    //cognitoTempfix(confirmData.code)
     
   }
 
-  // const cognitoTempfix = async code =>{
-         
-  // const { COGNITO_TEMP_CODE_FIX } = API_URL;
-  // try {
-  //           const resp = await axios.get(COGNITO_TEMP_CODE_FIX, {
-  //             headers: { Authorization: `${code}` },
-  //           });
-  //         console.log("resp after confrim code >>",resp)
-  //         } catch (e) {
-  //           console.log("error",e);
-  //         }
-          
-  //       }
 
   const onResendConfirmCode = async ()=> {
       await ResendConfirmCode(username).then(res => {
@@ -108,8 +91,6 @@ const UserBlockContainer = (props) => {
   }
   
   const onSignIn = async (signinData) => {
-    console.log("selectEVent is >>",selectedEvent)
-    //debugger
     await SignIn(signinData).then(res => {
       let data = res.data;
       if(res.status){
@@ -118,13 +99,8 @@ const UserBlockContainer = (props) => {
             setDestinationMedium(data.challengeParam.CODE_DELIVERY_DESTINATION);
             setMfaType(data.challengeName);
             setMode('signinconfirm');
-            console.log("in if of onSignIn,data is >>",data)
           } else {
-            //redirection + slelectedeventcheck
-            //localStorage.setItem('isLoggedIn', true);         
-            //props.handleClose();
             eventCheck()
-            //console.log("in else of onSignIn,data is >>",data)
           }
       } else {
           let errorValue =  ErrorHandler(data);
@@ -148,9 +124,6 @@ const UserBlockContainer = (props) => {
       let data = res.data;
       if(res.status){
         eventCheck()
-        //localStorage.setItem('isLoggedIn', true);  
-        //props.handleClose();
-        //redirection + slelectedeventcheck
       } else {
         let errorValue =  ErrorHandler(data);
         setCustomError(errorValue);
@@ -166,14 +139,14 @@ const UserBlockContainer = (props) => {
   }
 
   const eventCheck=()=>{
+    localStorage.setItem('isLoggedIn', true);  
+    localStorage.setItem('userType', 0); 
+    props.handleClose();
     if(selectedEvent && selectedEvent.id){
-      //props.handleClose();
-      console.log("going to reg url in eventCheck")
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     }
-    console.log("handling close, login true")
-    localStorage.setItem('isLoggedIn', true);         
-    props.handleClose();
+            
+    
   }
 
   const renderFrom = () => {

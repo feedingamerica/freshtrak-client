@@ -11,21 +11,23 @@ import { useDispatch } from 'react-redux';
 import {setCurrentLanguage} from '../../Store/languageSlice';
 import CountryListComponent from '../Localization/countryListComponent';
 import UserBlockContainer from '../UserModule/UserBlockContainer';
-import {Modal,Button} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import { setCurrentEvent } from '../../Store/Events/eventSlice';
 import 'semantic-ui-css/semantic.min.css'
 import {
   Nav,
-  Navbar,
-  NavDropdown,
-  DropdownItem
+  Navbar
+  // NavDropdown,
+  // DropdownItem
 } from 'react-bootstrap';
 
 import { RENDER_URL } from "../../Utils/Urls";
 
 import {LogOut, CurrentUser} from "../../Utils/CognitoHandler";
+import { useHistory } from 'react-router-dom';
 
 const HeaderComponent = (props) => {
+  const history = useHistory();
   const [navbarShrink, setNavbarShrink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [show, setShow] = useState(false);
@@ -69,7 +71,6 @@ const HeaderComponent = (props) => {
       await LogOut().then(res => {
         let data = res.data;
         if(res.status){
-          //console.log("res is >>",res)
           localStorage.setItem('isLoggedIn', false);
           setIsLoggedIn(false);
         } else {
@@ -84,8 +85,8 @@ const HeaderComponent = (props) => {
       localStorage.removeItem('search_zip');
       localStorage.removeItem('userType');
       localStorage.removeItem('selectedEventId');
-      console.log("dispatching empty event on logout")
       dispatch(setCurrentEvent({}))
+      history.push(`${RENDER_URL.ROOT_URL}`);
     }
    
     
@@ -188,32 +189,32 @@ console.log("Error in getCurrentUser",error)
              </div>
              )}
             {isLoggedIn && (
-              <div className="user-avatar">
-                                <NavDropdown
-                                    title={
-                                        <img
-                                        className="thumbnail-image"
-                                        src={userIcon}
-                                        alt="user pic"
-                                        />}>
-                                     <DropdownItem
-                                        onClick={logOut}
-                                        >
-                                        <i className="fa fa-sign-out"></i> Logout
-                                    </DropdownItem> 
+              // <div className="user-avatar">
+              //                   <NavDropdown
+              //                       title={
+              //                           <img
+              //                           className="thumbnail-image"
+              //                           src={userIcon}
+              //                           alt="user pic"
+              //                           />}>
+              //                        <DropdownItem
+              //                           onClick={logOut}
+              //                           >
+              //                           <i className="fa fa-sign-out"></i> Logout
+              //                       </DropdownItem> 
 
                                     
-                                </NavDropdown>
-                            </div>
-              // <LinkContainer to={RENDER_URL.ROOT_URL}>
-              //   <button
-              //   type="submit"
-              //   className="btn btn-link header-sign-in"
-              //   onClick={logOut}
-              //   >
-              //     LOG OUT
-              //   </button>
-              // </LinkContainer>
+              //                   </NavDropdown>
+              //               </div>
+              <LinkContainer to={RENDER_URL.ROOT_URL}>
+                <button
+                type="submit"
+                className="btn btn-link header-sign-in"
+                onClick={logOut}
+                >
+                  LOG OUT
+                </button>
+              </LinkContainer>
             )}
             {/* <div>
               <label>Select Language ?</label>

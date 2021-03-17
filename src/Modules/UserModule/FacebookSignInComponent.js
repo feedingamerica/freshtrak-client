@@ -14,7 +14,6 @@ const FacebookSignInComponent = () => {
   const [selectedEvent, setSelectedEvent] = useState(event);
 
   const setEventInLocalStorage=()=>{
-  console.log("selectedEvent in fb comp",selectedEvent)
   if(selectedEvent && selectedEvent.id)
   localStorage.setItem('selectedEventId', selectedEvent.id);
   Auth.federatedSignIn({provider: 'Facebook'})

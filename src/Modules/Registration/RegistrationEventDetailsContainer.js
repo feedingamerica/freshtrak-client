@@ -57,7 +57,6 @@ const RegistrationEventDetailsContainer = (props) => {
   };
 
   const fetchUserToken = async (response) => {
-    console.log("fetchUserToken called")
     setLoading(true);
     const { GUEST_AUTH, FB_AUTH} = API_URL;
     try {
@@ -76,21 +75,15 @@ const RegistrationEventDetailsContainer = (props) => {
         localStorage.setItem('tokenExpiresAt', authentication.expires_at);
         setLoading(false);
       }else{
-        //debugger
-        console.log("in else,fetchUserToken called")
         const resp = await axios.post(GUEST_AUTH);
         const {
           data: { token, expires_at },
         } = resp;
         localStorage.setItem('userToken', token);
         localStorage.setItem('tokenExpiresAt', expires_at);
-        console.log("going to push reg url in fetchUsertoken outside else")
       setLoading(false);
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
       }
-      // console.log("going to push reg url in fetchUsertoken outside else")
-      // setLoading(false);
-      // history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     } catch (e) {
       console.error(e);
       setshowAuthenticationModal(false);
@@ -101,7 +94,6 @@ const RegistrationEventDetailsContainer = (props) => {
   const getUserToken = (response) => {
     const localUserToken = localStorage.getItem('userToken');
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
-    //debugger
 
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
       console.log("in if of getUserToken")

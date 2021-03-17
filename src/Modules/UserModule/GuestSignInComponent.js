@@ -27,12 +27,9 @@ const GuestSignInComponent = (props) => {
         localStorage.setItem('tokenExpiresAt', expires_at);
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('userType', 1);
-        console.log("pushing reg url in guestsignincomp")
         if(selectedEvent && selectedEvent.id){
-          console.log("going to reg url")
           history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
         }else{
-          console.log("going to home")
           props.handleClose()
           setLoading(false)
           history.push(`${RENDER_URL.ROOT_URL}`);
@@ -46,7 +43,6 @@ const GuestSignInComponent = (props) => {
 
 
   const onGuestLogin =  () => {
-    
     localStorage.setItem('isLoggedIn', false);
     TagManager.dataLayer({
       dataLayer: {
