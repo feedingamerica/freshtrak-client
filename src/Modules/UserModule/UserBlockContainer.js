@@ -100,7 +100,7 @@ const UserBlockContainer = (props) => {
             setMfaType(data.challengeName);
             setMode('signinconfirm');
           } else {
-            eventCheck()
+            eventCheck(data)
           }
       } else {
           let errorValue =  ErrorHandler(data);
@@ -123,7 +123,7 @@ const UserBlockContainer = (props) => {
     await ConfirmSignIn(user,code,mfaType).then(res => {
       let data = res.data;
       if(res.status){
-        eventCheck()
+        eventCheck(user)
       } else {
         let errorValue =  ErrorHandler(data);
         setCustomError(errorValue);
@@ -138,9 +138,11 @@ const UserBlockContainer = (props) => {
     props.handleClose()
   }
 
-  const eventCheck=()=>{
+  const eventCheck = (data) => {
     localStorage.setItem('isLoggedIn', true);  
     localStorage.setItem('userType', 0); 
+    let token_value = data.signInUserSession.idToken.jwtToken;
+    localStorage.setItem('authtoken', token_value);
     props.handleClose();
     if(selectedEvent && selectedEvent.id){
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);

@@ -1,10 +1,9 @@
 import React, { useState }from 'react';
 import { Auth } from 'aws-amplify';
-
+import TagManager from 'react-gtm-module'
+import {COGNITO_CONFIG}  from "../../Utils/Constants";
 import { useSelector } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
-import {COGNITO_CONFIG} from '../../Utils/Constants';
-
 
 Auth.configure(COGNITO_CONFIG);
 
@@ -13,11 +12,21 @@ const FacebookSignInComponent = () => {
   const event = useSelector(selectEvent);
   const [selectedEvent, setSelectedEvent] = useState(event);
 
-  const setEventInLocalStorage=()=>{
-  if(selectedEvent && selectedEvent.id)
-  localStorage.setItem('selectedEventId', selectedEvent.id);
-  Auth.federatedSignIn({provider: 'Facebook'})
+  const setEventInLocalStorage = () => {  
+
+    if(selectedEvent && selectedEvent.id)  {
+      localStorage.setItem('selectedEventId', selectedEvent.id);
+    }
+
+    TagManager.dataLayer({
+      dataLayer: {
+      event: 'facebook-login'
+      }
+    });
+    
+    Auth.federatedSignIn({provider: 'Facebook'})
   }
+
   return (
     <div>
       <button type="submit" className="btn fb-button mt-3 w-100" 

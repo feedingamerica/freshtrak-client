@@ -45,9 +45,9 @@ const HeaderComponent = (props) => {
   const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
   useEffect(() => {   
     //debugger
-    if(!userType){
-      getCurrentUser();
-    }
+    // if(!userType){
+    //   getCurrentUser();
+    // }
    
 
     let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
@@ -97,16 +97,17 @@ const HeaderComponent = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const getCurrentUser = async ()=> {
-    await CurrentUser().then(res=> {
-        let isLogin = res.status;
-        localStorage.setItem('isLoggedIn', isLogin);
-        localStorage.setItem('authtoken', res.token);
-        setIsLoggedIn(isLogin);      
-    }).catch(error=>{
-console.log("Error in getCurrentUser",error)
-    })
-  }
+  // const getCurrentUser = async ()=> {
+  //   await CurrentUser().then(res=> {
+  //       console.log()
+  //       let isLogin = res.status;
+  //       localStorage.setItem('isLoggedIn', isLogin);
+  //       localStorage.setItem('authtoken', res.token);
+  //       setIsLoggedIn(isLogin);      
+  //   }).catch(error=>{
+  //       console.log("Error in getCurrentUser",error)
+  //   })
+  // }
   return (
     <Fragment>
       <Nav
