@@ -11,7 +11,7 @@ const FacebookSignInComponent = () => {
 
   const event = useSelector(selectEvent);
   const [selectedEvent, setSelectedEvent] = useState(event);
-
+  localStorage.setItem('userType',0);
   const setEventInLocalStorage = () => {  
 
     if(selectedEvent && selectedEvent.id)  {

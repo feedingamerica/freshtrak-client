@@ -55,7 +55,6 @@ const UserBlockContainer = (props) => {
   }
   
   const onConfirm = async (confirmData) => {
-    debugger
     let code = confirmData.code;
     const { COGNITO_TEMP_CODE_FIX } = API_URL;
     let authtoken = localStorage.getItem("authtoken");
@@ -142,7 +141,7 @@ const UserBlockContainer = (props) => {
     localStorage.setItem('isLoggedIn', true);  
     localStorage.setItem('userType', 0); 
     let token_value = data.signInUserSession.idToken.jwtToken;
-    localStorage.setItem('authtoken', token_value);
+    localStorage.setItem('authToken', token_value);
     props.handleClose();
     if(selectedEvent && selectedEvent.id){
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
@@ -158,7 +157,7 @@ const UserBlockContainer = (props) => {
                                     <Tab eventKey="signin" data-testid="signin-form" title="Sign In">
                                       <SignInDetails handleClose={handleClose} onSignIn={onSignIn} onForgotPassword = {onForgotPassword} customError={customError}/>
                                     </Tab>
-                                    <Tab eventKey="signup" data-testid="signin-form" title="Sign Up">
+                                    <Tab eventKey="signup" data-testid="signup-form" title="Sign Up">
                                       <SignUpDetails handleClose={handleClose} onSignUp={onSignUp} customError={customError}/>
                                     </Tab>
                                  </Tabs>
