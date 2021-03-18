@@ -34,7 +34,7 @@ const SignUpDetailsComponent = (props) => {
           <label>Password</label>
           <input type="password" className="form-control" 
              name="password"
-             id="password"
+             id="signup-password"
              autoComplete="off"
              ref={register({ required: true })}
           />

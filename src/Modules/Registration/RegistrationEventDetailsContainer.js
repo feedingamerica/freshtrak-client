@@ -96,7 +96,6 @@ const RegistrationEventDetailsContainer = (props) => {
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
 
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
-      console.log("in if of getUserToken")
       setLoading(false);
       showAuthenticationModal ? fetchUserToken(response) : setshowAuthenticationModal(true);
       

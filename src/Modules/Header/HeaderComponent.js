@@ -74,6 +74,7 @@ const HeaderComponent = (props) => {
         let data = res.data;
         if(res.status){
           localStorage.setItem('isLoggedIn', false);
+          localStorage.removeItem('authToken');
           setIsLoggedIn(false);
         } else {
           console.log("error",data)
