@@ -37,18 +37,27 @@ const RegistrationContainer = (props) => {
   useEffect(fetchBusinesses, []);
 
   function fetchBusinesses(){
-    console.log(localStorage.getItem('authtoken'))
+    let userType = localStorage.getItem('userType');
     //setUserToken(localStorage.getItem('userToken'));
-    setUserToken(localStorage.getItem('authtoken'));
-    debugger
+    setUserToken(userType == 1 ? 
+      localStorage.getItem('userToken') : 
+      localStorage.getItem('authtoken'));
+    //debugger
+    console.log("user token set >>",userToken)
+    console.log("user token from localstrg >>",localStorage.getItem('userToken'))
+    console.log("user is >>",user)
     if (!isError && !pageError) {
       if(Object.keys(selectedEvent).length === 0) {
         getEvent();
       }
       if(user === null ) {
-        //getUser(localStorage.getItem('userToken'));
-        getUser(localStorage.getItem('authtoken'));
         let userType = localStorage.getItem("userType");
+        console.log("userType is >>",userType)
+        getUser(userType == 1 ? 
+          localStorage.getItem('userToken') : 
+          localStorage.getItem('authtoken'));
+        //getUser(localStorage.getItem('authtoken'));
+        
     }
   }
 }
@@ -91,12 +100,11 @@ const RegistrationContainer = (props) => {
       try {
       setLoading(true);
       //const resp = await axios.get(GUEST_USER, {
-        const resp = await axios.get(COGNITO_USER_DATA, {
+        const resp = await axios.get(userType == 1 ? GUEST_USER : COGNITO_USER_DATA, {
         params: {},
-        headers: { Authorization: `${token}` },
+        headers: { Authorization: userType == 1 ? `Bearer ${token}` : `${token}` },
       });
-      const { data } = resp;
-      console.log("resp >>",resp)
+      const { data } = userType == 1 ? resp : resp.data;
       if (data["date_of_birth"] !== null){
         data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
       }

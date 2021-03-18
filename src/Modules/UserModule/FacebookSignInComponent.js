@@ -13,9 +13,12 @@ const FacebookSignInComponent = () => {
   const [selectedEvent, setSelectedEvent] = useState(event);
 
   const setEventInLocalStorage = () => {  
+    localStorage.setItem('userType', 0);
 
     if(selectedEvent && selectedEvent.id)  {
       localStorage.setItem('selectedEventId', selectedEvent.id);
+      localStorage.setItem('isLoggedIn', true);  
+      localStorage.setItem('userType', 0);
     }
 
     TagManager.dataLayer({

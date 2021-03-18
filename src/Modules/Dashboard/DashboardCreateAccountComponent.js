@@ -7,6 +7,7 @@ import FindFoodIcon from '../../Assets/img/findfood.svg';
 // import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
 import localization from '../Localization/LocalizationComponent';
+import {CurrentUser} from "../../Utils/CognitoHandler";
 
 
 
@@ -25,13 +26,40 @@ const DashboardCreateAccountComponent = () => {
   //   setLang(event.target.value);
   // }
   useEffect( () =>{
-    console.log("selectedEvent in DashboardCreateAccountComponent",selectedEvent)
-    let eventId = localStorage.getItem('selectedEventId');
-    if(eventId !== null && eventId !== ""){
-      history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${eventId}`);
-    }
-    console.log("selectedEvent in localstorage",eventId)
+
+    
   }, []);
+
+  const getCurrentUser = async ()=> {
+
+    await CurrentUser().then(res=> {
+        console.log("currentUser is >>",res)
+        let isLogin = res.status;
+        localStorage.setItem('isLoggedIn', isLogin);
+        localStorage.setItem('authtoken', res.token);
+        //setIsLoggedIn(isLogin); 
+        let eventId = localStorage.getItem('selectedEventId');
+        if(eventId !== null) {
+          redirectToFb(eventId)
+        }  
+    }).catch(error=>{
+        console.log("Error in getCurrentUser",error)
+    })
+  }
+
+  let userType = localStorage.getItem('userType');
+  if(userType == 0){
+    console.log("getUser called in dashboard")
+    getCurrentUser()
+  }
+
+
+
+
+  const redirectToFb=(eventId)=>{
+      history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${eventId}`);
+    console.log("selectedEvent in localstorage",eventId)
+  }
 
 
   return (
