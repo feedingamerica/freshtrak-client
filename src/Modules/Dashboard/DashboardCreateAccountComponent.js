@@ -33,10 +33,9 @@ const DashboardCreateAccountComponent = () => {
   const getCurrentUser = async ()=> {
 
     await CurrentUser().then(res=> {
-        console.log("currentUser is >>",res)
         let isLogin = res.status;
         localStorage.setItem('isLoggedIn', isLogin);
-        localStorage.setItem('authtoken', res.token);
+        localStorage.setItem('authToken', res.token);
         //setIsLoggedIn(isLogin); 
         let eventId = localStorage.getItem('selectedEventId');
         if(eventId !== null) {

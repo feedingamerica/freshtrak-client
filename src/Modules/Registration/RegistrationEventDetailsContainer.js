@@ -91,9 +91,18 @@ const RegistrationEventDetailsContainer = (props) => {
     }
   };
 
-  const getUserToken = (response) => {
-    const localUserToken = localStorage.getItem('userToken');
-    const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
+  const getUserToken = (response) => { 
+
+    let userType ,localUserToken, tokenExpiresAt;
+    userType = localStorage.getItem('userType');;
+    
+    if(userType == 0){
+      localUserToken = localStorage.getItem('authToken');
+    } else {
+      localUserToken = localStorage.getItem('userToken');
+      tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
+    }
+    
 
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
       setLoading(false);

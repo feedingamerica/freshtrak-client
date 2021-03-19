@@ -68,7 +68,7 @@ const HeaderComponent = (props) => {
   
   const logOut = async() => { 
     console.log("userType in logout check>>",userType)
-    if(!userType){
+    if(userType == 0){
       console.log("in if check for logout")
       await LogOut().then(res => {
         let data = res.data;
