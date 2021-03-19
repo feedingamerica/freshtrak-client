@@ -67,7 +67,9 @@ const HeaderComponent = (props) => {
   }, [localIsLoggedIn, isLoggedIn]);
   
   const logOut = async() => { 
+    console.log("userType in logout check>>",userType)
     if(!userType){
+      console.log("in if check for logout")
       await LogOut().then(res => {
         let data = res.data;
         if(res.status){
@@ -80,7 +82,9 @@ const HeaderComponent = (props) => {
       })
     }
     else{
+      console.log("in else for logout")
       setIsLoggedIn(false);
+      localStorage.setItem('isLoggedIn', false);
       localStorage.removeItem('userToken');
       localStorage.removeItem('tokenExpiresAt');
       localStorage.removeItem('search_zip');
