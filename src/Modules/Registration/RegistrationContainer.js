@@ -39,6 +39,7 @@ const RegistrationContainer = (props) => {
   const fetchBusinesses = () =>{ 
     let authToken;
     if(userType == 0 ){ 
+      console.log()
       authToken = localStorage.getItem('authToken');      
     } else {
       authToken = localStorage.getItem('userToken');
@@ -96,6 +97,7 @@ const RegistrationContainer = (props) => {
         headers: { Authorization: `${authHeader}` },
       });
       const { data } = resp;
+      console.log("resp in regCont>>",resp)
       if (data["date_of_birth"] !== null){
         data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
       }

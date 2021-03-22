@@ -51,9 +51,11 @@ const HeaderComponent = (props) => {
    
 
     let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
-    if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
+    if (localStorageLoggedIn === null || localStorageLoggedIn === false) {
+      console.log("setIsLoggedIn is>>",localStorageLoggedIn)
       setIsLoggedIn(false);
     } else {
+      console.log("setIsLoggedIn true")
       setIsLoggedIn(true);
     }
 
