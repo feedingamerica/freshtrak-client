@@ -39,6 +39,7 @@ const RegistrationContainer = (props) => {
   const fetchBusinesses = () =>{ 
     let authToken;
     if(userType == 0 ){ 
+      console.log()
       authToken = localStorage.getItem('authToken');      
     } else {
       authToken = localStorage.getItem('userToken');
@@ -49,6 +50,7 @@ const RegistrationContainer = (props) => {
         getEvent();
       }
       if(user === null) {
+        console.log("user not null, calling getUSer")
         getUser(authToken);
       }
     }
@@ -96,10 +98,11 @@ const RegistrationContainer = (props) => {
         headers: { Authorization: `${authHeader}` },
       });
       const { data } = resp;
+      console.log("resp in regCont>>",resp)
       if (data["date_of_birth"] !== null){
         data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
       }
-      if (data["phone"] !== null){
+      if (data["phone"] !== null && data["phone"] !== undefined){
         const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
         data["phone"] = data["phone"].replace(phoneRegex, '($1) $2-$3')
       }

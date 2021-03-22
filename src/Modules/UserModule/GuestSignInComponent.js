@@ -24,15 +24,20 @@ const GuestSignInComponent = (props) => {
           data: { token, expires_at },
         } = resp;
         localStorage.setItem('userToken', token);
+        localStorage.setItem('authToken', token);
         localStorage.setItem('tokenExpiresAt', expires_at);
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('userType', 1);
+        console.log("resp on GUEST_AUTH >>",resp)
         if(selectedEvent && selectedEvent.id){
           history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
         }else{
           props.handleClose()
           setLoading(false)
+          localStorage.setItem('isLoggedIn', true);
+          localStorage.setItem('userType',1);
           history.push(`${RENDER_URL.ROOT_URL}`);
+          console.log("going to root url,no event id found")
         }
         
     } catch (e) {
@@ -43,6 +48,7 @@ const GuestSignInComponent = (props) => {
 
 
   const onGuestLogin =  () => {
+    console.log("setting isloggedin false in onGuestLogin ")
     localStorage.setItem('isLoggedIn', false);
     TagManager.dataLayer({
       dataLayer: {
@@ -57,7 +63,7 @@ const GuestSignInComponent = (props) => {
   return (
     <div>
        {isLoading && <SpinnerComponent />}      
-      <button type="submit" className="btn btn-outline-secondary mt-3 w-100" onClick={onGuestLogin}>
+      <button type="submit" data-testid="continue-as-guest" className="btn btn-outline-secondary mt-3 w-100" onClick={onGuestLogin}>
         Continue as Guest
       </button> 
     </div>
