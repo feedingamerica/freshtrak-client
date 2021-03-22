@@ -23,6 +23,6 @@ export const STATUS_CODES = {
 export const DEFAULT_DISTANCE = 10;
 
 export const CONFIRMATION_EMAIL = {
-    FROM: 'sarathpyerra@gmail.com',
+    FROM: 'confirmation@freshtrak.com',
     SUBJECT: 'FreshTrak: Event Reservation Confirmed.',
 };
