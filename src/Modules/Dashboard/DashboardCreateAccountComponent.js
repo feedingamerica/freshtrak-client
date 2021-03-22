@@ -34,11 +34,13 @@ const DashboardCreateAccountComponent = () => {
 
     await CurrentUser().then(res=> {
         let isLogin = res.status;
+        let isLoggedIn = localStorage.getItem('isLoggedIn');
         localStorage.setItem('isLoggedIn', isLogin);
         localStorage.setItem('authToken', res.token);
         //setIsLoggedIn(isLogin); 
         let eventId = localStorage.getItem('selectedEventId');
-        if(eventId !== null) {
+        console.log("isLoggedIn for CurrentUser is >>",localStorage.getItem('isLoggedIn'))
+        if(eventId !== null && !isLoggedIn) {
           redirectToFb(eventId)
         }  
     }).catch(error=>{
