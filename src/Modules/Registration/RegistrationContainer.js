@@ -12,6 +12,7 @@ import RegistrationComponent from './RegistrationComponent';
 import { EventFormat } from '../../Utils/EventHandler';
 import { formatMMDDYYYY } from '../../Utils/DateFormat';
 import { NotifyToast, showToast } from '../Notifications/NotifyToastComponent';
+import { sendRegistrationConfirmationEmail } from '../../Services/ApiService';
 
 const RegistrationContainer = (props) => {
   const dispatch = useDispatch();
@@ -159,6 +160,9 @@ const RegistrationContainer = (props) => {
       })
       if(user['permission_to_text']){
         send_sms(user)
+      }
+      if(user['permission_to_email']){
+        sendRegistrationConfirmationEmail(user, location)
       }
       sessionStorage.setItem("registeredEventDateID", eventDateId);
       history.push({
