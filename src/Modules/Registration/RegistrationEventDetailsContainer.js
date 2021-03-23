@@ -92,12 +92,11 @@ const RegistrationEventDetailsContainer = (props) => {
   };
 
   const getUserToken = (response) => { 
-
     let userType ,localUserToken, tokenExpiresAt;
     userType = localStorage.getItem('userType');;
     
     if(userType == 0){
-      localUserToken = localStorage.getItem('authToken');
+      localUserToken = (localStorage.getItem('authToken') && localStorage.getItem('authToken') !='null') ? localStorage.getItem('authToken') : undefined;
     } else {
       localUserToken = localStorage.getItem('userToken');
       tokenExpiresAt = localStorage.getItem('tokenExpiresAt');

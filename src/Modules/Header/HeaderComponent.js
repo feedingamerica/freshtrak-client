@@ -69,12 +69,11 @@ const HeaderComponent = (props) => {
   }, [localIsLoggedIn, isLoggedIn]);
   
   const logOut = async() => { 
-    console.log("userType in logout check>>",userType)
-    if(userType == 0){
-      console.log("in if check for logout")
+    if(userType == 0){      
       await LogOut().then(res => {
         let data = res.data;
         if(res.status){
+          dispatch(setCurrentEvent({}));
           localStorage.setItem('isLoggedIn', false);
           localStorage.removeItem('authToken');
           setIsLoggedIn(false);

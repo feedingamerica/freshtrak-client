@@ -24,7 +24,6 @@ const GuestSignInComponent = (props) => {
           data: { token, expires_at },
         } = resp;
         localStorage.setItem('userToken', token);
-        localStorage.setItem('authToken', token);
         localStorage.setItem('tokenExpiresAt', expires_at);
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('userType', 1);
