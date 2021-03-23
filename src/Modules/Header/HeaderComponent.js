@@ -26,6 +26,12 @@ import { RENDER_URL } from "../../Utils/Urls";
 import {LogOut, CurrentUser} from "../../Utils/CognitoHandler";
 import { useHistory } from 'react-router-dom';
 
+
+import { Auth } from 'aws-amplify';
+import {COGNITO_CONFIG}  from "../../Utils/Constants";
+
+Auth.configure(COGNITO_CONFIG);
+
 const HeaderComponent = (props) => {
   const history = useHistory();
   const [navbarShrink, setNavbarShrink] = useState("");
@@ -48,16 +54,30 @@ const HeaderComponent = (props) => {
     // if(!userType){
     //   getCurrentUser();
     // }
+    // const subscription = props.source.subscribe();
+    // return () => {
+    // // Clean up the subscription
+    // subscription.unsubscribe();
+    // };
    
 
-    let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
-    if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
-      console.log("setIsLoggedIn is>>",localStorageLoggedIn)
-      setIsLoggedIn(false);
-    } else {
-      console.log("setIsLoggedIn true")
+    const localStorageLoggedIn = localStorage.getItem('isLoggedIn');
+    console.log("typeof(localStorageLoggedIn) >>",typeof(localStorageLoggedIn))
+    if (localStorageLoggedIn == 'true') {
+      console.log("setIsLoggedIn true >>",localStorageLoggedIn)
       setIsLoggedIn(true);
+    } else {
+      console.log("setIsLoggedIn false")
+      setIsLoggedIn(false);
     }
+
+    // if (localIsLoggedIn == 'true' && userType !== null) {
+    //   console.log("setIsLoggedIn is>>",localIsLoggedIn)
+    //   setIsLoggedIn(true);
+    // } else {
+    //   console.log("setIsLoggedIn set to false")
+    //   setIsLoggedIn(false);
+    // }
 
     window.onscroll = () => {
       if (window.pageYOffset > 100) {
@@ -66,36 +86,55 @@ const HeaderComponent = (props) => {
         setNavbarShrink("");
       }
     };
-  }, [localIsLoggedIn, isLoggedIn]);
+  }, [localIsLoggedIn,isLoggedIn]);
+
+
+  const clearStorage=()=>{
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('tokenExpiresAt');
+    localStorage.removeItem('search_zip');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('selectedEventId');
+    localStorage.removeItem('authToken');
+  }
+ 
   
-  const logOut = async() => { 
-    console.log("userType in logout check>>",userType)
-    if(userType == 0){
-      console.log("in if check for logout")
-      await LogOut().then(res => {
-        let data = res.data;
-        if(res.status){
-          localStorage.setItem('isLoggedIn', false);
-          localStorage.removeItem('authToken');
-          setIsLoggedIn(false);
-        } else {
-          console.log("error",data)
-        }
+  const logOut = async () => { 
+   
+    console.log("userType in logout check>>",typeof(userType))
+    if(!Number(userType)){
+      debugger
+      //localStorage.removeItem('userType');
+      // await LogOut().then((res) => {
+      //   let data = res.data;
+      //   console.log("res >>",res)
+      //   if(res.status === true){
+      //     localStorage.setItem('isLoggedIn',false);
+      //     localStorage.removeItem('authToken');
+      //     setIsLoggedIn(false);
+      //   } else {
+      //     console.log("error",data)
+      //   }
+      // });
+      await Auth.signOut()
+      .then((res)=>{
+          console.log("res is >>",res)
       })
+      .catch((err)=>{
+          console.log("err is >>",err)
+      })
+
+
     }
     else{
       console.log("in else for logout")
       setIsLoggedIn(false);
-      localStorage.setItem('isLoggedIn', false);
-      localStorage.removeItem('userToken');
-      localStorage.removeItem('tokenExpiresAt');
-      localStorage.removeItem('search_zip');
-      localStorage.removeItem('userType');
-      localStorage.removeItem('selectedEventId');
+      localStorage.setItem('isLoggedIn',null);
+      clearStorage()
       dispatch(setCurrentEvent({}))
       history.push(`${RENDER_URL.ROOT_URL}`);
     }
-   
+
     
 
     
@@ -218,7 +257,7 @@ const HeaderComponent = (props) => {
                 <button
                 type="submit"
                 className="btn btn-link header-sign-in"
-                onClick={logOut}
+                onClick={()=>logOut()}
                 >
                   LOG OUT
                 </button>

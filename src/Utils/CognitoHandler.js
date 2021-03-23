@@ -106,18 +106,26 @@ export const ResetPassword = async (username,resetData)=> {
 }
 
 export const LogOut = async() => {	
+	console.log("in await logout")
+	debugger
 	let  status = false, data = {};
+	//let  status = true, data = "logout successfully";
+	//return ({status, data}); 
 	await Auth.signOut()
-	.then(res => { 
+	.then(() => { 
+		//console.log("res in await logout",res)
 		status = true;
 		data = 'Logout successful';
+		return ({status, data}); 
 	})
-	.catch(err => { 
+	.catch((err) => { 
+		console.log("err in await logout",err)
 		status = false;
 		data = err;
+		return ({status, data}); 
 	}); 
 
-	return {status, data}; 
+	// return ({status, data}); 
 }
 
 export const CurrentUser = async() => {

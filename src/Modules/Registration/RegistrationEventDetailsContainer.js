@@ -97,8 +97,12 @@ const RegistrationEventDetailsContainer = (props) => {
     userType = localStorage.getItem('userType');;
     
     if(userType == 0){
+      //localUserToken = localStorage.getItem('authToken') ? 
+      //localStorage.getItem('authToken') :null;
       localUserToken = localStorage.getItem('authToken');
+      console.log("localusertoken is>>",localUserToken)
     } else {
+      console.log("in else, userType is>>",userType)
       localUserToken = localStorage.getItem('userToken');
       tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
     }
@@ -109,6 +113,7 @@ const RegistrationEventDetailsContainer = (props) => {
       showAuthenticationModal ? fetchUserToken(response) : setshowAuthenticationModal(true);
       
     } else {
+      console.log("localusertoken set,",localUserToken)
       setUserToken(localUserToken);
       setshowAuthenticationModal(false);
       setLoading(false);

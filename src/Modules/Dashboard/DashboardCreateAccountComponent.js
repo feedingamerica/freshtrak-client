@@ -31,10 +31,13 @@ const DashboardCreateAccountComponent = () => {
   }, []);
 
   const getCurrentUser = async ()=> {
+    debugger
 
-    await CurrentUser().then(res=> {
+    await CurrentUser().
+    then((res) => {
         let isLogin = res.status;
-        let isLoggedIn = localStorage.getItem('isLoggedIn');
+        console.log("RES.STATUS in dashboard comp >>",res.status)
+        //let isLoggedIn = localStorage.getItem('isLoggedIn');
         localStorage.setItem('isLoggedIn', isLogin);
         localStorage.setItem('authToken', res.token);
         //setIsLoggedIn(isLogin); 
@@ -43,16 +46,43 @@ const DashboardCreateAccountComponent = () => {
         if(eventId !== null && !isLoggedIn) {
           redirectToFb(eventId)
         }  
-    }).catch(error=>{
+    }).catch((error)=>{
         console.log("Error in getCurrentUser",error)
     })
   }
 
   let userType = localStorage.getItem('userType');
-  if(userType == 0){
+  let isLoggedIn = localStorage.getItem('isLoggedIn');
+  console.log("type of isLoggedIn>>",typeof(isLoggedIn))
+  if(userType == 0 && !Boolean(isLoggedIn)){
     console.log("getUser called in dashboard")
     getCurrentUser()
   }
+
+
+//   try {
+//     const resp = await axios.post(GUEST_AUTH);
+//     const {
+//       data: { token, expires_at },
+//     } = resp;
+//     localStorage.setItem('userToken', token);
+//     localStorage.setItem('authToken', token);
+//     localStorage.setItem('tokenExpiresAt', expires_at);
+//     localStorage.setItem('isLoggedIn', true);
+//     localStorage.setItem('userType', 1);
+//     console.log("resp on GUEST_AUTH >>",resp)
+//     if(selectedEvent && selectedEvent.id){
+//       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
+//     }else{
+//       props.handleClose()
+//       setLoading(false)
+//       localStorage.setItem('isLoggedIn', true);
+//       localStorage.setItem('userType',1);
+//       history.push(`${RENDER_URL.ROOT_URL}`);
+//       console.log("going to root url,no event id found")
+//     }
+    
+// }
 
 
 

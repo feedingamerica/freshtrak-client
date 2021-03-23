@@ -51,6 +51,7 @@ const RegistrationContainer = (props) => {
       }
       if(user === null) {
         console.log("user not null, calling getUSer")
+        console.log("authToken >>",authToken)
         getUser(authToken);
       }
     }
