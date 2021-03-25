@@ -134,7 +134,7 @@ const RegistrationContainer = (props) => {
     }
   }
 
-  const register = async user => {
+  const register = async (user, event) => {
     setDisabled(!disabled);
     const event_date_id = parseInt(eventDateId, 10);
     const event_slot_id = parseInt(eventSlotId, 10);
@@ -162,7 +162,7 @@ const RegistrationContainer = (props) => {
         send_sms(user)
       }
       if(user['permission_to_email']){
-        sendRegistrationConfirmationEmail(user, location)
+        sendRegistrationConfirmationEmail(user, selectedEvent, location)
       }
       sessionStorage.setItem("registeredEventDateID", eventDateId);
       history.push({
