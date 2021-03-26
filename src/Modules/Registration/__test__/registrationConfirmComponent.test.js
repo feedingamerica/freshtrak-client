@@ -32,8 +32,8 @@ function mockFunction() {
 jest.mock('react-router-dom', () => mockFunction());
 
 test('should load without errors', () => {
-  const store = mockStore({ event: { event: {} }, user: mockFamily });
-  const user_mock_data = {state:{user: mockFamily}}
+  const store = mockStore({ event: { event: {} }, user: mockFamily, eventTimeStamp: {} });
+  const user_mock_data = {state:{user: mockFamily, eventTimeStamp: {}}}
   const history = createMemoryHistory({ initialEntries: [''] });
   expect(() => {
     render(

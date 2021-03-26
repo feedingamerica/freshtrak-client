@@ -17,7 +17,8 @@ export const API_URL = {
     TWILIO_SMS: `${REGISTRATION_URL}twilio/sms`,
     USER_REGISTRATION : `${REGISTRATION_URL}api/cognito_authentications/user_add_details`,
     COGNITO_TEMP_CODE_FIX : `${REGISTRATION_URL}api/cognito_authentications/user_signup`,
-    COGNITO_USER : `${REGISTRATION_URL}api/cognito_authentications/user_data`
+    COGNITO_USER : `${REGISTRATION_URL}api/cognito_authentications/user_data`,
+    SEND_EMAIL: `${REGISTRATION_URL}twilio/email`,
 };
 
 export const RENDER_URL = {
