@@ -917,6 +917,9 @@ body {
         @include responsive(extra-large-devices) {
         }
     }
+    .country-list-component{
+        min-width: 130px!important;
+    }
 }
 
 .kep-login-facebook {
@@ -925,8 +928,8 @@ body {
   }
 
 .loading-spinner-height {
-    height: 10em;
-    width: 10em;
+    height: 2em;
+    width: 2em;
   }
   
 // Added for fixing Search button
@@ -1113,6 +1116,10 @@ a {
             }
         }
     }
+    .loading-spinner-height {
+        position: absolute;
+        top:50%;
+      }
 }
 .login-logo{
     height: 30px;

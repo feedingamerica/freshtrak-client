@@ -214,13 +214,13 @@ const HeaderComponent = (props) => {
               //                   </NavDropdown>
               //               </div>
               <LinkContainer to={RENDER_URL.ROOT_URL}>
-                <button
+                <a
                 type="submit"
-                className="btn btn-link header-sign-in"
+                className="header-sign-in mr-3 font-weight-bold pointer"
                 onClick={logOut}
                 >
-                  LOG OUT
-                </button>
+                  Sign Out
+                </a>
               </LinkContainer>
             )}
             {/* <div>
