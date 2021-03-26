@@ -15,6 +15,7 @@ export const API_URL = {
     CREATE_RESERVATION: `${REGISTRATION_URL}api/reservations`,
     FB_AUTH: `${REGISTRATION_URL}auth_callbacks/facebook`,
     TWILIO_SMS: `${REGISTRATION_URL}twilio/sms`,
+    SEND_EMAIL: `${REGISTRATION_URL}twilio/email`,
 };
 
 export const RENDER_URL = {

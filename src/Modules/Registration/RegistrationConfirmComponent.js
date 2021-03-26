@@ -21,11 +21,13 @@ import QRCode from 'qrcode.react';
 
 const RegistrationConfirmComponent = props => {
   const user_data = props.location.state.user;
+  
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const event = useSelector(selectEvent);
   let HOME_OR_ROOT_URL = RENDER_URL.HOME_URL;
   const location = useLocation();
+  const event_slot_id = location.state?.eventTimeStamp?.event_slot_id;
   const [userToken, setUserToken] = useState(undefined);
   const [isError, setIsError] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(event);
@@ -162,7 +164,7 @@ const RegistrationConfirmComponent = props => {
             <div className="mt-1">
               <h2>
                 Your QR Code <br />
-                <QRCode value= "https://secure.pantrytrak.com/mobile/qr_code_processing.php?code={identification_code.toUpperCase()}" />
+                <QRCode value= {`https://secure.pantrytrak.com/mobile/qr_code_processing.php?code=${identification_code.toUpperCase()}&event_date_id=${eventDateId}${event_slot_id?"&event_slot_id="+event_slot_id: ""}`} />
               </h2>
               <br />
             </div>
