@@ -11,11 +11,12 @@ import {ErrorHandler} from "../../Utils/ErrorHandler";
 import {SignUp, SignUpConfirm,ResendConfirmCode, SignIn,ConfirmSignIn} from "../../Utils/CognitoHandler";
 
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import {useHistory } from 'react-router-dom';
 import { RENDER_URL,API_URL } from '../../Utils/Urls';
 import axios from 'axios';
+import { selectLoggedIn, setLoggedIn } from '../../Store/loggedInSlice';
 
 
 const UserBlockContainer = (props) => {
@@ -29,6 +30,7 @@ const UserBlockContainer = (props) => {
   const [dialcode,setDialCode] = useState('+91');
   const event = useSelector(selectEvent);
   const [selectedEvent, setSelectedEvent] = useState(event);
+  const dispatch = useDispatch();
 
 
   const onSignUp = async (signupData) => {
@@ -57,7 +59,7 @@ const UserBlockContainer = (props) => {
   const onConfirm = async (confirmData) => {
     let code = confirmData.code;
     const { COGNITO_TEMP_CODE_FIX } = API_URL;
-    let authtoken = localStorage.getItem("authtoken");
+    let authtoken = localStorage.getItem("authToken");
     await SignUpConfirm(username,code).then(res => {
       let data = res.data;
       if(res.status) {
@@ -68,13 +70,13 @@ const UserBlockContainer = (props) => {
       }
     })
 
-    try {
-      const resp = await axios.get(COGNITO_TEMP_CODE_FIX, {
-        headers: { Authorization: `${authtoken}` },
-      });
-    } catch (e) {
-      console.log("error",e);
-    }
+    // try {
+    //   const resp = await axios.get(COGNITO_TEMP_CODE_FIX, {
+    //     headers: { Authorization: `${authtoken}` },
+    //   });
+    // } catch (e) {
+    //   console.log("error",e);
+    // }
     
   }
 
@@ -139,7 +141,8 @@ const UserBlockContainer = (props) => {
 
   const eventCheck = (data) => {
     localStorage.setItem('isLoggedIn', true);  
-    localStorage.setItem('userType', 0); 
+    localStorage.setItem('userType', 0);
+    dispatch(setLoggedIn(localStorage.getItem("isLoggedIn")))
     let token_value = data.signInUserSession.idToken.jwtToken;
     localStorage.setItem('authToken', token_value);
     props.handleClose();

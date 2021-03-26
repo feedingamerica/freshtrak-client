@@ -22,18 +22,23 @@ const ForgotPasswordContainer = (props) => {
         } else {
           let errorValue = ErrorHandler(data);     
           setCustomError(errorValue);
+          console.log("errorValue in onSendEmail else is >>",errorValue)
         }
       });
   }
 
   const onResetPassword = async (resetData)=> {
+    setCustomError(null);//newly added
     await ResetPassword(username,resetData).then(res=>{
+      
       let data = res.data;
       if(res.status){
         props.onResetNewPassword();
+        
       } else {
         let errorValue = ErrorHandler(data);     
         setCustomError(errorValue);
+        console.log("errorValue in onResetPassword is >>",errorValue)
       }
     })    
   }

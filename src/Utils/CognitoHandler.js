@@ -111,21 +111,41 @@ export const LogOut = async() => {
 	let  status = false, data = {};
 	//let  status = true, data = "logout successfully";
 	//return ({status, data}); 
-	await Auth.signOut()
-	.then(() => { 
-		//console.log("res in await logout",res)
-		status = true;
-		data = 'Logout successful';
-		return ({status, data}); 
-	})
-	.catch((err) => { 
-		console.log("err in await logout",err)
-		status = false;
-		data = err;
-		return ({status, data}); 
-	}); 
 
-	// return ({status, data}); 
+
+	// await Auth.signOut()
+	// .then(() => { 
+	// 	//console.log("res in await logout",res)
+	// 	status = true;
+	// 	data = 'Logout successful';
+	// 	return ({status, data}); 
+	// })
+	// .catch((err) => { 
+	// 	console.log("err in await logout",err)
+	// 	status = false;
+	// 	data = err;
+	// 	return ({status, data}); 
+	// }); 
+
+
+	try {
+		await Auth.signOut()
+		 data = {
+			status : true,
+			data : 'Logout successful'
+		}
+	} catch (err) {
+		 data = {
+			status : false,
+			data : 'Logout failed'
+		}
+	}
+
+
+
+
+
+	return data; 
 }
 
 export const CurrentUser = async() => {

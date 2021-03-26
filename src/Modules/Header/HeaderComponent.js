@@ -7,12 +7,13 @@ import userIcon from "../../Assets/img/Mask.svg";
 import { Link } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap';
 import localization from '../Localization/LocalizationComponent';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector } from 'react-redux';
 import {setCurrentLanguage} from '../../Store/languageSlice';
 import CountryListComponent from '../Localization/countryListComponent';
 import UserBlockContainer from '../UserModule/UserBlockContainer';
 import {Modal} from 'react-bootstrap';
 import { setCurrentEvent } from '../../Store/Events/eventSlice';
+import { selectLoggedIn, setLoggedIn } from '../../Store/loggedInSlice';
 import 'semantic-ui-css/semantic.min.css'
 import {
   Nav,
@@ -35,7 +36,8 @@ Auth.configure(COGNITO_CONFIG);
 const HeaderComponent = (props) => {
   const history = useHistory();
   const [navbarShrink, setNavbarShrink] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const loggedIn = useSelector(selectLoggedIn);
+  const [isLoggedIn, setIsLoggedIn] = useState(loggedIn);
   const [show, setShow] = useState(false);
   const shortHeader = props.shortHeader || "";
   const dispatch = useDispatch();
@@ -54,31 +56,18 @@ const HeaderComponent = (props) => {
     // if(!userType){
     //   getCurrentUser();
     // }
-    // const subscription = props.source.subscribe();
-    // return () => {
-    // // Clean up the subscription
-    // subscription.unsubscribe();
-    // };
    
 
     const localStorageLoggedIn = localStorage.getItem('isLoggedIn');
-    console.log("typeof(localStorageLoggedIn) >>",typeof(localStorageLoggedIn))
-    if (localStorageLoggedIn == 'true') {
-      console.log("setIsLoggedIn true >>",localStorageLoggedIn)
-      setIsLoggedIn(true);
-    } else {
-      console.log("setIsLoggedIn false")
-      setIsLoggedIn(false);
-    }
 
-    // if (localIsLoggedIn == 'true' && userType !== null) {
-    //   console.log("setIsLoggedIn is>>",localIsLoggedIn)
-    //   setIsLoggedIn(true);
-    // } else {
-    //   console.log("setIsLoggedIn set to false")
-    //   setIsLoggedIn(false);
-    // }
+    //dispatch(setLoggedIn(localStorage.getItem("isLoggedIn")))
 
+    //setIsLoggedIn(localStorageLoggedIn)
+    //console.log("dispatched setLoggedIn >>",localStorage.getItem("isLoggedIn")) //just commented
+
+    console.log("dispatched setLoggedIn >>",isLoggedIn)
+    console.log("setIsLoggedIn to >",isLoggedIn)
+    console.log("type of setIsLoggedIn to >",typeof(isLoggedIn))
     window.onscroll = () => {
       if (window.pageYOffset > 100) {
         setNavbarShrink("navbar-shrink");
@@ -86,10 +75,10 @@ const HeaderComponent = (props) => {
         setNavbarShrink("");
       }
     };
-  }, [localIsLoggedIn,isLoggedIn]);
+  }, [loggedIn,dispatch,userType]);
 
 
-  const clearStorage=()=>{
+  const clearStorage= ()=>{
     localStorage.removeItem('userToken');
     localStorage.removeItem('tokenExpiresAt');
     localStorage.removeItem('search_zip');
@@ -99,41 +88,43 @@ const HeaderComponent = (props) => {
   }
  
   
-  const logOut = async () => { 
-   
-    console.log("userType in logout check>>",typeof(userType))
-    if(!Number(userType)){
+  const logOut = async() => { 
+    debugger
+    setIsLoggedIn(false)
+    dispatch(setLoggedIn(false));
+    localStorage.setItem('isLoggedIn', false);
+    console.log("logout clicked, userType = >>",localStorage.getItem('userType'))
+     if(userType == 0){ 
+       setIsLoggedIn(false);
+       localStorage.removeItem('userType');
+    //dispatch(setLoggedIn(false));
+    await LogOut().then(async res => {
       debugger
-      //localStorage.removeItem('userType');
-      // await LogOut().then((res) => {
-      //   let data = res.data;
-      //   console.log("res >>",res)
-      //   if(res.status === true){
-      //     localStorage.setItem('isLoggedIn',false);
-      //     localStorage.removeItem('authToken');
-      //     setIsLoggedIn(false);
-      //   } else {
-      //     console.log("error",data)
-      //   }
-      // });
-      await Auth.signOut()
-      .then((res)=>{
-          console.log("res is >>",res)
-      })
-      .catch((err)=>{
-          console.log("err is >>",err)
-      })
+         let data = res.data;
+         if(res && res.status){
+           console.log("res n fb logout>>",res)
+           dispatch(setCurrentEvent({}));
+           clearStorage()
+         } else {
+           console.log("error, no response for await LogOut ")
+         }
+       })
+       .catch(err=>{
+         //normal signin case
+         console.log("err in logOut",err)
+       })
 
 
-    }
-    else{
-      console.log("in else for logout")
-      setIsLoggedIn(false);
-      localStorage.setItem('isLoggedIn',null);
-      clearStorage()
-      dispatch(setCurrentEvent({}))
-      history.push(`${RENDER_URL.ROOT_URL}`);
-    }
+     }
+     else{
+       setIsLoggedIn(false);
+       localStorage.setItem('isLoggedIn',false);
+        clearStorage()
+       dispatch(setCurrentEvent({}))
+       dispatch(setLoggedIn(false));
+       console.log("isLoggedIn in else in localstorage >>",localStorage.getItem('isLoggedIn'))
+       history.push(`${RENDER_URL.ROOT_URL}`);
+     }
 
     
 
@@ -230,12 +221,33 @@ const HeaderComponent = (props) => {
                 </Nav.Link>
               </LinkContainer>
             )}*/}
-            {!isLoggedIn && (
+
+
+
+
+
+
+            {!loggedIn && (
             <div className="mr-3 font-weight-bold pointer text-white" onClick={() => setShow(true)}>
                 Sign In
              </div>
              )}
-            {isLoggedIn && (
+
+
+
+
+
+
+            {loggedIn && (
+               <LinkContainer to={RENDER_URL.ROOT_URL}>
+               <button
+               type="submit"
+               className="btn btn-link header-sign-in"
+               onClick={()=>logOut()}
+               >
+                 LOG OUT
+               </button>
+             </LinkContainer>
               // <div className="user-avatar">
               //                   <NavDropdown
               //                       title={
@@ -253,16 +265,11 @@ const HeaderComponent = (props) => {
                                     
               //                   </NavDropdown>
               //               </div>
-              <LinkContainer to={RENDER_URL.ROOT_URL}>
-                <button
-                type="submit"
-                className="btn btn-link header-sign-in"
-                onClick={()=>logOut()}
-                >
-                  LOG OUT
-                </button>
-              </LinkContainer>
+             
             )}
+
+         {console.log("isLoggedIn check >>",isLoggedIn)}
+         {console.log("loggedIn check >>",loggedIn)}
             {/* <div>
               <label>Select Language ?</label>
               <select onChange={change} value={language.language}>

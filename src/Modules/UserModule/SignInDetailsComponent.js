@@ -14,6 +14,9 @@ const SignInDetailsComponent = (props) => {
   const onForgotPassword = () => {
     props.onForgotPassword();
   }
+  const storeSignInData=(signinData)=>{
+    console.log("signinData is >>",signinData)
+  }
   return (
     <div className="mt-4 pb-3" data-testid="user-signin">
       <p className="font-weight-bold text-center">Welcome Back !</p>
@@ -47,12 +50,15 @@ const SignInDetailsComponent = (props) => {
             data-testid="password"
             ref={register({ required: true })}
           />
-          {errors.password && <span className="text-danger">This field is required</span>}   
+          {errors.password && props.customError.userError ? null : 
+          !props.customError.userError && errors.password ? 
+          <span className="text-danger">This field is required</span> : null } 
+            
            {props.customError.userError && <span className="text-danger">{props.customError.userError}</span>}        
         </div>
         <div className="d-flex justify-content-between">
           <div className="form-check">
-            <input type="checkbox" className="form-check-input" id="rememberme" />
+            <input type="checkbox" className="form-check-input" id="rememberme" onClick={()=>storeSignInData(FormData.password)}/>
             <label className="form-check-label" htmlFor="rememberme">
               Remember Me
             </label>

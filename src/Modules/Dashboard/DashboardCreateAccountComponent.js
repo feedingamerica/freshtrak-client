@@ -9,53 +9,48 @@ import '../../Assets/scss/main.scss';
 import localization from '../Localization/LocalizationComponent';
 import {CurrentUser} from "../../Utils/CognitoHandler";
 
-
-
-import { useSelector } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import {useHistory } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
+import { setLoggedIn } from '../../Store/loggedInSlice';
+import { useDispatch ,useSelector } from 'react-redux';
 
 const DashboardCreateAccountComponent = () => {
   const history = useHistory();
   const event = useSelector(selectEvent);
   const [selectedEvent, setSelectedEvent] = useState(event);
+  const dispatch = useDispatch();
   // const [lang, setLang] = useState("en");
   // const change = (event) => {
   //   localization.setLanguage(event.target.value);
   //   setLang(event.target.value);
   // }
-  useEffect( () =>{
-
-    
-  }, []);
+ 
 
   const getCurrentUser = async ()=> {
-    debugger
+    //debugger
 
-    await CurrentUser().
-    then((res) => {
-        let isLogin = res.status;
-        console.log("RES.STATUS in dashboard comp >>",res.status)
-        //let isLoggedIn = localStorage.getItem('isLoggedIn');
+    await CurrentUser().then(res=> {
+        let isLogin = res.status;        
         localStorage.setItem('isLoggedIn', isLogin);
         localStorage.setItem('authToken', res.token);
+        dispatch(setLoggedIn(isLogin))
         //setIsLoggedIn(isLogin); 
-        let eventId = localStorage.getItem('selectedEventId');
-        console.log("isLoggedIn for CurrentUser is >>",localStorage.getItem('isLoggedIn'))
-        if(eventId !== null && !isLoggedIn) {
+        let eventId = (isLogin ? localStorage.getItem('selectedEventId') : null);
+        let  isLoggedIn = localStorage.getItem('isLoggedIn');
+        if(eventId !== null && isLoggedIn) {
           redirectToFb(eventId)
-        }  
-    }).catch((error)=>{
+        }  else {
+          localStorage.removeItem('selectedEventId');
+        }
+    }).catch(error=>{
         console.log("Error in getCurrentUser",error)
     })
   }
 
   let userType = localStorage.getItem('userType');
-  let isLoggedIn = localStorage.getItem('isLoggedIn');
-  console.log("type of isLoggedIn>>",typeof(isLoggedIn))
-  if(userType == 0 && !Boolean(isLoggedIn)){
-    console.log("getUser called in dashboard")
+  
+  if(userType == 0){ 
     getCurrentUser()
   }
 
@@ -87,7 +82,7 @@ const DashboardCreateAccountComponent = () => {
 
 
 
-  const redirectToFb=(eventId)=>{
+  const redirectToFb=(eventId)=>{ 
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${eventId}`);
     console.log("selectedEvent in localstorage",eventId)
   }
