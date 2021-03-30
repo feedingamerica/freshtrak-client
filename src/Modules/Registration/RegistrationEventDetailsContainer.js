@@ -39,7 +39,6 @@ const RegistrationEventDetailsContainer = (props) => {
       const resp = await axios.get(
         `${BASE_URL}api/event_dates/${eventDateId}/event_details`
       ).catch(error=>{
-        console.log("error in getEvent")
         setIsError(true);
       })
       const { data } = resp;
@@ -48,7 +47,6 @@ const RegistrationEventDetailsContainer = (props) => {
         setLoading(false);
         setSuccessful(true);
       } else {
-        console.log("in else of getEvent")
         setPageError(true);
       }
     } catch (e) {
@@ -98,7 +96,6 @@ const RegistrationEventDetailsContainer = (props) => {
     if(userType == 0){
       localUserToken = (localStorage.getItem('authToken') && localStorage.getItem('authToken') !='null') ? localStorage.getItem('authToken') : undefined;
     } else {
-      console.log("in else, userType is>>",userType)
       localUserToken = localStorage.getItem('userToken');
       tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
     }
@@ -109,7 +106,6 @@ const RegistrationEventDetailsContainer = (props) => {
       showAuthenticationModal ? fetchUserToken(response) : setshowAuthenticationModal(true);
       
     } else {
-      console.log("localusertoken set,",localUserToken)
       setUserToken(localUserToken);
       setshowAuthenticationModal(false);
       setLoading(false);

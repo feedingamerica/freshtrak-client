@@ -1,8 +1,11 @@
 import React, { useState }from 'react';
 import { useForm } from "react-hook-form";
+import SpinnerComponent from '../General/SpinnerComponent';
 const SignInConfirmComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
+  const [isLoading, setLoading] = useState(false);
   const onSubmit = async (confirmCode) => {
+      setLoading(true);
       props.onConfirmPhone(confirmCode);
   };
  
@@ -19,9 +22,11 @@ const SignInConfirmComponent = (props) => {
              autoComplete="off"
              ref={register({ required: true })}
           />
+
+          {!props.customError.codeError && !errors.code && isLoading && <SpinnerComponent />}
            {errors.code && <span className="text-danger">This field is required</span>} 
-           {props.customError.codeError && <span className="text-danger">{props.customError.codeError}</span>}          
-        </div>
+           {props.customError.codeError && !errors.code && <span className="text-danger">{props.customError.codeError}</span>}          
+        </div>  
         <button type="submit" className="btn custom-button mt-3 w-100" data-testid="signin-confirm">
           Confirm
         </button>

@@ -21,6 +21,7 @@ const CountryListComponent = (props) => (
     search
     selection
     options={countryOptions}
+    className="country-list-component"
   />
 )
 

@@ -106,8 +106,7 @@ export const ResetPassword = async (username,resetData)=> {
 }
 
 export const LogOut = async() => {	
-	console.log("in await logout")
-	debugger
+	//debugger
 	let  status = false, data = {};
 	//let  status = true, data = "logout successfully";
 	//return ({status, data}); 

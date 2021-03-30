@@ -68,10 +68,8 @@ const RegistrationConfirmComponent = props => {
       dispatch(setCurrentUser(data));
       setUser(data);
       setLoading(false);
-      console.log("success gettingUser in regConfirmComp")
     } catch (e) {
       setLoading(false);
-      console.log("error gettingUser in regConfirmComp")
       console.error(e);
     }
   };
@@ -86,7 +84,6 @@ const RegistrationConfirmComponent = props => {
       }
       if(user === null) {
         getUser(localStorage.getItem('userToken'));
-        console.log("calling fetchBusinesses")
       }
     }
   }
@@ -99,7 +96,6 @@ const RegistrationConfirmComponent = props => {
       const { data } = resp;
       if (data && data.event !== undefined) {
         const eventData = EventFormat(data.event, eventDateId);
-        console.log("dispatching setCurrentEvent")
         dispatch(setCurrentEvent(eventData));
         setSelectedEvent(eventData);
       } else {

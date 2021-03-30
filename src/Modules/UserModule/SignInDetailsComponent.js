@@ -1,22 +1,46 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { useForm } from "react-hook-form";
 import FacebookSignInComponent from "./FacebookSignInComponent";
 import GuestSignInComponent from "./GuestSignInComponent";
+import SpinnerComponent from '../General/SpinnerComponent';
 
 const SignInDetailsComponent = (props) => {
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
 
+  useEffect(() => {
+  },[]);
+
+  
 
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (signinData) => {
+      setLoading(true)
       props.onSignIn(signinData);
   };
   const onForgotPassword = () => {
     props.onForgotPassword();
   }
-  const storeSignInData=(signinData)=>{
-    console.log("signinData is >>",signinData)
-  }
+
+   const setUser=(e)=>{
+    if(e.target.name == "username"){
+    setEmail(e.target.value)
+    if(email == null || email == ''){
+      props.customError.emailError = null;
+    }
+    }
+    else{
+    setPassword(e.target.value)
+    if(password == null || password == ''){
+      props.customError.userError = null;
+    }
+    }
+
+   }
+
+
   return (
     <div className="mt-4 pb-3" data-testid="user-signin">
       <p className="font-weight-bold text-center">Welcome Back !</p>
@@ -29,6 +53,7 @@ const SignInDetailsComponent = (props) => {
             id="username"
             autoComplete="off"
             data-testid="username"
+            onChange={(e)=>setUser(e)}
             ref={register({ required: 'This field is required' ,
                              pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
@@ -48,24 +73,24 @@ const SignInDetailsComponent = (props) => {
             id="password"
             autoComplete="off"
             data-testid="password"
+            onChange={(e)=>setUser(e)}
             ref={register({ required: true })}
           />
-          {errors.password && props.customError.userError ? null : 
-          !props.customError.userError && errors.password ? 
-          <span className="text-danger">This field is required</span> : null } 
-            
-           {props.customError.userError && <span className="text-danger">{props.customError.userError}</span>}        
+          {errors.password && <span className="text-danger">This field is required</span>}
+           {props.customError.userError && !errors.password && !errors.username && <span className="text-danger">{props.customError.userError}</span>}        
         </div>
+        {!errors.username && !props.customError.userError && !errors.password && isLoading && <SpinnerComponent />}
         <div className="d-flex justify-content-between">
-          <div className="form-check">
-            <input type="checkbox" className="form-check-input" id="rememberme" onClick={()=>storeSignInData(FormData.password)}/>
+          {/* <div className="form-check">
+            <input type="checkbox" className="form-check-input" id="rememberme" onClick={(e)=>storeSignInData(e)}/>
             <label className="form-check-label" htmlFor="rememberme">
               Remember Me
             </label>
-          </div>
+          </div> */}
           <div>
             <a className="pointer font-weight-bold" onClick={onForgotPassword} data-testid="forgot-password">Forgot Password ?</a>
           </div>
+          
         </div>
         <button type="submit" className="btn primary-button mt-3 w-100" data-testid="signin">
           Sign In

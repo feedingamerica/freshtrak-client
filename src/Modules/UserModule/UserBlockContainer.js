@@ -116,7 +116,9 @@ const UserBlockContainer = (props) => {
   }
 
   const onResetNewPassword = async() =>{
+    setCustomError({...customError,userError : null})
     setMode('form')
+    
   }
   
   const onConfirmPhone = async (confirmCode) => {
@@ -166,10 +168,10 @@ const UserBlockContainer = (props) => {
                                  </Tabs>
                                )
           case  "signupconfirm" : return (<div>
-                                    <SignUpConfirmComponent onConfirm={onConfirm} onResendConfirmCode ={onResendConfirmCode} destinationMedium= {destinationMedium} customError={customError}/>
+                                    <SignUpConfirmComponent handleClose={handleClose} onConfirm={onConfirm} onResendConfirmCode ={onResendConfirmCode} destinationMedium= {destinationMedium} customError={customError}/>
                                     </div>);
           case "forgotpassword" : return (<div>
-                                             <ForgotPasswordContainer onResetNewPassword={onResetNewPassword}/>
+                                             <ForgotPasswordContainer handleClose={handleClose} onResetNewPassword={onResetNewPassword}/>
                                            </div>
                                           );
 

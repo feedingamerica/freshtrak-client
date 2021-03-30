@@ -51,8 +51,6 @@ const RegistrationContainer = (props) => {
         getEvent();
       }
       if(user === null) {
-        console.log("user not null, calling getUSer")
-        console.log("authToken >>",authToken)
         getUser(authToken);
       }
     }
@@ -100,7 +98,6 @@ const RegistrationContainer = (props) => {
         headers: { Authorization: `${authHeader}` },
       });
       const { data } = resp;
-      console.log("resp in regCont>>",resp)
       if (data["date_of_birth"] !== null){
         data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
       }

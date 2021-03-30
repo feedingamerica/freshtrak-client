@@ -84,7 +84,6 @@ const DashboardCreateAccountComponent = () => {
 
   const redirectToFb=(eventId)=>{ 
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${eventId}`);
-    console.log("selectedEvent in localstorage",eventId)
   }
 
 

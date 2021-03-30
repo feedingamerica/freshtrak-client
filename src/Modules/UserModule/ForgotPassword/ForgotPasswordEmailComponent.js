@@ -5,7 +5,6 @@ const ForgotPasswordEmailComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (emailValue) => {
       props.onSendEmail(emailValue);
-      console.log("props in frgt pwd email cmp >>",props)
   };
   return (
     <div className="mt-4 pb-3" data-testid="forgot-email-form">
@@ -23,18 +22,17 @@ const ForgotPasswordEmailComponent = (props) => {
                                   },
                             })}
           />
-           { props.customError.userError && errors.username ?
-              null : !props.customError.userError && errors.username ? <span className="text-danger">
+           {errors.username && <span className="text-danger">
                 {errors.username.message}
-              </span> : null}
+              </span>}
 
-           {props.customError.userError && 
+           {props.customError.userError && !errors.username &&
            <span className="text-danger">
              {props.customError.userError}
              </span>}
 
 
-           {props.customError.limitError && 
+           {props.customError.limitError && !errors.username &&
            <span className="text-danger">
              {props.customError.limitError}
              </span>}        

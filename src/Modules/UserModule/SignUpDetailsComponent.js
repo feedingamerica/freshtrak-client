@@ -3,11 +3,14 @@ import { useForm } from "react-hook-form";
 import FacebookSignInComponent from "./FacebookSignInComponent";
 import GuestSignInComponent from "./GuestSignInComponent";
 import PhoneInputComponent from '../Family/PhoneInputComponent';
+import SpinnerComponent from '../General/SpinnerComponent';
 const SignUpDetailsComponent = (props) => {
   const { register, handleSubmit, errors,setValue,watch } = useForm();
   const phonenumber = watch('phonenumber') || '';
+  const [isLoading, setLoading] = useState(false);
   const password = "";
   const onSubmit = async (signupData) => {
+      setLoading(true);
       props.onSignUp(signupData);
   };
   return (
@@ -29,7 +32,7 @@ const SignUpDetailsComponent = (props) => {
                   }
           />
           {errors.email && <span className="text-danger">{errors.email.message}</span>}
-          {props.customError.emailError && <span className="text-danger">{props.customError.emailError}</span>}
+          {props.customError.emailError && !errors.email && <span className="text-danger">{props.customError.emailError}</span>}
         </div>
         <div className="form-group">
           <label>Password</label>
@@ -37,15 +40,13 @@ const SignUpDetailsComponent = (props) => {
              name="password"
              id="signup-password"
              autoComplete="off"
-             onChange={(e)=>console.log("typing...",e.target.value)}
+             //onChange={(e)=>console.log("typing...",e.target.value)}
              ref={register({ required: true })}
           />
-          {errors.password && props.customError.passowrdError ? 
-          null : !props.customError.passowrdError && errors.password ? 
-          <span className="text-danger">This field is required</span> : 
-          null }
+          {errors.password &&  
+          <span className="text-danger">This field is required</span> }
 
-          {props.customError.passowrdError && <span className="text-danger">{props.customError.passowrdError}</span>}
+          {props.customError.passwordError && !errors.password && <span className="text-danger">{props.customError.passwordError}</span>}
         </div>
         <div className="form-group">
           <label>Phone Number</label>
@@ -64,13 +65,18 @@ const SignUpDetailsComponent = (props) => {
           </div>
           {errors.phonenumber && <span className="text-danger">This field is required</span>}
         </div>
+        {!props.customError.passwordError && 
+        !errors.password && 
+        !errors.phonenumber && 
+        !props.customError.emailError 
+        && isLoading && <SpinnerComponent />}
         <button type="submit" className="btn custom-button mt-3 w-100" data-testid="signup">
           Sign Up
         </button>
       </form>
         <hr/>
       <FacebookSignInComponent/>
-      <GuestSignInComponent />
+      <GuestSignInComponent handleClose={()=> props.handleClose()}/>
     </div>
     
   );

@@ -17,9 +17,9 @@ import { selectLoggedIn, setLoggedIn } from '../../Store/loggedInSlice';
 import 'semantic-ui-css/semantic.min.css'
 import {
   Nav,
-  Navbar
-  // NavDropdown,
-  // DropdownItem
+  Navbar,
+   NavDropdown,
+   //DropdownItem
 } from 'react-bootstrap';
 
 import { RENDER_URL } from "../../Utils/Urls";
@@ -63,11 +63,6 @@ const HeaderComponent = (props) => {
     //dispatch(setLoggedIn(localStorage.getItem("isLoggedIn")))
 
     //setIsLoggedIn(localStorageLoggedIn)
-    //console.log("dispatched setLoggedIn >>",localStorage.getItem("isLoggedIn")) //just commented
-
-    console.log("dispatched setLoggedIn >>",isLoggedIn)
-    console.log("setIsLoggedIn to >",isLoggedIn)
-    console.log("type of setIsLoggedIn to >",typeof(isLoggedIn))
     window.onscroll = () => {
       if (window.pageYOffset > 100) {
         setNavbarShrink("navbar-shrink");
@@ -89,24 +84,20 @@ const HeaderComponent = (props) => {
  
   
   const logOut = async() => { 
-    debugger
+    //debugger
     setIsLoggedIn(false)
     dispatch(setLoggedIn(false));
     localStorage.setItem('isLoggedIn', false);
-    console.log("logout clicked, userType = >>",localStorage.getItem('userType'))
      if(userType == 0){ 
        setIsLoggedIn(false);
        localStorage.removeItem('userType');
     //dispatch(setLoggedIn(false));
     await LogOut().then(async res => {
-      debugger
+      //debugger
          let data = res.data;
          if(res && res.status){
-           console.log("res n fb logout>>",res)
            dispatch(setCurrentEvent({}));
            clearStorage()
-         } else {
-           console.log("error, no response for await LogOut ")
          }
        })
        .catch(err=>{
@@ -122,7 +113,6 @@ const HeaderComponent = (props) => {
         clearStorage()
        dispatch(setCurrentEvent({}))
        dispatch(setLoggedIn(false));
-       console.log("isLoggedIn in else in localstorage >>",localStorage.getItem('isLoggedIn'))
        history.push(`${RENDER_URL.ROOT_URL}`);
      }
 
@@ -228,7 +218,8 @@ const HeaderComponent = (props) => {
 
 
             {!loggedIn && (
-            <div className="mr-3 font-weight-bold pointer text-white" onClick={() => setShow(true)}>
+            <div className="mr-3 font-weight-bold pointer text-white" 
+            onClick={() => setShow(true)}>
                 Sign In
              </div>
              )}
@@ -240,36 +231,46 @@ const HeaderComponent = (props) => {
 
             {loggedIn && (
                <LinkContainer to={RENDER_URL.ROOT_URL}>
-               <button
-               type="submit"
-               className="btn btn-link header-sign-in"
+               <a
+               //type="submit"
+               //className="btn btn-link header-sign-in"
+               className="header-sign-in mr-3 font-weight-bold pointer"
                onClick={()=>logOut()}
                >
-                 LOG OUT
-               </button>
-             </LinkContainer>
-              // <div className="user-avatar">
-              //                   <NavDropdown
-              //                       title={
-              //                           <img
-              //                           className="thumbnail-image"
-              //                           src={userIcon}
-              //                           alt="user pic"
-              //                           />}>
-              //                        <DropdownItem
-              //                           onClick={logOut}
-              //                           >
-              //                           <i className="fa fa-sign-out"></i> Logout
-              //                       </DropdownItem> 
+                 Sign Out
+               </a>
+             </LinkContainer>)}
+
+
+               {/* <div className="user-avatar">
+                                 <NavDropdown
+                                     title={
+                                        <img
+                                        className="thumbnail-image"
+                                         src={userIcon}
+                                         alt="user pic"
+                                         />}>
+                                      <DropdownItem
+                                         onClick={logOut}
+                                         >
+                                         <i className="fa fa-sign-out"></i> Logout
+                                     </DropdownItem> 
 
                                     
-              //                   </NavDropdown>
-              //               </div>
-             
-            )}
+                                 </NavDropdown>
+                             </div> */}
 
-         {console.log("isLoggedIn check >>",isLoggedIn)}
-         {console.log("loggedIn check >>",loggedIn)}
+             
+              {/* {<LinkContainer to={RENDER_URL.ROOT_URL}>
+                <a
+                type="submit"
+                className="header-sign-in mr-3 font-weight-bold pointer"
+                onClick={logOut}
+                >
+                  Sign Out
+                </a>
+              </LinkContainer>
+            } */}
             {/* <div>
               <label>Select Language ?</label>
               <select onChange={change} value={language.language}>
