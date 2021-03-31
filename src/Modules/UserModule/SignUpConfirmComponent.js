@@ -1,12 +1,9 @@
-import React, { useState }from 'react';
+import React from 'react';
 import { useForm } from "react-hook-form";
-import SpinnerComponent from '../General/SpinnerComponent';
 
 const SignUpConfirmComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
-  const [isLoading, setLoading] = useState(false);
   const onSubmit = async (confirmData) => {
-      setLoading(true);
       props.onConfirm(confirmData);
       
   };
@@ -28,7 +25,6 @@ const SignUpConfirmComponent = (props) => {
           />
            {errors.code && <span className="text-danger">This field is required</span>}
            {props.customError.codeError && !errors.code && <span className="text-danger">{props.customError.codeError}</span>}
-           {!props.customError.codeError && !errors.code && isLoading && <SpinnerComponent />}
            <div>
             <a className="pointer font-weight-bold" onClick={onClickResend}>Resend Code ?</a>
           </div>

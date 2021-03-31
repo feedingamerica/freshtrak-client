@@ -184,10 +184,25 @@ const RegistrationContainer = (props) => {
         if(user['permission_to_text']){
           send_sms(user)
         }
+
+        if(user['permission_to_email']){
+          sendRegistrationConfirmationEmail(user, location)
+        }
+
         sessionStorage.setItem("registeredEventDateID", eventDateId);
+
         history.push({
           pathname: RENDER_URL.REGISTRATION_CONFIRM_URL,
-          state: { user: {...user,identification_code:currentUser.identification_code}, eventDateId: eventDateId, eventTimeStamp : {start_time: location.state?.event_slot?.start_time, end_time: location.state?.event_slot?.end_time} }
+          state: { user: 
+            {...user,
+              identification_code:currentUser.identification_code},
+              eventDateId: eventDateId, 
+              eventTimeStamp : {
+                start_time: location.state?.event_slot?.start_time, 
+                end_time: location.state?.event_slot?.end_time,
+                event_slot_id: event_slot_id
+              } 
+            }
         });
       } catch (e) {
         if (!e.response){
@@ -221,30 +236,23 @@ const RegistrationContainer = (props) => {
         if(user['permission_to_text']){
           send_sms(user)
         }
-    //     sessionStorage.setItem("registeredEventDateID", eventDateId);
-    //     history.push({
-    //      pathname: RENDER_URL.REGISTRATION_CONFIRM_URL,
-    //      state: { user: {...user,identification_code:currentUser.identification_code},
-    //      eventDateId: eventDateId, eventTimeStamp : {start_time: location.state?.event_slot?.start_time,
-    //      end_time: location.state?.event_slot?.end_time} }
-    //     });
-    // } catch (e){
-      if(user['permission_to_email']){
-        sendRegistrationConfirmationEmail(user, location)
-      }
-      sessionStorage.setItem("registeredEventDateID", eventDateId);
-      history.push({
-        pathname: RENDER_URL.REGISTRATION_CONFIRM_URL,
-        state: { user: {...user,identification_code:currentUser.identification_code},
-                 eventDateId: eventDateId,
-                 eventTimeStamp : {
-                   start_time: location.state?.event_slot?.start_time,
-                   end_time: location.state?.event_slot?.end_time,
-                   event_slot_id: event_slot_id
-                  }
-                   }
-      });
-    } catch (e) {
+        if(user['permission_to_email']){
+          sendRegistrationConfirmationEmail(user, location)
+        }
+        sessionStorage.setItem("registeredEventDateID", eventDateId);
+        history.push({
+          pathname: RENDER_URL.REGISTRATION_CONFIRM_URL,
+          state: { user: {...user,
+                      identification_code:currentUser.identification_code}, 
+                      eventDateId: eventDateId, 
+                      eventTimeStamp : {
+                        start_time: location.state?.event_slot?.start_time, 
+                        end_time: location.state?.event_slot?.end_time,
+                        event_slot_id: event_slot_id
+                      } 
+                    }
+        });
+    } catch (e){
       if (!e.response){
           e.response = {data: {"user_id": ["Something Went Wrong"]}}
         }

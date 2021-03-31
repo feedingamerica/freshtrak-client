@@ -29,6 +29,12 @@ const FacebookSignInComponent = () => {
     });
     
     Auth.federatedSignIn({provider: 'Facebook'})
+    .then(res=>{
+      setLoading(false);
+    })
+    .catch(e=>{
+      setLoading(false);
+    })
   }
 
   return (

@@ -3,14 +3,11 @@ import { useForm } from "react-hook-form";
 import FacebookSignInComponent from "./FacebookSignInComponent";
 import GuestSignInComponent from "./GuestSignInComponent";
 import PhoneInputComponent from '../Family/PhoneInputComponent';
-import SpinnerComponent from '../General/SpinnerComponent';
 const SignUpDetailsComponent = (props) => {
   const { register, handleSubmit, errors,setValue,watch } = useForm();
   const phonenumber = watch('phonenumber') || '';
-  const [isLoading, setLoading] = useState(false);
   const password = "";
   const onSubmit = async (signupData) => {
-      setLoading(true);
       props.onSignUp(signupData);
   };
   return (
@@ -65,11 +62,6 @@ const SignUpDetailsComponent = (props) => {
           </div>
           {errors.phonenumber && <span className="text-danger">This field is required</span>}
         </div>
-        {!props.customError.passwordError && 
-        !errors.password && 
-        !errors.phonenumber && 
-        !props.customError.emailError 
-        && isLoading && <SpinnerComponent />}
         <button type="submit" className="btn custom-button mt-3 w-100" data-testid="signup">
           Sign Up
         </button>
