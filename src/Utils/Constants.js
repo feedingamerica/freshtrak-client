@@ -45,7 +45,7 @@ export const COGNITO_CONFIG = {
 export const USER_TYPES = {
     CUSTOMER :0,
     GUEST : 1
-}
+};
 
 export const CONFIRMATION_EMAIL = {
     FROM: 'confirmation@freshtrak.com',

@@ -25,7 +25,7 @@ const ResetPasswordFormComponent = (props) => {
              ref={register({ required: true })}
           />
           {errors.code && <span className="text-danger">This field is required</span>}
-          {props.customError.codeError && <span className="text-danger">{props.customError.codeError}</span>}
+          {props.customError && props.customError.codeError && !errors.code && <span className="text-danger">{props.customError.codeError}</span>}
         </div>
         <div className="form-group">
           <label>New Passoword</label>
@@ -52,8 +52,8 @@ const ResetPasswordFormComponent = (props) => {
           />
           
            {errors.confirmpassword && <span className="text-danger">{errors.confirmpassword.message}</span>}
-           {props.customError.passowrdError && <span className="text-danger">{props.customError.passowrdError}</span>}
-           {props.customError.limitError && <span className="text-danger">{props.customError.limitError}</span>}
+           {props.customError && props.customError.passwordError && !errors.confirmpassword && <span className="text-danger">{props.customError.passwordError}</span>}
+           {props.customError && props.customError.limitError && !errors.confirmpassword && <span className="text-danger">{props.customError.limitError}</span>}
         </div>
         <button type="submit" className="btn custom-button mt-3 w-100" data-testid="reset-password">
           Reset Password

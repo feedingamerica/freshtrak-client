@@ -11,11 +11,13 @@ import {ErrorHandler} from "../../Utils/ErrorHandler";
 import {SignUp, SignUpConfirm,ResendConfirmCode, SignIn,ConfirmSignIn} from "../../Utils/CognitoHandler";
 
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import {useHistory } from 'react-router-dom';
 import { RENDER_URL,API_URL } from '../../Utils/Urls';
 import axios from 'axios';
+import { selectLoggedIn, setLoggedIn } from '../../Store/loggedInSlice';
+import SpinnerComponent from "../General/SpinnerComponent";
 
 
 const UserBlockContainer = (props) => {
@@ -29,9 +31,12 @@ const UserBlockContainer = (props) => {
   const [dialcode,setDialCode] = useState('+91');
   const event = useSelector(selectEvent);
   const [selectedEvent, setSelectedEvent] = useState(event);
+  const [isLoading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
 
   const onSignUp = async (signupData) => {
+    setLoading(true);
     let phone_number = onPhoneNumberFormat(signupData.phonenumber);
     let params = {
         username: signupData.email,
@@ -42,6 +47,7 @@ const UserBlockContainer = (props) => {
         }
      };  
      await SignUp(params).then(res => {
+      setLoading(false);
        let data = res.data;    
        if(res.status){
           setDestinationMedium(data.codeDeliveryDetails.Destination);
@@ -55,10 +61,12 @@ const UserBlockContainer = (props) => {
   }
   
   const onConfirm = async (confirmData) => {
+    setLoading(true);
     let code = confirmData.code;
     const { COGNITO_TEMP_CODE_FIX } = API_URL;
-    let authtoken = localStorage.getItem("authtoken");
+    let authtoken = localStorage.getItem("authToken");
     await SignUpConfirm(username,code).then(res => {
+      setLoading(false);
       let data = res.data;
       if(res.status) {
         setMode('form');
@@ -68,19 +76,21 @@ const UserBlockContainer = (props) => {
       }
     })
 
-    try {
-      const resp = await axios.get(COGNITO_TEMP_CODE_FIX, {
-        headers: { Authorization: `${authtoken}` },
-      });
-    } catch (e) {
-      console.log("error",e);
-    }
+    // try {
+    //   const resp = await axios.get(COGNITO_TEMP_CODE_FIX, {
+    //     headers: { Authorization: `${authtoken}` },
+    //   });
+    // } catch (e) {
+    //   console.log("error",e);
+    // }
     
   }
 
 
   const onResendConfirmCode = async ()=> {
+    setLoading(true);
       await ResendConfirmCode(username).then(res => {
+        setLoading(false);
         let data = res.data;
         if(!res.status){
           let errorValue =  ErrorHandler(data);
@@ -90,7 +100,9 @@ const UserBlockContainer = (props) => {
   }
   
   const onSignIn = async (signinData) => {
+    setLoading(true);
     await SignIn(signinData).then(res => {
+      setLoading(false);
       let data = res.data;
       if(res.status){
           if (data.challengeName === 'SMS_MFA' || data.challengeName === 'SOFTWARE_TOKEN_MFA') {               
@@ -110,16 +122,24 @@ const UserBlockContainer = (props) => {
 
 
   const onForgotPassword = async() => {
+    setLoading(true);
     setMode('forgotpassword')
+    setLoading(false);
   }
 
   const onResetNewPassword = async() =>{
+    setLoading(true);
+    setCustomError({...customError,userError : null})
     setMode('form')
+    setLoading(false);
+    
   }
   
   const onConfirmPhone = async (confirmCode) => {
+    setLoading(true);
     let code = confirmCode.code;
     await ConfirmSignIn(user,code,mfaType).then(res => {
+      setLoading(false);
       let data = res.data;
       if(res.status){
         eventCheck(user)
@@ -138,13 +158,18 @@ const UserBlockContainer = (props) => {
   }
 
   const eventCheck = (data) => {
+    setLoading(true);
     localStorage.setItem('isLoggedIn', true);  
-    localStorage.setItem('userType', 0); 
+    localStorage.setItem('userType', 0);
+    dispatch(setLoggedIn(localStorage.getItem("isLoggedIn")))
     let token_value = data.signInUserSession.idToken.jwtToken;
     localStorage.setItem('authToken', token_value);
     props.handleClose();
     if(selectedEvent && selectedEvent.id){
+      setLoading(false);
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
+    }else{
+      setLoading(false);
     }
             
     
@@ -155,30 +180,56 @@ const UserBlockContainer = (props) => {
 
             case "form" : return (<Tabs defaultActiveKey="signin" >
                                     <Tab eventKey="signin" data-testid="signin-form" title="Sign In">
-                                      <SignInDetails handleClose={handleClose} onSignIn={onSignIn} onForgotPassword = {onForgotPassword} customError={customError}/>
+                                      {isLoading && <SpinnerComponent/>}
+                                      <SignInDetails handleClose={handleClose} 
+                                      onSignIn={onSignIn} onForgotPassword = {onForgotPassword} 
+                                      customError={customError}/>
                                     </Tab>
                                     <Tab eventKey="signup" data-testid="signup-form" title="Sign Up">
+                                      {isLoading && <SpinnerComponent/>}
                                       <SignUpDetails handleClose={handleClose} onSignUp={onSignUp} customError={customError}/>
                                     </Tab>
                                  </Tabs>
                                )
           case  "signupconfirm" : return (<div>
-                                    <SignUpConfirmComponent onConfirm={onConfirm} onResendConfirmCode ={onResendConfirmCode} destinationMedium= {destinationMedium} customError={customError}/>
+                                    {isLoading && <SpinnerComponent/>}
+                                    <SignUpConfirmComponent handleClose={handleClose} 
+                                    onConfirm={onConfirm} 
+                                    onResendConfirmCode ={onResendConfirmCode} 
+                                    destinationMedium= {destinationMedium} 
+                                    customError={customError}/>
                                     </div>);
           case "forgotpassword" : return (<div>
-                                             <ForgotPasswordContainer onResetNewPassword={onResetNewPassword}/>
+                                            {isLoading && <SpinnerComponent/>}
+                                             <ForgotPasswordContainer 
+                                             handleClose={handleClose} 
+                                             onResetNewPassword={onResetNewPassword}/>
                                            </div>
                                           );
 
           case "signinconfirm"  : return (<div>
-                                    <SignInConfirmComponent handleClose={handleClose} onConfirmPhone={onConfirmPhone} destinationMedium= {destinationMedium} customError={customError}/>
+                                    {isLoading && <SpinnerComponent/>}
+                                    <SignInConfirmComponent 
+                                    handleClose={handleClose} 
+                                    onConfirmPhone={onConfirmPhone} 
+                                    destinationMedium= {destinationMedium}
+                                     customError={customError}/>
                                     </div>);
           default : return (<Tabs defaultActiveKey="signin" >
                                     <Tab eventKey="signin" title="Sign In">
-                                      <SignInDetails handleClose={handleClose} onSignIn={onSignIn} onForgotPassword = {onForgotPassword} customError={customError}/>
+                                     {isLoading && <SpinnerComponent/>}
+                                      <SignInDetails 
+                                      handleClose={handleClose} 
+                                      onSignIn={onSignIn} 
+                                      onForgotPassword = {onForgotPassword} 
+                                      customError={customError}/>
                                     </Tab>
                                     <Tab eventKey="signup" title="Sign Up">
-                                      <SignUpDetails handleClose={handleClose} onSignUp={onSignUp} customError={customError}/>
+                                      {isLoading && <SpinnerComponent/>}
+                                      <SignUpDetails 
+                                      handleClose={handleClose}
+                                       onSignUp={onSignUp} 
+                                       customError={customError}/>
                                     </Tab>
                                  </Tabs>
                                )

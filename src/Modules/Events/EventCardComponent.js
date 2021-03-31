@@ -69,7 +69,6 @@ const EventCardComponent = props => {
   //   }
   // };
   const setEvent=()=>{
-    console.log("setting event in event card")
     dispatch(setCurrentEvent(props.event))
   }
 

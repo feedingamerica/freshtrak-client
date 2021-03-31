@@ -1,11 +1,14 @@
-import React, { useState }from 'react';
+import React from 'react';
 import { useForm } from "react-hook-form";
+
 const SignUpConfirmComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (confirmData) => {
       props.onConfirm(confirmData);
+      
   };
   const onClickResend = () =>{
+
     props.onResendConfirmCode();
   }
   return (
@@ -21,8 +24,7 @@ const SignUpConfirmComponent = (props) => {
              ref={register({ required: true })}
           />
            {errors.code && <span className="text-danger">This field is required</span>}
-           {props.customError.codeError && <span className="text-danger">{props.customError.codeError}</span>}
-           
+           {props.customError.codeError && !errors.code && <span className="text-danger">{props.customError.codeError}</span>}
            <div>
             <a className="pointer font-weight-bold" onClick={onClickResend}>Resend Code ?</a>
           </div>

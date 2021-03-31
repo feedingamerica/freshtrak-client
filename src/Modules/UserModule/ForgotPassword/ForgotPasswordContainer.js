@@ -27,10 +27,14 @@ const ForgotPasswordContainer = (props) => {
   }
 
   const onResetPassword = async (resetData)=> {
+    
     await ResetPassword(username,resetData).then(res=>{
+      //debugger
       let data = res.data;
       if(res.status){
         props.onResetNewPassword();
+        setCustomError({...customError,errorValue : null});//newly added
+        
       } else {
         let errorValue = ErrorHandler(data);     
         setCustomError(errorValue);

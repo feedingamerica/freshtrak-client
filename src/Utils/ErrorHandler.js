@@ -1,7 +1,7 @@
 
  export const ErrorHandler = (err) => {
       let customError = { emailError:null,
-                       passowrdError:null,
+                       passwordError:null,
                        codeError:null,
                        userError:null,
                        limitError:null,
@@ -16,14 +16,14 @@
 
         case 'InvalidParameterException':   custom_error = {...custom_error,
                                                             emailError:"",
-                                                            passowrdError:"Password must have length greater than or equal 8"
+                                                            passwordError:"Password must have length greater than or equal 8"
                                                           };
                                             break;
 
         case 'InvalidPasswordException' :   let errorValue = err.message.split(':');
                                                 custom_error = {...custom_error,
                                                                   emailError:"",
-                                                                  passowrdError:errorValue[1]
+                                                                  passwordError:errorValue[1]
                                                                };
                                             break;    
 

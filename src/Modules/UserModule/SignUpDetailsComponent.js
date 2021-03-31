@@ -6,6 +6,7 @@ import PhoneInputComponent from '../Family/PhoneInputComponent';
 const SignUpDetailsComponent = (props) => {
   const { register, handleSubmit, errors,setValue,watch } = useForm();
   const phonenumber = watch('phonenumber') || '';
+  const password = "";
   const onSubmit = async (signupData) => {
       props.onSignUp(signupData);
   };
@@ -28,7 +29,7 @@ const SignUpDetailsComponent = (props) => {
                   }
           />
           {errors.email && <span className="text-danger">{errors.email.message}</span>}
-          {props.customError.emailError && <span className="text-danger">{props.customError.emailError}</span>}
+          {props.customError.emailError && !errors.email && <span className="text-danger">{props.customError.emailError}</span>}
         </div>
         <div className="form-group">
           <label>Password</label>
@@ -36,10 +37,13 @@ const SignUpDetailsComponent = (props) => {
              name="password"
              id="signup-password"
              autoComplete="off"
+             //onChange={(e)=>console.log("typing...",e.target.value)}
              ref={register({ required: true })}
           />
-          {errors.password && <span className="text-danger">This field is required</span>}
-          {props.customError.passowrdError && <span className="text-danger">{props.customError.passowrdError}</span>}
+          {errors.password &&  
+          <span className="text-danger">This field is required</span> }
+
+          {props.customError.passwordError && !errors.password && <span className="text-danger">{props.customError.passwordError}</span>}
         </div>
         <div className="form-group">
           <label>Phone Number</label>
@@ -64,7 +68,7 @@ const SignUpDetailsComponent = (props) => {
       </form>
         <hr/>
       <FacebookSignInComponent/>
-      <GuestSignInComponent />
+      <GuestSignInComponent handleClose={()=> props.handleClose()}/>
     </div>
     
   );

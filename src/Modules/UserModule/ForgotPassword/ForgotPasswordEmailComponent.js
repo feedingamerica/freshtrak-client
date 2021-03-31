@@ -22,9 +22,20 @@ const ForgotPasswordEmailComponent = (props) => {
                                   },
                             })}
           />
-           {errors.username && <span className="text-danger">{errors.username.message}</span>}
-           {props.customError.userError && <span className="text-danger">{props.customError.userError}</span>}
-           {props.customError.limitError && <span className="text-danger">{props.customError.limitError}</span>}        
+           {errors.username && <span className="text-danger">
+                {errors.username.message}
+              </span>}
+
+           {props.customError.userError && !errors.username &&
+           <span className="text-danger">
+             {props.customError.userError}
+             </span>}
+
+
+           {props.customError.limitError && !errors.username &&
+           <span className="text-danger">
+             {props.customError.limitError}
+             </span>}        
         </div>
         <button type="submit" className="btn custom-button mt-3 w-100" data-testid="forgot-pwd">
           Submit

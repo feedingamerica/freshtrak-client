@@ -7,18 +7,19 @@ import userIcon from "../../Assets/img/Mask.svg";
 import { Link } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap';
 import localization from '../Localization/LocalizationComponent';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector } from 'react-redux';
 import {setCurrentLanguage} from '../../Store/languageSlice';
 import CountryListComponent from '../Localization/countryListComponent';
 import UserBlockContainer from '../UserModule/UserBlockContainer';
 import {Modal} from 'react-bootstrap';
 import { setCurrentEvent } from '../../Store/Events/eventSlice';
+import { selectLoggedIn, setLoggedIn } from '../../Store/loggedInSlice';
 import 'semantic-ui-css/semantic.min.css'
 import {
   Nav,
-  Navbar
-  // NavDropdown,
-  // DropdownItem
+  Navbar,
+   NavDropdown,
+   //DropdownItem
 } from 'react-bootstrap';
 
 import { RENDER_URL } from "../../Utils/Urls";
@@ -26,10 +27,17 @@ import { RENDER_URL } from "../../Utils/Urls";
 import {LogOut, CurrentUser} from "../../Utils/CognitoHandler";
 import { useHistory } from 'react-router-dom';
 
+
+import { Auth } from 'aws-amplify';
+import {COGNITO_CONFIG}  from "../../Utils/Constants";
+
+Auth.configure(COGNITO_CONFIG);
+
 const HeaderComponent = (props) => {
   const history = useHistory();
   const [navbarShrink, setNavbarShrink] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const loggedIn = useSelector(selectLoggedIn);
+  const [isLoggedIn, setIsLoggedIn] = useState(loggedIn);
   const [show, setShow] = useState(false);
   const shortHeader = props.shortHeader || "";
   const dispatch = useDispatch();
@@ -50,15 +58,11 @@ const HeaderComponent = (props) => {
     // }
    
 
-    let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
-    if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
-      console.log("setIsLoggedIn is>>",localStorageLoggedIn)
-      setIsLoggedIn(false);
-    } else {
-      console.log("setIsLoggedIn true")
-      setIsLoggedIn(true);
-    }
+    const localStorageLoggedIn = localStorage.getItem('isLoggedIn');
 
+    //dispatch(setLoggedIn(localStorage.getItem("isLoggedIn")))
+
+    //setIsLoggedIn(localStorageLoggedIn)
     window.onscroll = () => {
       if (window.pageYOffset > 100) {
         setNavbarShrink("navbar-shrink");
@@ -66,35 +70,52 @@ const HeaderComponent = (props) => {
         setNavbarShrink("");
       }
     };
-  }, [localIsLoggedIn, isLoggedIn]);
+  }, [loggedIn,dispatch,userType]);
+
+
+  const clearStorage= ()=>{
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('tokenExpiresAt');
+    localStorage.removeItem('search_zip');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('selectedEventId');
+    localStorage.removeItem('authToken');
+  }
+ 
   
   const logOut = async() => { 
-    if(userType == 0){      
-      await LogOut().then(res => {
-        let data = res.data;
-        if(res.status){
-          dispatch(setCurrentEvent({}));
-          localStorage.setItem('isLoggedIn', false);
-          localStorage.removeItem('authToken');
-          setIsLoggedIn(false);
-        } else {
-          console.log("error",data)
-        }
-      })
-    }
-    else{
-      console.log("in else for logout")
-      setIsLoggedIn(false);
-      localStorage.setItem('isLoggedIn', false);
-      localStorage.removeItem('userToken');
-      localStorage.removeItem('tokenExpiresAt');
-      localStorage.removeItem('search_zip');
-      localStorage.removeItem('userType');
-      localStorage.removeItem('selectedEventId');
-      dispatch(setCurrentEvent({}))
-      history.push(`${RENDER_URL.ROOT_URL}`);
-    }
-   
+    //debugger
+    setIsLoggedIn(false)
+    dispatch(setLoggedIn(false));
+    localStorage.setItem('isLoggedIn', false);
+     if(userType == 0){ 
+       setIsLoggedIn(false);
+       localStorage.removeItem('userType');
+    //dispatch(setLoggedIn(false));
+    await LogOut().then(async res => {
+      //debugger
+         let data = res.data;
+         if(res && res.status){
+           dispatch(setCurrentEvent({}));
+           clearStorage()
+         }
+       })
+       .catch(err=>{
+         //normal signin case
+         console.log("err in logOut",err)
+       })
+
+
+     }
+     else{
+       setIsLoggedIn(false);
+       localStorage.setItem('isLoggedIn',false);
+        clearStorage()
+       dispatch(setCurrentEvent({}))
+       dispatch(setLoggedIn(false));
+       history.push(`${RENDER_URL.ROOT_URL}`);
+     }
+
     
 
     
@@ -190,30 +211,57 @@ const HeaderComponent = (props) => {
                 </Nav.Link>
               </LinkContainer>
             )}*/}
-            {!isLoggedIn && (
-            <div className="mr-3 font-weight-bold pointer text-white" onClick={() => setShow(true)}>
+
+
+
+
+
+
+            {!loggedIn && (
+            <div className="mr-3 font-weight-bold pointer text-white" 
+            onClick={() => setShow(true)}>
                 Sign In
              </div>
              )}
-            {isLoggedIn && (
-              // <div className="user-avatar">
-              //                   <NavDropdown
-              //                       title={
-              //                           <img
-              //                           className="thumbnail-image"
-              //                           src={userIcon}
-              //                           alt="user pic"
-              //                           />}>
-              //                        <DropdownItem
-              //                           onClick={logOut}
-              //                           >
-              //                           <i className="fa fa-sign-out"></i> Logout
-              //                       </DropdownItem> 
+
+
+
+
+
+
+            {loggedIn && (
+               <LinkContainer to={RENDER_URL.ROOT_URL}>
+               <a
+               //type="submit"
+               //className="btn btn-link header-sign-in"
+               className="header-sign-in mr-3 font-weight-bold pointer"
+               onClick={()=>logOut()}
+               >
+                 Sign Out
+               </a>
+             </LinkContainer>)}
+
+
+               {/* <div className="user-avatar">
+                                 <NavDropdown
+                                     title={
+                                        <img
+                                        className="thumbnail-image"
+                                         src={userIcon}
+                                         alt="user pic"
+                                         />}>
+                                      <DropdownItem
+                                         onClick={logOut}
+                                         >
+                                         <i className="fa fa-sign-out"></i> Logout
+                                     </DropdownItem> 
 
                                     
-              //                   </NavDropdown>
-              //               </div>
-              <LinkContainer to={RENDER_URL.ROOT_URL}>
+                                 </NavDropdown>
+                             </div> */}
+
+             
+              {/* {<LinkContainer to={RENDER_URL.ROOT_URL}>
                 <a
                 type="submit"
                 className="header-sign-in mr-3 font-weight-bold pointer"
@@ -222,7 +270,7 @@ const HeaderComponent = (props) => {
                   Sign Out
                 </a>
               </LinkContainer>
-            )}
+            } */}
             {/* <div>
               <label>Select Language ?</label>
               <select onChange={change} value={language.language}>

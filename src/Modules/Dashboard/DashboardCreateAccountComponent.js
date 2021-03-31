@@ -9,17 +9,17 @@ import '../../Assets/scss/main.scss';
 import localization from '../Localization/LocalizationComponent';
 import {CurrentUser} from "../../Utils/CognitoHandler";
 
-
-
-import { useSelector } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import {useHistory } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
+import { setLoggedIn } from '../../Store/loggedInSlice';
+import { useDispatch ,useSelector } from 'react-redux';
 
 const DashboardCreateAccountComponent = () => {
   const history = useHistory();
   const event = useSelector(selectEvent);
   const [selectedEvent, setSelectedEvent] = useState(event);
+  const dispatch = useDispatch();
   // const [lang, setLang] = useState("en");
   // const change = (event) => {
   //   localization.setLanguage(event.target.value);
@@ -28,11 +28,13 @@ const DashboardCreateAccountComponent = () => {
  
 
   const getCurrentUser = async ()=> {
+    //debugger
 
     await CurrentUser().then(res=> {
         let isLogin = res.status;        
         localStorage.setItem('isLoggedIn', isLogin);
         localStorage.setItem('authToken', res.token);
+        dispatch(setLoggedIn(isLogin))
         //setIsLoggedIn(isLogin); 
         let eventId = (isLogin ? localStorage.getItem('selectedEventId') : null);
         let  isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -53,11 +55,35 @@ const DashboardCreateAccountComponent = () => {
   }
 
 
+//   try {
+//     const resp = await axios.post(GUEST_AUTH);
+//     const {
+//       data: { token, expires_at },
+//     } = resp;
+//     localStorage.setItem('userToken', token);
+//     localStorage.setItem('authToken', token);
+//     localStorage.setItem('tokenExpiresAt', expires_at);
+//     localStorage.setItem('isLoggedIn', true);
+//     localStorage.setItem('userType', 1);
+//     console.log("resp on GUEST_AUTH >>",resp)
+//     if(selectedEvent && selectedEvent.id){
+//       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
+//     }else{
+//       props.handleClose()
+//       setLoading(false)
+//       localStorage.setItem('isLoggedIn', true);
+//       localStorage.setItem('userType',1);
+//       history.push(`${RENDER_URL.ROOT_URL}`);
+//       console.log("going to root url,no event id found")
+//     }
+    
+// }
+
+
 
 
   const redirectToFb=(eventId)=>{ 
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${eventId}`);
-    console.log("selectedEvent in localstorage",eventId)
   }
 
 
