@@ -84,16 +84,15 @@ const HeaderComponent = (props) => {
  
   
   const logOut = async() => { 
-    //debugger
     setIsLoggedIn(false)
     dispatch(setLoggedIn(false));
     localStorage.setItem('isLoggedIn', false);
      if(userType == 0){ 
        setIsLoggedIn(false);
        localStorage.removeItem('userType');
-    //dispatch(setLoggedIn(false));
+       localStorage.removeItem('selectedEventId');
+       localStorage.removeItem('authToken');
     await LogOut().then(async res => {
-      //debugger
          let data = res.data;
          if(res && res.status){
            dispatch(setCurrentEvent({}));
@@ -101,7 +100,6 @@ const HeaderComponent = (props) => {
          }
        })
        .catch(err=>{
-         //normal signin case
          console.log("err in logOut",err)
        })
 
@@ -110,31 +108,17 @@ const HeaderComponent = (props) => {
      else{
        setIsLoggedIn(false);
        localStorage.setItem('isLoggedIn',false);
-        clearStorage()
+       clearStorage()
        dispatch(setCurrentEvent({}))
        dispatch(setLoggedIn(false));
        history.push(`${RENDER_URL.ROOT_URL}`);
-     }
-
-    
-
+     }  
     
     //window.FB.logout()
   }
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // const getCurrentUser = async ()=> {
-  //   await CurrentUser().then(res=> {
-  //       console.log()
-  //       let isLogin = res.status;
-  //       localStorage.setItem('isLoggedIn', isLogin);
-  //       localStorage.setItem('authtoken', res.token);
-  //       setIsLoggedIn(isLogin);      
-  //   }).catch(error=>{
-  //       console.log("Error in getCurrentUser",error)
-  //   })
-  // }
   return (
     <Fragment>
       <Nav

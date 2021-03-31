@@ -222,7 +222,7 @@ const RegistrationContainer = (props) => {
     let event_slot_id = parseInt(eventSlotId, 10);
     const { USER_REGISTRATION } = API_URL;
     try {
-        await axios.post(USER_REGISTRATION, { user :{user},
+        await axios.post(USER_REGISTRATION, { user,
           reservation: eventSlotId ? {event_date_id, event_slot_id} : {event_date_id}
         
         },
