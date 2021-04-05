@@ -39,10 +39,8 @@ test('should display the events', () => {
       message : "Questions retrieved successfully",
      };
      axios.get.mockImplementation(() => Promise.resolve(response));
-     console.log("questions[0].question >>",questions[0].question)
      const { getByText } = render(
       <WellnessContainer />
-      //{ route, path }
     );
      await wait(() => {
        getByText('Begin Assessment');

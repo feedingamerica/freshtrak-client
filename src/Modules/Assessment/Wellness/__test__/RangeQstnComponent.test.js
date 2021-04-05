@@ -12,7 +12,6 @@ afterAll(() => {
   console.warn = originalWarn;
 });
 
-console.log("mockRangeQuestion in test file >>",mockRangeQuestion)
 test('should display the events', async () => {
     const { getByText } = render(<RangeQstnComponent content={mockRangeQuestion}/>);
     await wait(() => {

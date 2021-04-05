@@ -36,5 +36,5 @@ export const RENDER_URL = {
   TERMS: '/terms',
   QUESTIONS : "http://192.168.21.50:8888/api/assessment_questions",
   SUBMIT_ASSESSMENT : "http://localhost:8888/api/user_assessment_answers",
-  FIRST_CARD : "http://localhost:8888/api/assessments",
+  TRIGGER_ASSESSMENT : "http://localhost:8888/api/assessments",
 };

@@ -10,28 +10,16 @@ const setValue = (e) =>{
 //Object.keys(context.answers).map((value,index)=>{
     //if(value == assessment_qn_id-1) {
         context.answers[assessment_qn_id-1] = e.target.value;
-        console.log("context.answers[value] >>",context.answers[assessment_qn_id-1])
         setSelected(e.target.value)
         if(e.target.value == "yes"){
              
             context.option_id[assessment_qn_id-1] = option_id[0];
             context.go_to_page[assessment_qn_id-1] = (go_to_page[0])-1;
-            console.log("go_to_page true | yes case>>",context.go_to_page[assessment_qn_id-1])
-            // console.log("value is >>",value)
-            // console.log("assessment_qn_id-1 is >>",assessment_qn_id-1)
         }
         else{
             context.option_id[assessment_qn_id-1] = option_id[1];
             context.go_to_page[assessment_qn_id-1] = (go_to_page[1])-1;
-            console.log("go_to_page false | no case >>",context.go_to_page[assessment_qn_id-1])
-            //console.log("value as index is >>",value)
         }
-        
-        //console.log("context.option_id[value] >>",context.option_id[value])
-    //}
-    
-//});
-
 
 }
 useEffect(()=>{
@@ -39,8 +27,6 @@ useEffect(()=>{
     context.previous_page[assessment_qn_id-1] = previous_page-1;
     context.next_page[assessment_qn_id-1] = next_page-1;
     
-		console.log("next_page in yes/no cmpnt set to >>",context.next_page[assessment_qn_id-1])
-        console.log("prev_page in yes/no cmpnt set to >>",context.previous_page[assessment_qn_id-1])
 },[props.content.question,props.content.assessment_qn_id])
     return (
 		<>

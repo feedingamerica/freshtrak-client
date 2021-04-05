@@ -4,8 +4,6 @@ import CheckboxQstnComponent from '../CheckboxQstnComponent';
 import { mockCheckboxComponent } from '../../../../Testing/mock-assessment';
 
 
-console.log("mockCheckboxComponent in test file >>",mockCheckboxComponent)
-
 const originalWarn = console.warn.bind(console.warn);
 beforeAll(() => {
   console.warn = msg =>

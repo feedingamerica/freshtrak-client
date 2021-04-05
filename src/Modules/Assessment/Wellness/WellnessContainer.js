@@ -39,10 +39,10 @@ const WellnessContainer = (props) => {
 	const {closeModal} = props;
 	const context = useContext(WellnessContext);
 	let answers = context.answers;
-	//let response = context.response;
 	const [progress,setProgress] = useState(0);
-	//console.log("progress is >>",progress)
+	const [totalMainQstns,setTotalMainQstns] = useState(0);
 	const [assessmentData,setAssessmentData] = useState(null);
+	const [type,setType] = useState("next");
 	
 
 	
@@ -53,31 +53,34 @@ const WellnessContainer = (props) => {
 				if(resp && resp.data && 
 					resp.data.data.length > 0 
 					&& assessmentData == null){
-						console.log("resp data is>>",resp.data.data)
+						context.total_questions = resp.data.data.length;
 					setAssessmentData(resp.data.data)
 					setDataLength(resp.data.data.length)
-					if(dataLength ==0){
+					if(dataLength == 0){
+						let num = 0;
 						for(let i =0;i<resp.data.data.length;i++){
-							console.log("setting answers aarray as null")
+							context.isSkipped[i] = true;
+							if(resp.data.data[i].is_main){
+								num = num+1;
+							}
 							if(resp.data.data[i].question_type == "Check Box"){
 							context.answers[i]= [];
 						}else {
 							context.answers[i]= " ";
 						}
 						}
+						setTotalMainQstns(num)
 					}
 				}
 				
             } catch (err) {
-				//console.log("ERROR LOADING QUESTIONS",err)
             }
 		};
 
 	    
     useEffect(() => {
-		//console.log("currPage in useeffect is >>",currPage)
 		setAssessmentQuestions()
-		handleProgress();
+		handleProgress(type);
 
 		},[currPage]);
 
@@ -86,99 +89,82 @@ const WellnessContainer = (props) => {
 		// },[])
 
 	const loadPage = (currPage) => {
-			switch(currPage){
-			case -1 : return <BeginAssessComponent/>
-			break;
-			case 0 : return <RangeQstnComponent content={assessmentData[currPage]} />
-			break;
-			case 1 : return <RangeQstnComponent content={assessmentData[currPage]} />
-			break;
-			case 2 : return <RangeQstnComponent content={assessmentData[currPage]} />
-			break;
-			case 3 : return <YesOrNoQstnComponent content={assessmentData[currPage]}/>
-			break;
-			case 4 : return <YesOrNoQstnComponent content={assessmentData[currPage]}/>
-			break;
-			case 5 : return <CheckboxQstnComponent  content={assessmentData[currPage]}/>
-			break;
-			case 6 : return <SelectQstnComponent content={assessmentData[currPage]}/>
-			break;
-			case 7 : return <YesOrNoQstnComponent content={assessmentData[currPage]}/>
-			break;
-			case 8 : return <SelectQstnComponent content={assessmentData[currPage]}/>
-			break;
-			case 9 : return <YesOrNoQstnComponent content={assessmentData[currPage]}/>
-			break;
-			case 10 : return <YesOrNoQstnComponent content={assessmentData[currPage]}/>
-			break;
-			case 11 : return <YesOrNoQstnComponent content={assessmentData[currPage]}/>
-			break;
-			case 12 : return <CheckboxQstnComponent content={assessmentData[currPage]}/>
-			break;
-			case 13 : return <CheckboxQstnComponent content={assessmentData[currPage]}/>
-			break;
-			case 14 : return <FinishAssessComponent />
-			break;
-			default: return;
+	// 	if(currPage == -1){
+	// 		return <BeginAssessComponent/>
+	// 	}else{
+					
+	// 		if(assessmentData[currPage] && assessmentData[currPage].question_type == "Enter Value"){
+	// 				return <RangeQstnComponent content={assessmentData[currPage]}/>
+	// 		}else if (assessmentData[currPage] && assessmentData[currPage].question_type == "Radio Button"){
+	// 				return <YesOrNoQstnComponent content={assessmentData[currPage]}/>
+	// 		}else if (assessmentData[currPage] && assessmentData[currPage].question_type == "Check Box"){
+	// 				return <CheckboxQstnComponent  content={assessmentData[currPage]}/>
+	// 		}else if (assessmentData[currPage] && assessmentData[currPage].question_type == "Select Box"){
+	// 				return <SelectQstnComponent content={assessmentData[currPage]}/>
+	// 		}else{
+	// 				return <FinishAssessComponent />
+	// 		}
+	// }
+
+
+
+
+	if(currPage == -1){
+		return <BeginAssessComponent/>
+	}else if(currPage == dataLength){
+		return <FinishAssessComponent />
+	}
+	else{
+				
+		if(assessmentData[currPage] && assessmentData[currPage].question_type == "Enter Value"){
+				return <RangeQstnComponent content={assessmentData[currPage]}/>
+		}else if (assessmentData[currPage] && assessmentData[currPage].question_type == "Radio Button"){
+				return <YesOrNoQstnComponent content={assessmentData[currPage]}/>
+		}else if (assessmentData[currPage] && assessmentData[currPage].question_type == "Check Box"){
+				return <CheckboxQstnComponent  content={assessmentData[currPage]}/>
+		}else{
+				return <SelectQstnComponent content={assessmentData[currPage]}/>
 		}
+}
 	
 	}
 
 //handle page nos
-	const handleProgress = () =>{
-		switch(currPage){
-			case -1: return setProgress(0);
-			break;
-			case 0: return setProgress(11.1);	//1
-			break;
-			case 1: return setProgress(22.22);	//2
-			break;
-			case 2: return setProgress(33.33);	//3
-			break;
-			case 3: return setProgress(44.44);	//4
-			break;
-			case 4: return setProgress(44.44);	//4
-			break;
-			case 5: return setProgress(55.55);	//5
-			break;
-			case 6: return setProgress(66.66);	//6
-			break;
-			case 7: return setProgress(66.66);	//6
-			break;
-			case 8: return setProgress(66.66);	//6
-			break;
-			case 9: return setProgress(77.77);	//7
-			break;
-			case 10:return  setProgress(77.77);	//7
-			break;
-			case 11: return setProgress(77.77);	//7
-			break;
-			case 12: return setProgress(88.88);	//8
-			break;
-			case 13: return setProgress(100);	//9
-			break;
-			default: return setProgress(10*currPage);
-				}
+	const handleProgress = (type) =>{
+		if(currPage !== -1 && assessmentData[currPage] && assessmentData[currPage].is_main){
+			let progression = 100/(totalMainQstns);
+			if(type == "prev"){
+				setProgress(progress-progression);
+			}else{
+				setProgress(progress+progression);
+			}
+			
+		}
+
+		// switch(currPage){
+		// 	case -1: return setProgress(0);
+		// 	break;
+		
 				
 	}
+	
 
 
 	const handlePageTransition = (type) => {
-		if(type == "next"){
-			//console.log("type of currPage in handlePageTransition >>",typeof(currPage))
+		if(type == "next" || type == "skip"){
+			setType("next")
 			let page = currPage + 1;
 			setCurrPage(page)
-			//console.log("current page in type == next")
+			context.isSkipped[currPage] = type == "skip" ? true : false;
 			goToNextPage(page)
 			
-		}
-		else{
+		}else{
 			let page = currPage - 1;
-			 setCurrPage(page)
-			goToPrevPage(page)
+				setType("prev")
+		 	  setCurrPage(page)
+		 	 	goToPrevPage(page)
+				
 		}
-	
-
 	}
 
 	const handleSubmit = async()=>{
@@ -188,9 +174,10 @@ const WellnessContainer = (props) => {
 		Object.keys(context.answers).map((item,index )=>{	
 			let data = {
 				"assment_qn_id": index,
-				"is_answered": context.answers[index] == "" ? false : true,
+				//"is_answered": context.answers[index] == "" ? false : true,
+				"is_answered": context.isSkipped[index] == true ? false : true,
 				"option_id": context.option_id[index],
-				"answer": context.answers[index],
+				"answer": context.isSkipped[index] == true ? "" : context.answers[index],
 			};
 			ansArray.push(data);
 			});
@@ -199,9 +186,11 @@ const WellnessContainer = (props) => {
 			assessment_id : 1,
 			user_id : "dummyUserID",
 			start_time : context.start_time,
+			question_source_id : 1,
 			end_time : moment().format('YYYY-MM-DD hh:mm'),
 			answers : ansArray
 		}
+		console.log("skipped array is >>",context.isSkipped)
 
 		
     // try {
@@ -221,25 +210,14 @@ const WellnessContainer = (props) => {
    
 
 	const goToNextPage = async(currpage)=>{
-		// console.log("currpage is >>",currpage)
-		// console.log("currPage is >>",currPage)
-		// console.log("assessmentData is >>",assessmentData.length)
 		if(currpage == assessmentData.length){
-		console.log("currpage == assessmentData-1")
 			handleSubmit()
 		}
 		else if(currpage == 0){
-			//context.go_to_page[currpage]
 			setCurrPage(0)
 		}
 		else{
-			//debugger
-			//console.log("currpage in else is >>",currpage)
-			//console.log("context.gotopage of currpage -1 is >>",context.go_to_page[currpage -1])
-
-
 			if(context.go_to_page[currPage] == [] || context.go_to_page[currPage] == undefined){
-				//console.log("context.gotopage IF CHECK >>",context.go_to_page[currpage-1])
 				setCurrPage(context.next_page[currpage-1])
 			}else{
 				setCurrPage(context.go_to_page[currpage-1])
@@ -249,92 +227,15 @@ const WellnessContainer = (props) => {
 
 
 
-
-
-		// if(currPage==3 && 
-		// 	(context.answers[currPage]=='no' ||
-		// 	context.answers[currPage]=='') ) {
-		// 		console.log("inside condion, setting currpage to 5")
-		// 		//console.log("type is ",type)
-		// 		setCurrPage(5)
-		// 		//handleProgress();
-		// }
-
-		// if(currPage == 6 && 
-		// 	(context.answers[currPage] == assessmentData[currPage].option[0] ||
-		// 		context.answers[currPage] === '') ){
-		// 		//	console.log("none/uninsured selected going to qstn 7")
-				
-		// 		setCurrPage(7)
-		// 		//handleProgress();
-		// 		}
-
-
-		// if(currPage ==6 && 
-		// 	(context.answers[currPage] == assessmentData[currPage].option[1] ||
-		// 		context.answers[currPage] === '') ){
-		// 	//	console.log("medicaid selected going to qstn 8")
-				
-		// 		setCurrPage(8)
-		// 		//handleProgress();
-		// 		}
-
-		// if(currPage == 6 && 
-		// 	(context.answers[currPage]!== assessmentData[currPage].option[0] && 
-		// 		context.answers[currPage]!== assessmentData[currPage].option[1] ||
-		// 		context.answers[currPage] === '') ){
-		// 		//	console.log("otheroption selected going to qstn 9")
-				
-		// 		setCurrPage(9)
-		// 		//handleProgress();
-		// 		}
-
-
-		// if(currPage ==7 && 
-		// 	(context.answers[currPage] == 'yes' || context.answers[currPage] === 'no' ||
-		// 		context.answers[currPage] === '') ){
-		// 	//	console.log("yes/no selected going to qstn 9")
-			
-		// 		setCurrPage(9)
-		// 	//	handleProgress(); 
-		// 		}
-
-		// if(currPage ===9 && 
-		// 	(context.answers[currPage]=== 'yes' ||
-		// 	context.answers[currPage]=== '')){
-				
-		// 		setCurrPage(12)
-		// 		//handleProgress();
-		// 				}
 	}
 
 
 
 	const goToPrevPage = async (currpage) => {
 		setCurrPage(context.previous_page[currPage])
-		//handleProgress();
-		//console.log("GOING TO >>",currPage)
-		//console.log("previous_page to go  >>",context.previous_page[currPage-1])
-		//setCurrPage(context.previous_page[currpage-1])
-		// if(currpage === 5){
-		// 		setCurrPage(3)
-		// 		//handleProgress();
-		// 				}
-
-		// if(currpage === 9 || 
-		// 	currpage === 8 || 
-		// 	currpage === 7){
-		// 		setCurrPage(6)
-		// 		//handleProgress();
-		// 				}
-
-		// if(currpage ===12){
-		// 		setCurrPage(9)
-		// 		//handleProgress();
-		// 				}
-			handleProgress();
+	
+			//handleProgress("prev");
 	}
-	//console.log("context.answers is >>",context.answers)
     return (  
 			
   		    
@@ -385,24 +286,22 @@ const WellnessContainer = (props) => {
 	                        </div>
                     </div> 
                 </div>
-              { currPage!=14 &&  <div className="modal-footer">
+              { currPage!= dataLength &&  <div className="modal-footer">
                     <div className="d-flex flex-column align-items-center w-100">
-					  {context.answers[currPage+1] == "" || context.answers[currPage+1] !== undefined ? <button className="btn w-100 btn-green pl-4 pr-4" 
+					  {context.answers[currPage+1] == "" || context.answers[currPage+1] == " " || context.answers[currPage+1] !== undefined ? <button className="btn w-100 btn-green pl-4 pr-4" 
 					  onClick={()=>handlePageTransition('next')}>
-						{/* <button className="btn w-100 btn-green pl-4 pr-4" 
-					  onClick={()=>frontAction()}> */}
-							{currPage == -1? 'Begin Assessment' : currPage == 13? 'Submit' : 'Next Question' }</button> : 
+
+
+							{currPage == -1? 'Begin Assessment' : currPage == (dataLength-1)? 'Submit' : 'Next Question' }</button> : 
 							<button className="btn w-100 btn-green pl-4 pr-4" 
 							onClick={()=>handlePageTransition('next')}>
-							{/* <button className="btn w-100 btn-green pl-4 pr-4" 
-							onClick={()=>frontAction()}> */}
-								{currPage == -1? 'Begin Assessment' : currPage == 13? 'Submit' : 'Next Question' }</button>
+
+
+								{currPage == -1? 'Begin Assessment' : currPage == (dataLength-1)? 'Submit' : 'Next Question' }</button>
 							}
 
-						{ currPage !== -1 && currPage !== 13 && <div className="mt-2 text-uppercase pointer" 
+						{ currPage !== -1 && currPage < (dataLength-1) && <div className="mt-2 text-uppercase pointer" 
 						onClick={()=>handlePageTransition('skip')}>Skip</div>}
-						{/* { currPage !== -1 && currPage !== 13 && <div className="mt-2 text-uppercase pointer" 
-						onClick={()=>frontAction()}>Skip</div>} */}
                     </div>
                 </div>
             }

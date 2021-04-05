@@ -13,7 +13,6 @@ beforeAll(() => {
 afterAll(() => {
   console.warn = originalWarn;
 });
-console.log("YesOrNoQstnComponent in test>>",mockYesOrNoQstnComponent)
 
 test('should display the events', async () => {
     const { getByText } = render(<YesOrNoQstnComponent content={mockYesOrNoQstnComponent}/>);
