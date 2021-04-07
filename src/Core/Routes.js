@@ -24,6 +24,7 @@ const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
+
 const RegistrationContainer = lazy(() => import('../Modules/Registration/RegistrationContainer'));
 // const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 // Out of scope
@@ -37,8 +38,11 @@ const QRCodeComponent = lazy(() => import('../Modules/Registration/QRCodeCompone
 const PrivacyComponent = lazy(() => import('../Modules/Policies/PrivacyComponent'));
 const TermsComponent = lazy(() => import('../Modules/Policies/TermsComponent'));
 
+const TriggerAssess = lazy(() =>
+  import("../Modules/Assessment/Wellness/TriggerAssess")
+);
+
 const Routes = () => {
-  React.useEffect(() => {}, []);
 
   return (
     <Router basename="/">
@@ -143,6 +147,10 @@ const Routes = () => {
               component={SignInContainer}
             /> */}
 
+            <Route
+              path={RENDER_URL.WELLNESS_ASSESS_URL}
+              component={TriggerAssess}
+            />
             <Route
               path={"*"}
               render={(props) => <Redirect to="/" {...props} />}

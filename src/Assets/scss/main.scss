@@ -8,6 +8,9 @@ body {
     background: $color-white;
     font-family: $font-noto-sans;
     color: $content-text-color;
+    .pointer{
+        cursor: pointer;
+    }
     section {
         h2 {
             color: $high-light-color;
@@ -839,6 +842,34 @@ body {
             }
         }
     }
+
+       .modal-content {
+        @include border-radius(0px);
+        background-color: $secondary-color;
+        color: $color-white;
+        font-size: 0.8rem;
+        .modal-header {
+            @include border-all(0px, solid, transparent);
+            padding-bottom: .65rem;
+            .close {
+                font-size: 2rem;
+                padding: 0.8rem 1, 2rem 0 0;
+                line-height: 1rem;
+                color: $color-white;
+                text-shadow: none;
+                opacity: 1;
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+        .modal-content-address {
+            max-width: 160px;
+        }
+        .modal-content-title {
+            font-size: 1rem;
+        }
+    }
     @include responsive(extra-smaller-devices) {
         .mobile-text-left {
             text-align: left !important;
@@ -870,6 +901,13 @@ body {
             padding-bottom: 50px;
         }
     }
+
+
+
+
+
+
+
     .color-green{
        color: $primaryColor; 
     }
@@ -911,6 +949,7 @@ body {
     }
 }
 
+
 .kep-login-facebook {
     width: 100%;
     border-radius: 8px;
@@ -926,7 +965,182 @@ body {
     font-size: .7rem;
     position: absolute;
     color: #ff0000;
+
+    }
+    
+// Added for Wellness Assessment
+.wellness-assessment {
+    @include border-radius(8px);
+    background: $primaryColor url(../img/banner-bg.png);
+    @include box-shadow(0px, 4px, 8px, $shadow-color);
+    margin-bottom: 15px;
+    background-size: cover;
+    h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        padding: 0 0 0.2rem 0;
+        color: $secondary-color;
+        max-width: 170px;
+    }
 }
+.assessment-modal{
+    .modal-dialog{
+        margin: 0 auto;
+        .modal-body{
+            overflow: auto;
+        }
+    }
+    .back-arrow{
+        width: 16px;
+        height: 16px;
+        background: $color-white;
+        @include border-radius(50%);
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-title{
+        font-size: .7rem;
+        cursor: pointer;
+    }
+    .modal-footer{
+        border: 0;
+    }
+    .assessment-title{
+        font-weight: bold;
+        font-size: 1.5rem;
+        line-height: 30px;
+        text-transform: capitalize;
+    }
+    .a-c-item{
+        display: flex;
+        flex-direction: column;
+        .assesment-content{
+            font-size: 1.1rem;
+            letter-spacing: 0.15px;
+            p{
+                font-size: .9rem;
+            }
+        }
+        .ac-slider{
+            h3{
+                text-align: center;
+                font-size: 3rem;
+                font-weight: 600;
+            }
+        }
+    }
+    .progress{
+        height: .3rem;
+        .progress-bar{
+        background-color: $list-header-bg;
+        text-indent: -1000px;
+        }
+    }    
+}
+.assessment-modal{
+    .bg-green{
+        .a-c-item{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+.radio-button-wrapper{
+    margin: 1.5rem 0;
+    label{
+        &.radio{
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 1rem;
+            margin-left: 0;
+            &:last-child{
+                margin-bottom: 0;
+            }
+            input{
+                position: absolute;
+                top: 0;
+                left: 0;
+                visibility: hidden;
+                pointer-events: none;
+                &:checked + span{
+                    background-color: $text-color;
+                    color: $secondary-color;
+                    @include border-all(2px, solid, $text-color);
+                }
+            }
+            span{
+                padding: .7rem;
+                @include border-all(2px, solid, $color-white);
+                display: inline-block;
+                color: $color-white;
+                @include border-radius(3px);
+                text-transform: uppercase;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+}
+  .checkbox-custom {
+    display: block;
+    margin-bottom: 15px;
+    input {
+        padding: 0;
+        height: initial;
+        width: initial;
+        margin-bottom: 0;
+        display: none;
+        cursor: pointer;
+        &:checked + label:before{
+            background: $list-header-bg;
+            border-color: $list-header-bg;
+          }
+          &:checked + label:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 3px;
+            left: -21px;
+            width: 6px;
+            height: 14px;
+            border: solid $color-white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+          }
+      }
+      label {
+        position: relative;
+        cursor: pointer;
+        margin-left: 30px;
+        &:before {
+            content:'';
+            -webkit-appearance: none;
+            background-color: transparent;
+            @include border-all(2px, solid, $primaryColor);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+            padding: 10px;
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            cursor: pointer;
+            margin-right: 5px;
+            background: $secondary-color;
+            @include border-radius(2px);
+            margin-left:-30px ;
+          }
+      }
+  }
+  
+.btn-green{
+    background: $list-header-bg;
+    border-color: $list-header-bg;
+    color: $color-white;
+}
+
+//}
 
 .loading-spinner-small {
     height: 5em;
@@ -1038,4 +1252,10 @@ a {
     cursor: pointer;
     padding-left: 20px;
   }
+.privacy{
+    // background-color: #FFFFFF;
+    // // width: 280px;
+    // margin: 5px auto;
+    // border: 1px solid black; /* width, style, colour */
+}
 }

@@ -15,7 +15,6 @@ const FamilyContainer = () => {
   const { register, handleSubmit, errors, getValues, setValue, watch } = useForm();
   const event = useSelector(selectEvent);
   const onSubmit = data => {
-    console.log(data);
   };
   return (
     <Fragment>

@@ -30,7 +30,11 @@ export const RENDER_URL = {
   REGISTRATION_CONFIRM_URL: '/register/confirm',
   AGENCY_EVENT_LIST: '/agency/events',
   HOME_URL: '/home',
+  WELLNESS_ASSESS_URL: '/assessment/wellness',
   QRCODE_URL: '/qrcode',
   PRIVACY: '/privacy',
   TERMS: '/terms',
+  QUESTIONS : "http://192.168.21.50:8888/api/assessment_questions",
+  SUBMIT_ASSESSMENT : "http://localhost:8888/api/user_assessment_answers",
+  TRIGGER_ASSESSMENT : "http://localhost:8888/api/assessments",
 };
