@@ -9,7 +9,7 @@ import SignInConfirmComponent from "./SignInConfirmComponent";
 import SignUpConfirmComponent from './SignUpConfirmComponent';
 import {ErrorHandler} from "../../Utils/ErrorHandler";
 import {SignUp, SignUpConfirm,ResendConfirmCode, SignIn,ConfirmSignIn} from "../../Utils/CognitoHandler";
-
+import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
@@ -63,7 +63,7 @@ const UserBlockContainer = (props) => {
     setLoading(true);
     let code = confirmData.code;
     let authtoken = localStorage.getItem("authToken");
-    await SignUpConfirm(username,code).then(res => {
+    await SignUpConfirm(username,code).then(res => { 
       setLoading(false);
       let data = res.data;
       if(res.status) {
@@ -146,24 +146,33 @@ const UserBlockContainer = (props) => {
     props.handleClose()
   }
 
-  const eventCheck = (data) => {
-    setLoading(true);
+  const eventCheck = (data) => {    setLoading(true);
     localStorage.setItem('isLoggedIn', true);  
     localStorage.setItem('userType', 0);
     dispatch(setLoggedIn(localStorage.getItem("isLoggedIn")))
     let token_value = data.signInUserSession.idToken.jwtToken;
     localStorage.setItem('authToken', token_value);
     props.handleClose();
+    createUser(token_value);
     if(selectedEvent && selectedEvent.id){
       setLoading(false);
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     }else{
       setLoading(false);
-    }
-            
+    } 
+  }
+  const createUser = async (userToken) => {
+    const {USER_CREATION } = API_URL;
+      try {
+       await axios.post(USER_CREATION, {},
+          { headers: { Authorization: `${userToken}` } }
+        );
+       localStorage.setItem('isAdded', 1);
+      } catch (e) {
+        console.log(e);
+      }
     
   }
-
   const renderFrom = () => {
     switch(mode) {
 

@@ -5,13 +5,14 @@ import CalenderIcon from '../../Assets/img/calendar.svg';
 // import PreRegisteredIcon from '../../Assets/img/pre-register.svg';
 import FindFoodIcon from '../../Assets/img/findfood.svg';
 // import { RENDER_URL } from '../../Utils/Urls';
+import axios from 'axios';
 import '../../Assets/scss/main.scss';
 import localization from '../Localization/LocalizationComponent';
 import {CurrentUser} from "../../Utils/CognitoHandler";
 
 import { selectEvent } from '../../Store/Events/eventSlice';
 import {useHistory } from 'react-router-dom';
-import { RENDER_URL } from '../../Utils/Urls';
+import { RENDER_URL,API_URL } from '../../Utils/Urls';
 import { setLoggedIn } from '../../Store/loggedInSlice';
 import { useDispatch ,useSelector } from 'react-redux';
 
@@ -38,6 +39,7 @@ const DashboardCreateAccountComponent = () => {
         //setIsLoggedIn(isLogin); 
         let eventId = (isLogin ? localStorage.getItem('selectedEventId') : null);
         let  isLoggedIn = localStorage.getItem('isLoggedIn');
+        fbUserAdd();
         if(eventId !== null && isLoggedIn) {
           redirectToFb(eventId)
         }  else {
@@ -48,12 +50,27 @@ const DashboardCreateAccountComponent = () => {
     })
   }
 
-  let userType = localStorage.getItem('userType');
-  
-  if(userType == 0){ 
-    getCurrentUser()
-  }
+  let userType = localStorage.getItem('userType');  
 
+  if(userType == 0){ 
+    getCurrentUser();
+  }  
+  
+  const fbUserAdd = async () => {
+    let  authToken = localStorage.getItem('authToken');
+    let isAdded = localStorage.getItem('isAdded');
+    if(!isAdded && userType == 0 && authToken){
+      const {USER_CREATION } = API_URL;
+      try {
+       await axios.post(USER_CREATION, {},
+          { headers: { Authorization: `${authToken}` } }
+        );
+       localStorage.setItem('isAdded', 1);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
 
 //   try {
 //     const resp = await axios.post(GUEST_AUTH);
@@ -79,7 +96,7 @@ const DashboardCreateAccountComponent = () => {
     
 // }
 
-
+   
 
 
   const redirectToFb=(eventId)=>{ 

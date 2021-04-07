@@ -78,6 +78,7 @@ const HeaderComponent = (props) => {
     setIsLoggedIn(false)
     dispatch(setLoggedIn(false));
     localStorage.setItem('isLoggedIn', false);
+    localStorage.removeItem('isAdded');
      if(userType == 0){ 
        setIsLoggedIn(false);
        localStorage.removeItem('userType');

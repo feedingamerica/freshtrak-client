@@ -18,6 +18,7 @@ export const API_URL = {
     USER_REGISTRATION : `${REGISTRATION_URL}api/cognito_authentications/user_add_details`,
     COGNITO_USER : `${REGISTRATION_URL}api/cognito_authentications/user_data`,
     SEND_EMAIL: `${REGISTRATION_URL}twilio/email`,
+    USER_CREATION : `${REGISTRATION_URL}api/cognito_authentications/user_signup`,
 };
 
 export const RENDER_URL = {

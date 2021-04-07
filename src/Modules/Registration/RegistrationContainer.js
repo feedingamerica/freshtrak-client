@@ -162,7 +162,6 @@ const RegistrationContainer = (props) => {
     } else {
     // First save user
       const { GUEST_USER, CREATE_RESERVATION } = API_URL;
-      console.log(user,'<user data>',);
       try {
         await axios.post(GUEST_USER, { user }, {
           headers: { Authorization: `Bearer ${userToken}` }

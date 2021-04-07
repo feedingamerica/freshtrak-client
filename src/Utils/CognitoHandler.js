@@ -23,7 +23,7 @@ export const SignUpConfirm = async (username,code) => {
 	await Auth.confirmSignUp(username, code)
 	.then(res => {
 		status = true;
-		data = 'Logout successful';            
+		data = 'Account Created successful';            
 	}).catch(err => {
 		status = false;
 		data = err;
