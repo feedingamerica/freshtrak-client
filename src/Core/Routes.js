@@ -24,12 +24,15 @@ const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 const StaticPageContainer = lazy(() =>
   import("../Modules/StaticPages/StaticPageContainer")
 );
-
-const RegistrationContainer = lazy(() => import('../Modules/Registration/RegistrationContainer'));
+const RegistrationContainer = lazy(() =>
+  import("../Modules/Registration/RegistrationContainer")
+);
 // const FamilyContainer = lazy(() => import("../Modules/Family/FamilyContainer"));
 // Out of scope
 // const EditFamilyContainer = lazy(() => import('../Modules/Family/EditFamilyContainer'));
 // const SignInContainer = lazy(() => import('../Modules/Sign-In/SignInContainer'));
+
+
 const AgencyEventListContainer = lazy(() => import('../Modules/Events/AgencyEventListContainer'));
 const RegistrationEventDetailsContainer = lazy(() => import('../Modules/Registration/RegistrationEventDetailsContainer'));
 const RegistrationConfirmComponent = lazy(() => import('../Modules/Registration/RegistrationConfirmComponent'));
@@ -37,6 +40,7 @@ const HomeContainer = lazy(() => import('../Modules/Home/HomeContainer'));
 const QRCodeComponent = lazy(() => import('../Modules/Registration/QRCodeComponent'));
 const PrivacyComponent = lazy(() => import('../Modules/Policies/PrivacyComponent'));
 const TermsComponent = lazy(() => import('../Modules/Policies/TermsComponent'));
+const ProfileContainer = lazy(() => import("../Modules/Profile/ProfileContainer"));
 
 const TriggerAssess = lazy(() =>
   import("../Modules/Assessment/Wellness/TriggerAssess")
@@ -61,14 +65,12 @@ const Routes = () => {
               component={EventContainer}
             />
             <Route
-              exact path={RENDER_URL.ADD_FAMILY_URL}
+              exact
+              path={RENDER_URL.ADD_FAMILY_URL}
               component={FamilyContainer}
             />
             {/* Flag to turn off/on Home Page Container for Loggedin user feature */}
-            <Route
-              exact path={RENDER_URL.HOME_URL}
-              component={HomeContainer}
-            />
+            <Route exact path={RENDER_URL.HOME_URL} component={HomeContainer} />
 
             {/* Out of Scope */}
             {/* <Route
@@ -96,7 +98,8 @@ const Routes = () => {
               component={RegistrationEventDetailsContainer}
             />
 
-             <Route exact
+            <Route
+              exact
               path={`${RENDER_URL.REGISTRATION_FORM_URL}/:eventDateId`}
               component={RegistrationContainer}
             />
@@ -147,13 +150,14 @@ const Routes = () => {
               component={SignInContainer}
             /> */}
 
+            <Route path={RENDER_URL.PROFILE_URL} component={ProfileContainer} />
             <Route
               path={RENDER_URL.WELLNESS_ASSESS_URL}
               component={TriggerAssess}
             />
             <Route
               path={"*"}
-              render={(props) => <Redirect to="/" {...props} />}
+              render={props => <Redirect to="/" {...props} />}
             />
 
             {/* Add URLs above this line */}

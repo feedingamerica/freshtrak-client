@@ -37,6 +37,11 @@
         padding-left: 2.3rem;
         padding-right: 2.3rem;
     }
+    &.complete-button {
+        @extend .primary-button;
+        background: $secondary-color;
+        border-color: $secondary-color;
+      }
 }
 .form-group{
     label{

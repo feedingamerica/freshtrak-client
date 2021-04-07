@@ -66,6 +66,7 @@ const RegistrationEventDetailsContainer = (props) => {
         } = resp;
         TagManager.dataLayer({ dataLayer: { event: "returning-customer-login" } })
         localStorage.setItem('userToken', authentication.token);
+        console.log("userToken set >>",authentication.token)
         localStorage.setItem('tokenExpiresAt', authentication.expires_at);
       }else{
         const resp = await axios.post(GUEST_AUTH);
@@ -73,7 +74,9 @@ const RegistrationEventDetailsContainer = (props) => {
           data: { token, expires_at },
         } = resp;
         localStorage.setItem('userToken', token);
+        console.log("userToken set in else >>",token)
         localStorage.setItem('tokenExpiresAt', expires_at);
+        localStorage.setItem('isLoggedIn', true);
       }
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     } catch (e) {
@@ -85,8 +88,8 @@ const RegistrationEventDetailsContainer = (props) => {
 
   const getUserToken = (response) => {
     const localUserToken = localStorage.getItem('userToken');
+    console.log("userToken set",localUserToken)
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt');
-
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
       showAuthenticationModal ? fetchUserToken(response) : setshowAuthenticationModal(true);
     } else {

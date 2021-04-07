@@ -32,6 +32,7 @@ const HeaderComponent = (props) => {
   const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
   useEffect(() => {
     let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
+    let userToken = localStorage.getItem('userToken');
     if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
       setIsLoggedIn(false);
     } else {
@@ -54,7 +55,7 @@ const HeaderComponent = (props) => {
     localStorage.removeItem('userToken');
     localStorage.removeItem('tokenExpiresAt');
     localStorage.removeItem('search_zip');
-    window.FB.logout()
+    //window.FB.logout()
   }
   
   return (
@@ -63,10 +64,10 @@ const HeaderComponent = (props) => {
         className={`navbar navbar-expand-md navbar-light fixed-top ${navbarShrink} ${shortHeader}`}
         id="mainNav"
       >
-        <div className="container">
+        <div className="container-fluid">
           <Navbar expand="md" className="w-100">
-            <Navbar.Brand className="my-auto mobile-view">
-              <span className="my-auto mobile-view">
+            <Navbar.Brand className=" mobile-view">
+              <span className="mobile-view">
                 <Link to={RENDER_URL.ROOT_URL}>
                   <img
                     src={mainLogo}
@@ -144,6 +145,19 @@ const HeaderComponent = (props) => {
                 </button>
               </LinkContainer>
             )}
+
+
+            {/* {isLoggedIn && (
+              <LinkContainer to={RENDER_URL.PROFILE_URL}>
+                <button
+                type="submit"
+                className="btn btn-link header-sign-in"
+                //onClick={logOut}
+                >
+                  PROFILE
+                </button>
+              </LinkContainer>
+            )} */}
             {/* <div>
               <label>Select Language ?</label>
               <select onChange={change} value={language.language}>

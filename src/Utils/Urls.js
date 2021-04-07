@@ -4,6 +4,7 @@
 
 export const BASE_URL = process.env.REACT_APP_PANTRY_FINDER_API;
 const REGISTRATION_URL = process.env.REACT_APP_REGISTRATION_API;
+const LOCAL_URL = "http://192.168.20.253:8888/api/";
 export const API_URL = {
     EVENTS_LIST : BASE_URL + 'api/agencies',
     FOODBANK_LIST : BASE_URL + 'api/foodbanks',
@@ -16,6 +17,11 @@ export const API_URL = {
     FB_AUTH: `${REGISTRATION_URL}auth_callbacks/facebook`,
     TWILIO_SMS: `${REGISTRATION_URL}twilio/sms`,
     SEND_EMAIL: `${REGISTRATION_URL}twilio/email`,
+    USER_INFORMATION : `${LOCAL_URL}profiles/user_data`,
+    USER_ADDRESS : `${LOCAL_URL}profiles/user_address`,
+    USER_CONTACT : `${LOCAL_URL}profiles/user_contact_details`,
+    USER_VEHICLE : `${LOCAL_URL}profiles/user_vehicle_details`,
+    
 };
 
 export const RENDER_URL = {
@@ -31,6 +37,7 @@ export const RENDER_URL = {
   AGENCY_EVENT_LIST: '/agency/events',
   HOME_URL: '/home',
   WELLNESS_ASSESS_URL: '/assessment/wellness',
+  PROFILE_URL: '/profile',
   QRCODE_URL: '/qrcode',
   PRIVACY: '/privacy',
   TERMS: '/terms',
