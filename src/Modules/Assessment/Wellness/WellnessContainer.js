@@ -40,7 +40,7 @@ const WellnessContainer = (props) => {
 	const context = useContext(WellnessContext);
 	let answers = context.answers;
 	const [progress,setProgress] = useState(0);
-	const [totalMainQstns,setTotalMainQstns] = useState(0);
+	//const [totalMainQstns,setTotalMainQstns] = useState(0);
 	const [assessmentData,setAssessmentData] = useState(null);
 	const [type,setType] = useState("next");
 	
@@ -53,23 +53,27 @@ const WellnessContainer = (props) => {
 				if(resp && resp.data && 
 					resp.data.data.length > 0 
 					&& assessmentData == null){
+						if(context.question_source_id == null || context.assessment_id == null){
+							context.question_source_id = resp.data.data[0].question_source_id;
+							context.assessment_id = resp.data.data[0].assessment_id;
+						}
 						context.total_questions = resp.data.data.length;
 					setAssessmentData(resp.data.data)
 					setDataLength(resp.data.data.length)
 					if(dataLength == 0){
-						let num = 0;
+						//let num = 0;
 						for(let i =0;i<resp.data.data.length;i++){
 							context.isSkipped[i] = true;
-							if(resp.data.data[i].is_main){
-								num = num+1;
-							}
+							// if(resp.data.data[i].is_main){
+							// 	num = num+1;
+							// }
 							if(resp.data.data[i].question_type == "Check Box"){
 							context.answers[i]= [];
 						}else {
 							context.answers[i]= " ";
 						}
 						}
-						setTotalMainQstns(num)
+						//setTotalMainQstns(num)
 					}
 				}
 				
@@ -84,30 +88,7 @@ const WellnessContainer = (props) => {
 
 		},[currPage]);
 
-		// useEffect(()=>{
-		// 	context.go_to_page[currPage] = 0;
-		// },[])
-
 	const loadPage = (currPage) => {
-	// 	if(currPage == -1){
-	// 		return <BeginAssessComponent/>
-	// 	}else{
-					
-	// 		if(assessmentData[currPage] && assessmentData[currPage].question_type == "Enter Value"){
-	// 				return <RangeQstnComponent content={assessmentData[currPage]}/>
-	// 		}else if (assessmentData[currPage] && assessmentData[currPage].question_type == "Radio Button"){
-	// 				return <YesOrNoQstnComponent content={assessmentData[currPage]}/>
-	// 		}else if (assessmentData[currPage] && assessmentData[currPage].question_type == "Check Box"){
-	// 				return <CheckboxQstnComponent  content={assessmentData[currPage]}/>
-	// 		}else if (assessmentData[currPage] && assessmentData[currPage].question_type == "Select Box"){
-	// 				return <SelectQstnComponent content={assessmentData[currPage]}/>
-	// 		}else{
-	// 				return <FinishAssessComponent />
-	// 		}
-	// }
-
-
-
 
 	if(currPage == -1){
 		return <BeginAssessComponent/>
@@ -131,20 +112,18 @@ const WellnessContainer = (props) => {
 
 //handle page nos
 	const handleProgress = (type) =>{
-		if(currPage !== -1 && assessmentData[currPage] && assessmentData[currPage].is_main){
-			let progression = 100/(totalMainQstns);
-			if(type == "prev"){
-				setProgress(progress-progression);
-			}else{
-				setProgress(progress+progression);
+		if(currPage !== -1){
+			//let progression = 100/(totalMainQstns);
+			let progress = 100/dataLength;
+			if(assessmentData[currPage] 
+				&& assessmentData[currPage].assessment_qn_id 
+				&& assessmentData[currPage].is_main){
+				let progression = progress * assessmentData[currPage].assessment_qn_id;
+				setProgress(progression);
 			}
-			
-		}
 
-		// switch(currPage){
-		// 	case -1: return setProgress(0);
-		// 	break;
-		
+		}
+	
 				
 	}
 	
@@ -173,38 +152,35 @@ const WellnessContainer = (props) => {
 		let ansArray = [];
 		Object.keys(context.answers).map((item,index )=>{	
 			let data = {
-				"assment_qn_id": index,
-				//"is_answered": context.answers[index] == "" ? false : true,
+				"assment_qn_id": index + 1,
 				"is_answered": context.isSkipped[index] == true ? false : true,
-				"option_id": context.option_id[index],
+				"option_id": [context.option_id[index]],
 				"answer": context.isSkipped[index] == true ? "" : context.answers[index],
 			};
 			ansArray.push(data);
 			});
 
 		let body = {
-			assessment_id : 1,
-			user_id : "dummyUserID",
+			assessment_id : context.assessment_id,
+			user_id : userToken,
 			start_time : context.start_time,
-			question_source_id : 1,
+			question_source_id : context.question_source_id,
 			end_time : moment().format('YYYY-MM-DD hh:mm'),
 			answers : ansArray
 		}
-		console.log("skipped array is >>",context.isSkipped)
 
 		
-    // try {
-    //   const resp = await axios({
-		// method: 'post',
-		// url: assessmentUri,
-		// data: body,
-		// headers: { 'Content-Type': 'application/json' }
-	  // });
+    try {
+    const resp = await axios({
+		method: 'post',
+		url: assessmentUri,
+		data: body,
+		headers: { Authorization: `${userToken}` }
+	  });
 
-    // } catch (e) {
-    // } 
+    } catch (e) {
+    } 
 		
-		console.log("body is >>",body)
 	}
 		    
    
@@ -249,14 +225,12 @@ const WellnessContainer = (props) => {
                 <div className="modal-header">
 										<div className="modal-title d-flex" id="assessment" 
 										onClick={()=>handlePageTransition('prev')}>
-										{/* <div className="modal-title d-flex" id="assessment" onClick={()=>backAction()}> */}
                         { currPage >0 && currPage !== dataLength && 
 												<span className="back-arrow"><img src={backBtn} 
 												className="img-fluid" /></span>}
                        
 												{currPage >0 && currPage !== dataLength &&  
 												<span className="text-uppercase ml-2">Previous Question</span>}
-												{/* <span className="text-uppercase ml-2">{currPage}</span> */}
                     </div>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
@@ -268,7 +242,6 @@ const WellnessContainer = (props) => {
                     <div className="assessment-title">
                         {currPage !== dataLength ? context.assessmentTitle : ""}
                     </div>
-										{/* replaced 14 with dataLength */}
 
                   
 

@@ -7,7 +7,6 @@ const SignInContainer = () => {
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
   const onSubmit = data => {
-    console.log(data);
     if (data) {
       localStorage.setItem('isLoggedIn', true);
       history.goBack();

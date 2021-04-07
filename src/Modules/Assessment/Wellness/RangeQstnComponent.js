@@ -23,8 +23,8 @@ const RangeQstnComponent = (props) => {
 		
 	}
 	useEffect(()=>{
-		context.go_to_page[assessment_qn_id-1] = go_to_page[0]-1;
-		context.previous_page[assessment_qn_id-1] = previous_page-1;
+		context.go_to_page[assessment_qn_id-1] = go_to_page && go_to_page[0] ? go_to_page[0]-1 : null;
+		context.previous_page[assessment_qn_id-1] = previous_page ? previous_page-1 : null ;
 		context.next_page[assessment_qn_id-1] = next_page-1;
 		if(context.answers[assessment_qn_id-1] !== " " && context.answers[assessment_qn_id-1] !== undefined && context.answers[assessment_qn_id-1] !== []){
 			

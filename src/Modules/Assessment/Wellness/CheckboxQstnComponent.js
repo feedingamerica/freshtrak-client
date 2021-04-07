@@ -20,14 +20,14 @@ const CheckboxQstnComponent = (props) => {
 
     const isChecked = (value,index) => {
         let valueArray = context.answers[assessment_qn_id-1];
-        if(valueArray && valueArray!== undefined && valueArray.length == 0){
+        if(value && value !== undefined && valueArray && valueArray!== undefined && valueArray.length == 0){
             return false;  
         }else{
-            if(checkedOptions.indexOf(value) > -1 && indexArray.indexOf(index) < 0){
+            if(value && value !== undefined && checkedOptions && checkedOptions.indexOf(value) > -1 && indexArray.indexOf(index) < 0){
                 indexArray.push(index)
                 setOptionArray()
             }
-            return (checkedOptions.indexOf(value) > -1)
+            if(checkedOptions) return (checkedOptions.indexOf(value) > -1)
         }
 
        

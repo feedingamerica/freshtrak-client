@@ -56,6 +56,21 @@ const mockYesOrNoQstnComponentContent = build('Checkbox Component').fields({
   go_to_page : fake(f => f.random.number()),
 });
 
+const mockWellnessComponentContext = build('Wellness Context').fields({
+  assessment_id : fake(f => f.random.number()),
+  total_questions : fake(f => f.random.number()),
+	beginAssessmentData :mockAssessmentQuestionsContent,
+	question_source_id : fake(f => f.random.number()),
+	start_time: fake(f => f.random.number()),
+	assessmentTitle : fake(f => f.name.title()),
+	previous_page : fake(f => f.random.arrayElement([2,5,3,6])),
+	next_page : fake(f => f.random.arrayElement([2,5,3,6])),
+	answers : fake(f => f.random.arrayElement(["lorem","ipsum"])),
+	isSkipped : fake(f => f.random.arrayElement([true,false,true,false])),
+	option_id : fake(f => f.random.arrayElement([2,5,3,6])),
+  go_to_page : fake(f => f.random.arrayElement([2,5,3,6])),
+});
+
 // const mockFoodBankBuilder = build('Food Bank').fields({
 //   address: fake(f => f.address.streetAddress()),
 //   city: fake(f => f.address.city()),
@@ -75,4 +90,5 @@ export const mockCheckboxComponent = mockCheckboxComponentContent();
 export const mockSelectQstnComponent = mockSelectQstnComponentContent();
 export const mockYesOrNoQstnComponent = mockYesOrNoQstnComponentContent();
 export const mockAssessmentQuestions = mockAssessmentQuestionsContent();
+export const mockWellnessContext = mockWellnessComponentContext();
 //export const mockFoodbankText = mockFoodbankTextBuilder();

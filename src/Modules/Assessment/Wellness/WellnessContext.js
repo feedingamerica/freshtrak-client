@@ -3,7 +3,7 @@ import React from "react";
 
 const WellnessContext = React.createContext({
 
-	assessment_id: 1,
+	assessment_id: null,
 	total_questions : null,
 	beginAssessmentData :{},
 	question_source_id : null,

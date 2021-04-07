@@ -13,7 +13,6 @@ afterAll(() => {
   console.warn = originalWarn;
 });
 
-console.log("SelectQstnComponent in test >>",mockSelectQstnComponent)
 test('should display the SelectQstnComponent', async () => {
     const { getByText } = render(<SelectQstnComponent content={mockSelectQstnComponent}/>);
     await wait(() => {
