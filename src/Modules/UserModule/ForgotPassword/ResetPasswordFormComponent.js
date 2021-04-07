@@ -28,7 +28,7 @@ const ResetPasswordFormComponent = (props) => {
           {props.customError && props.customError.codeError && !errors.code && <span className="text-danger">{props.customError.codeError}</span>}
         </div>
         <div className="form-group">
-          <label>New Passoword</label>
+          <label>New Password</label>
           <input type="password" className="form-control" 
              name="newpassword"
              id="newpassword"

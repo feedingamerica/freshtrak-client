@@ -51,18 +51,9 @@ const HeaderComponent = (props) => {
   const userType = localStorage.getItem("userType");
   const [showMobileMenu, setMobileMenu] = useState(false);
   const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
-  useEffect(() => {   
-    //debugger
-    // if(!userType){
-    //   getCurrentUser();
-    // }
-   
+  useEffect(() => {  
 
-    const localStorageLoggedIn = localStorage.getItem('isLoggedIn');
-
-    //dispatch(setLoggedIn(localStorage.getItem("isLoggedIn")))
-
-    //setIsLoggedIn(localStorageLoggedIn)
+    const localStorageLoggedIn = localStorage.getItem('isLoggedIn'); 
     window.onscroll = () => {
       if (window.pageYOffset > 100) {
         setNavbarShrink("navbar-shrink");

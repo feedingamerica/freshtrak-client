@@ -15,8 +15,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectEvent } from '../../Store/Events/eventSlice';
 import {useHistory } from 'react-router-dom';
 import { RENDER_URL,API_URL } from '../../Utils/Urls';
-import axios from 'axios';
-import { selectLoggedIn, setLoggedIn } from '../../Store/loggedInSlice';
+import { setLoggedIn } from '../../Store/loggedInSlice';
 import SpinnerComponent from "../General/SpinnerComponent";
 
 
@@ -63,7 +62,6 @@ const UserBlockContainer = (props) => {
   const onConfirm = async (confirmData) => {
     setLoading(true);
     let code = confirmData.code;
-    const { COGNITO_TEMP_CODE_FIX } = API_URL;
     let authtoken = localStorage.getItem("authToken");
     await SignUpConfirm(username,code).then(res => {
       setLoading(false);
@@ -75,15 +73,6 @@ const UserBlockContainer = (props) => {
         setCustomError(errorValue);
       }
     })
-
-    // try {
-    //   const resp = await axios.get(COGNITO_TEMP_CODE_FIX, {
-    //     headers: { Authorization: `${authtoken}` },
-    //   });
-    // } catch (e) {
-    //   console.log("error",e);
-    // }
-    
   }
 
 

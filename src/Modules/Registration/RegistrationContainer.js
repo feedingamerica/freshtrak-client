@@ -121,7 +121,7 @@ const RegistrationContainer = (props) => {
   }
 
   const notify = (msg, error) => {
-    let formatted_msg = (msg.user_id && msg.user_id[0]) || msg.event_date_id[0] || "Something Went Wrong"
+    let formatted_msg = (msg.user_id && msg.user_id[0]) || msg.event_date_id && msg.event_date_id[0] || "Something Went Wrong"
     showToast(formatted_msg, error);
   }
   const send_sms = async user => {
