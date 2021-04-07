@@ -13,8 +13,8 @@ const ContactComponent = (props) =>{
         </div>
       </div>
       <div className="d-flex flex-column">
-        <div>{props.data.email}</div>
-        <div>{props.data.phone}</div>
+        {props && props.data && props.data.email ? <div>{props.data.email}</div> : null}
+        {props && props.data && props.data.phone ?<div>{props.data.phone}</div> : null}
       </div>
       
     </div>

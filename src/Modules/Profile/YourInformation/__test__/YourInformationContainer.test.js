@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { 
-  mockProfileBuilder
+  mockProfileData
 } from '../../../../Testing/mock-profile';
 import axios from 'axios';
 import { render, fireEvent, act } from '@testing-library/react';
@@ -20,19 +20,19 @@ test('should render without errors', () => {
         <YourInformationContainer >
           
           <SideTrayComponent >
-            <EditInformationComponent informationData={mockProfileBuilder}/>
+            <EditInformationComponent informationData={mockProfileData}/>
           </SideTrayComponent>
 
           <SideTrayComponent >
-            <EditAddressComponent addressData={mockProfileBuilder}/>
+            <EditAddressComponent addressData={mockProfileData}/>
           </SideTrayComponent>
 
           <SideTrayComponent >
-            <EditContactComponent contactData={mockProfileBuilder}/>
+            <EditContactComponent contactData={mockProfileData}/>
           </SideTrayComponent>
 
           <SideTrayComponent >
-            <EditVehicleComponent vehicleData={mockProfileBuilder}/>
+            <EditVehicleComponent vehicleData={mockProfileData}/>
           </SideTrayComponent>
 
           </YourInformationContainer>

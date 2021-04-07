@@ -63,7 +63,6 @@ const YourInformationContainer = () =>{
 
   const getInformationDetails = async () =>{
     const userToken = localStorage.getItem('userToken');
-    console.log("userToken is >>",userToken)
     const {USER_INFORMATION} = API_URL;
     try {
       const userInfoResp = await axios.get(USER_INFORMATION, {
@@ -72,7 +71,6 @@ const YourInformationContainer = () =>{
       if(userInfoResp.data && userInfoResp.data.data[0]){
         setInformationData(userInfoResp.data.data[0])
       }
-      console.log("api resp information>>",userInfoResp.data.data[0])
     } catch (e) {
       console.log("api error information >>",e);
     } 
@@ -81,7 +79,6 @@ const YourInformationContainer = () =>{
 
 const getAddressDetails = async () =>{
   const userToken = localStorage.getItem('userToken');
-  console.log("userToken is >>",userToken)
   const {USER_ADDRESS} = API_URL;
   try {
     const userAddressResp = await axios.get(USER_ADDRESS, {
@@ -90,7 +87,6 @@ const getAddressDetails = async () =>{
     if(userAddressResp.data && userAddressResp.data.data[0]){
       setAddressData(userAddressResp.data.data[0])
     }
-    console.log("api resp address>>",userAddressResp.data)
   } catch (e) {
     console.log("api error address >>",e);
   } 
@@ -99,7 +95,6 @@ const getAddressDetails = async () =>{
 
 const getContactDetails = async () =>{
   const userToken = localStorage.getItem('userToken');
-  console.log("userToken is >>",userToken)
   const {USER_CONTACT} = API_URL;
   try {
     const userContactResp = await axios.get(USER_CONTACT, {
@@ -108,7 +103,6 @@ const getContactDetails = async () =>{
     if(userContactResp.data && userContactResp.data.data[0]){
       setContactData(userContactResp.data.data[0])
     }
-    console.log("api resp contact>>",userContactResp.data)
   } catch (e) {
     console.log("api error contact >>",e);
   } 

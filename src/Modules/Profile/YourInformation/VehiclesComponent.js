@@ -13,7 +13,8 @@ const VehiclesComponent = (props) =>{
         </div>
       </div>
       <div className="d-flex flex-column">
-        <div>{props.data.vehicle_number == "" ? "N/A" : props.data.vehicle_number}</div>
+       { props && props.data && props.data.vehicle_number ? <div>{props.data.vehicle_number == "" ? "N/A" : 
+        props.data.vehicle_number}</div> : null}
       </div>
       
     </div>

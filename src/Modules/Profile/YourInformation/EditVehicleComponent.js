@@ -74,6 +74,7 @@ const EditVehicleComponent = (props) => {
                 type="submit"
                 className="btn complete-button w-100"
                 name="save"
+                data-testid="save"
             >Save</button>
         </div>
         <div className="mt-3 text-center">

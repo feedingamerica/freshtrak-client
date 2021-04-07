@@ -12,7 +12,6 @@ const AddressComponent = forwardRef(({ register, errors, addressData, states, se
     const [address_line_2, setAddress_line_2] = React.useState("");
     useEffect(() => {
         if (addressData) {
-          console.log("addressData in AddressComp>>",addressData)
             let addressInfo = { ...addressData }
             setValue('address_line_1', addressInfo.address1);
             setValue('city', addressInfo.city);

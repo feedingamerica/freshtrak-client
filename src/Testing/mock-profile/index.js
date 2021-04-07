@@ -25,10 +25,10 @@ const mockProfileBuilder = build('Profile').fields({
   city: fake(f => f.address.city()),
   state: fake(f => f.address.state()),
   license_plate: null,
-  vehicle_number : "",
+  vehicle_number : fake(f => f.random.number()),
   seniors_in_household: null,
   children_in_household: null,
   dob : fake(f => f.date.past()),
 });
 
-export const mockProfile = mockProfileBuilder();
+export const mockProfileData = mockProfileBuilder();

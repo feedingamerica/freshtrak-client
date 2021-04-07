@@ -2,7 +2,7 @@
 import React,{useContext,useState,useEffect} from 'react';
 import ButtonComponent from '../../General/ButtonComponent';
 import WellnessContainer from './WellnessContainer';
-import {RENDER_URL} from '../../../Utils/Urls';
+import {API_URL} from '../../../Utils/Urls';
 import WellnessContext from './WellnessContext';
 import axios from 'axios';
 import moment from 'moment';
@@ -15,7 +15,7 @@ const TriggerAssess = (props) => {
 	const [assessmentTitle, setAssessmentTitle] = useState(null);
 
     const setAssessmentData = async() => {
-        let assessmentUri = RENDER_URL.TRIGGER_ASSESSMENT;
+        let assessmentUri = API_URL.TRIGGER_ASSESSMENT;
         try {
             const resp = await axios.get(assessmentUri);
              

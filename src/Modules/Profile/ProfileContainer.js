@@ -9,7 +9,6 @@ const ProfileContainer = () => {
 
   const [informationData, setInformationData] = useState(null)
   useEffect(()=>{
-    console.log("TEST TEST TEST")
     if(informationData == null){
       getInformationDetails()
     }
@@ -20,7 +19,6 @@ const ProfileContainer = () => {
 
   const getInformationDetails = async () =>{
     const userToken = localStorage.getItem('userToken');
-    console.log("userToken is >>",userToken)
     const {USER_INFORMATION} = API_URL;
     try {
       const userInfoResp = await axios.get(USER_INFORMATION, {
@@ -32,7 +30,6 @@ const ProfileContainer = () => {
       if(userInfoResp.data && userInfoResp.data.data[0]){
         setInformationData(userInfoResp.data.data[0])
       }
-      console.log("api resp information>>",userInfoResp.data.data[0])
     } catch (e) {
       console.log("api error information >>",e);
     } 

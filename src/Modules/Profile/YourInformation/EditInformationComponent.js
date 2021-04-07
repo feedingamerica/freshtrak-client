@@ -70,12 +70,10 @@ const EditInformationComponent = (props) => {
       // setDateOfBirth(newDob)
       setValue('date_of_birth', value)
       setDateOfBirth(value)
-      console.log("date of birth set >>",date_of_birth)
     }
 
     const onSubmit = (data) => {
       props.tabClose()
-      console.log("onSubmit called in informationEditComponent, data is ",data)
        updateInformation(data)
     }
 
@@ -91,7 +89,6 @@ const EditInformationComponent = (props) => {
         gender : (data.gender == "" || data.gender == null || data.gender == undefined ? gender : data.gender)
       }
     }
-      console.log("PARAMS TO PUT >>",param)
 
       const userToken = localStorage.getItem('userToken');
         try {

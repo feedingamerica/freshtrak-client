@@ -41,22 +41,26 @@ const InformationComponent = (props) => {
         </div>
       </div>
       <div className="d-flex">
-        <div className="w-50">{toTitleCase(props.data.first_name)} {toTitleCase(props.data.middle_name)} {toTitleCase(props.data.last_name)}</div>
+        <div className="w-50">{props && props.data && props.data.first_name ? toTitleCase(props.data.first_name) : ""} {props && props.data && props.data.middle_name ? toTitleCase(props.data.middle_name) : ""} {props && props.data && props.data.last_name ? toTitleCase(props.data.last_name): ""}</div>
       </div>
       <div className="d-flex">
-        <div className="w-50">{props.data.dob}, {moment().diff(props.data.dob, 'years',false)}</div>
+        
+       { props && props.data && props.data.dob ? <div className="w-50">
+          {props.data.dob}, {moment().diff(props.data.dob, 'years',false)}
+          </div>:null}
+
         <div></div>
       </div>
       <div className="d-flex">
-        <div className="w-50">{decodeRaceAndEthnicity(props.data.race)}</div>
+        {props && props.data && props.data.race ? <div className="w-50">{decodeRaceAndEthnicity(props.data.race)}</div> : null}
         <div></div>
       </div>
       <div className="d-flex">
-        <div className="w-50">{decodeRaceAndEthnicity(props.data.ethnicity)}</div>
+        {props && props.data && props.data.ethnicity ? <div className="w-50">{decodeRaceAndEthnicity(props.data.ethnicity)}</div> : null}
         <div></div>
       </div>
       <div className="d-flex">
-        <div className="w-50">{props.data.gender}</div>
+        {props && props.data && props.data.gender ? <div className="w-50">{props.data.gender}</div> : null}
         <div></div>
       </div>
     </div>

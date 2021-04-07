@@ -4,7 +4,7 @@
 
 export const BASE_URL = process.env.REACT_APP_PANTRY_FINDER_API;
 const REGISTRATION_URL = process.env.REACT_APP_REGISTRATION_API;
-const LOCAL_URL = "http://192.168.20.253:8888/api/";
+const WELLNESS_URL = process.env.REACT_APP_WELLNESS_API;
 export const API_URL = {
     EVENTS_LIST : BASE_URL + 'api/agencies',
     FOODBANK_LIST : BASE_URL + 'api/foodbanks',
@@ -17,10 +17,19 @@ export const API_URL = {
     FB_AUTH: `${REGISTRATION_URL}auth_callbacks/facebook`,
     TWILIO_SMS: `${REGISTRATION_URL}twilio/sms`,
     SEND_EMAIL: `${REGISTRATION_URL}twilio/email`,
-    USER_INFORMATION : `${LOCAL_URL}profiles/user_data`,
-    USER_ADDRESS : `${LOCAL_URL}profiles/user_address`,
-    USER_CONTACT : `${LOCAL_URL}profiles/user_contact_details`,
-    USER_VEHICLE : `${LOCAL_URL}profiles/user_vehicle_details`,
+    USER_INFORMATION : `${REGISTRATION_URL}api/profiles/user_data`,
+    USER_ADDRESS : `${REGISTRATION_URL}api/profiles/user_address`,
+    USER_CONTACT : `${REGISTRATION_URL}api/profiles/user_contact_details`,
+    USER_VEHICLE : `${REGISTRATION_URL}api/profiles/user_vehicle_details`,
+
+    UPDATE_INFORMATION : `${REGISTRATION_URL}api/profiles/update_user_data`,
+    UPDATE_ADDRESS : `${REGISTRATION_URL}api/profiles/update_user_address`,
+    UPDATE_CONTACT : `${REGISTRATION_URL}api/profiles/update_user_contact`,
+    UPDATE_VEHICLE : `${REGISTRATION_URL}api/profiles/update_user_vehicle`,
+
+    QUESTIONS : WELLNESS_URL + 'api/assessment_questions',
+    SUBMIT_ASSESSMENT :  WELLNESS_URL + 'api/user_assessment_answers',
+    TRIGGER_ASSESSMENT : WELLNESS_URL + 'api/assessments',
     
 };
 
@@ -41,7 +50,5 @@ export const RENDER_URL = {
   QRCODE_URL: '/qrcode',
   PRIVACY: '/privacy',
   TERMS: '/terms',
-  QUESTIONS : "http://192.168.21.50:8888/api/assessment_questions",
-  SUBMIT_ASSESSMENT : "http://localhost:8888/api/user_assessment_answers",
-  TRIGGER_ASSESSMENT : "http://localhost:8888/api/assessments",
+  
 };

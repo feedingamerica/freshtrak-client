@@ -3,7 +3,6 @@ import FacebookLogin from 'react-facebook-login';
 
 const FacebookLoginComponent = ({onFbLogin} ) => {
   const responseFacebook = async (response) => {
-    console.log(response);
     if (response.status !== 'unknown') {
       onFbLogin(response);
     }

@@ -73,7 +73,6 @@ const RegistrationConfirmComponent = props => {
       dispatch(setCurrentUser(data));
       setUser(data);
       setLoading(false);
-      console.log("data is >>",data)
     } catch (e) {
       console.error(e);
     }
@@ -84,7 +83,6 @@ const RegistrationConfirmComponent = props => {
   function fetchBusinesses(){
     setUserToken(localStorage.getItem('userToken'));
     let tok = localStorage.getItem('userToken');
-    console.log("setUserToken called >>",tok)
     if (!isError && !pageError) {
       if(Object.keys(selectedEvent).length === 0) {
         getEvent();
@@ -97,7 +95,6 @@ const RegistrationConfirmComponent = props => {
 
   const getEvent = async () => {
     let TOKENNN = getUser(localStorage.getItem('userToken'))
-    console.log("TOKENNN >> ",TOKENNN)
     try {
       const resp = await axios.get(
         `${BASE_URL}api/event_dates/${eventDateId}/event_details`

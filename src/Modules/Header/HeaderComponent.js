@@ -147,7 +147,7 @@ const HeaderComponent = (props) => {
             )}
 
 
-            {/* {isLoggedIn && (
+            {isLoggedIn && (
               <LinkContainer to={RENDER_URL.PROFILE_URL}>
                 <button
                 type="submit"
@@ -157,7 +157,7 @@ const HeaderComponent = (props) => {
                   PROFILE
                 </button>
               </LinkContainer>
-            )} */}
+            )}
             {/* <div>
               <label>Select Language ?</label>
               <select onChange={change} value={language.language}>
