@@ -68,7 +68,7 @@ const YourInformationContainer = () =>{
       const userInfoResp = await axios.get(USER_INFORMATION, {
         headers: { Authorization: `Bearer ${userToken}` }
       });
-      if(userInfoResp.data && userInfoResp.data.data[0]){
+      if(userInfoResp && userInfoResp.data && userInfoResp.data.data && userInfoResp.data.data[0]){
         setInformationData(userInfoResp.data.data[0])
       }
     } catch (e) {
@@ -84,7 +84,7 @@ const getAddressDetails = async () =>{
     const userAddressResp = await axios.get(USER_ADDRESS, {
       headers: { Authorization: `Bearer ${userToken}` }
     });
-    if(userAddressResp.data && userAddressResp.data.data[0]){
+    if(userAddressResp && userAddressResp.data && userAddressResp.data.data && userAddressResp.data.data[0]){
       setAddressData(userAddressResp.data.data[0])
     }
   } catch (e) {
@@ -100,7 +100,7 @@ const getContactDetails = async () =>{
     const userContactResp = await axios.get(USER_CONTACT, {
       headers: { Authorization: `Bearer ${userToken}` }
     });
-    if(userContactResp.data && userContactResp.data.data[0]){
+    if(userContactResp && userContactResp.data && userContactResp.data.data && userContactResp.data.data[0]){
       setContactData(userContactResp.data.data[0])
     }
   } catch (e) {
@@ -138,7 +138,7 @@ const getVehicleDetails = async () =>{
     const userVehicleResp = await axios.get(USER_VEHICLE, {
       headers: { Authorization: `Bearer ${userToken}` }
     });
-    if(userVehicleResp.data && userVehicleResp.data.data[0]){
+    if(userVehicleResp && userVehicleResp.data && userVehicleResp.data.data && userVehicleResp.data.data[0]){
       setVehicleData(userVehicleResp.data.data[0])
     }
   } catch (e) {

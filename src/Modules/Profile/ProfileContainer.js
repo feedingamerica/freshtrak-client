@@ -27,7 +27,7 @@ const ProfileContainer = () => {
       // setUsersReservation(usersRegData.data);
       //getEventByDateId(usersRegData.data);
       // setLoading();
-      if(userInfoResp.data && userInfoResp.data.data[0]){
+      if(userInfoResp && userInfoResp.data && userInfoResp.data.data && userInfoResp.data.data[0]){
         setInformationData(userInfoResp.data.data[0])
       }
     } catch (e) {

@@ -135,6 +135,19 @@ const HeaderComponent = (props) => {
               </LinkContainer>
             )}*/}
             {isLoggedIn && (
+                  <div>
+            <LinkContainer to={RENDER_URL.PROFILE_URL}>
+                <button
+                type="submit"
+                className="btn btn-link header-sign-in"
+                //onClick={logOut}
+                >
+                  PROFILE
+                </button>
+              </LinkContainer>
+
+
+
               <LinkContainer to={RENDER_URL.ROOT_URL}>
                 <button
                 type="submit"
@@ -144,10 +157,12 @@ const HeaderComponent = (props) => {
                   LOG OUT
                 </button>
               </LinkContainer>
+
+                </div>
             )}
 
 
-            {isLoggedIn && (
+            {/* {isLoggedIn && (
               <LinkContainer to={RENDER_URL.PROFILE_URL}>
                 <button
                 type="submit"
@@ -157,7 +172,8 @@ const HeaderComponent = (props) => {
                   PROFILE
                 </button>
               </LinkContainer>
-            )}
+            )} */}
+
             {/* <div>
               <label>Select Language ?</label>
               <select onChange={change} value={language.language}>

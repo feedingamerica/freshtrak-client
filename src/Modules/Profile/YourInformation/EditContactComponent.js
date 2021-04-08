@@ -77,7 +77,7 @@ const EditContactComponent = (props) => {
                     className= {`form-control ${errors.email && 'invalid'}`}
                     name="email"
                     id="email"
-                    value={email !== null ? email : ""}
+                    value={email ? email : ""}
                     onChange={(e)=>setEmail(e.target.value)}
                     ref={register({ required: true })}
                   />

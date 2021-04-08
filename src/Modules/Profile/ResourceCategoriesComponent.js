@@ -4,10 +4,10 @@ import healthImage from '../../Assets/img/health.png';
 import educationImage from '../../Assets/img/education.png';
 import economicImage from '../../Assets/img/economic.png';
 import homeImage from '../../Assets/img/home.png';
-import { Link } from 'react-router-dom';
 import { RENDER_URL } from '../../Utils/Urls';
 
 const ResourceCategoryComponent = () => {
+  const assessmentUrl = RENDER_URL.WELLNESS_ASSESS_URL;
   return (
     <>
     <h5 className="section-title font-weight-bold">Resource Categories</h5>
@@ -34,14 +34,7 @@ const ResourceCategoryComponent = () => {
              </div>
              <div className="flex-grow-1">
                <div className="font-weight-bold mb-0 profile-title">Health</div>
-               {/* <a href={profileUrl} className="small">Take the Assessment</a> */}
-
-               <Link to={RENDER_URL.WELLNESS_ASSESS_URL}>
-               Take the Assessment
-                </Link>
-
-
-
+               <a href={assessmentUrl} className="small">Take the Assessment</a>
              </div>
            </div>
          </div>
