@@ -320,7 +320,7 @@ const HeaderComponent = (props) => {
           </button>
         </div>
       )}
-       <Modal show={show} onHide={handleClose} className="custom-modal">
+       <Modal show={show} backdrop="static" onHide={handleClose} className="custom-modal">
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body>
