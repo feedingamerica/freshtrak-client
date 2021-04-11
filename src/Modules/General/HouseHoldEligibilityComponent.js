@@ -14,6 +14,11 @@ const HouseHoldEligibilityComponent = ({ header, body, footer }) => {
     addOnData = addon ? addon : '';
   }
 
+  const viewEligibilityGuidelines = (e) => {
+    e.preventDefault();
+    setShowEligibilityModal(true)
+  }
+
   return (
     <div className="row align-items-center mt-2">
       <div className="col-lg-12 col-sm-10">
@@ -23,10 +28,10 @@ const HouseHoldEligibilityComponent = ({ header, body, footer }) => {
           </span>
           <span className="font-weight-bold ml-2">
             <a
-              href={() => false}
+              href='#'
               className="link"
               rel="noopener noreferrer"
-              onClick={() => setShowEligibilityModal(true)}
+              onClick={viewEligibilityGuidelines}
             >
               View Eligibility Guidelines
             </a>
