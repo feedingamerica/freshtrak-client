@@ -61,7 +61,7 @@ const EditVehicleComponent = (props) => {
                     className= {`form-control ${errors.vehicle && 'invalid'}`}
                     name="vehicle"
                     id="vehicle"
-                    value={vehicle}
+                    value={vehicle ? vehicle : ''}
                     onChange={(e)=>setVehicle(e.target.value)}
                     ref={register({ required: true })}
                   />

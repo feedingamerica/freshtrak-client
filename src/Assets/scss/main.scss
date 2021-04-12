@@ -275,7 +275,7 @@ body {
         }
     }
     .header {
-        background: $primaryColor url(../img/banner-bg.png) no-repeat center center;
+        background: $lightGreen url(../img/banner-bg.png) no-repeat center center;
         height: 400px;
         @include responsive(extra-smaller-devices) {
             height: 300px;
@@ -369,6 +369,11 @@ body {
             }
         }
     }
+
+    .country-list-component{
+        min-width: 150px!important;
+    }
+    
     // nav-only
     .navbar-green {
         background-color: $primaryColor;

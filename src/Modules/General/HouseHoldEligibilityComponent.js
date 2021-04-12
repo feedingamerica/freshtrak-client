@@ -23,7 +23,7 @@ const HouseHoldEligibilityComponent = ({ header, body, footer }) => {
           </span>
           <span className="font-weight-bold ml-2">
             <a
-              href={() => false}
+              //href={() => false}
               className="link"
               rel="noopener noreferrer"
               onClick={() => setShowEligibilityModal(true)}

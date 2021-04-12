@@ -2,15 +2,13 @@ import React, { useEffect, useState, Fragment } from "react";
 
 import mainLogo from "../../Assets/img/logo.png";
 import closeIcon from '../../Assets/img/close.svg';
-// import navBarIcon from "../../Assets/img/menu.svg";
 import { Link } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap';
 import localization from '../Localization/LocalizationComponent';
 import { useDispatch } from 'react-redux';
 import {setCurrentLanguage} from '../../Store/languageSlice';
-import CountryListComponent from '../Localization/countryListComponent'
-import { useSelector } from 'react-redux';
-import 'semantic-ui-css/semantic.min.css'
+import CountryListComponent from '../Localization/countryListComponent';
+import 'semantic-ui-css/semantic.min.css';
 import {
   Nav,
   Navbar,
@@ -140,7 +138,6 @@ const HeaderComponent = (props) => {
                 <button
                 type="submit"
                 className="btn btn-link header-sign-in"
-                //onClick={logOut}
                 >
                   PROFILE
                 </button>

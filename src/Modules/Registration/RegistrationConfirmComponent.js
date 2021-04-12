@@ -145,7 +145,7 @@ const RegistrationConfirmComponent = props => {
             {/* <span>
                   Special Instructions Link <b> Hii </b>
                 </span> */}
-
+{/* 
             <Link to={PROFILE_ROOT}>
               <div className="button-wrap mt-4">
                 <button
@@ -156,7 +156,7 @@ const RegistrationConfirmComponent = props => {
                   Go To Profile
                 </button>
               </div>
-            </Link>
+            </Link> */}
 
 
 

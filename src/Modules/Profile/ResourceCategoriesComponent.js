@@ -21,7 +21,7 @@ const ResourceCategoryComponent = () => {
              </div>
              <div className="flex-grow-1">
                <div className="font-weight-bold mb-0 profile-title">Food</div>
-               <a href="" className="small">Take the Assessment</a>
+               <a href={assessmentUrl} className="small">Take the Assessment</a>
              </div>
            </div>
          </div>

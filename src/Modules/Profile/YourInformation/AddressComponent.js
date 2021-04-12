@@ -13,10 +13,10 @@ const AddressComponent = (props) =>{
         </div>
       </div>
       <div className="d-flex flex-column">
-        <div>{props.data.address1}</div>
+        {props && props.data && props.data.address1 ? <div>{props.data.address1}</div>: null }
         {props.data.address2 !== null ? <div>{props.data.address2}</div> : null}
-        <div>{props.data.city}</div>
-        <div>{props.data.state}, {props.data.zipcode}</div>
+        {props && props.data && props.data.city ? <div>{props.data.city}</div>: null}
+        {props && props.data && props.data.state && props.data.zipcode ? <div>{props.data.state}, {props.data.zipcode}</div>:null}
       </div>
       
     </div>

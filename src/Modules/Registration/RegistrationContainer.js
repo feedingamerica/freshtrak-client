@@ -135,7 +135,6 @@ const RegistrationContainer = (props) => {
   }
 
   const register = async user => {
-    debugger
     setDisabled(!disabled);
     const event_date_id = parseInt(eventDateId, 10);
     const event_slot_id = parseInt(eventSlotId, 10);
