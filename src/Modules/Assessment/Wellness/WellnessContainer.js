@@ -23,6 +23,7 @@ import backBtn from '../../../Assets/img/back-green.svg';
 import {RENDER_URL,API_URL} from '../../../Utils/Urls';
 import axios from 'axios';
 import moment from 'moment';
+import Modal from "react-bootstrap/Modal";
 
 
 const WellnessContainer = (props) => {
@@ -217,9 +218,8 @@ const WellnessContainer = (props) => {
   		    
 <>
 
-	<div className="modal1 assessment-modal h-100 w-100" id="assessment" 
-	style={{zIndex:1100,position:'absolute',top:0}}>
-        <div className="modal-dialog h-100" role="document">
+	<div className="modal1 assessment-modal h-100 w-100" id="assessment">
+        <div className="modal-dialog h-100" role="document" style={{position: 'fixed', left:'50%', top:0, transform: 'translateX(-50%)', zIndex: 1031  }}>
 						<div className={currPage == dataLength ? "modal-content h-100 bg-green" 
 						: "modal-content h-100"}>
                 <div className="modal-header">

@@ -16,7 +16,7 @@ const ResourceCategoryComponent = () => {
   const assessmentUrl = RENDER_URL.WELLNESS_ASSESS_URL;
 
   const [showModal, setShowModal] = useState(false);
-  const userToken = localStorage.getItem('userToken');
+  const authToken = localStorage.getItem('authToken');
 
   useEffect(() => {
     if(Object.keys(context.beginAssessmentData).length === 0){
@@ -42,7 +42,7 @@ const ResourceCategoryComponent = () => {
 
 
   const triggerAssessment=()=>{
-    if(userToken && context.beginAssessmentData){
+    if(authToken && context.beginAssessmentData){
       setShowModal(true)
       context.start_time = moment().format('YYYY-MM-DD hh:mm');
     }

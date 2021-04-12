@@ -4,27 +4,31 @@ import ProfileTabComponent from "../Profile/ProfileTabComponent";
 import TakeTheAssessmentComponent from "../General/TakeTheAssessmentComponent";
 import axios from 'axios';
 import { API_URL } from '../../Utils/Urls';
+import { useHistory } from 'react-router-dom';
+import { RENDER_URL } from "../../Utils/Urls";
 
 const ProfileContainer = () => {
+  const history = useHistory();
+  const authToken = localStorage.getItem('authToken');
 
   const [informationData, setInformationData] = useState(null)
   useEffect(()=>{
+    if(authToken == undefined){
+      history.push(`${RENDER_URL.ROOT_URL}`);
+    }
     if(informationData == null){
       getInformationDetails()
-      console.log("getInformationDetails called for null check")
     }
-    console.log("getInformationDetails called")
     
   })
 
 
 
   const getInformationDetails = async () =>{
-    const userToken = localStorage.getItem('userToken');
     const {USER_INFORMATION} = API_URL;
     try {
       const userInfoResp = await axios.get(USER_INFORMATION, {
-        headers: { Authorization: `Bearer ${userToken}` }
+        headers: { Authorization: `${authToken}` }
       });
       // setUsersReservation(usersRegData.data);
       //getEventByDateId(usersRegData.data);

@@ -30,10 +30,10 @@ const EditVehicleComponent = (props) => {
 
   const updateVehicleData = async (data) =>{
     let param = {"user":{license_plate : data.vehicle}}
-    const userToken = localStorage.getItem('userToken');
+    const authToken = localStorage.getItem('authToken');
       try {
         const resp = await axios.put(API_URL.UPDATE_INFORMATION, param,
-          { headers: { Authorization: `Bearer ${userToken}` } }
+          { headers: { Authorization: `${authToken}` } }
         );
         props.refreshMainTab()
       } catch (e) {
