@@ -11,7 +11,9 @@ const ProfileContainer = () => {
   useEffect(()=>{
     if(informationData == null){
       getInformationDetails()
+      console.log("getInformationDetails called for null check")
     }
+    console.log("getInformationDetails called")
     
   })
 
