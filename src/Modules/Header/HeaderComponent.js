@@ -2,24 +2,46 @@ import React, { useEffect, useState, Fragment } from "react";
 
 import mainLogo from "../../Assets/img/logo.png";
 import closeIcon from '../../Assets/img/close.svg';
+import userIcon from "../../Assets/img/Mask.svg";
 // import navBarIcon from "../../Assets/img/menu.svg";
 import { Link } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap';
 import localization from '../Localization/LocalizationComponent';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector } from 'react-redux';
 import {setCurrentLanguage} from '../../Store/languageSlice';
-import CountryListComponent from '../Localization/countryListComponent'
-import { useSelector } from 'react-redux';
+import CountryListComponent from '../Localization/countryListComponent';
+import 'semantic-ui-css/semantic.min.css';
+import UserBlockContainer from '../UserModule/UserBlockContainer';
+import {Modal} from 'react-bootstrap';
+import { setCurrentEvent } from '../../Store/Events/eventSlice';
+import { setCurrentUser, selectUser } from '../../Store/userSlice';
+import { selectLoggedIn, setLoggedIn } from '../../Store/loggedInSlice';
 import 'semantic-ui-css/semantic.min.css'
 import {
   Nav,
   Navbar,
-} from "react-bootstrap";
+   NavDropdown,
+   //DropdownItem
+} from 'react-bootstrap';
 
 import { RENDER_URL } from "../../Utils/Urls";
+import { USER_TYPES } from "../../Utils/Constants";
+
+import {LogOut, CurrentUser} from "../../Utils/CognitoHandler";
+import { useHistory } from 'react-router-dom';
+
+
+import { Auth } from 'aws-amplify';
+import {COGNITO_CONFIG}  from "../../Utils/Constants";
+
+Auth.configure(COGNITO_CONFIG);
+
 const HeaderComponent = (props) => {
+  const history = useHistory();
   const [navbarShrink, setNavbarShrink] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const loggedIn = useSelector(selectLoggedIn);
+  const [isLoggedIn, setIsLoggedIn] = useState(loggedIn);
+  const [show, setShow] = useState(false);
   const shortHeader = props.shortHeader || "";
   const dispatch = useDispatch();
   // const language = useSelector(state => state.language.language);
@@ -27,18 +49,13 @@ const HeaderComponent = (props) => {
     localization.setLanguage(data.value);
     dispatch(setCurrentLanguage(data.value));
   }
+
   const localIsLoggedIn = localStorage.getItem("isLoggedIn");
+  const userType = localStorage.getItem("userType");
   const [showMobileMenu, setMobileMenu] = useState(false);
   const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
   useEffect(() => {
-    let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
-    let userToken = localStorage.getItem('userToken');
-    if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
-      setIsLoggedIn(false);
-    } else {
-      setIsLoggedIn(true);
-    }
-
+    const localStorageLoggedIn = localStorage.getItem('isLoggedIn');
     window.onscroll = () => {
       if (window.pageYOffset > 100) {
         setNavbarShrink("navbar-shrink");
@@ -46,18 +63,64 @@ const HeaderComponent = (props) => {
         setNavbarShrink("");
       }
     };
-  }, [localIsLoggedIn, isLoggedIn]);
+  }, [loggedIn,dispatch,userType]);
 
-  const logOut = () => {
-    localStorage.setItem('isLoggedIn', false);
-    setIsLoggedIn(false);
 
+  const clearStorage= ()=>{
     localStorage.removeItem('userToken');
     localStorage.removeItem('tokenExpiresAt');
     localStorage.removeItem('search_zip');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('selectedEventId');
+    localStorage.removeItem('authToken');
+  }
+ 
+  
+  const logOut = async() => { 
+    setIsLoggedIn(false)
+    dispatch(setLoggedIn(false));
+    localStorage.setItem('isLoggedIn', false);
+    localStorage.removeItem('isAdded');
+     if(userType == 0){ 
+       setIsLoggedIn(false);
+       localStorage.removeItem('userType');
+       localStorage.removeItem('selectedEventId');
+       localStorage.removeItem('authToken');
+    await LogOut().then(async res => {
+         let data = res.data;
+         if(res && res.status){
+           dispatch(setCurrentEvent({}));
+           dispatch(setCurrentUser({}));
+           clearStorage()
+         }
+         history.push(`${RENDER_URL.ROOT_URL}`);
+       })
+       .catch(err=>{
+         console.log("err in logOut",err)
+       })
+
+
+     }
+     else{
+       setIsLoggedIn(false);
+       localStorage.setItem('isLoggedIn',false);
+       clearStorage()
+       dispatch(setCurrentEvent({}));
+       dispatch(setCurrentUser({}));
+       dispatch(setLoggedIn(false));
+       history.push(`${RENDER_URL.ROOT_URL}`);
+     }  
+    
     //window.FB.logout()
   }
-  
+
+  const goToProfile=()=>{
+    history.push(`${RENDER_URL.PROFILE_URL}`);
+  }
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <Fragment>
       <Nav
@@ -133,49 +196,55 @@ const HeaderComponent = (props) => {
                     SIGN IN
                 </Nav.Link>
               </LinkContainer>
-            )}*/}
-            {isLoggedIn && (
-              <LinkContainer to={RENDER_URL.ROOT_URL}>
-                <button
-                type="submit"
-                className="btn btn-link header-sign-in"
-                onClick={logOut}
-                >
-                  LOG OUT
-                </button>
-              </LinkContainer>
-            )}
+            )} */}
 
 
-            {isLoggedIn && (
-              <LinkContainer to={RENDER_URL.PROFILE_URL}>
-                <button
-                type="submit"
-                className="btn btn-link header-sign-in"
-                //onClick={logOut}
-                >
-                  PROFILE
-                </button>
-              </LinkContainer>
-            )}
-            {/* <div>
-              <label>Select Language ?</label>
-              <select onChange={change} value={language.language}>
-                <option value= "en"> English </option>
-                <option value= "spa"> Spanish </option>
-                <option value= "som"> Somali </option>
-                <option value= "rus"> Russian </option>
-                <option value= "tur"> Turkish </option>
-                <option value= "ara"> Arabic </option>
-                <option value= "zho"> Chinese </option>
-                <option value= "hin"> Hindi </option>
-                <option value= "nep"> Nepali </option>
-              </select>
-            </div> */}
+
+          {userType == USER_TYPES.CUSTOMER && localIsLoggedIn == 'true' && (
+            <div className="mr-3 font-weight-bold pointer text-white" 
+            onClick={() => goToProfile()}>
+                Profile
+             </div>
+             )}
+
+
+          {localIsLoggedIn !== 'true' && (
+            <div className="mr-3 font-weight-bold pointer text-white" 
+            onClick={() => setShow(true)}>
+                Sign In
+             </div>
+             )}
+
+
+          {localIsLoggedIn == 'true' && (
+            <div className="mr-3 font-weight-bold pointer text-white" 
+            onClick={()=>logOut()}>
+                Sign Out
+             </div>
+             )}
+
+
+
+
+
+{/* 
+            {loggedIn && (
+               <LinkContainer to={RENDER_URL.ROOT_URL}>
+               <a
+               //type="submit"
+               //className="btn btn-link header-sign-in"
+               className="header-sign-in mr-3 font-weight-bold pointer"
+               onClick={()=>logOut()}
+               >
+                 Sign Out
+               </a>
+             </LinkContainer>)} */}
+
             <CountryListComponent change={change}/>
           </Navbar>
         </div>
       </Nav>
+
       {/* Menu popup div */}
       {showMobileMenu && (
         <div id="menuSlider" className="mobile-menu fadeIn">
@@ -231,6 +300,13 @@ const HeaderComponent = (props) => {
           </button>
         </div>
       )}
+       <Modal show={show} backdrop="static" onHide={handleClose} className="custom-modal light">
+        <Modal.Header closeButton>
+        </Modal.Header>
+        <Modal.Body>
+          <UserBlockContainer handleClose={()=>setShow(false)} />
+        </Modal.Body>
+      </Modal>
     </Fragment>
   );
 };

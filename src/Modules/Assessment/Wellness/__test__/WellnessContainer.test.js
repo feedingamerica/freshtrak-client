@@ -1,10 +1,24 @@
 import React from 'react';
 import { render,wait } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 import WellnessContainer from '../WellnessContainer';
 import { mockAssessmentQuestions } from '../../../../Testing/mock-assessment';
+import { renderWithRouter } from '../../../../Testing';
 import axios from 'axios';
 jest.mock('axios');
-//passed
+
+const mockStore = configureStore([]);
+const store = mockStore({
+  user: {
+    id : 1,
+    user : "",
+    
+  },
+  addressSearch: {
+    zipCode: 43214
+  }
+});
 const originalWarn = console.warn.bind(console.warn);
 beforeAll(() => {
   console.warn = msg =>
@@ -16,12 +30,13 @@ afterAll(() => {
 
 
 test('should display the events', () => {
-    const { getByText } = render(<WellnessContainer />);
+    const { getByText } = render(<Provider store={store}>
+      <WellnessContainer />
+    </Provider>);
   });
 
 
 
-  // function generateUsers() {
     test('rendered with passed data, api response success', async () => {
 
     let questions = []
@@ -39,17 +54,13 @@ test('should display the events', () => {
       message : "Questions retrieved successfully",
      };
      axios.get.mockImplementation(() => Promise.resolve(response));
-     const { getByText } = render(
+    const { getByText } = render (<Provider store={store}>
       <WellnessContainer />
-    );
+    </Provider>);
      await wait(() => {
        getByText('Begin Assessment');
-      // "something wrongggg"
     });
   });
-
-
-
 
 
   test('Failed api call', async () => {
@@ -58,12 +69,9 @@ test('should display the events', () => {
       statusText: 'ERROR',
     };
     axios.get.mockImplementation(() => Promise.reject(failedResponse));
-    const { getByText } = render(
+    const { getByText } = render(<Provider store={store}>
       <WellnessContainer />
-      //{ route, path }
-    );
+    </Provider>);
     await wait(() => {
-      // getByText(/something went wrong/i);
-      //"something wrongggg"
     });
   });

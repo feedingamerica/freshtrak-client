@@ -30,10 +30,10 @@ const EditVehicleComponent = (props) => {
 
   const updateVehicleData = async (data) =>{
     let param = {"user":{license_plate : data.vehicle}}
-    const userToken = localStorage.getItem('userToken');
+    const authToken = localStorage.getItem('authToken');
       try {
         const resp = await axios.put(API_URL.UPDATE_INFORMATION, param,
-          { headers: { Authorization: `Bearer ${userToken}` } }
+          { headers: { Authorization: `${authToken}` } }
         );
         props.refreshMainTab()
       } catch (e) {
@@ -61,7 +61,7 @@ const EditVehicleComponent = (props) => {
                     className= {`form-control ${errors.vehicle && 'invalid'}`}
                     name="vehicle"
                     id="vehicle"
-                    value={vehicle}
+                    value={vehicle ? vehicle : ''}
                     onChange={(e)=>setVehicle(e.target.value)}
                     ref={register({ required: true })}
                   />

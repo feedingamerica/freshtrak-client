@@ -12,6 +12,8 @@ const HeaderContainer = () => {
   const shortHeader = headerContext.shortHeader;
 
   return (
+    location.pathname === RENDER_URL.USER_LOGIN ? <></> :  
+
     <div>
       {location.pathname === RENDER_URL.EVENT_CONFIRM_URL ||
       location.pathname === RENDER_URL.ADD_FAMILY_URL ||

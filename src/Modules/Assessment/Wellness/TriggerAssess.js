@@ -13,7 +13,7 @@ const TriggerAssess = (props) => {
 	let context = useContext(WellnessContext);
 	const [showModal, setShowModal] = useState(false);
 	const [assessmentTitle, setAssessmentTitle] = useState(null);
-
+    const userToken = localStorage.getItem('userToken');
     const setAssessmentData = async() => {
         let assessmentUri = API_URL.TRIGGER_ASSESSMENT;
         try {
@@ -26,9 +26,14 @@ const TriggerAssess = (props) => {
             }
             
         } catch (err) {
-            console.log("ERROR LOADING trigger CARD DATA",err)
+            console.log("ERROR LOADING DATA",err)
         }
     };
+    const redirectToAssessment=()=>{
+    if(userToken && context.beginAssessmentData){
+        setShowModal(true)
+    }
+    }
 
 
 
@@ -47,7 +52,7 @@ const TriggerAssess = (props) => {
                         <div className="p-3">
                             <h3 className="mt-3 mb-3">Take the {assessmentTitle}</h3>
                             <button className="btn mt-2 custom-button w-100" data-toggle="modal"
-                            data-target="#assessment" onClick={()=>setShowModal(true)}>Begin Assessment</button>
+                            data-target="#assessment" onClick={()=>redirectToAssessment()}>Begin Assessment</button>
                         </div>
                     </div>
                 </div>

@@ -4,11 +4,7 @@ import { API_URL, RENDER_URL, BASE_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import { setCurrentEvent, selectEvent } from '../../Store/Events/eventSlice';
 import { setCurrentUser, selectUser } from '../../Store/userSlice';
-// import React, { Fragment } from 'react';
-// import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-// import { RENDER_URL } from '../../Utils/Urls';
-// import { selectEvent } from '../../Store/Events/eventSlice';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { Link } from 'react-router-dom';
 import identificationCodeImg1 from '../../Assets/img/id_code1.png';
@@ -74,6 +70,7 @@ const RegistrationConfirmComponent = props => {
       setUser(data);
       setLoading(false);
     } catch (e) {
+      setLoading(false);
       console.error(e);
     }
   };
@@ -87,7 +84,7 @@ const RegistrationConfirmComponent = props => {
       if(Object.keys(selectedEvent).length === 0) {
         getEvent();
       }
-      if(user === null) {
+      if(user === null || user && (Object.keys(user).length === 0)) {
         getUser(localStorage.getItem('userToken'));
       }
     }
@@ -145,7 +142,7 @@ const RegistrationConfirmComponent = props => {
             {/* <span>
                   Special Instructions Link <b> Hii </b>
                 </span> */}
-
+{/* 
             <Link to={PROFILE_ROOT}>
               <div className="button-wrap mt-4">
                 <button
@@ -156,7 +153,7 @@ const RegistrationConfirmComponent = props => {
                   Go To Profile
                 </button>
               </div>
-            </Link>
+            </Link> */}
 
 
 
@@ -193,11 +190,13 @@ const RegistrationConfirmComponent = props => {
               <br />
             </div>
             { event &&
+                <div className="row">
                   <div className="col-6">
                     <div className="day-view">
                       <EventCardComponent key={event.id} event={event} registrationView={true}/>
                     </div>
                   </div>
+                </div>
             }
             <h5 className="mb-4">
               <b> Your Information </b>

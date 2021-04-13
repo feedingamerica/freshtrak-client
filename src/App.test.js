@@ -9,7 +9,7 @@ const mockStore = configureStore([]);
 
 it('renders without crashing', () => {
   expect(() => {
-    const store = mockStore({ language: {}, addressSearch: { zipCode: '' } });
+    const store = mockStore({ language: {}, addressSearch: { zipCode: '' },loggedIn:{loggedIn:false},currentUser:{} });
     render(
     <Router>
       <Provider store={store}>

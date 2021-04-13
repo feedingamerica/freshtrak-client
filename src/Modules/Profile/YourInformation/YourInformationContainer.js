@@ -15,7 +15,7 @@ import axios from 'axios';
 
 import { API_URL } from '../../../Utils/Urls';
 
-const YourInformationContainer = () =>{
+const YourInformationContainer = (props) =>{
   const { register, handleSubmit, errors,setValue,watch } = useForm();
   const [showInformationTray, setShowInformationTray] = useState(false)
   const [showAddressTray, setShowAddressTray] = useState(false)
@@ -28,6 +28,7 @@ const YourInformationContainer = () =>{
   const [contactData, setContactData] = useState(null)
   const [languagePreferenceData, setLanguagePreferenceData] = useState(null)
   const [vehicleData, setVehicleData] = useState(null)
+  const authToken = localStorage.getItem('authToken');
 
 
   useEffect(() => {
@@ -42,6 +43,7 @@ const YourInformationContainer = () =>{
 
   const refreshInformationTab=()=>{
     getInformationDetails()
+    props.onRefresh()
   }
 
   const refreshAddressTab=()=>{
@@ -62,13 +64,12 @@ const YourInformationContainer = () =>{
 
 
   const getInformationDetails = async () =>{
-    const userToken = localStorage.getItem('userToken');
     const {USER_INFORMATION} = API_URL;
     try {
       const userInfoResp = await axios.get(USER_INFORMATION, {
-        headers: { Authorization: `Bearer ${userToken}` }
+        headers: { Authorization: `${authToken}` }
       });
-      if(userInfoResp.data && userInfoResp.data.data[0]){
+      if(userInfoResp && userInfoResp.data && userInfoResp.data.data && userInfoResp.data.data[0]){
         setInformationData(userInfoResp.data.data[0])
       }
     } catch (e) {
@@ -78,13 +79,13 @@ const YourInformationContainer = () =>{
 
 
 const getAddressDetails = async () =>{
-  const userToken = localStorage.getItem('userToken');
   const {USER_ADDRESS} = API_URL;
   try {
     const userAddressResp = await axios.get(USER_ADDRESS, {
-      headers: { Authorization: `Bearer ${userToken}` }
+      headers: { Authorization: `${authToken}` }
     });
-    if(userAddressResp.data && userAddressResp.data.data[0]){
+    if(userAddressResp && userAddressResp.data && 
+      userAddressResp.data.data && userAddressResp.data.data[0]){
       setAddressData(userAddressResp.data.data[0])
     }
   } catch (e) {
@@ -94,13 +95,13 @@ const getAddressDetails = async () =>{
 
 
 const getContactDetails = async () =>{
-  const userToken = localStorage.getItem('userToken');
   const {USER_CONTACT} = API_URL;
   try {
     const userContactResp = await axios.get(USER_CONTACT, {
-      headers: { Authorization: `Bearer ${userToken}` }
+      headers: { Authorization: `${authToken}` }
     });
-    if(userContactResp.data && userContactResp.data.data[0]){
+    if(userContactResp && userContactResp.data && 
+      userContactResp.data.data && userContactResp.data.data[0]){
       setContactData(userContactResp.data.data[0])
     }
   } catch (e) {
@@ -111,12 +112,10 @@ const getContactDetails = async () =>{
 
 
 // const getLanguageDetails = async () =>{
-//   const userToken = localStorage.getItem('userToken');
-//   console.log("userToken is >>",userToken)
 //   const {USER_LANGUAGE} = API_URL;
 //   try {
 //     const userLangPrefResp = await axios.get(USER_INFORMATION, {
-//       headers: { Authorization: `Bearer ${userToken}` }
+//       headers: { Authorization: `${authToken}` }
 //     });
 //     // setUsersReservation(usersRegData.data);
 //     //getEventByDateId(usersRegData.data);
@@ -132,13 +131,13 @@ const getContactDetails = async () =>{
 
 
 const getVehicleDetails = async () =>{
-  const userToken = localStorage.getItem('userToken');
   const {USER_VEHICLE} = API_URL;
   try {
     const userVehicleResp = await axios.get(USER_VEHICLE, {
-      headers: { Authorization: `Bearer ${userToken}` }
+      headers: { Authorization: `${authToken}` }
     });
-    if(userVehicleResp.data && userVehicleResp.data.data[0]){
+    if(userVehicleResp && userVehicleResp.data && 
+      userVehicleResp.data.data && userVehicleResp.data.data[0]){
       setVehicleData(userVehicleResp.data.data[0])
     }
   } catch (e) {

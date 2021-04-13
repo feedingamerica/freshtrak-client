@@ -8,10 +8,20 @@ import EventSlotsModalComponent from '../Family/EventSlotsModalComponent';
 import { formatDateForServer } from '../../Utils/DateFormat';
 import BackButtonComponent from '../General/BackButtonComponent';
 import localization from '../Localization/LocalizationComponent';
+import { useHistory } from 'react-router-dom';
+import { RENDER_URL } from "../../Utils/Urls";
 
 const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const { register, handleSubmit, errors, getValues, watch, reset, setValue } = useForm({mode: 'onChange'});
+  const history = useHistory();
+  const localIsLoggedIn = localStorage.getItem("isLoggedIn");
+  const selectedEventId = localStorage.getItem("selectedEventId");
   useEffect(() => {
+    
+    if(!localIsLoggedIn){
+      history.push(`${RENDER_URL.ROOT_URL}`);
+    }
+
     const {
       first_name,
       middle_name,

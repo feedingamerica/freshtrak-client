@@ -128,6 +128,7 @@ const Routes = () => {
               path={`${RENDER_URL.TERMS}`}
               component={TermsComponent}
             />  
+            
 
             <Route
               path={`${RENDER_URL.AGENCY_EVENT_LIST}/:agencyId`}

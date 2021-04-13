@@ -9,7 +9,8 @@ const store = mockStore({
   language: {},
   addressSearch: {
     zipCode: 43214
-  }
+  },
+  loggedIn:{loggedIn:false},
 });
 
 

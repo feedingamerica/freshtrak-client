@@ -68,6 +68,9 @@ const EventCardComponent = props => {
   //     return null;
   //   }
   // };
+  const setEvent=()=>{
+    dispatch(setCurrentEvent(props.event))
+  }
 
   const getButton = (buttonName, targetUrl) => {
     return (
@@ -75,7 +78,7 @@ const EventCardComponent = props => {
         <button
           type="button"
           className="btn custom-button ml-1 flex-grow-1"
-          onClick={() => dispatch(setCurrentEvent(props.event))}
+          onClick={() => setEvent()}
         >
           {buttonName}
         </button>

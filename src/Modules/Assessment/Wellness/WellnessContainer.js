@@ -2,6 +2,7 @@
  * Created by Ashik on 20/5/20.
  */
 import React, {useState,useContext,useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 // import general components
 import ButtonComponent from '../../General/ButtonComponent';
@@ -23,6 +24,8 @@ import backBtn from '../../../Assets/img/back-green.svg';
 import {RENDER_URL,API_URL} from '../../../Utils/Urls';
 import axios from 'axios';
 import moment from 'moment';
+import Modal from "react-bootstrap/Modal";
+import { setCurrentUser, selectUser } from '../../../Store/userSlice';
 
 
 const WellnessContainer = (props) => {
@@ -43,6 +46,8 @@ const WellnessContainer = (props) => {
 	//const [totalMainQstns,setTotalMainQstns] = useState(0);
 	const [assessmentData,setAssessmentData] = useState(null);
 	const [type,setType] = useState("next");
+	const currentUser = useSelector(selectUser);
+	const [user, setUser] = useState(currentUser);
 	
 
 	
@@ -148,7 +153,7 @@ const WellnessContainer = (props) => {
 
 	const handleSubmit = async()=>{
 		let assessmentUri = API_URL.SUBMIT_ASSESSMENT;
-		const userToken = localStorage.getItem('userToken');
+		const authToken = localStorage.getItem('authToken');
 		let ansArray = [];
 		Object.keys(context.answers).map((item,index )=>{	
 			let data = {
@@ -162,7 +167,7 @@ const WellnessContainer = (props) => {
 
 		let body = {
 			assessment_id : context.assessment_id,
-			user_id : userToken,
+			user_id : user && user.id ? user.id : null,
 			start_time : context.start_time,
 			question_source_id : context.question_source_id,
 			end_time : moment().format('YYYY-MM-DD hh:mm'),
@@ -175,7 +180,7 @@ const WellnessContainer = (props) => {
 		method: 'post',
 		url: assessmentUri,
 		data: body,
-		headers: { Authorization: `${userToken}` }
+		headers: { Authorization: `${authToken}` }
 	  });
 
     } catch (e) {
@@ -217,9 +222,8 @@ const WellnessContainer = (props) => {
   		    
 <>
 
-	<div className="modal1 assessment-modal h-100 w-100" id="assessment" 
-	style={{zIndex:1100,position:'absolute',top:0}}>
-        <div className="modal-dialog h-100" role="document">
+	<div className="modal1 assessment-modal h-100 w-100" id="assessment">
+        <div className="modal-dialog h-100" role="document" style={{position: 'fixed', left:'50%', top:0, transform: 'translateX(-50%)', zIndex: 1031  }}>
 						<div className={currPage == dataLength ? "modal-content h-100 bg-green" 
 						: "modal-content h-100"}>
                 <div className="modal-header">

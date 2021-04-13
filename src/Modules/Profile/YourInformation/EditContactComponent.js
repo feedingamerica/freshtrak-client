@@ -37,10 +37,10 @@ const EditContactComponent = (props) => {
       phone : (data.phone == null || data.phone== "" || data.phone== undefined ? phone : data.phone)
     }
   }
-    const userToken = localStorage.getItem('userToken');
+    const authToken = localStorage.getItem('authToken');
     try {
       const resp = await axios.put(API_URL.UPDATE_INFORMATION, param,
-        { headers: { Authorization: `Bearer ${userToken}` } }
+        { headers: { Authorization: `${authToken}` } }
       );
       props.refreshMainTab()
     } catch (e) {
@@ -77,7 +77,7 @@ const EditContactComponent = (props) => {
                     className= {`form-control ${errors.email && 'invalid'}`}
                     name="email"
                     id="email"
-                    value={email !== null ? email : ""}
+                    value={email ? email : ""}
                     onChange={(e)=>setEmail(e.target.value)}
                     ref={register({ required: true })}
                   />

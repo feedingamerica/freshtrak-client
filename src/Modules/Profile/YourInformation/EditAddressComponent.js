@@ -24,10 +24,10 @@ const EditAddressComponent = (props) => {
             
           }
 
-          const userToken = localStorage.getItem('userToken');
+          const authToken = localStorage.getItem('authToken');
         try {
           const resp = await axios.put(API_URL.UPDATE_INFORMATION, param,
-            { headers: { Authorization: `Bearer ${userToken}` } }
+            { headers: { Authorization: `${authToken}` } }
           );
           props.refreshMainTab()
         } catch (e) {
