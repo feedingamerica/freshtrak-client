@@ -17,6 +17,7 @@ import {useHistory } from 'react-router-dom';
 import { RENDER_URL,API_URL } from '../../Utils/Urls';
 import { setLoggedIn } from '../../Store/loggedInSlice';
 import SpinnerComponent from "../General/SpinnerComponent";
+import { setCurrentUser, selectUser } from '../../Store/userSlice';
 
 
 const UserBlockContainer = (props) => {
@@ -164,10 +165,11 @@ const UserBlockContainer = (props) => {
   const createUser = async (userToken) => {
     const {USER_CREATION } = API_URL;
       try {
-       await axios.post(USER_CREATION, {},
+       const resp = await axios.post(USER_CREATION, {},
           { headers: { Authorization: `${userToken}` } }
         );
        localStorage.setItem('isAdded', 1);
+       dispatch(setCurrentUser(resp.data.user));
       } catch (e) {
         console.log(e);
       }

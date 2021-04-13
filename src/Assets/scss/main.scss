@@ -1285,6 +1285,7 @@ body {
   .assessment-modal {
     .modal-dialog {
       margin: 0 auto;
+      min-width: 500px;
       .modal-body {
         overflow: auto;
       }

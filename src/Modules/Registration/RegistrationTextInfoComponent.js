@@ -23,10 +23,12 @@ const isLoggedIn = JSON.parse(getItemLocalStorage("isLoggedIn"));
       <BackButtonComponent />
       {!isLoggedIn && <RegistrationHeaderComponent event={event} />}
       { event &&
+      <div className="row">
         <div className="col-6">
           <div className="day-view">
             <EventCardComponent key={event.id} event={event} registrationView={true}/>
           </div>
+        </div>
         </div>
       }
       

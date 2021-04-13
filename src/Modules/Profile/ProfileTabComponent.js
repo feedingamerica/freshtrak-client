@@ -5,7 +5,7 @@ import TabContainer from "react-bootstrap/TabContainer";
 import SummaryTabComponent from "../Profile/SummaryTabComponent"
 import MessagesTabComponent from "./MessagesTabComponent"
 import AccountTabComponent from "../Profile/AccountTabComponent"
-const ProfileTabComponent = () => {
+const ProfileTabComponent = (props) => {
   return (
     <>
       <Tabs defaultActiveKey="summary">
@@ -21,7 +21,7 @@ const ProfileTabComponent = () => {
         </Tab>
         <Tab eventKey="account" title="Account">
           <TabContainer>
-            <AccountTabComponent/>
+            <AccountTabComponent onRefresh={()=>props.onRefresh()}/>
           </TabContainer>
         </Tab>
       </Tabs>

@@ -14,15 +14,20 @@ const ProfileContainer = () => {
   const [informationData, setInformationData] = useState(null)
   useEffect(()=>{
     if(authToken == undefined){
-      history.push(`${RENDER_URL.ROOT_URL}`);
+      redirectToHome()
     }
     if(informationData == null){
       getInformationDetails()
     }
     
-  })
+  },[])
 
-
+  const redirectToHome=()=>{
+    
+    if(history){
+      history.push(`${RENDER_URL.ROOT_URL}`);
+    }
+  }
 
   const getInformationDetails = async () =>{
     const {USER_INFORMATION} = API_URL;
@@ -46,7 +51,7 @@ const ProfileContainer = () => {
       {informationData && <ProfileComponent data={informationData}/>}
     </div>
     <div className="profile-tabs-wrapper">
-      <ProfileTabComponent/>
+      <ProfileTabComponent onRefresh={()=>getInformationDetails()}/>
     </div>
     <div className="assessment-section">
       <TakeTheAssessmentComponent/>

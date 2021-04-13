@@ -39,8 +39,7 @@ const RegistrationContainer = (props) => {
 
   const fetchBusinesses = () =>{ 
     let authToken;
-    if(userType == 0 ){ 
-      console.log()
+    if(userType == 0 ){
       authToken = localStorage.getItem('authToken');      
     } else {
       authToken = localStorage.getItem('userToken');
@@ -50,7 +49,7 @@ const RegistrationContainer = (props) => {
       if(Object.keys(selectedEvent).length === 0) {
         getEvent();
       }
-      if(user === null) {
+      if(user === null || user && (Object.keys(user).length === 0)) {
         getUser(authToken);
       }
     }

@@ -4,7 +4,8 @@ const ProfileComponent = (props) =>{
 
   const toTitleCase =(str)=> 
   {
-     if(str) return str.split(/\s+/).map( s => s.charAt( 0 ).toUpperCase() + s.substring(1).toLowerCase() ).join( " " );
+     if(str) return str.split(/\s+/).map(s => s.charAt(0).toUpperCase() +
+      s.substring(1).toLowerCase() ).join( " " );
   }
 
   return(
@@ -12,8 +13,8 @@ const ProfileComponent = (props) =>{
       <div className="profile-initial-wrapper">
           <div className="profile-initial">{props && props.data && 
           props.data.first_name && 
-          props.data.first_name.charAt(0)}{props && props.data && 
-          props.data.last_name && props.data.last_name.charAt(0)}</div>
+          toTitleCase(props.data.first_name.charAt(0))}{props && props.data && 
+          props.data.last_name && toTitleCase(props.data.last_name.charAt(0))}</div>
       </div>
       <div className="profile-name font-weight-bold mt-2 pb-1">{props && 
       props.data && props.data.first_name ? toTitleCase(props.data.first_name) 

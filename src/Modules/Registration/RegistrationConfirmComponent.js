@@ -84,7 +84,7 @@ const RegistrationConfirmComponent = props => {
       if(Object.keys(selectedEvent).length === 0) {
         getEvent();
       }
-      if(user === null) {
+      if(user === null || user && (Object.keys(user).length === 0)) {
         getUser(localStorage.getItem('userToken'));
       }
     }
@@ -190,11 +190,13 @@ const RegistrationConfirmComponent = props => {
               <br />
             </div>
             { event &&
+                <div className="row">
                   <div className="col-6">
                     <div className="day-view">
                       <EventCardComponent key={event.id} event={event} registrationView={true}/>
                     </div>
                   </div>
+                </div>
             }
             <h5 className="mb-4">
               <b> Your Information </b>

@@ -15,7 +15,7 @@ import axios from 'axios';
 
 import { API_URL } from '../../../Utils/Urls';
 
-const YourInformationContainer = () =>{
+const YourInformationContainer = (props) =>{
   const { register, handleSubmit, errors,setValue,watch } = useForm();
   const [showInformationTray, setShowInformationTray] = useState(false)
   const [showAddressTray, setShowAddressTray] = useState(false)
@@ -43,6 +43,7 @@ const YourInformationContainer = () =>{
 
   const refreshInformationTab=()=>{
     getInformationDetails()
+    props.onRefresh()
   }
 
   const refreshAddressTab=()=>{

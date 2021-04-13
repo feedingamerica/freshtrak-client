@@ -14,6 +14,7 @@ import 'semantic-ui-css/semantic.min.css';
 import UserBlockContainer from '../UserModule/UserBlockContainer';
 import {Modal} from 'react-bootstrap';
 import { setCurrentEvent } from '../../Store/Events/eventSlice';
+import { setCurrentUser, selectUser } from '../../Store/userSlice';
 import { selectLoggedIn, setLoggedIn } from '../../Store/loggedInSlice';
 import 'semantic-ui-css/semantic.min.css'
 import {
@@ -54,15 +55,7 @@ const HeaderComponent = (props) => {
   const [showMobileMenu, setMobileMenu] = useState(false);
   const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
   useEffect(() => {
-    let localStorageLoggedIn = localStorage.getItem('isLoggedIn');
-    // let userToken = localStorage.getItem('userToken');
-    // if (localStorageLoggedIn === null || localStorageLoggedIn === 'false') {
-    //   console.log("setting logged in to false")
-    //   setIsLoggedIn(false);
-    // } else {
-    //   console.log("setting logged in to false")
-    //   setIsLoggedIn(true);
-    // }
+    const localStorageLoggedIn = localStorage.getItem('isLoggedIn');
     window.onscroll = () => {
       if (window.pageYOffset > 100) {
         setNavbarShrink("navbar-shrink");
@@ -97,6 +90,7 @@ const HeaderComponent = (props) => {
          let data = res.data;
          if(res && res.status){
            dispatch(setCurrentEvent({}));
+           dispatch(setCurrentUser({}));
            clearStorage()
          }
          history.push(`${RENDER_URL.ROOT_URL}`);
@@ -111,7 +105,8 @@ const HeaderComponent = (props) => {
        setIsLoggedIn(false);
        localStorage.setItem('isLoggedIn',false);
        clearStorage()
-       dispatch(setCurrentEvent({}))
+       dispatch(setCurrentEvent({}));
+       dispatch(setCurrentUser({}));
        dispatch(setLoggedIn(false));
        history.push(`${RENDER_URL.ROOT_URL}`);
      }  
@@ -205,7 +200,7 @@ const HeaderComponent = (props) => {
 
 
 
-          {userType == USER_TYPES.CUSTOMER && loggedIn && (
+          {userType == USER_TYPES.CUSTOMER && localIsLoggedIn == 'true' && (
             <div className="mr-3 font-weight-bold pointer text-white" 
             onClick={() => goToProfile()}>
                 Profile
@@ -213,7 +208,7 @@ const HeaderComponent = (props) => {
              )}
 
 
-          {!loggedIn && (
+          {localIsLoggedIn !== 'true' && (
             <div className="mr-3 font-weight-bold pointer text-white" 
             onClick={() => setShow(true)}>
                 Sign In
@@ -221,7 +216,7 @@ const HeaderComponent = (props) => {
              )}
 
 
-          {loggedIn && (
+          {localIsLoggedIn == 'true' && (
             <div className="mr-3 font-weight-bold pointer text-white" 
             onClick={()=>logOut()}>
                 Sign Out

@@ -15,6 +15,7 @@ import {useHistory } from 'react-router-dom';
 import { RENDER_URL,API_URL } from '../../Utils/Urls';
 import { setLoggedIn } from '../../Store/loggedInSlice';
 import { useDispatch ,useSelector } from 'react-redux';
+import { setCurrentUser, selectUser } from '../../Store/userSlice';
 
 const DashboardCreateAccountComponent = () => {
   const history = useHistory();
@@ -62,10 +63,11 @@ const DashboardCreateAccountComponent = () => {
     if(!isAdded && userType == 0 && authToken){
       const {USER_CREATION } = API_URL;
       try {
-       await axios.post(USER_CREATION, {},
+       const resp = await axios.post(USER_CREATION, {},
           { headers: { Authorization: `${authToken}` } }
         );
        localStorage.setItem('isAdded', 1);
+       dispatch(setCurrentUser(resp.data.user));
       } catch (e) {
         console.log(e);
       }
