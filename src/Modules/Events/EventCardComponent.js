@@ -36,39 +36,6 @@ const EventCardComponent = props => {
   } = props;
   const showRsvp = acceptInterest && !acceptReservations;
 
-  // const ButtonView = () => {
-  //   if(registrationView) {
-  //     return null;
-  //   }
-  //   if (acceptReservations) {
-  //     return (
-  //     <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
-  //       <button
-  //         type="button"
-  //         className="btn custom-button ml-1 flex-grow-1"
-  //         onClick={() => dispatch(setCurrentEvent(props.event))}
-  //       >
-  //         Reserve Time
-  //       </button>
-  //     </LinkContainer>
-  //     )
-  //   } else if (acceptInterest && !acceptReservations) {
-  //     return (
-  //       <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
-  //         <button
-  //           type="button"
-  //           className="btn custom-button ml-1 flex-grow-1"
-  //           onClick={() => dispatch(setCurrentEvent(props.event))}
-  //         >
-  //           RSVP
-  //         </button>
-  //       </LinkContainer>
-  //     );
-  //   } else {
-  //     return null;
-  //   }
-  // };
-
   const getButton = (buttonName, targetUrl) => {
     return (
       <LinkContainer to={targetUrl}>

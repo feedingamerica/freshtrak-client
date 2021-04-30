@@ -1,6 +1,3 @@
-/**
- * Created by Basil on 6/1/20.
- */
 import React from 'react';
 import DashBoardDataComponent from './DashBoardDataComponent';
 import DashBoardFoodBankComponent from './DashBoardFoodBankComponent';

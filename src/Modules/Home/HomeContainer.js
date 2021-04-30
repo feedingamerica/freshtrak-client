@@ -30,7 +30,7 @@ const HomeContainer = props => {
   }, []);
   const getUsersReservations = async () =>{
     const userToken = localStorage.getItem('userToken');
-    const {CREATE_RESERVATION, EVENT_URL} = API_URL;
+    const {CREATE_RESERVATION} = API_URL;
     try {
       const usersRegData = await axios.get(CREATE_RESERVATION, {
         headers: { Authorization: `Bearer ${userToken}` }
