@@ -43,7 +43,6 @@ const ResourceListComponent = ({ dataToChild }) => {
             phone,
             display_url,
             logo,
-            // id,
             foodbank_texts,
           },
         } = value;
