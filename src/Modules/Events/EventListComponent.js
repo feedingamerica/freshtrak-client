@@ -8,10 +8,6 @@ import '../../Assets/scss/main.scss';
 import localization from '../Localization/LocalizationComponent';
 
 const EventListComponent = props => {
-  // Out of Scope
-  // const onChangeHandler = (e)=>{
-  //     e.preventDefault();
-  // };
   const { events, showHeader = true, zipCode, targetUrl, registrationView, reservedEvents} = props;
   const isRegisteredEvent = (event) => {
     const found = reservedEvents && reservedEvents.find( (reservedEvent) =>{

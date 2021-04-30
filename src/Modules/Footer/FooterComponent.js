@@ -1,6 +1,3 @@
-/**
- * Created by Basil on 06/04/20.
- */
 import React from 'react';
 import LogoComponent from '../General/LogoComponent';
 import { withRouter } from 'react-router';

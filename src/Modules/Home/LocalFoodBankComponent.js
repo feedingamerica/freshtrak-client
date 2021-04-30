@@ -9,11 +9,7 @@ import '../../Assets/scss/main.scss';
 
 const LocalFoodBankComponent = props => {
   let [foodBankData, setFoodBankData] = useState({});
-  const [ foodBankResponse, setFoodBankResponse] = useState(false);
-  const [serverError, setServerError] = useState(false);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-  let [searchDetails, setSearchDetails] = useState({});
 
 useEffect(() => {
   const zipCode = props.zipCode;
@@ -25,9 +21,7 @@ useEffect(() => {
 
   const getFoodbanks = async zip => {
     if (zip) {
-      setLoading(true);
       let foodBankUri = API_URL.FOODBANK_LIST;
-      setSearchDetails(zip);
 
       try {
         const resp = await axios.get(foodBankUri, {
@@ -35,11 +29,9 @@ useEffect(() => {
         });
         const { data } = resp;
         setFoodBankData(data?.foodbanks?.[0] || "no_foodbanks_found");
-        setFoodBankResponse(true);
-        setLoading(false);
       } catch (err) {
-        setServerError(true);
-        setLoading(false);
+        // setServerError(true);
+        // setLoading(false);
       }
     }
   };

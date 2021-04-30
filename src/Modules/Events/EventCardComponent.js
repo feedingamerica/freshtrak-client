@@ -36,39 +36,6 @@ const EventCardComponent = props => {
   } = props;
   const showRsvp = acceptInterest && !acceptReservations;
 
-  // const ButtonView = () => {
-  //   if(registrationView) {
-  //     return null;
-  //   }
-  //   if (acceptReservations) {
-  //     return (
-  //     <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
-  //       <button
-  //         type="button"
-  //         className="btn custom-button ml-1 flex-grow-1"
-  //         onClick={() => dispatch(setCurrentEvent(props.event))}
-  //       >
-  //         Reserve Time
-  //       </button>
-  //     </LinkContainer>
-  //     )
-  //   } else if (acceptInterest && !acceptReservations) {
-  //     return (
-  //       <LinkContainer to={`${RENDER_URL.REGISTRATION_EVENT_DETAILS_URL}/${id}`}>
-  //         <button
-  //           type="button"
-  //           className="btn custom-button ml-1 flex-grow-1"
-  //           onClick={() => dispatch(setCurrentEvent(props.event))}
-  //         >
-  //           RSVP
-  //         </button>
-  //       </LinkContainer>
-  //     );
-  //   } else {
-  //     return null;
-  //   }
-  // };
-
   const getButton = (buttonName, targetUrl) => {
     return (
       <LinkContainer to={targetUrl}>
@@ -108,9 +75,6 @@ const EventCardComponent = props => {
           </div>
         </div>
         <div className="day-view-item-details mb-3 d-flex flex-column justify-content-between">
-          {/* <div className="registration-required">
-              <span className="registration-required-label">Registration Required</span>
-            </div> */}
           <div className="timings d-flex justify-content-between">
             <div className="date-wrapper">{formatDateDayAndDate(date)}</div>
             <div className="timing-wrapper">

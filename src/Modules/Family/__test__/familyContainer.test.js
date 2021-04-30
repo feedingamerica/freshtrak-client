@@ -39,34 +39,6 @@ test('it should render without errors', () => {
   }).not.toThrowError();
 });
 
-// Out of scope
-// test(`should show 'Passwords should match!' if passwords do not match`, async () => {
-//   const { getByLabelText, getByTestId, getByText } = render(
-//     <Router>
-//       <FamilyContainer />
-//     </Router>
-//   );
-
-//   await act(async () => {
-//     fireEvent.input(
-//       getByLabelText('Password', { id: 'password' }),
-//       {
-//         target: { value: 'test' },
-//       }
-//     );
-
-//     fireEvent.input(
-//       getByLabelText(/confirm password/i, { id: 'password_confirm' }),
-//       {
-//         target: { value: 'not test' },
-//       }
-//     );
-//     fireEvent.click(getByTestId(/continue button/i));
-//   });
-  
-//   getByText('Passwords should match!');
-// });
-
 test(`should show to click 'No Phone Available' if no phone available is not clicked and nothing is in the phone number`, async () => {
   const store = mockStore({ event: { event: mockEvent } });
   const { getByLabelText, getByTestId, queryByTestId } = render(

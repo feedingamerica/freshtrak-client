@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import EventListComponent from './EventListComponent';
 import { EventHandler } from '../../Utils/EventHandler';
 

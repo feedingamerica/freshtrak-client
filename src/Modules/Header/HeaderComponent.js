@@ -9,7 +9,6 @@ import localization from '../Localization/LocalizationComponent';
 import { useDispatch } from 'react-redux';
 import {setCurrentLanguage} from '../../Store/languageSlice';
 import CountryListComponent from '../Localization/countryListComponent'
-import { useSelector } from 'react-redux';
 import 'semantic-ui-css/semantic.min.css'
 import {
   Nav,
@@ -22,7 +21,6 @@ const HeaderComponent = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const shortHeader = props.shortHeader || "";
   const dispatch = useDispatch();
-  // const language = useSelector(state => state.language.language);
   const change = (event,data) => {
     localization.setLanguage(data.value);
     dispatch(setCurrentLanguage(data.value));
