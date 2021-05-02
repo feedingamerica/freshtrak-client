@@ -87,7 +87,7 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
       <div className="mt-4">
         <section className="container pt-100 pb-100 register-confirmation">
           <div className="registration-form">
-            <div className="content-wrapper">
+            <div className="content-wrapper responsive-wrapper">
               <EventSlotsModalComponent event={event} />
               <BackButtonComponent />
               <form onSubmit={submitHandlerFocus }>
