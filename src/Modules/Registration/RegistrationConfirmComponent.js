@@ -4,11 +4,7 @@ import { API_URL, RENDER_URL, BASE_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import { setCurrentEvent, selectEvent } from '../../Store/Events/eventSlice';
 import { setCurrentUser, selectUser } from '../../Store/userSlice';
-// import React, { Fragment } from 'react';
-// import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-// import { RENDER_URL } from '../../Utils/Urls';
-// import { selectEvent } from '../../Store/Events/eventSlice';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { Link } from 'react-router-dom';
 import identificationCodeImg1 from '../../Assets/img/id_code1.png';
@@ -23,9 +19,10 @@ const RegistrationConfirmComponent = props => {
   const user_data = props.location.state.user;
   
   const dispatch = useDispatch();
-  const [isLoading, setLoading] = useState(false);
+  //const [isLoading, setLoading] = useState(false);
   const event = useSelector(selectEvent);
   let HOME_OR_ROOT_URL = RENDER_URL.HOME_URL;
+  //let PROFILE_ROOT = RENDER_URL.PROFILE_URL;
   const location = useLocation();
   const event_slot_id = location.state?.eventTimeStamp?.event_slot_id;
   const [userToken, setUserToken] = useState(undefined);
@@ -36,6 +33,7 @@ const RegistrationConfirmComponent = props => {
   const currentUser = useSelector(selectUser);
   const [user, setUser] = useState(currentUser);
   const eventDateId = sessionStorage.getItem("registeredEventDateID");
+  const userType = Number(localStorage.getItem('userType'));
 
   if (!JSON.parse(localStorage.getItem('isLoggedIn'))){
     HOME_OR_ROOT_URL = RENDER_URL.ROOT_URL;
@@ -53,25 +51,61 @@ const RegistrationConfirmComponent = props => {
     }
   };
 
+  // const getUser = async token => {
+  //   //setLoading(true);
+  //   const { GUEST_USER } = API_URL;
+  //   try {
+  //     const resp = await axios.get(GUEST_USER, {
+  //       params: {},
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     const { data } = resp;
+  //     if (data["date_of_birth"] !== null){
+  //       data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
+  //     }
+  //     if (data["phone"] !== null){
+  //       const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+  //       data["phone"] = data["phone"].replace(phoneRegex, '($1) $2-$3')
+  //     }
+  //     dispatch(setCurrentUser(data));
+  //     setUser(data);
+  //     //setLoading(false);
+  //   } catch (e) {
+  //     //setLoading(false);
+  //     console.error(e);
+  //   }
+  // };
+
+
+
+
   const getUser = async token => {
-    setLoading(true);
-    const { GUEST_USER } = API_URL;
+    let url,authHeader;    
+    //setLoading(true);
+    const { GUEST_USER ,COGNITO_USER} = API_URL;
+    if(userType === 0){
+      url = COGNITO_USER;
+      authHeader = `${token}`;
+    } else {
+      url = GUEST_USER;
+      authHeader =`Bearer ${token}`
+    }    
     try {
-      const resp = await axios.get(GUEST_USER, {
+      const resp = await axios.get(url, {
         params: {},
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `${authHeader}` },
       });
       const { data } = resp;
       if (data["date_of_birth"] !== null){
         data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
       }
-      if (data["phone"] !== null){
+      if (data["phone"] !== null && data["phone"] !== undefined){
         const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
         data["phone"] = data["phone"].replace(phoneRegex, '($1) $2-$3')
       }
       dispatch(setCurrentUser(data));
       setUser(data);
-      setLoading(false);
+      //setLoading(false);
     } catch (e) {
       console.error(e);
     }
@@ -80,13 +114,20 @@ const RegistrationConfirmComponent = props => {
   useEffect(fetchBusinesses, []);
 
   function fetchBusinesses(){
-    setUserToken(localStorage.getItem('userToken'));
+    let authToken;
+    if(userType === 0 ){
+      authToken = localStorage.getItem('authToken');      
+    } else {
+      authToken = localStorage.getItem('userToken');
+    }
+    setUserToken(authToken);
+    //let tok = localStorage.getItem('userToken');
     if (!isError && !pageError) {
       if(Object.keys(selectedEvent).length === 0) {
         getEvent();
       }
-      if(user === null) {
-        getUser(localStorage.getItem('userToken'));
+      if(user === null || ((user !== undefined && user!== null) && (Object.keys(user).length === 0))) {
+        getUser(authToken);
       }
     }
   }
@@ -104,6 +145,7 @@ const RegistrationConfirmComponent = props => {
       } else {
         setPageError(true);
         setErrors(data.errors || []);
+        console.log(errors)
       }
     } catch (e) {
       console.error(e);
@@ -137,7 +179,28 @@ const RegistrationConfirmComponent = props => {
           <section className="container pt-100 pb-100 register-confirmation">
             <h1 className="big-title med-title mt-5 mb-5 mobile-mb">
               You're Registered
+              
             </h1>
+            {/* <span>
+                  Special Instructions Link <b> Hii </b>
+                </span> */}
+{/* 
+            <Link to={PROFILE_ROOT}>
+              <div className="button-wrap mt-4">
+                <button
+                  type="submit"
+                  className="btn custom-button"
+                  data-testid="continue button"
+                >
+                  Go To Profile
+                </button>
+              </div>
+            </Link> */}
+
+
+
+
+
             <h4>
               <b> {event.agencyName} </b>
             </h4>
@@ -169,11 +232,13 @@ const RegistrationConfirmComponent = props => {
               <br />
             </div>
             { event &&
+                <div className="row">
                   <div className="col-6">
                     <div className="day-view">
                       <EventCardComponent key={event.id} event={event} registrationView={true}/>
                     </div>
                   </div>
+                </div>
             }
             <h5 className="mb-4">
               <b> Your Information </b>

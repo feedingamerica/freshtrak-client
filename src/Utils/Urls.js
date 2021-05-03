@@ -16,6 +16,9 @@ export const API_URL = {
     FB_AUTH: `${REGISTRATION_URL}auth_callbacks/facebook`,
     TWILIO_SMS: `${REGISTRATION_URL}twilio/sms`,
     SEND_EMAIL: `${REGISTRATION_URL}twilio/email`,
+    USER_REGISTRATION : `${REGISTRATION_URL}cognito_authentications/user_add_details`,
+    COGNITO_USER : `${REGISTRATION_URL}cognito_authentications/user_data`,
+    USER_CREATION : `${REGISTRATION_URL}cognito_authentications/user_signup`,
 };
 
 export const RENDER_URL = {

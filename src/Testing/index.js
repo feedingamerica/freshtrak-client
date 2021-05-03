@@ -4,3 +4,4 @@ export * from './mock-family';
 export * from './mock-foodbanks';
 export * from './mock-registration';
 export * from './mock-router';
+export * from './mock-user';

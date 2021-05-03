@@ -3,7 +3,9 @@
 @import "./form-elements";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
-
+html, body{
+    height: 100%;
+}
 body {
     background: $color-white;
     font-family: $font-noto-sans;
@@ -15,6 +17,12 @@ body {
     }
     .relative{
         position: relative;
+    }
+    .text-white{
+        color: $color-white;
+    }
+    .pointer{
+        cursor: pointer;
     }
     .big-title {
         font-size: 4rem;
@@ -917,8 +925,8 @@ body {
   }
 
 .loading-spinner-height {
-    height: 10em;
-    width: 10em;
+    height: 2em;
+    width: 2em;
   }
   
 // Added for fixing Search button
@@ -1038,4 +1046,82 @@ a {
     cursor: pointer;
     padding-left: 20px;
   }
+}
+
+// login
+
+.login-container{
+    background: $primaryColor url(../img/banner-bg.png) center center;
+    background-size:cover ;
+    overflow: auto;
+    .login-field-container{
+        background:$color-white;
+        width: 420px;
+        box-shadow:-3px 3px 28px -10px rgba(20,20,20,0.61);
+        margin: auto;
+        .p-tabview-nav{
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            li{
+                margin-right: 1rem;
+                cursor: pointer;
+                &:last-child{
+                    margin-right: 0;
+                }
+                &.p-tabview-ink-bar{
+                    display: none;
+                }
+                a{
+                    color: $secondary-color;
+                    font-weight: 600;
+                    padding-bottom: .5rem;
+                    border-bottom: 4px solid transparent;
+                    text-transform: uppercase;
+                    &:hover, &:focus{
+                        text-decoration: none;
+                        outline: none;
+                    }
+                }
+                &.p-tabview-selected{
+                    a{
+                        border-bottom: 4px solid $primaryColor;
+                    }
+                }
+            }
+        }
+    }
+    
+}
+.login-tab-section{
+    .nav-tabs{
+        border: none;
+        justify-content: center;
+        .nav-link{
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: inherit;
+            padding: 0 0 .5rem 0;
+            margin: 0 1rem;
+            &.active, &:hover{
+                border: none;
+                border: 1px solid transparent;
+                border-bottom: 4px solid $primaryColor;
+            }
+        }
+    }
+    .loading-spinner-height {
+        position: absolute;
+        top:50%;
+      }
+}
+.login-logo{
+    height: 30px;
+    margin: 1.5rem 0;
+    img{
+        max-height: 100%;
+        max-width: 100%;
+    }
 }

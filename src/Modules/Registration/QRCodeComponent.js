@@ -1,9 +1,9 @@
 import React from 'react';
 import QRCode from 'qrcode.react';
-import {useParams} from 'react-router-dom';
+//import {useParams} from 'react-router-dom';
 
 const QRCodeComponent = () =>{
-  const {code}  = useParams();
+  //const {code}  = useParams();
 
   return <div className="qrcode">
   <h2>

@@ -32,20 +32,26 @@ const RegistrationContainer = (props) => {
   const currentUser = useSelector(selectUser);
   const [user, setUser] = useState(currentUser);
   const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
-
-  useEffect(fetchBusinesses, []);
-
-  function fetchBusinesses(){
-    setUserToken(localStorage.getItem('userToken'));
+  const userType = Number(localStorage.getItem('userType'));
+  const fetchBusinesses = () =>{ 
+    let authToken;
+    if(userType === 0 ){ 
+      console.log()
+      authToken = localStorage.getItem('authToken');      
+    } else {
+      authToken = localStorage.getItem('userToken');
+    }
     if (!isError && !pageError) {
+      setUserToken(authToken);
       if(Object.keys(selectedEvent).length === 0) {
         getEvent();
       }
-      if(user === null) {
-        getUser(localStorage.getItem('userToken'));
+      if(user == null || ((user !== undefined && user!== null) && (Object.keys(user).length === 0))) { 
+        getUser(authToken);
       }
     }
   }
+  useEffect(fetchBusinesses, []);
   
   const getEvent = async () => {
     try {
@@ -72,18 +78,26 @@ const RegistrationContainer = (props) => {
   };
 
   const getUser = async token => {
+    let url,authHeader;    
     setLoading(true);
-    const { GUEST_USER } = API_URL;
+    const { GUEST_USER ,COGNITO_USER} = API_URL;
+    if(userType === 0){
+      url = COGNITO_USER;
+      authHeader = `${token}`;
+    } else {
+      url = GUEST_USER;
+      authHeader =`Bearer ${token}`
+    }
     try {
-      const resp = await axios.get(GUEST_USER, {
+      const resp = await axios.get(url, {
         params: {},
-        headers: { Authorization: `Bearer ${token}` },
+         headers: { Authorization: `${authHeader}` },
       });
       const { data } = resp;
       if (data["date_of_birth"] !== null){
         data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
       }
-      if (data["phone"] !== null){
+      if (data["phone"] !== null && data["phone"] !== undefined){
         const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
         data["phone"] = data["phone"].replace(phoneRegex, '($1) $2-$3')
       }
@@ -103,7 +117,8 @@ const RegistrationContainer = (props) => {
   }
 
   const notify = (msg, error) => {
-    let formatted_msg = (msg.user_id && msg.user_id[0]) || msg.event_date_id[0] || "Something Went Wrong"
+    //let formatted_msg = (msg.user_id && msg.user_id[0]) || msg.event_date_id &&  msg.event_date_id[0] || "Something Went Wrong"
+    let formatted_msg = (msg.user_id && msg.user_id[0]) || (msg.event_date_id && msg.event_date_id[0]) || "Something Went Wrong"
     showToast(formatted_msg, error);
   }
   const send_sms = async user => {
@@ -138,6 +153,9 @@ const RegistrationContainer = (props) => {
     setDisabled(!disabled);
     const event_date_id = parseInt(eventDateId, 10);
     const event_slot_id = parseInt(eventSlotId, 10);
+      if(userType === 0){
+      customer_registration(user);
+    } else {
     // First save user
     const { GUEST_USER, CREATE_RESERVATION } = API_URL;
     try {
@@ -146,7 +164,8 @@ const RegistrationContainer = (props) => {
       });
     } catch (e) {
       console.log(e);
-    }
+    }  
+
     try {
       await axios.post(CREATE_RESERVATION, {
         reservation: eventSlotId ? {event_date_id, event_slot_id} : {event_date_id}
@@ -164,6 +183,7 @@ const RegistrationContainer = (props) => {
       if(user['permission_to_email']){
         sendRegistrationConfirmationEmail(user, selectedEvent, location)
       }
+
       sessionStorage.setItem("registeredEventDateID", eventDateId);
       history.push({
         pathname: RENDER_URL.REGISTRATION_CONFIRM_URL,
@@ -187,7 +207,53 @@ const RegistrationContainer = (props) => {
       setErrors(e);
     }
   }
-
+}
+const customer_registration = async (user) => {  
+    let event_date_id = parseInt(eventDateId, 10);
+    let event_slot_id = parseInt(eventSlotId, 10);
+    const { USER_REGISTRATION } = API_URL;
+    try {
+        await axios.post(USER_REGISTRATION, { user,
+          reservation: eventSlotId ? {event_date_id, event_slot_id} : {event_date_id}
+        
+        },
+          { headers: { Authorization: `${userToken}` } }
+        );
+        TagManager.dataLayer({
+          dataLayer: {
+          event: "reservation"
+          }
+        })
+        if(user['permission_to_text']){
+          send_sms(user)
+        }
+        if(user['permission_to_email']){
+          sendRegistrationConfirmationEmail(user, location)
+        }
+        sessionStorage.setItem("registeredEventDateID", eventDateId);
+        history.push({
+          pathname: RENDER_URL.REGISTRATION_CONFIRM_URL,
+          state: { user: {...user,
+                      identification_code:currentUser.identification_code}, 
+                      eventDateId: eventDateId, 
+                      eventTimeStamp : {
+                        start_time: location.state?.event_slot?.start_time, 
+                        end_time: location.state?.event_slot?.end_time,
+                        event_slot_id: event_slot_id
+                      } 
+                    }
+        });
+    } catch (e){
+      if (!e.response){
+          e.response = {data: {"user_id": ["Something Went Wrong"]}}
+        }
+        notify(e.response.data, 'error')
+        setTimeout(()=> window.scrollTo(0, 0))
+        setDisabled(disabled);
+        console.error(e);
+        setErrors(e);
+    }    
+  }
   if(pageError) {
     return (
       <ErrorComponent error={errors}/>

@@ -27,10 +27,11 @@ const HomeContainer = props => {
 
   useEffect( () =>{
     getUsersReservations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const getUsersReservations = async () =>{
     const userToken = localStorage.getItem('userToken');
-    const {CREATE_RESERVATION, EVENT_URL} = API_URL;
+    const {CREATE_RESERVATION} = API_URL;
     try {
       const usersRegData = await axios.get(CREATE_RESERVATION, {
         headers: { Authorization: `Bearer ${userToken}` }
@@ -45,7 +46,7 @@ const HomeContainer = props => {
   const getEventByDateId = async (userRegData) =>{
     const userRegEvents = []; 
     const {EVENT_URL} = API_URL;
-    userRegData.map( (userReg) => {
+    userRegData.forEach( (userReg) => {
       userRegEvents.push(axios.get(`${EVENT_URL}?event_date_id=${userReg.event_date_id}`))
     }
     )
