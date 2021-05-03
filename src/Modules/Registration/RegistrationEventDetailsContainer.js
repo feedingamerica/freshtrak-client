@@ -19,7 +19,7 @@ const RegistrationEventDetailsContainer = (props) => {
   const { id: eventDateId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [showAuthenticationModal, setshowAuthenticationModal] = useState(false);
-  //const [userToken, setUserToken] = useState(undefined);
+  // const [ setUserToken] = useState(undefined);
   const [isSuccessful, setSuccessful] = useState(true);
   const [isError, setIsError] = useState(false);
   const [pageError, setPageError] = useState(false);
@@ -100,7 +100,7 @@ const RegistrationEventDetailsContainer = (props) => {
     if (new Date(tokenExpiresAt) < new Date() || !localUserToken || localUserToken === 'undefined') {
       showAuthenticationModal ? fetchUserToken(response) : setshowAuthenticationModal(true);
     } else {
-      //setUserToken(localUserToken);
+      // setUserToken(localUserToken);
       setshowAuthenticationModal(false);
       history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${selectedEvent.id}`);
     }

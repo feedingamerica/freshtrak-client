@@ -19,7 +19,6 @@ const RegistrationConfirmComponent = props => {
   const user_data = props.location.state.user;
   
   const dispatch = useDispatch();
-  //const [isLoading, setLoading] = useState(false);
   const event = useSelector(selectEvent);
   let HOME_OR_ROOT_URL = RENDER_URL.HOME_URL;
   //let PROFILE_ROOT = RENDER_URL.PROFILE_URL;
@@ -28,7 +27,6 @@ const RegistrationConfirmComponent = props => {
   const [userToken, setUserToken] = useState(undefined);
   const [isError, setIsError] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(event);
-  const [errors, setErrors] = useState([]);
   const [pageError, setPageError] = useState(false);
   const currentUser = useSelector(selectUser);
   const [user, setUser] = useState(currentUser);
@@ -90,6 +88,7 @@ const RegistrationConfirmComponent = props => {
       url = GUEST_USER;
       authHeader =`Bearer ${token}`
     }    
+
     try {
       const resp = await axios.get(url, {
         params: {},
@@ -105,7 +104,6 @@ const RegistrationConfirmComponent = props => {
       }
       dispatch(setCurrentUser(data));
       setUser(data);
-      //setLoading(false);
     } catch (e) {
       console.error(e);
     }
@@ -128,6 +126,7 @@ const RegistrationConfirmComponent = props => {
       }
       if(user === null || ((user !== undefined && user!== null) && (Object.keys(user).length === 0))) {
         getUser(authToken);
+
       }
     }
   }
@@ -144,15 +143,12 @@ const RegistrationConfirmComponent = props => {
         setSelectedEvent(eventData);
       } else {
         setPageError(true);
-        setErrors(data.errors || []);
-        console.log(errors)
       }
     } catch (e) {
       console.error(e);
       setIsError(true);
       if(e.response){
         setPageError(true);
-        setErrors(e.response.data);
       }
     }
   };

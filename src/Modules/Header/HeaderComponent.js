@@ -16,6 +16,7 @@ import {Modal} from 'react-bootstrap';
 import { setCurrentEvent } from '../../Store/Events/eventSlice';
 import { setCurrentUser } from '../../Store/userSlice';
 import { selectLoggedIn, setLoggedIn } from '../../Store/loggedInSlice';
+
 import 'semantic-ui-css/semantic.min.css'
 import {
   Nav,
@@ -44,7 +45,6 @@ const HeaderComponent = (props) => {
   const [show, setShow] = useState(false);
   const shortHeader = props.shortHeader || "";
   const dispatch = useDispatch();
-  // const language = useSelector(state => state.language.language);
   const change = (event,data) => {
     localization.setLanguage(data.value);
     dispatch(setCurrentLanguage(data.value));

@@ -31,12 +31,6 @@ jest.mock("react-places-autocomplete", () => {
   return PlacesAutocomplete;
 });
 
-// test("should render", () => {
-//   expect(() => {
-//     render(<SearchComponent register={jest.fn()} errors={jest.fn()} />);
-//   }).not.toThrowError();
-// });
-
 test("should show error an invalid submit", async () => {
   const {
     getAllByText,

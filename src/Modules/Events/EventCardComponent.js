@@ -35,7 +35,6 @@ const EventCardComponent = props => {
     alreadyRegistered
   } = props;
   const showRsvp = acceptInterest && !acceptReservations;
-
   // const ButtonView = () => {
   //   if(registrationView) {
   //     return null;
@@ -112,9 +111,6 @@ const EventCardComponent = props => {
           </div>
         </div>
         <div className="day-view-item-details mb-3 d-flex flex-column justify-content-between">
-          {/* <div className="registration-required">
-              <span className="registration-required-label">Registration Required</span>
-            </div> */}
           <div className="timings d-flex justify-content-between">
             <div className="date-wrapper">{formatDateDayAndDate(date)}</div>
             <div className="timing-wrapper">
