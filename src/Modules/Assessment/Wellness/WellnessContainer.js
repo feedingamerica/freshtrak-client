@@ -80,13 +80,16 @@ const WellnessContainer = (props) => {
             } catch (err) {
             }
 		};
-
-	    
-    useEffect(() => {
+    
+	useEffect(()=>{
 		setAssessmentQuestions()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[])
+	    
+    useEffect(() => {		
 		handleProgress(type);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		},[currPage]);
+	},[currPage]);
 
 	const loadPage = (currPage) => {
 

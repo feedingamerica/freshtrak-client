@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import WellnessContext from './WellnessContext';
 const CheckboxQstnComponent = (props) => {
     let { question, assessment_qn_id, option, description,option_id,go_to_page,previous_page,
-		next_page } = props.content;
+        next_page } = props.content;
     let context = useContext(WellnessContext);
     let childObj = {};
     const [checkedOptions, setCheckedOptions] = useState([])
@@ -20,17 +20,20 @@ const CheckboxQstnComponent = (props) => {
     }, [props.content.assessment_qn_id])
 
     const isChecked = (value,index) => {
+        let checkedFlag = false;
         let valueArray = context.answers[assessment_qn_id-1];
         if(value && value !== undefined && valueArray && valueArray!== undefined && valueArray.length === 0){
-            return false;  
+            checkedFlag = false;  
         }else{
             if(value && value !== undefined && checkedOptions && checkedOptions.indexOf(value) > -1 && indexArray.indexOf(index) < 0){
                 indexArray.push(index)
                 setOptionArray()
             }
-            if(checkedOptions) return (checkedOptions.indexOf(value) > -1)
+            if(checkedOptions) {
+             checkedFlag = checkedOptions.indexOf(value) > -1 ? true : false;
+            }
         }
-
+        return checkedFlag;
        
     }
     const setOptionArray = ()=>{
@@ -104,7 +107,7 @@ const CheckboxQstnComponent = (props) => {
                                         //id={index || ""}
                                         id={index}
                                         //value={value || ""}
-                                        value={value || ""}
+                                        defaultValue={value || ""}
                                         checked={isChecked(value,index)}
                                         onChange={(e)=>setValue(e)}
                                         //name={index || ""} 

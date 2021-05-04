@@ -1,11 +1,10 @@
-import React,{useContext,useState,useEffect} from 'react';
+import React,{useContext,useState} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import WellnessContainer from '../Assessment/Wellness/WellnessContainer';
 import WellnessContext from '../Assessment/Wellness/WellnessContext';
 import moment from 'moment';
 const TakeTheAssessmentComponent = () => {
 	let context = useContext(WellnessContext);
-  const dispatch = useDispatch();
 	const [showModal, setShowModal] = useState(false);
 	const authToken = localStorage.getItem('authToken');
 	const triggerAssessment=()=> {

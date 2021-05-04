@@ -4,16 +4,21 @@ import SummaryTabComponent from '../SummaryTabComponent';
 import ResourceCategoryComponent from '../ResourceCategoriesComponent';
 import BadgesComponent from '../BadgesComponent';
 import YourReservationsComponent from '../YourReservationsComponent';
-
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+const mockStore = configureStore([]);
 
 test('SummaryTabComponent rendered without errors', () => {
   expect(() => {
+    const store = mockStore({});
     render(
-        <SummaryTabComponent>
-          <ResourceCategoryComponent/>
-          <BadgesComponent/>
-          <YourReservationsComponent/>
-        </SummaryTabComponent>
+      <Provider store={store}>
+      <SummaryTabComponent>
+      <ResourceCategoryComponent/>
+      <BadgesComponent/>
+      <YourReservationsComponent/>
+    </SummaryTabComponent>
+    </Provider>
     );
   }).not.toThrowError();
 });
