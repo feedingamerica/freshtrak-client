@@ -4,7 +4,7 @@ import mainLogo from "../../Assets/img/logo.png";
 import closeIcon from '../../Assets/img/close.svg';
 //import userIcon from "../../Assets/img/Mask.svg";
 // import navBarIcon from "../../Assets/img/menu.svg";
-import { Link } from "react-router-dom";
+import { Link ,useHistory} from "react-router-dom";
 //import { LinkContainer } from 'react-router-bootstrap';
 import localization from '../Localization/LocalizationComponent';
 import { useDispatch ,useSelector } from 'react-redux';
@@ -29,7 +29,7 @@ import { RENDER_URL } from "../../Utils/Urls";
 import { USER_TYPES } from "../../Utils/Constants";
 
 import {LogOut} from "../../Utils/CognitoHandler";
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 
 
 import { Auth } from 'aws-amplify';
@@ -320,7 +320,7 @@ const HeaderComponent = (props) => {
           </button>
         </div>
       )}
-      <Modal show={show} backdrop="static" onHide={handleClose} className="custom-modal">
+      <Modal show={show} backdrop="static" onHide={handleClose} className="custom-modal light">
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body>

@@ -36,6 +36,7 @@ const HomeContainer = lazy(() => import('../Modules/Home/HomeContainer'));
 const QRCodeComponent = lazy(() => import('../Modules/Registration/QRCodeComponent'));
 const PrivacyComponent = lazy(() => import('../Modules/Policies/PrivacyComponent'));
 const TermsComponent = lazy(() => import('../Modules/Policies/TermsComponent'));
+const ProfileContainer = lazy(() => import("../Modules/Profile/ProfileContainer"));
 
 const Routes = () => {
   React.useEffect(() => {}, []);
@@ -126,7 +127,11 @@ const Routes = () => {
               path={`${RENDER_URL.AGENCY_EVENT_LIST}/:agencyId`}
               component={AgencyEventListContainer}
             />
-
+            
+            <Route 
+                path={RENDER_URL.PROFILE_URL} 
+                component={ProfileContainer} 
+            />
             {/* Out of Scope */}
             {/* <Route
               exact path={RENDER_URL.ADD_FAMILY_URL}
