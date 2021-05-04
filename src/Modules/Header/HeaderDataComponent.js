@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectZip } from '../../Store/Search/searchSlice';
 import localization from '../Localization/LocalizationComponent'
 
-const HeaderDataComponent = () => { console.log('basil tj');
+const HeaderDataComponent = () => { 
   const location = useLocation();
   const zip = useSelector(selectZip);
   const getPath = pathname => {

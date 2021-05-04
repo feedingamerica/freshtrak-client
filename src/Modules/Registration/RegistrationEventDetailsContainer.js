@@ -110,7 +110,7 @@ const RegistrationEventDetailsContainer = (props) => {
   return (
     <Fragment>
       {isLoading && <SpinnerComponent />}
-      <Modal show={showAuthenticationModal} onHide={handleClose} className="custom-modal">
+      <Modal show={showAuthenticationModal} onHide={handleClose} className="custom-modal light">
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body>
