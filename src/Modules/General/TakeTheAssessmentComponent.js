@@ -1,5 +1,4 @@
 import React,{useContext,useState} from 'react';
-import { useSelector,useDispatch } from 'react-redux';
 import WellnessContainer from '../Assessment/Wellness/WellnessContainer';
 import WellnessContext from '../Assessment/Wellness/WellnessContext';
 import moment from 'moment';
