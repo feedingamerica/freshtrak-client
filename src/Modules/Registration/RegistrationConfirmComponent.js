@@ -24,7 +24,7 @@ const RegistrationConfirmComponent = props => {
   //let PROFILE_ROOT = RENDER_URL.PROFILE_URL;
   const location = useLocation();
   const event_slot_id = location.state?.eventTimeStamp?.event_slot_id;
-  const [userToken, setUserToken] = useState(undefined);
+  //const [userToken, setUserToken] = useState(undefined);
   const [isError, setIsError] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(event);
   const [pageError, setPageError] = useState(false);
@@ -118,7 +118,7 @@ const RegistrationConfirmComponent = props => {
     } else {
       authToken = localStorage.getItem('userToken');
     }
-    setUserToken(authToken);
+    //setUserToken(authToken);
     //let tok = localStorage.getItem('userToken');
     if (!isError && !pageError) {
       if(Object.keys(selectedEvent).length === 0) {
