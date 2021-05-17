@@ -9,7 +9,8 @@ const WellnessContext = React.createContext({
 	question_source_id : null,
 	start_time: null,
 	assessmentTitle : "",
-	previous_page : [],
+	previous_page : [], //old
+	previous : [], //new
 	next_page : [],
 	answers : [],
 	isSkipped : [],

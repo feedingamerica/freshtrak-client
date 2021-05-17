@@ -54,7 +54,10 @@ const WellnessContainer = (props) => {
     const setAssessmentQuestions = async() => {
 			let assessmentUri = API_URL.QUESTIONS;
             try {
-                const resp = await axios.get(assessmentUri);
+								const resp = await axios.get(assessmentUri, {
+									params: { zip_code: '43219'}
+								});
+								
 				if(resp && resp.data && 
 					resp.data.data.length > 0 
 					&& assessmentData == null){
@@ -109,7 +112,7 @@ const WellnessContainer = (props) => {
 		}else{
 				return <SelectQstnComponent content={assessmentData[currPage]}/>
 		}
-}
+	}
 	
 	}
 
@@ -118,7 +121,7 @@ const WellnessContainer = (props) => {
 		if(currPage !== -1){
 			//let progression = 100/(totalMainQstns);
 			let progress = 100/dataLength;
-			if(assessmentData[currPage] 
+			if(assessmentData && assessmentData[currPage] 
 				&& assessmentData[currPage].assessment_qn_id 
 				&& assessmentData[currPage].is_main){
 				let progression = progress * assessmentData[currPage].assessment_qn_id;
@@ -141,19 +144,16 @@ const WellnessContainer = (props) => {
 			goToNextPage(page)
 			
 		}else{
-			let page = currPage - 1;
 				setType("prev")
-		 	  setCurrPage(page)
-		 	 	goToPrevPage(page)
-				
+		 	 	goToPrevPage()
 		}
 	}
 
 	const handleSubmit = async()=>{
+		context.previous = []
 		let assessmentUri = API_URL.SUBMIT_ASSESSMENT;
 		const authToken = localStorage.getItem('authToken');
 		let ansArray = [];
-		//Object.keys(context.answers).map((index)=>{
 			Object.keys(context.answers).forEach((item,index)=>{	
 			let data = {
 				"assment_qn_id": (index)+1,
@@ -191,7 +191,7 @@ const WellnessContainer = (props) => {
    
 
 	const goToNextPage = async(currpage)=>{
-		if(currpage === assessmentData.length){
+		if(currpage === (assessmentData && assessmentData.length)){
 			handleSubmit()
 		}
 		else if(currpage === 0){
@@ -212,9 +212,21 @@ const WellnessContainer = (props) => {
 
 
 
-	const goToPrevPage = async (currpage) => {
-		setCurrPage(context.previous_page[currPage])
-	
+	const goToPrevPage = async () => {
+		console.log("context.answers[currPage] >>",context.answers[currPage-1])
+		console.log("context.option_id >>",context.option_id)
+		console.log("context.option_id[currPage] >>",context.option_id[currPage-1])
+		if(assessmentData[currPage].question_type === "Check Box"){
+			context.answers[currPage] = [];
+			context.option_id.pop()
+		}else{
+			context.answers[currPage] = " ";
+			context.option_id.pop()
+		}
+		console.log("context.option_id after pop >>",context.option_id)
+		let index = context.previous.length-2;
+		setCurrPage(context.previous[index])
+		context.previous.pop()
 			//handleProgress("prev");
 	}
     return (  
@@ -234,7 +246,8 @@ const WellnessContainer = (props) => {
 												className="img-fluid" /></span>}
                        
 												{currPage >0 && currPage !== dataLength &&  
-												<span className="text-uppercase ml-2">Previous Question</span>}
+												<span className="text-uppercase ml-2">Previous Question</span>
+												}
                     </div>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">

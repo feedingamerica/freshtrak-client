@@ -11,7 +11,7 @@ const TakeTheAssessmentComponent = () => {
 	      setShowModal(true)
 	      context.start_time = moment().format('YYYY-MM-DD hh:mm');
 	    }
-    }
+  }
   return ( <div>
     <div className="take-the-assessment-wrapper d-flex flex-column justify-content-center align-items-center pl-4 pr-4">
       <h1>We’re here to help you find what you need.</h1>

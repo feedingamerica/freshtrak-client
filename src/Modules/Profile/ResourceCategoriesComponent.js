@@ -34,7 +34,6 @@ const ResourceCategoryComponent = () => {
     (Object.keys(user).length === 0))) {
       setCurrentUserData(userType)
     }
-    
     if(Object.keys(context.beginAssessmentData).length === 0){
       setAssessmentData()
     }
@@ -89,7 +88,9 @@ const ResourceCategoryComponent = () => {
   const setAssessmentData = async() => {
     let assessmentUri = API_URL.TRIGGER_ASSESSMENT;
     try {
-        const resp = await axios.get(assessmentUri);
+      const resp = await axios.get(assessmentUri, {
+        params: { zip_code: '43219'}
+    });
          
         if(resp && resp.data && 
             resp.data.data !== null){

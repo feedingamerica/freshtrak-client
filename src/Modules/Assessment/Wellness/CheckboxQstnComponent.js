@@ -15,6 +15,9 @@ const CheckboxQstnComponent = (props) => {
         setCheckedOptions(context.answers[assessment_qn_id-1])
         setIndexArray([])
         context.previous_page[assessment_qn_id-1] = previous_page-1;
+        if(context.previous.indexOf(assessment_qn_id-1) === -1){
+            context.previous.push(assessment_qn_id-1);
+        }
         context.next_page[assessment_qn_id-1] = next_page-1;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.content.assessment_qn_id])

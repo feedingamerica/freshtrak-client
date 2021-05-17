@@ -7,17 +7,19 @@ import WellnessContext from './WellnessContext';
 import axios from 'axios';
 import moment from 'moment';
 
-
 const TriggerAssess = (props) => {
-
 	let context = useContext(WellnessContext);
 	const [showModal, setShowModal] = useState(false);
 	const [assessmentTitle, setAssessmentTitle] = useState(null);
     const userToken = localStorage.getItem('userToken');
     const setAssessmentData = async() => {
         let assessmentUri = API_URL.TRIGGER_ASSESSMENT;
+
         try {
-            const resp = await axios.get(assessmentUri);
+            //const resp = await axios.get(assessmentUri);
+            const resp = await axios.get(assessmentUri, {
+                params: { zip_code: '43219'}
+            });
              
             if(resp && resp.data && 
                 resp.data.data !== null){
@@ -31,6 +33,7 @@ const TriggerAssess = (props) => {
     };
     const redirectToAssessment=()=>{
     if(userToken && context.beginAssessmentData){
+        console.log("in redirectToAssessment",context.beginAssessmentData)
         setShowModal(true)
     }
     }
@@ -39,6 +42,7 @@ const TriggerAssess = (props) => {
 
 
     useEffect(() => {
+        console.log("in triggerAssess")
         setAssessmentData()
         context.start_time = moment().format('YYYY-MM-DD hh:mm');
     });
