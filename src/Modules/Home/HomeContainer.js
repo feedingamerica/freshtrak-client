@@ -30,7 +30,7 @@ const HomeContainer = props => {
   }, []);
   const getUsersReservations = async () =>{
     const userToken = localStorage.getItem('userToken');
-    const {CREATE_RESERVATION, EVENT_URL} = API_URL;
+    const {CREATE_RESERVATION} = API_URL;
     try {
       const usersRegData = await axios.get(CREATE_RESERVATION, {
         headers: { Authorization: `Bearer ${userToken}` }
@@ -95,10 +95,6 @@ const HomeContainer = props => {
   const onSubmit = data => {
     if (data) {
       const { zip_code } = data;
-      // localStorage.setItem("zip_code", zip_code)
-      // props.history.push({
-      //   pathname: `/home`,
-      // });
       setZipCode(zip_code)
     }
   };
@@ -121,13 +117,11 @@ const HomeContainer = props => {
         }, {})
         return weekevents;
       }
-      // const entries = Object.entries(eventList)
       return eventList;
     }
     if (agencyResponse) {
       let agencyDataSorted = EventHandler(agencyData);
       agencyDataSorted = filterEvents(agencyDataSorted);
-      // return <EventListComponent events={agencyDataSorted} zipCode={zipCode} showHeader= {false}/>;
       return <EventListComponent targetUrl={RENDER_URL.REGISTRATION_EVENT_DETAILS_URL} events={agencyDataSorted} zipCode={zipCode} showHeader= {false} reservedEvents = {reservedEvents}/>;
     }
     return <SpinnerComponent variant = "small" />;
@@ -156,7 +150,6 @@ const HomeContainer = props => {
             <UsersRegistrations reservedEvents = {reservedEvents}/>
             <EventNearByComponent EventList= {EventList}/> 
           </div>
-          {/* {!loading && <EventList />} */}
         </div>
       </section>
     </div>

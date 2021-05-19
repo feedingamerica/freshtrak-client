@@ -6,14 +6,6 @@ import { useForm } from 'react-hook-form';
 import {DEFAULT_DISTANCE} from '../../Utils/Constants'
 
 const DashBoardDataComponent = props => {
-  // Login is out of scope
-  // const [isLoggedIn, setIsLoggedIn] = React.useState(localStorage.getItem('isLoggedIn'));
-
-  // React.useEffect(()=>{
-  //     if (localStorage.getItem('isLoggedIn')!=undefined ){
-  //         setIsLoggedIn(true);
-  //     }
-  // },[localStorage.getItem('isLoggedIn')]);
 
   const { register, errors, handleSubmit } = useForm();
   const isFaceBookLoggedIn = localStorage.getItem('isLoggedIn');

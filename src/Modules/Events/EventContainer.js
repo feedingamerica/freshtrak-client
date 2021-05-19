@@ -110,7 +110,6 @@ const EventContainer = props => {
       pathname: url
     });
   };
-  // const localUserToken = localStorage.getItem('userToken');
   localStorage.setItem('search_zip', `${zipCode}`);
 
   return (
