@@ -7,7 +7,6 @@ const RangeQstnComponent = (props) => {
 		option_start_value, 
 		option_end_value,
 		go_to_page,
-		previous_page,
 		next_page,
 		is_money,step} = props.content;
 	
@@ -24,7 +23,6 @@ const RangeQstnComponent = (props) => {
 	}
 	useEffect(()=>{
 		context.go_to_page[assessment_qn_id-1] = go_to_page && go_to_page[0] ? go_to_page[0]-1 : null;
-		context.previous_page[assessment_qn_id-1] = previous_page ? previous_page-1 : null ;
 		if(context.previous.indexOf(assessment_qn_id-1) === -1){
 			context.previous.push(assessment_qn_id-1);
 	}
@@ -43,7 +41,7 @@ const RangeQstnComponent = (props) => {
 			setCurrVal(props.content.option_start_value);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[assessment_qn_id,props.content.previous_page])
+	},[assessment_qn_id])
 
 
 

@@ -1,14 +1,11 @@
 
 import React,{useContext, useEffect,useState} from 'react';
-//import ButtonComponent from '../../General/ButtonComponent';
 import WellnessContext from './WellnessContext';
 const YesOrNoQstnComponent = (props) => {
-let {question,assessment_qn_id,go_to_page,option_id,previous_page,next_page} = props.content;
+let {question,assessment_qn_id,go_to_page,option_id,next_page} = props.content;
 let context = useContext(WellnessContext);
 const [selected,setSelected] = useState(null); 
 const setValue = (e) =>{
-//Object.keys(context.answers).map((value,index)=>{
-    //if(value == assessment_qn_id-1) {
         context.answers[assessment_qn_id-1] = e.target.value;
         setSelected(e.target.value)
         if(e.target.value === "yes"){
@@ -24,7 +21,6 @@ const setValue = (e) =>{
 }
 useEffect(()=>{
     setSelected(context.answers[assessment_qn_id-1])
-    context.previous_page[assessment_qn_id-1] = previous_page-1;
     if(context.previous.indexOf(assessment_qn_id-1) === -1){
         context.previous.push(assessment_qn_id-1);
     }

@@ -95,19 +95,18 @@ const ResourceCategoryComponent = () => {
         if(resp && resp.data && 
             resp.data.data !== null){
             context.beginAssessmentData = resp.data.data;
-            //setAssessmentTitle(context.beginAssessmentData.name);
+            context.total_questions = resp.data.data.total_question;
         }
         
     } catch (err) {
         console.log("ERROR LOADING ASSESSMENT DATA",err)
     }
+
   };
-
-
   const triggerAssessment=()=>{
-    if(authToken && context.beginAssessmentData){
+    if(authToken && context.beginAssessmentData && Object.keys(context.beginAssessmentData).length !== 0){
       setShowModal(true)
-      context.start_time = moment().format('YYYY-MM-DD hh:mm');
+      context.start_time = moment().format('YYYY-MM-DD hh:mm'); 
     }
     }
   return (

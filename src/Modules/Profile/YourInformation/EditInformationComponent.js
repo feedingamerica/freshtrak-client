@@ -65,9 +65,6 @@ const EditInformationComponent = (props) => {
         return v.length === 2 && i < 2 ? v + '/' : v;
       });
       let value = output.join('').substr(0, 14);
-      // let newDob = moment(value).format('YYYY-MM-DD');
-      // setValue('date_of_birth', newDob)
-      // setDateOfBirth(newDob)
       setValue('date_of_birth', value)
       setDateOfBirth(value)
     }
@@ -187,38 +184,6 @@ const EditInformationComponent = (props) => {
         : <span className="text-danger">This field is required</span> )
       }
     </div>
-
-
-{/* 
-    <div className="form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              name="no_phone_number"
-              id="no_phone_number"
-              value=""
-              ref={register}
-            />
-            <label htmlFor="no_phone_number" className="form-check-label">
-              Is adult ?
-						</label>
-          </div> */}
-
-
-
-                              {/* <div className="form-group calendar-component">
-                                    <label>Date Of Birth </label>
-                                    <CalenderComponent
-                                        // value={date_of_birth}
-                                        maxDate={new Date()}
-                                        yearNavigator={true}
-                                        monthNavigator={true}
-                                        onDateChange={(v) => setDateOfBirth(v)}
-                                    />
-                                </div> */}
-
-
-
 
     {/* race */}
     <div className="form-group">

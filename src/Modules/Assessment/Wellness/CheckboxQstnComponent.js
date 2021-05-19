@@ -1,11 +1,8 @@
 
 import React, { useContext, useEffect, useState } from 'react';
-//import { event } from 'react-ga';
-//import ButtonComponent from '../../General/ButtonComponent';
 import WellnessContext from './WellnessContext';
 const CheckboxQstnComponent = (props) => {
-    let { question, assessment_qn_id, option, description,option_id,go_to_page,previous_page,
-        next_page } = props.content;
+    let { question, assessment_qn_id, option, description,option_id,go_to_page,next_page } = props.content;
     let context = useContext(WellnessContext);
     let childObj = {};
     const [checkedOptions, setCheckedOptions] = useState([])
@@ -14,7 +11,6 @@ const CheckboxQstnComponent = (props) => {
     useEffect(() => {
         setCheckedOptions(context.answers[assessment_qn_id-1])
         setIndexArray([])
-        context.previous_page[assessment_qn_id-1] = previous_page-1;
         if(context.previous.indexOf(assessment_qn_id-1) === -1){
             context.previous.push(assessment_qn_id-1);
         }
@@ -41,7 +37,6 @@ const CheckboxQstnComponent = (props) => {
     }
     const setOptionArray = ()=>{
         let tempOptions = [];
-        //indexArray.map((val,index)=>{
             indexArray.forEach((val,index)=>{
             if(tempOptions.indexOf(option_id[val]) === -1)
             {
@@ -82,7 +77,6 @@ const CheckboxQstnComponent = (props) => {
                     return value;
                 }).indexOf(e.target.value) === -1) {
                     context.answers[assessment_qn_id - 1].push(e.target.value)
-                    //let answers = [...context.answers[assessment_qn_id - 1]]
                 }
                 else {
                     let delIndex = context.answers[assessment_qn_id - 1].map((value, index) => {
@@ -107,13 +101,10 @@ const CheckboxQstnComponent = (props) => {
                                 <div className="checkbox-custom">
                                     <input type="checkbox"
                                         disabled={false}
-                                        //id={index || ""}
                                         id={index}
-                                        //value={value || ""}
                                         defaultValue={value || ""}
                                         checked={isChecked(value,index)}
                                         onChange={(e)=>setValue(e)}
-                                        //name={index || ""} 
                                         name={index} 
                                         />
                                     <label htmlFor={index}>{value} </label>

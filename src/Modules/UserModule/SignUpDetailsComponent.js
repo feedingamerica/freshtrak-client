@@ -37,7 +37,6 @@ const SignUpDetailsComponent = (props) => {
              name="password"
              id="signup-password"
              autoComplete="off"
-             //onChange={(e)=>console.log("typing...",e.target.value)}
              ref={register({ required: true })}
           />
           {errors.password &&  

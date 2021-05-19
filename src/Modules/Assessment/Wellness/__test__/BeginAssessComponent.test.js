@@ -2,8 +2,6 @@ import React from 'react';
 import { render,wait } from '@testing-library/react';
 import BeginAssessComponent from '../BeginAssessComponent';
 
-//passed
-
 const originalWarn = console.warn.bind(console.warn);
 beforeAll(() => {
   console.warn = msg =>
@@ -16,7 +14,4 @@ afterAll(() => {
 
 test('should display the events', async() => {
     const { getByText } = render(<BeginAssessComponent />);
-  //   await wait(() => {
-  //     getByText('Wellness Assessment');
-  //  });
   });
