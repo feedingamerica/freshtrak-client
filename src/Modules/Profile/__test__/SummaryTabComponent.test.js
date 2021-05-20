@@ -13,11 +13,7 @@ test('SummaryTabComponent rendered without errors', () => {
     const store = mockStore({});
     render(
       <Provider store={store}>
-      <SummaryTabComponent>
-      <ResourceCategoryComponent/>
-      <BadgesComponent/>
-      <YourReservationsComponent/>
-    </SummaryTabComponent>
+      <SummaryTabComponent/>
     </Provider>
     );
   }).not.toThrowError();

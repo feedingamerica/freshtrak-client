@@ -47,9 +47,10 @@ const WellnessContainer = (props) => {
 	
     const setAssessmentQuestions = async() => {
 			let assessmentUri = API_URL.QUESTIONS;
+			let zip = currentUser && currentUser.zip_code;
             try {
 								const resp = await axios.get(assessmentUri, {
-									params: { zip_code: '43219'}
+									params: { zip_code: zip}
 								});
 								
 				if(resp && resp.data && 

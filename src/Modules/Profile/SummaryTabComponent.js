@@ -3,7 +3,9 @@ import ResourceCategoryComponent from '../../Modules/Profile/ResourceCategoriesC
 import BadgesComponent from '../../Modules/Profile/BadgesComponent';
 import YourReservationsComponent from '../../Modules/Profile/YourReservationsComponent';
 
+
 const SummaryTabComponent = () => {
+  
   return(
     <div className="container pt-3 pb-3">
       <ResourceCategoryComponent/>

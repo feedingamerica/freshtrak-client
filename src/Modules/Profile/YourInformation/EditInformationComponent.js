@@ -5,11 +5,15 @@ import moment from "moment";
 import { API_URL } from '../../../Utils/Urls';
 //import { formatDateForServer } from '../../../Utils/DateFormat';
 import axios from 'axios';
+import { useSelector,useDispatch } from 'react-redux';
+import { setCurrentUser, selectUser } from '../../../Store/userSlice';
+import SpinnerComponent from '../../General/SpinnerComponent';
 
 
 
 const EditInformationComponent = (props) => {
     const { register, handleSubmit, errors,setValue } = useForm();
+    const [isLoading, setLoading] = useState(false);
     const [first_name, setFirstName] = useState(null)
     const [date_of_birth, setDateOfBirth] = useState(null)
     const [middle_name, setMiddleName] = useState(null)
@@ -17,6 +21,9 @@ const EditInformationComponent = (props) => {
     const [race, setRace] = useState(null)
     const [ethnicity, setEthnicity] = useState(null)
     const [gender, setGender] = useState(null)
+    const currentUser = useSelector(selectUser);
+    const [user, setUser] = useState(currentUser);
+    const dispatch = useDispatch();
    
     useEffect(() => {
         if (props.informationData) {
@@ -29,8 +36,6 @@ const EditInformationComponent = (props) => {
             setRace(informationDetails.race)
             setDateOfBirth(moment(informationDetails.dob).format("MM/DD/YYYY"))
             
-        } else {
-            //props.proxyData.proxyTypes.length && setproxyTypeId(props.proxyData.proxyTypes[0].proxy_type_id)
         }
 
     }, [props])
@@ -70,13 +75,14 @@ const EditInformationComponent = (props) => {
     }
 
     const onSubmit = (data) => {
-      props.tabClose()
+      setLoading(true)
        updateInformation(data)
     }
 
     const updateInformation = async (data) =>{
       let param = {
-       "user": {first_name : data.first_name,
+       "user": {
+        first_name : data.first_name,
         middle_name : data.middle_name,
         last_name : data.last_name,
         date_of_birth : moment(date_of_birth).format('YYYY-MM-DD'),
@@ -86,15 +92,33 @@ const EditInformationComponent = (props) => {
         gender : (data.gender === "" || data.gender == null || data.gender === undefined ? gender : data.gender)
       }
     }
+    let updatedUser = {
+      ...user,
+        first_name : data.first_name,
+        middle_name : data.middle_name,
+        last_name : data.last_name,
+        date_of_birth : moment(date_of_birth).format('YYYY-MM-DD'),
+        race : (data.race === "" || data.race == null || data.race === undefined ? race : data.race),
+        ethnicity : (data.ethnicity === "" || data.ethnicity == null || data.ethnicity === undefined ? ethnicity : data.ethnicity),
+        //is_adult : 1,
+        gender : (data.gender === "" || data.gender == null || data.gender === undefined ? gender : data.gender)
+
+}
 
       const authToken = localStorage.getItem('authToken');
         try {
           await axios.put(API_URL.UPDATE_INFORMATION, param,
             { headers: { Authorization: `${authToken}` } }
           );
+          setUser(updatedUser);
+          dispatch(setCurrentUser(updatedUser));
           props.refreshMainTab()
+          setLoading(false)
+          props.tabClose()
         } catch (e) {
           console.log("error occured >",e)
+          setLoading(false)
+          props.tabClose()
     }
   }
 
@@ -268,6 +292,9 @@ const EditInformationComponent = (props) => {
                 className="btn complete-button w-100"
                 name="save"
             >Save</button>
+        </div>
+        <div className="mt-3">
+        {isLoading && <SpinnerComponent />}
         </div>
         <div className="mt-3 text-center">
             <span className="text-purple font-weight-bold" onClick={props.tabClose}>Cancel</span>

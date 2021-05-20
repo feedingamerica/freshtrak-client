@@ -29,7 +29,6 @@ const ResourceCategoryComponent = () => {
   const userType = Number(localStorage.getItem('userType'));
 
   useEffect(() => {
-
     if(user === null || ((user !== undefined && user!== null) && 
     (Object.keys(user).length === 0))) {
       setCurrentUserData(userType)
@@ -86,27 +85,34 @@ const ResourceCategoryComponent = () => {
   };
 
   const setAssessmentData = async() => {
+    setLoading(true)
     let assessmentUri = API_URL.TRIGGER_ASSESSMENT;
+    let zip = currentUser && currentUser.zip_code;
     try {
       const resp = await axios.get(assessmentUri, {
-        params: { zip_code: '43219'}
+        params: { zip_code: zip}
     });
          
         if(resp && resp.data && 
-            resp.data.data !== null){
+            resp.data.data !== null && resp.data.data !== undefined){
             context.beginAssessmentData = resp.data.data;
             context.total_questions = resp.data.data.total_question;
+        if(Object.keys(context.beginAssessmentData).length !== 0){
+          setShowModal(true)
+          context.start_time = moment().format('YYYY-MM-DD hh:mm'); 
         }
-        
+          }
+        setLoading(false)
     } catch (err) {
+        setLoading(true)
         console.log("ERROR LOADING ASSESSMENT DATA",err)
     }
 
   };
   const triggerAssessment=()=>{
-    if(authToken && context.beginAssessmentData && Object.keys(context.beginAssessmentData).length !== 0){
-      setShowModal(true)
-      context.start_time = moment().format('YYYY-MM-DD hh:mm'); 
+    
+    if(authToken){
+      setAssessmentData()
     }
     }
   return (
