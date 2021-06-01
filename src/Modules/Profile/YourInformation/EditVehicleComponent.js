@@ -2,11 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { API_URL } from '../../../Utils/Urls';
 import axios from 'axios';
+import { useSelector,useDispatch } from 'react-redux';
+import { setCurrentUser, selectUser } from '../../../Store/userSlice';
+import SpinnerComponent from '../../General/SpinnerComponent';
 
 
 const EditVehicleComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
-  const [vehicle, setVehicle] = useState(null)
+  const [isLoading, setLoading] = useState(false);
+  const [vehicle, setVehicle] = useState(null);
+  const currentUser = useSelector(selectUser);
+  const [user, setUser] = useState(currentUser);
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     if (vehicle == null ) {
@@ -23,20 +30,30 @@ const EditVehicleComponent = (props) => {
 
 
   const onSubmit = (data) => {
-    props.tabClose()
+    setLoading(true)
     updateVehicleData(data)
   }
 
   const updateVehicleData = async (data) =>{
     let param = {"user":{license_plate : data.vehicle}}
+    let updatedUser = {
+      ...user,
+      license_plate : data.vehicle
+  }
+
     const authToken = localStorage.getItem('authToken');
       try {
         await axios.put(API_URL.UPDATE_INFORMATION, param,
           { headers: { Authorization: `${authToken}` } }
         );
+        setUser(updatedUser);
+        dispatch(setCurrentUser(updatedUser));
         props.refreshMainTab()
+        setLoading(false)
+        props.tabClose()
       } catch (e) {
-        console.log("error occured >",e)
+        setLoading(false)
+        props.tabClose()
         
   }
 }
@@ -75,6 +92,9 @@ const EditVehicleComponent = (props) => {
                 name="save"
                 data-testid="save"
             >Save</button>
+        </div>
+        <div className="mt-3">
+        {isLoading && <SpinnerComponent />}
         </div>
         <div className="mt-3 text-center">
             <span className="text-purple font-weight-bold" onClick={props.tabClose}>Cancel</span>

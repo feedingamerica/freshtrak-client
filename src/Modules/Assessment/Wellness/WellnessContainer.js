@@ -5,7 +5,6 @@ import React, {useState,useContext,useEffect} from 'react';
 import { useSelector } from 'react-redux';
 
 // import general components
-//import ButtonComponent from '../../General/ButtonComponent';
 // import all pages.
 import BeginAssessComponent from './BeginAssessComponent';
 import RangeQstnComponent from './RangeQstnComponent';
@@ -24,7 +23,6 @@ import backBtn from '../../../Assets/img/back-green.svg';
 import {API_URL} from '../../../Utils/Urls';
 import axios from 'axios';
 import moment from 'moment';
-//import Modal from "react-bootstrap/Modal";
 import { selectUser } from '../../../Store/userSlice';
 
 
@@ -35,15 +33,11 @@ const WellnessContainer = (props) => {
 	// check handleProgress() function.
 	// we use context.currPage to track currPage.
 	const [currPage,setCurrPage] = useState(-1);
-	//const [startTime,setStartTime] = useState(null);
-	//const [endTime,setEndTime] = useState(null);
 	const [dataLength,setDataLength] = useState(0);
 	//useState
 	const {closeModal} = props;
 	const context = useContext(WellnessContext);
-	//let answers = context.answers;
 	const [progress,setProgress] = useState(0);
-	//const [totalMainQstns,setTotalMainQstns] = useState(0);
 	const [assessmentData,setAssessmentData] = useState(null);
 	const [type,setType] = useState("next");
 	const currentUser = useSelector(selectUser);
@@ -53,8 +47,12 @@ const WellnessContainer = (props) => {
 	
     const setAssessmentQuestions = async() => {
 			let assessmentUri = API_URL.QUESTIONS;
+			let zip = currentUser && currentUser.zip_code;
             try {
-                const resp = await axios.get(assessmentUri);
+								const resp = await axios.get(assessmentUri, {
+									params: { zip_code: zip}
+								});
+								
 				if(resp && resp.data && 
 					resp.data.data.length > 0 
 					&& assessmentData == null){
@@ -62,7 +60,6 @@ const WellnessContainer = (props) => {
 							context.question_source_id = resp.data.data[0].question_source_id;
 							context.assessment_id = resp.data.data[0].assessment_id;
 						}
-						context.total_questions = resp.data.data.length;
 					setAssessmentData(resp.data.data)
 					setDataLength(resp.data.data.length)
 					if(dataLength === 0){
@@ -74,6 +71,7 @@ const WellnessContainer = (props) => {
 							context.answers[i]= " ";
 						}
 						}
+						
 					}
 				}
 				
@@ -109,16 +107,15 @@ const WellnessContainer = (props) => {
 		}else{
 				return <SelectQstnComponent content={assessmentData[currPage]}/>
 		}
-}
+	}
 	
 	}
 
 //handle page nos
 	const handleProgress = (type) =>{
 		if(currPage !== -1){
-			//let progression = 100/(totalMainQstns);
 			let progress = 100/dataLength;
-			if(assessmentData[currPage] 
+			if(assessmentData && assessmentData[currPage] 
 				&& assessmentData[currPage].assessment_qn_id 
 				&& assessmentData[currPage].is_main){
 				let progression = progress * assessmentData[currPage].assessment_qn_id;
@@ -141,19 +138,16 @@ const WellnessContainer = (props) => {
 			goToNextPage(page)
 			
 		}else{
-			let page = currPage - 1;
 				setType("prev")
-		 	  setCurrPage(page)
-		 	 	goToPrevPage(page)
-				
+		 	 	goToPrevPage()
 		}
 	}
 
 	const handleSubmit = async()=>{
+		context.previous = []
 		let assessmentUri = API_URL.SUBMIT_ASSESSMENT;
 		const authToken = localStorage.getItem('authToken');
 		let ansArray = [];
-		//Object.keys(context.answers).map((index)=>{
 			Object.keys(context.answers).forEach((item,index)=>{	
 			let data = {
 				"assment_qn_id": (index)+1,
@@ -166,7 +160,6 @@ const WellnessContainer = (props) => {
 
 		let body = {
 			assessment_id : context.assessment_id,
-			//user_id : user && user.id ? user.id : null,
 			user_id : currentUser && currentUser.id ? currentUser.id : null,
 			start_time : context.start_time,
 			question_source_id : context.question_source_id,
@@ -191,13 +184,14 @@ const WellnessContainer = (props) => {
    
 
 	const goToNextPage = async(currpage)=>{
-		if(currpage === assessmentData.length){
+		if(currpage === (assessmentData && assessmentData.length)){
 			handleSubmit()
 		}
 		else if(currpage === 0){
 			setCurrPage(0)
 		}
 		else{
+
 			if(context.go_to_page[currPage] === [] || context.go_to_page[currPage] === undefined){
 				setCurrPage(context.next_page[currpage-1])
 			}else{
@@ -212,10 +206,17 @@ const WellnessContainer = (props) => {
 
 
 
-	const goToPrevPage = async (currpage) => {
-		setCurrPage(context.previous_page[currPage])
-	
-			//handleProgress("prev");
+	const goToPrevPage = async () => {
+		if(assessmentData[currPage].question_type === "Check Box"){
+			context.answers[currPage] = [];
+			context.option_id.splice(currPage,1);
+		}else{
+			context.answers[currPage] = " ";
+			context.option_id.splice(currPage,1);
+		}
+		let index = context.previous.length-2;
+		setCurrPage(context.previous[index])
+		context.previous.pop()
 	}
     return (  
 			
@@ -234,7 +235,8 @@ const WellnessContainer = (props) => {
 												className="img-fluid" /></span>}
                        
 												{currPage >0 && currPage !== dataLength &&  
-												<span className="text-uppercase ml-2">Previous Question</span>}
+												<span className="text-uppercase ml-2">Previous Question</span>
+												}
                     </div>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">

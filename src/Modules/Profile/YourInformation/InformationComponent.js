@@ -1,11 +1,8 @@
 import React from "react";
 import editIcon from "../../../Assets/img/edit.png";
-//import { useForm } from 'react-hook-form';
 import moment from 'moment';
 
 const InformationComponent = (props) => {
-  //debugger
-
   const toTitleCase =(str)=> 
   {
      if(str) return str.split(/\s+/).map( s => s.charAt( 0 ).toUpperCase() + s.substring(1).toLowerCase() ).join( " " );

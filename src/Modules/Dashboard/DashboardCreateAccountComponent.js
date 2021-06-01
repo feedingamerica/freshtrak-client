@@ -1,15 +1,11 @@
 import React from 'react';
 import BoxComponent from '../General/BoxComponent';
-// import ButtonComponent from '../General/ButtonComponent';
 import CalenderIcon from '../../Assets/img/calendar.svg';
-// import PreRegisteredIcon from '../../Assets/img/pre-register.svg';
 import FindFoodIcon from '../../Assets/img/findfood.svg';
-// import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
 import localization from '../Localization/LocalizationComponent';
 import axios from 'axios';
 import {CurrentUser} from "../../Utils/CognitoHandler";
-//import { selectEvent } from '../../Store/Events/eventSlice';
 import {useHistory } from 'react-router-dom';
 import { RENDER_URL,API_URL } from '../../Utils/Urls';
 import { setLoggedIn } from '../../Store/loggedInSlice';
@@ -17,14 +13,7 @@ import { useDispatch } from 'react-redux';
 
 const DashboardCreateAccountComponent = () => {
   const history = useHistory();
-  // const event = useSelector(selectEvent);
-  // const [selectedEvent, setSelectedEvent] = useState(event);
   const dispatch = useDispatch();
-  // const [lang, setLang] = useState("en");
-  // const change = (event) => {
-  //   localization.setLanguage(event.target.value);
-  //   setLang(event.target.value);
-  // }
     const getCurrentUser = async ()=> {
 
     await CurrentUser().then(res=> {
@@ -32,7 +21,6 @@ const DashboardCreateAccountComponent = () => {
         localStorage.setItem('isLoggedIn', isLogin);
         localStorage.setItem('authToken', res.token);
         dispatch(setLoggedIn(isLogin))
-        //setIsLoggedIn(isLogin); 
         let eventId = (isLogin ? localStorage.getItem('selectedEventId') : null);
         let  isLoggedIn = localStorage.getItem('isLoggedIn');
         fbUserAdd();

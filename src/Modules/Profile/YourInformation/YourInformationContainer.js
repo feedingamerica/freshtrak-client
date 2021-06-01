@@ -16,7 +16,6 @@ import axios from 'axios';
 import { API_URL } from '../../../Utils/Urls';
 
 const YourInformationContainer = (props) =>{
-  //const { register, handleSubmit, errors,setValue,watch } = useForm();
   const { errors } = useForm();
   const [showInformationTray, setShowInformationTray] = useState(false)
   const [showAddressTray, setShowAddressTray] = useState(false)
@@ -27,7 +26,6 @@ const YourInformationContainer = (props) =>{
   const [informationData, setInformationData] = useState(null)
   const [addressData, setAddressData] = useState(null)
   const [contactData, setContactData] = useState(null)
-  //const [languagePreferenceData, setLanguagePreferenceData] = useState(null)
   const [vehicleData, setVehicleData] = useState(null)
   const authToken = localStorage.getItem('authToken');
 
@@ -116,7 +114,7 @@ const getContactDetails = async () =>{
 // const getLanguageDetails = async () =>{
 //   const {USER_LANGUAGE} = API_URL;
 //   try {
-//     const userLangPrefResp = await axios.get(USER_INFORMATION, {
+//     const userLangPrefResp = await axios.get(USER_LANGUAGE, {
 //       headers: { Authorization: `${authToken}` }
 //     });
 //     // setUsersReservation(usersRegData.data);
@@ -198,7 +196,6 @@ const getVehicleDetails = async () =>{
       
       <SideTrayComponent
                 show={showInformationTray}
-                //header={editServiceId ? "Update Service" : "Schedule Service"}
                 header={"Edit Information"}
                 onClose={()=> setShowInformationTray(false)}
             >
@@ -206,8 +203,6 @@ const getVehicleDetails = async () =>{
                     informationData={informationData}
                     states={[]}
                     refreshMainTab={()=>refreshInformationTab()}
-                    //watch={watch}
-                    //resetData={() => setServiceData(null)}
                     tabClose={() => setShowInformationTray(false)}
                 />}
       </SideTrayComponent>
@@ -228,13 +223,7 @@ const getVehicleDetails = async () =>{
                 {addressData && <EditAddressComponent
                     addressData={addressData}
                     refreshMainTab={()=>refreshAddressTab()}
-                    // states={[]}
-                    // watch={watch}
-                    // setValue={setValue}
-                    // register={register}
                     errors={errors}
-                    //states={addressData.states}
-                    //resetData={() => setServiceData(null)}
                     tabClose={() =>setShowAddressTray(false)}
                 />}
       </SideTrayComponent>
@@ -253,7 +242,6 @@ const getVehicleDetails = async () =>{
                 {contactData && <EditContactComponent
                     contactData={contactData}
                     refreshMainTab={()=>refreshContactTab()}
-                    //resetData={() => setServiceData(null)}
                     tabClose={() => setShowContactTray(false)}
                 />}
       </SideTrayComponent>
@@ -299,8 +287,6 @@ const getVehicleDetails = async () =>{
                     vehicleData={vehicleData}
                     states={[]}
                     refreshMainTab={()=>refreshVehicleTab()}
-                    
-                    //resetData={() => setServiceData(null)}
                     tabClose={() => setShowVehicleTray(false)}
                 />}
       </SideTrayComponent>

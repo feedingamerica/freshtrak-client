@@ -3,12 +3,19 @@ import { useForm } from "react-hook-form";
 import PhoneComponent from '../../General/PhoneComponent';
 import axios from 'axios';
 import { API_URL } from '../../../Utils/Urls';
+import { useSelector,useDispatch } from 'react-redux';
+import { setCurrentUser, selectUser } from '../../../Store/userSlice';
+import SpinnerComponent from '../../General/SpinnerComponent';
 
 
 const EditContactComponent = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const [email, setEmail] = useState(null)
   const [phone, setPhone] = useState(null)
+  const currentUser = useSelector(selectUser);
+  const [user, setUser] = useState(currentUser);
+  const [isLoading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     if (email == null && phone == null) {
@@ -26,24 +33,37 @@ const EditContactComponent = (props) => {
 
 
   const onSubmit = (data) => {
-    props.tabClose()
+    setLoading(true)
     postData(data)
   }
 
   const postData = async (data) =>{
     let param = {"user":
     {
-      email : (data.email== null || data.email=== "" || data.email=== undefined ? email : data.email),
-      phone : (data.phone == null || data.phone=== "" || data.phone=== undefined ? phone : data.phone)
+      email : (data.email ? data.email: email),
+      phone : (data.phone ? data.phone : phone)
     }
+  }
+  let updatedUser = {
+    ...user,
+    email : (data.email ? data.email: email),
+    phone : (data.phone ? data.phone : phone)
+    
+
   }
     const authToken = localStorage.getItem('authToken');
     try {
       await axios.put(API_URL.UPDATE_INFORMATION, param,
         { headers: { Authorization: `${authToken}` } }
       );
+      setUser(updatedUser);
+      dispatch(setCurrentUser(updatedUser));
       props.refreshMainTab()
+      setLoading(false)
+      props.tabClose()
     } catch (e) {
+      setLoading(false)
+      props.tabClose()
 }
 }
 
@@ -122,6 +142,9 @@ const EditContactComponent = (props) => {
                 className="btn complete-button w-100"
                 name="save"
             >Save</button>
+        </div>
+        <div className="mt-3">
+        {isLoading && <SpinnerComponent />}
         </div>
         <div className="mt-3 text-center">
             <span className="text-purple font-weight-bold" onClick={props.tabClose}>Cancel</span>

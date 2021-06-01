@@ -49,33 +49,6 @@ const RegistrationConfirmComponent = props => {
     }
   };
 
-  // const getUser = async token => {
-  //   //setLoading(true);
-  //   const { GUEST_USER } = API_URL;
-  //   try {
-  //     const resp = await axios.get(GUEST_USER, {
-  //       params: {},
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     const { data } = resp;
-  //     if (data["date_of_birth"] !== null){
-  //       data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
-  //     }
-  //     if (data["phone"] !== null){
-  //       const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-  //       data["phone"] = data["phone"].replace(phoneRegex, '($1) $2-$3')
-  //     }
-  //     dispatch(setCurrentUser(data));
-  //     setUser(data);
-  //     //setLoading(false);
-  //   } catch (e) {
-  //     //setLoading(false);
-  //     console.error(e);
-  //   }
-  // };
-
-
-
 
   const getUser = async token => {
     let url,authHeader;    

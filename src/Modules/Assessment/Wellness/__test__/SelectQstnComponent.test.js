@@ -3,7 +3,6 @@ import { render,wait } from '@testing-library/react';
 import SelectQstnComponent from '../SelectQstnComponent';
 import { mockSelectQstnComponent } from '../../../../Testing/mock-assessment';
 
-//failed need to pass props
 const originalWarn = console.warn.bind(console.warn);
 beforeAll(() => {
   console.warn = msg =>

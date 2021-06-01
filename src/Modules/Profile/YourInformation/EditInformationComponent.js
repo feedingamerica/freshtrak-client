@@ -5,11 +5,15 @@ import moment from "moment";
 import { API_URL } from '../../../Utils/Urls';
 //import { formatDateForServer } from '../../../Utils/DateFormat';
 import axios from 'axios';
+import { useSelector,useDispatch } from 'react-redux';
+import { setCurrentUser, selectUser } from '../../../Store/userSlice';
+import SpinnerComponent from '../../General/SpinnerComponent';
 
 
 
 const EditInformationComponent = (props) => {
     const { register, handleSubmit, errors,setValue } = useForm();
+    const [isLoading, setLoading] = useState(false);
     const [first_name, setFirstName] = useState(null)
     const [date_of_birth, setDateOfBirth] = useState(null)
     const [middle_name, setMiddleName] = useState(null)
@@ -17,6 +21,9 @@ const EditInformationComponent = (props) => {
     const [race, setRace] = useState(null)
     const [ethnicity, setEthnicity] = useState(null)
     const [gender, setGender] = useState(null)
+    const currentUser = useSelector(selectUser);
+    const [user, setUser] = useState(currentUser);
+    const dispatch = useDispatch();
    
     useEffect(() => {
         if (props.informationData) {
@@ -29,8 +36,6 @@ const EditInformationComponent = (props) => {
             setRace(informationDetails.race)
             setDateOfBirth(moment(informationDetails.dob).format("MM/DD/YYYY"))
             
-        } else {
-            //props.proxyData.proxyTypes.length && setproxyTypeId(props.proxyData.proxyTypes[0].proxy_type_id)
         }
 
     }, [props])
@@ -65,21 +70,19 @@ const EditInformationComponent = (props) => {
         return v.length === 2 && i < 2 ? v + '/' : v;
       });
       let value = output.join('').substr(0, 14);
-      // let newDob = moment(value).format('YYYY-MM-DD');
-      // setValue('date_of_birth', newDob)
-      // setDateOfBirth(newDob)
       setValue('date_of_birth', value)
       setDateOfBirth(value)
     }
 
     const onSubmit = (data) => {
-      props.tabClose()
+      setLoading(true)
        updateInformation(data)
     }
 
     const updateInformation = async (data) =>{
       let param = {
-       "user": {first_name : data.first_name,
+       "user": {
+        first_name : data.first_name,
         middle_name : data.middle_name,
         last_name : data.last_name,
         date_of_birth : moment(date_of_birth).format('YYYY-MM-DD'),
@@ -89,15 +92,32 @@ const EditInformationComponent = (props) => {
         gender : (data.gender === "" || data.gender == null || data.gender === undefined ? gender : data.gender)
       }
     }
+    let updatedUser = {
+      ...user,
+        first_name : data.first_name,
+        middle_name : data.middle_name,
+        last_name : data.last_name,
+        date_of_birth : moment(date_of_birth).format('YYYY-MM-DD'),
+        race : (data.race ? data.race : race),
+        ethnicity : (data.ethnicity ? data.ethnicity :ethnicity),
+        gender : (data.gender ? data.gender : gender)
+
+}
 
       const authToken = localStorage.getItem('authToken');
         try {
           await axios.put(API_URL.UPDATE_INFORMATION, param,
             { headers: { Authorization: `${authToken}` } }
           );
+          setUser(updatedUser);
+          dispatch(setCurrentUser(updatedUser));
           props.refreshMainTab()
+          setLoading(false)
+          props.tabClose()
         } catch (e) {
           console.log("error occured >",e)
+          setLoading(false)
+          props.tabClose()
     }
   }
 
@@ -188,38 +208,6 @@ const EditInformationComponent = (props) => {
       }
     </div>
 
-
-{/* 
-    <div className="form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              name="no_phone_number"
-              id="no_phone_number"
-              value=""
-              ref={register}
-            />
-            <label htmlFor="no_phone_number" className="form-check-label">
-              Is adult ?
-						</label>
-          </div> */}
-
-
-
-                              {/* <div className="form-group calendar-component">
-                                    <label>Date Of Birth </label>
-                                    <CalenderComponent
-                                        // value={date_of_birth}
-                                        maxDate={new Date()}
-                                        yearNavigator={true}
-                                        monthNavigator={true}
-                                        onDateChange={(v) => setDateOfBirth(v)}
-                                    />
-                                </div> */}
-
-
-
-
     {/* race */}
     <div className="form-group">
       <label htmlFor="race">Race</label>
@@ -303,6 +291,9 @@ const EditInformationComponent = (props) => {
                 className="btn complete-button w-100"
                 name="save"
             >Save</button>
+        </div>
+        <div className="mt-3">
+        {isLoading && <SpinnerComponent />}
         </div>
         <div className="mt-3 text-center">
             <span className="text-purple font-weight-bold" onClick={props.tabClose}>Cancel</span>
