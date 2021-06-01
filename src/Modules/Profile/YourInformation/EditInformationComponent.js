@@ -98,10 +98,9 @@ const EditInformationComponent = (props) => {
         middle_name : data.middle_name,
         last_name : data.last_name,
         date_of_birth : moment(date_of_birth).format('YYYY-MM-DD'),
-        race : (data.race === "" || data.race == null || data.race === undefined ? race : data.race),
-        ethnicity : (data.ethnicity === "" || data.ethnicity == null || data.ethnicity === undefined ? ethnicity : data.ethnicity),
-        //is_adult : 1,
-        gender : (data.gender === "" || data.gender == null || data.gender === undefined ? gender : data.gender)
+        race : (data.race ? data.race : race),
+        ethnicity : (data.ethnicity ? data.ethnicity :ethnicity),
+        gender : (data.gender ? data.gender : gender)
 
 }
 

@@ -7,6 +7,7 @@ import {API_URL} from '../../Utils/Urls';
 import axios from 'axios';
 import { selectUser } from '../../Store/userSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
+import { showToast } from '../Notifications/NotifyToastComponent';
 
 const TakeTheAssessmentComponent = () => {
 	let context = useContext(WellnessContext);
@@ -25,7 +26,7 @@ const TakeTheAssessmentComponent = () => {
     });
          
         if(resp && resp.data && 
-            resp.data.data !== null){
+            resp.data.data){
             context.beginAssessmentData = resp.data.data;
             context.total_questions = resp.data.data.total_question;
         if(Object.keys(context.beginAssessmentData).length !== 0){
@@ -33,9 +34,15 @@ const TakeTheAssessmentComponent = () => {
           context.start_time = moment().format('YYYY-MM-DD hh:mm'); 
         }
           }
+          else{
+            let msg = "No assessment available for you.";
+            showToast(msg,'error');
+          }
         setLoading(false)
     } catch (err) {
-        setLoading(true)
+        setLoading(false)
+        let msg = "Error loading Assessment Data.";
+        showToast(msg,'error');
         console.log("ERROR LOADING ASSESSMENT DATA",err)
     }
 

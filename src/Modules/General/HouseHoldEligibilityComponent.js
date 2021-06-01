@@ -22,14 +22,14 @@ const HouseHoldEligibilityComponent = ({ header, body, footer }) => {
             To view eligibility requirements for our programs click here:
           </span>
           <span className="font-weight-bold ml-2">
-            <a
-              href={() => false}
+            <div
+              //href={() => false}
               className="link"
               rel="noopener noreferrer"
               onClick={() => setShowEligibilityModal(true)}
             >
               View Eligibility Guidelines
-            </a>
+            </div>
           </span>
         </div>
       </div>

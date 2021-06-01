@@ -191,6 +191,7 @@ const WellnessContainer = (props) => {
 			setCurrPage(0)
 		}
 		else{
+
 			if(context.go_to_page[currPage] === [] || context.go_to_page[currPage] === undefined){
 				setCurrPage(context.next_page[currpage-1])
 			}else{

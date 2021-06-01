@@ -25,7 +25,7 @@ const HeaderContainer = () => {
         <HeaderComponent shortHeader={shortHeader} />
       ) : (
         <header className="header">
-          <HeaderComponent />
+          <HeaderComponent/>
           <HeaderDataComponent />
         </header>
       )}

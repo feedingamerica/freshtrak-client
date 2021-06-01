@@ -38,13 +38,13 @@ import {COGNITO_CONFIG}  from "../../Utils/Constants";
 Auth.configure(COGNITO_CONFIG);
 
 const HeaderComponent = (props) => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [navbarShrink, setNavbarShrink] = useState("");
   const loggedIn = useSelector(selectLoggedIn);
  // const [isLoggedIn, setIsLoggedIn] = useState(loggedIn); //commented to remove warning
   const [show, setShow] = useState(false);
   const shortHeader = props.shortHeader || "";
-  const dispatch = useDispatch();
   const change = (event,data) => {
     localization.setLanguage(data.value);
     dispatch(setCurrentLanguage(data.value));
@@ -55,7 +55,6 @@ const HeaderComponent = (props) => {
   const [showMobileMenu, setMobileMenu] = useState(false);
   const FRESHTRAK_PARTNERS_URL = process.env.REACT_APP_FRESHTRAK_PARTNERS_URL;
   useEffect(() => {
-    //const localStorageLoggedIn = localStorage.getItem('isLoggedIn');
     window.onscroll = () => {
       if (window.pageYOffset > 100) {
         setNavbarShrink("navbar-shrink");
@@ -63,9 +62,13 @@ const HeaderComponent = (props) => {
         setNavbarShrink("");
       }
     };
+    return () => {
+      setNavbarShrink("");
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn,dispatch,userType]);
-   const clearStorage= ()=>{
+  
+  const clearStorage= ()=>{
     localStorage.removeItem('userToken');
     localStorage.removeItem('tokenExpiresAt');
     localStorage.removeItem('search_zip');
@@ -76,15 +79,9 @@ const HeaderComponent = (props) => {
  
   
   const logOut = async() => { 
-   // setIsLoggedIn(false)
-    dispatch(setLoggedIn(false));
     localStorage.setItem('isLoggedIn', false);
     localStorage.removeItem('isAdded');
      if(userType === 0){ 
-       //setIsLoggedIn(false);
-       localStorage.removeItem('userType');
-       localStorage.removeItem('selectedEventId');
-       localStorage.removeItem('authToken');
     await LogOut().then(async res => {
          //let data = res.data;
          if(res && res.status){
@@ -94,14 +91,13 @@ const HeaderComponent = (props) => {
          }
          history.push(`${RENDER_URL.ROOT_URL}`);
        })
-       .catch(err=>{
-         console.log("err in logOut",err)
+       .catch(err =>{
+         console.log("error in logOut",err)
        })
 
 
      }
      else{
-       //setIsLoggedIn(false);
        localStorage.setItem('isLoggedIn',false);
        clearStorage()
        dispatch(setCurrentEvent({}));
@@ -109,7 +105,7 @@ const HeaderComponent = (props) => {
        dispatch(setLoggedIn(false));
        history.push(`${RENDER_URL.ROOT_URL}`);
      }  
-    
+    dispatch(setLoggedIn(false));
     //window.FB.logout()
   }
 
@@ -118,7 +114,6 @@ const HeaderComponent = (props) => {
   }
 
   const handleClose = () => setShow(false);
-  //const handleShow = () => setShow(true);
   
   return (
     <Fragment>

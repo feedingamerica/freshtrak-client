@@ -35,9 +35,8 @@ const RegistrationContainer = (props) => {
   const userType = Number(localStorage.getItem('userType'));
   const fetchBusinesses = () =>{ 
     let authToken;
-    if(userType === 0 ){ 
-      console.log()
-      authToken = localStorage.getItem('authToken');      
+    if(userType === 0 ){
+      authToken = localStorage.getItem('authToken'); 
     } else {
       authToken = localStorage.getItem('userToken');
     }

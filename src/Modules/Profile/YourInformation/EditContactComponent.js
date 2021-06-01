@@ -40,14 +40,14 @@ const EditContactComponent = (props) => {
   const postData = async (data) =>{
     let param = {"user":
     {
-      email : (data.email== null || data.email=== "" || data.email=== undefined ? email : data.email),
-      phone : (data.phone == null || data.phone=== "" || data.phone=== undefined ? phone : data.phone)
+      email : (data.email ? data.email: email),
+      phone : (data.phone ? data.phone : phone)
     }
   }
   let updatedUser = {
     ...user,
-    email : (data.email== null || data.email=== "" || data.email=== undefined ? email : data.email),
-    phone : (data.phone == null || data.phone=== "" || data.phone=== undefined ? phone : data.phone)
+    email : (data.email ? data.email: email),
+    phone : (data.phone ? data.phone : phone)
     
 
   }

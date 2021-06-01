@@ -21,10 +21,10 @@ const CheckboxQstnComponent = (props) => {
     const isChecked = (value,index) => {
         let checkedFlag = false;
         let valueArray = context.answers[assessment_qn_id-1];
-        if(value && value !== undefined && valueArray && valueArray!== undefined && valueArray.length === 0){
+        if(value && valueArray && valueArray.length === 0){
             checkedFlag = false;  
         }else{
-            if(value && value !== undefined && checkedOptions && checkedOptions.indexOf(value) > -1 && indexArray.indexOf(index) < 0){
+            if(value && checkedOptions && checkedOptions.indexOf(value) > -1 && indexArray.indexOf(index) < 0){
                 indexArray.push(index)
                 setOptionArray()
             }
@@ -69,7 +69,7 @@ const CheckboxQstnComponent = (props) => {
 
     const setValue = (e) => {
         setChecked(e)
-        if (e && e.target && e.target.value !== null) {
+        if (e.target.value) {
             childObj[e.target.name] = e.target.value
         }
 

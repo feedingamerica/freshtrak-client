@@ -114,7 +114,7 @@ const getContactDetails = async () =>{
 // const getLanguageDetails = async () =>{
 //   const {USER_LANGUAGE} = API_URL;
 //   try {
-//     const userLangPrefResp = await axios.get(USER_INFORMATION, {
+//     const userLangPrefResp = await axios.get(USER_LANGUAGE, {
 //       headers: { Authorization: `${authToken}` }
 //     });
 //     // setUsersReservation(usersRegData.data);

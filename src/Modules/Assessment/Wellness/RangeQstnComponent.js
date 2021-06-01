@@ -14,7 +14,7 @@ const RangeQstnComponent = (props) => {
 	const [currVal,setCurrVal] = useState(option_start_value);
 
 	const showSliderValue = (e)=>{
-		if(e && e.target && e.target.value){
+		if(e.target.value){
 			setCurrVal(e.target.value)
 			context.answers[assessment_qn_id-1] =  is_money?`$${Number(e.target.value)} - $${Number(e.target.value)+step}`: e.target.value
 	

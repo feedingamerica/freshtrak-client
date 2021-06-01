@@ -13,6 +13,7 @@ import { formatMMDDYYYY } from '../../Utils/DateFormat';
 import { useSelector,useDispatch } from 'react-redux';
 import { setCurrentUser, selectUser } from '../../Store/userSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
+import { showToast } from '../Notifications/NotifyToastComponent';
 
 const ResourceCategoryComponent = () => {
   let context = useContext(WellnessContext);
@@ -32,9 +33,6 @@ const ResourceCategoryComponent = () => {
     if(user === null || ((user !== undefined && user!== null) && 
     (Object.keys(user).length === 0))) {
       setCurrentUserData(userType)
-    }
-    if(Object.keys(context.beginAssessmentData).length === 0){
-      setAssessmentData()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
@@ -94,18 +92,24 @@ const ResourceCategoryComponent = () => {
     });
          
         if(resp && resp.data && 
-            resp.data.data !== null && resp.data.data !== undefined){
+            resp.data.data){
             context.beginAssessmentData = resp.data.data;
             context.total_questions = resp.data.data.total_question;
         if(Object.keys(context.beginAssessmentData).length !== 0){
           setShowModal(true)
           context.start_time = moment().format('YYYY-MM-DD hh:mm'); 
         }
+        
+          }
+          else{
+            let msg = "No assessment available for you.";
+            showToast(msg,'error');
           }
         setLoading(false)
     } catch (err) {
-        setLoading(true)
-        console.log("ERROR LOADING ASSESSMENT DATA",err)
+        setLoading(false)
+        let msg = "Error loading Assessment Data.";
+        showToast(msg,'error');
     }
 
   };
