@@ -53,6 +53,7 @@ const EventContainer = props => {
     if (zipCode) {
       getEvents();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [zipCode, distance, serviceCat]);
 
   useEffect(() => {
