@@ -6,14 +6,72 @@ import CalenderIcon from '../../Assets/img/calendar.svg';
 import FindFoodIcon from '../../Assets/img/findfood.svg';
 // import { RENDER_URL } from '../../Utils/Urls';
 import '../../Assets/scss/main.scss';
-import localization from '../Localization/LocalizationComponent'
+import localization from '../Localization/LocalizationComponent';
+import axios from 'axios';
+import {CurrentUser} from "../../Utils/CognitoHandler";
+//import { selectEvent } from '../../Store/Events/eventSlice';
+import {useHistory } from 'react-router-dom';
+import { RENDER_URL,API_URL } from '../../Utils/Urls';
+import { setLoggedIn } from '../../Store/loggedInSlice';
+import { useDispatch } from 'react-redux';
 
 const DashboardCreateAccountComponent = () => {
+  const history = useHistory();
+  // const event = useSelector(selectEvent);
+  // const [selectedEvent, setSelectedEvent] = useState(event);
+  const dispatch = useDispatch();
   // const [lang, setLang] = useState("en");
   // const change = (event) => {
   //   localization.setLanguage(event.target.value);
   //   setLang(event.target.value);
   // }
+    const getCurrentUser = async ()=> {
+
+    await CurrentUser().then(res=> {
+        let isLogin = res.status;        
+        localStorage.setItem('isLoggedIn', isLogin);
+        localStorage.setItem('authToken', res.token);
+        dispatch(setLoggedIn(isLogin))
+        //setIsLoggedIn(isLogin); 
+        let eventId = (isLogin ? localStorage.getItem('selectedEventId') : null);
+        let  isLoggedIn = localStorage.getItem('isLoggedIn');
+        fbUserAdd();
+        if(eventId !== null && isLoggedIn) {
+          redirectToFb(eventId)
+        }  else {
+          localStorage.removeItem('selectedEventId');
+        }
+    }).catch(error=>{
+        console.log("Error in getCurrentUser",error)
+    })
+  }
+
+  
+   let userType = localStorage.getItem('userType') !== null ? 
+  Number(localStorage.getItem('userType')) : null;   
+
+  if(userType !== null && userType === 0){ 
+    getCurrentUser();
+  }  
+  
+  const fbUserAdd = async () => {
+    let  authToken = localStorage.getItem('authToken');
+    let isAdded = localStorage.getItem('isAdded');
+    if(!isAdded && userType === 0 && authToken){
+      const {USER_CREATION } = API_URL;
+      try {
+       await axios.post(USER_CREATION, {},
+          { headers: { Authorization: `${authToken}` } }
+        );
+       localStorage.setItem('isAdded', 1);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+   const redirectToFb=(eventId)=>{ 
+      history.push(`${RENDER_URL.REGISTRATION_FORM_URL}/${eventId}`);
+  }
   return (
     <div>
       <h2 className="mb-5 font-weight-bold mobile-text-left text-center">

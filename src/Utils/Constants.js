@@ -26,3 +26,29 @@ export const CONFIRMATION_EMAIL = {
     FROM: 'confirmation@freshtrak.com',
     SUBJECT: 'FreshTrak: Event Reservation Confirmed.',
 };
+/*Cognito configuration settings*/
+export const COGNITO_CONFIG = {
+    "aws_project_region": process.env.REACT_APP_AWS_PROJECT_REGION,
+    /*"aws_cognito_identity_pool_id": "us-west-2:8fad62a1-3dd2-490c-bd8f-c1ecdbc1385a",*/
+    "aws_cognito_region": process.env.REACT_APP_AWS_COGNITO_REGION,
+    "aws_user_pools_id": process.env.REACT_APP_AWS_USER_POOLS_ID,
+    "aws_user_pools_web_client_id": process.env.REACT_APP_AWS_WEB_CLIENT_ID,
+    "oauth": {
+        "domain": process.env.REACT_APP_AWS_DOMAIN,
+        "scope": [
+            "phone",
+            "email",
+            "openid",
+            "profile",
+            "aws.cognito.signin.user.admin"
+        ],
+        "redirectSignIn": process.env.REACT_APP_REDIRECT_SIGN_IN,
+        "redirectSignOut": process.env.REACT_APP_REDIRECT_SIGN_OUT,
+        "responseType": "code"
+    },
+    "federationTarget": "COGNITO_USER_POOLS"
+};
+export const USER_TYPES = {
+    CUSTOMER :0,
+    GUEST : 1
+};
