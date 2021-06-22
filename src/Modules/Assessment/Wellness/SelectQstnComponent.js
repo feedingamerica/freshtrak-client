@@ -2,7 +2,7 @@
 import React,{useContext,useEffect,useState} from 'react';
 import WellnessContext from './WellnessContext';
 const SelectQstnComponent = (props) => {
-let {assessment_qn_id,question,description,option,option_id,go_to_page,previous_page,next_page} = props.content;
+let {assessment_qn_id,question,description,option,option_id,go_to_page,next_page} = props.content;
 let context = useContext(WellnessContext);
 const [selected,setSelected] = useState(null); 
 
@@ -17,10 +17,13 @@ const setValue = (e) =>{
 
 useEffect(()=>{
     setSelected(context.answers[assessment_qn_id-1])
-    context.previous_page[assessment_qn_id-1] = previous_page-1;
+    if(context.previous.indexOf(assessment_qn_id-1) ===-1){
+        context.previous.push(assessment_qn_id-1);
+    }
+    
     context.next_page[assessment_qn_id-1] = next_page-1;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-},[props.content.question,props.content.assessment_qn_id,props.content.option,props.content.previous_page])
+    },[props.content.question,props.content.assessment_qn_id,props.content.option])
 
     return (
 		<>

@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { API_URL, RENDER_URL, BASE_URL } from '../../Utils/Urls';
+import { RENDER_URL, BASE_URL } from '../../Utils/Urls';
 import axios from 'axios';
 import { setCurrentEvent, selectEvent } from '../../Store/Events/eventSlice';
-import { setCurrentUser, selectUser } from '../../Store/userSlice';
+//import { setCurrentUser, selectUser } from '../../Store/userSlice';
 import { useLocation } from 'react-router-dom';
 import { formatDateDayAndDate } from '../../Utils/DateFormat';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,7 @@ import identificationCodeImg1 from '../../Assets/img/id_code1.png';
 import identificationCodeImg2 from '../../Assets/img/id_code2.png';
 import idImg from '../../Assets/img/id_img.png';
 import { EventFormat } from '../../Utils/EventHandler';
-import { formatMMDDYYYY } from '../../Utils/DateFormat';
+//import { formatMMDDYYYY } from '../../Utils/DateFormat';
 import EventCardComponent from '../Events/EventCardComponent';
 import QRCode from 'qrcode.react';
 
@@ -28,10 +28,9 @@ const RegistrationConfirmComponent = props => {
   const [isError, setIsError] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(event);
   const [pageError, setPageError] = useState(false);
-  const currentUser = useSelector(selectUser);
-  const [user, setUser] = useState(currentUser);
+  //const currentUser = useSelector(selectUser);
+  //const [user, setUser] = useState(currentUser);
   const eventDateId = sessionStorage.getItem("registeredEventDateID");
-  const userType = Number(localStorage.getItem('userType'));
 
   if (!JSON.parse(localStorage.getItem('isLoggedIn'))){
     HOME_OR_ROOT_URL = RENDER_URL.ROOT_URL;
@@ -49,84 +48,13 @@ const RegistrationConfirmComponent = props => {
     }
   };
 
-  // const getUser = async token => {
-  //   //setLoading(true);
-  //   const { GUEST_USER } = API_URL;
-  //   try {
-  //     const resp = await axios.get(GUEST_USER, {
-  //       params: {},
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     const { data } = resp;
-  //     if (data["date_of_birth"] !== null){
-  //       data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
-  //     }
-  //     if (data["phone"] !== null){
-  //       const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-  //       data["phone"] = data["phone"].replace(phoneRegex, '($1) $2-$3')
-  //     }
-  //     dispatch(setCurrentUser(data));
-  //     setUser(data);
-  //     //setLoading(false);
-  //   } catch (e) {
-  //     //setLoading(false);
-  //     console.error(e);
-  //   }
-  // };
-
-
-
-
-  const getUser = async token => {
-    let url,authHeader;    
-    //setLoading(true);
-    const { GUEST_USER ,COGNITO_USER} = API_URL;
-    if(userType === 0){
-      url = COGNITO_USER;
-      authHeader = `${token}`;
-    } else {
-      url = GUEST_USER;
-      authHeader =`Bearer ${token}`
-    }    
-
-    try {
-      const resp = await axios.get(url, {
-        params: {},
-        headers: { Authorization: `${authHeader}` },
-      });
-      const { data } = resp;
-      if (data["date_of_birth"] !== null){
-        data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
-      }
-      if (data["phone"] !== null && data["phone"] !== undefined){
-        const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-        data["phone"] = data["phone"].replace(phoneRegex, '($1) $2-$3')
-      }
-      dispatch(setCurrentUser(data));
-      setUser(data);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   useEffect(fetchBusinesses, []);
 
   function fetchBusinesses(){
-    let authToken;
-    if(userType === 0 ){
-      authToken = localStorage.getItem('authToken');      
-    } else {
-      authToken = localStorage.getItem('userToken');
-    }
-    //setUserToken(authToken);
     //let tok = localStorage.getItem('userToken');
     if (!isError && !pageError) {
       if(Object.keys(selectedEvent).length === 0) {
         getEvent();
-      }
-      if(user === null || ((user !== undefined && user!== null) && (Object.keys(user).length === 0))) {
-        getUser(authToken);
-
       }
     }
   }

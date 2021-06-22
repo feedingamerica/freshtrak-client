@@ -58,9 +58,10 @@ const DashboardCreateAccountComponent = () => {
     let  authToken = localStorage.getItem('authToken');
     let isAdded = localStorage.getItem('isAdded');
     if(!isAdded && userType === 0 && authToken){
-      const {USER_CREATION } = API_URL;
+      //const {USER_CREATION } = API_URL;   //OLD API
+      const {CREATE_USER } = API_URL;
       try {
-       await axios.post(USER_CREATION, {},
+       const CreateUserResp = await axios.post(CREATE_USER, {},
           { headers: { Authorization: `${authToken}` } }
         );
        localStorage.setItem('isAdded', 1);

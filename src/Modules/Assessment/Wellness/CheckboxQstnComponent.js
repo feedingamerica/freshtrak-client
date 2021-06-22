@@ -4,8 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 //import ButtonComponent from '../../General/ButtonComponent';
 import WellnessContext from './WellnessContext';
 const CheckboxQstnComponent = (props) => {
-    let { question, assessment_qn_id, option, description,option_id,go_to_page,previous_page,
-        next_page } = props.content;
+    let { question, assessment_qn_id, option, description,option_id,go_to_page,next_page } = props.content;
     let context = useContext(WellnessContext);
     let childObj = {};
     const [checkedOptions, setCheckedOptions] = useState([])
@@ -14,7 +13,9 @@ const CheckboxQstnComponent = (props) => {
     useEffect(() => {
         setCheckedOptions(context.answers[assessment_qn_id-1])
         setIndexArray([])
-        context.previous_page[assessment_qn_id-1] = previous_page-1;
+        if(context.previous.indexOf(assessment_qn_id-1) === -1){
+            context.previous.push(assessment_qn_id-1);
+        }
         context.next_page[assessment_qn_id-1] = next_page-1;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.content.assessment_qn_id])
@@ -22,7 +23,7 @@ const CheckboxQstnComponent = (props) => {
     const isChecked = (value,index) => {
         let checkedFlag = false;
         let valueArray = context.answers[assessment_qn_id-1];
-        if(value && value !== undefined && valueArray && valueArray!== undefined && valueArray.length === 0){
+        if(value && valueArray && valueArray.length === 0){
             checkedFlag = false;  
         }else{
             if(value && value !== undefined && checkedOptions && checkedOptions.indexOf(value) > -1 && indexArray.indexOf(index) < 0){
@@ -71,7 +72,7 @@ const CheckboxQstnComponent = (props) => {
 
     const setValue = (e) => {
         setChecked(e)
-        if (e && e.target && e.target.value !== null) {
+        if (e.target.value) {
             childObj[e.target.name] = e.target.value
         }
 

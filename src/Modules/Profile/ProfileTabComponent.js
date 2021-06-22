@@ -9,7 +9,7 @@ const ProfileTabComponent = (props) => {
   return (
     <>
       <Tabs defaultActiveKey="summary">
-        <Tab eventKey="summary" title="Summary">
+        <Tab eventKey="summary" title="Summary" data-testid="summary">
           <TabContainer>
             <SummaryTabComponent/>
           </TabContainer>

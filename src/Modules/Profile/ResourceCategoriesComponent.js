@@ -9,10 +9,11 @@ import WellnessContext from '../Assessment/Wellness/WellnessContext';
 import {API_URL} from '../../Utils/Urls';
 import axios from 'axios';
 import moment from 'moment';
-import { formatMMDDYYYY } from '../../Utils/DateFormat';
+//import { formatMMDDYYYY } from '../../Utils/DateFormat';
 import { useSelector,useDispatch } from 'react-redux';
 import { setCurrentUser, selectUser } from '../../Store/userSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
+import { showToast } from '../Notifications/NotifyToastComponent';
 
 const ResourceCategoryComponent = () => {
   let context = useContext(WellnessContext);
@@ -26,87 +27,138 @@ const ResourceCategoryComponent = () => {
 
   const currentUser = useSelector(selectUser);
   const [user, setUser] = useState(currentUser);
+  const [addressDetails, setAddressData] = useState({});
   const userType = Number(localStorage.getItem('userType'));
 
   useEffect(() => {
-
     if(user === null || ((user !== undefined && user!== null) && 
     (Object.keys(user).length === 0))) {
       setCurrentUserData(userType)
     }
     
-    if(Object.keys(context.beginAssessmentData).length === 0){
-      setAssessmentData()
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  },[addressDetails]);
 
   const setCurrentUserData=(userType)=>{
-    let authToken;
+    let authToken,authHeader;
     if(userType === 0 ){
-      authToken = localStorage.getItem('authToken');      
+      authToken = localStorage.getItem('authToken');
+      authHeader = `${authToken}`;    
     } else {
       authToken = localStorage.getItem('userToken');
+      authHeader =`Bearer ${authToken}`;
     }
-      getUser(authToken);
+      //getUser(authHeader);
+
+
+      getUserDetails(authHeader)
     
   }
 
 
-  const getUser = async token => {
-    let url,authHeader;    
-    setLoading(true);
-    const { GUEST_USER ,COGNITO_USER} = API_URL;
-    if(userType === 0){
-      url = COGNITO_USER;
-      authHeader = `${token}`;
-    } else {
-      url = GUEST_USER;
-      authHeader =`Bearer ${token}`
-    }    
+  const getUserDetails = async(authHeader)=>{
+    const { GET_USER_DETAILS } = API_URL;
+    let data;
     try {
-      const resp = await axios.get(url, {
-        params: {},
-        headers: { Authorization: `${authHeader}` },
+      const UserDataResp = await axios.get(GET_USER_DETAILS, {
+         headers: { Authorization: authHeader },
       });
-      const { data } = resp;
-      if (data["date_of_birth"] !== null){
-        data["date_of_birth"] = formatMMDDYYYY(data["date_of_birth"]);
-      }
-      if (data["phone"] !== null && data["phone"] !== undefined){
-        const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-        data["phone"] = data["phone"].replace(phoneRegex, '($1) $2-$3')
-      }
-      
-      setUser(data);
-      setLoading(false);
-      dispatch(setCurrentUser(data));
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const setAssessmentData = async() => {
-    let assessmentUri = API_URL.TRIGGER_ASSESSMENT;
-    try {
-        const resp = await axios.get(assessmentUri);
-         
-        if(resp && resp.data && 
-            resp.data.data !== null){
-            context.beginAssessmentData = resp.data.data;
-            //setAssessmentTitle(context.beginAssessmentData.name);
+      if(UserDataResp && UserDataResp.data && UserDataResp.data.user ){
+        let resp = UserDataResp.data.user
+        let person = resp.person
+        let userDetails = {
+          "id":person.id,
+          "user_type": resp.user_type
         }
         
+        data = {...user,...userDetails}
+        setUser(data)
+        dispatch(setCurrentUser(data));
+      if(userType === 0){
+        //let userId = userDetails.id;
+        getUserData(authHeader)
+      }
+      }
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.error(e);
+    }
+
+  }
+
+
+
+  const getUserData = async (authHeader) =>{
+    
+    //getAddressDetails(authHeader) //API ERROR IN GET ADDRESS
+
+  }
+
+  const getAddressDetails = async (authHeader)=>{
+    const { GET_ADDRESS } = API_URL;
+    try {
+      const AddressDataResp = await axios.get(GET_ADDRESS, {
+         headers: { Authorization: authHeader },
+      });
+      if(AddressDataResp && AddressDataResp.data && AddressDataResp.data.address){
+        let addressDetailsResp,addressDetails;
+        addressDetailsResp = AddressDataResp.data.address
+        addressDetails ={
+          "city": addressDetailsResp.city,
+          "line_1": addressDetailsResp.line_1,
+          "line_2": addressDetailsResp.line_2,
+          "state": addressDetailsResp.state,
+          "zip_code": addressDetailsResp.zip_code
+        }
+        let data = {...user,...addressDetails}
+      setUser(data)
+      dispatch(setCurrentUser(data));
+      setAddressData(addressDetails)
+      }
+      setLoading(false);
+      
+    } catch (e) {
+      setLoading(false);
+      console.error(e);
+    }
+  }
+
+  const setAssessmentData = async() => {
+    setLoading(true)
+    let assessmentUri = API_URL.TRIGGER_ASSESSMENT;
+    let zip = currentUser && currentUser.zip_code;
+    try {
+      const resp = await axios.get(assessmentUri, {
+        params: { zip_code: zip}
+    });
+         
+        if(resp && resp.data && 
+            resp.data.data){
+            context.beginAssessmentData = resp.data.data;
+            context.total_questions = resp.data.data.total_question;
+            if(Object.keys(context.beginAssessmentData).length !== 0){
+              setShowModal(true)
+              context.start_time = moment().format('YYYY-MM-DD hh:mm'); 
+            }
+        }else{
+          let msg = "No assessment available for you.";
+          showToast(msg,'error');
+
+        }
+        setLoading(false)
     } catch (err) {
         console.log("ERROR LOADING ASSESSMENT DATA",err)
+        setLoading(false)
+        let msg = "Error loading Assessment Data.";
+        showToast(msg,'error');
     }
   };
 
 
   const triggerAssessment=()=>{
-    if(authToken && context.beginAssessmentData){
-      setShowModal(true)
-      context.start_time = moment().format('YYYY-MM-DD hh:mm');
+    if(authToken){
+      setAssessmentData()
     }
     }
   return (

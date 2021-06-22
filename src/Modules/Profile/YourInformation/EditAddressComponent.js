@@ -1,22 +1,26 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import AddressComponent from "../../General/AddressComponent";
 import axios from 'axios';
 import { API_URL } from '../../../Utils/Urls';
-const EditAddressComponent = (props) => {
+import SpinnerComponent from '../../General/SpinnerComponent';
 
+
+const EditAddressComponent = (props) => {
     const { register, handleSubmit, errors, setValue, watch } = useForm();
+    const [isLoading, setLoading] = useState(false);
 
     const onSubmit = (data) => {
-        props.tabClose()
         updateAddress(data)
     }
     const updateAddress=async(data)=>{
+        setLoading(true)
+        const {UPDATE_ADDRESS}= API_URL;
         let param = {
-            "user" : {
-                address_line_1 : data.address_line_1,
-                address_line_2 : data.address_line_2,
+            "address" : {
+                line_1 : data.line_1,
+                line_2 : data.line_2,
                 city : data.city,
                 state : data.state_code,
                 zip_code : data.zip_code
@@ -26,12 +30,17 @@ const EditAddressComponent = (props) => {
 
           const authToken = localStorage.getItem('authToken');
         try {
-          await axios.put(API_URL.UPDATE_INFORMATION, param,
+            //API_URL.UPDATE_INFORMATION
+          await axios.post(UPDATE_ADDRESS, param,
             { headers: { Authorization: `${authToken}` } }
           );
+          setLoading(false)
           props.refreshMainTab()
+          props.tabClose()
         } catch (e) {
-          console.log("error occured IN EDIT ADDRESS >",e)
+        setLoading(false)
+        props.tabClose()
+        console.log("error occured IN EDIT ADDRESS >",e)
     }
     }
 
@@ -53,6 +62,9 @@ const EditAddressComponent = (props) => {
                 className="btn complete-button w-100"
                 name="save"
             >Save</button>
+        </div>
+        <div className="mt-3 mb-3">
+        {isLoading && <SpinnerComponent></SpinnerComponent>}
         </div>
         <div className="mt-3 text-center">
             <span className="text-purple font-weight-bold" onClick={props.tabClose} >Cancel</span>

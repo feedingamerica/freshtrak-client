@@ -9,15 +9,21 @@ import YourInformationContainer from '../YourInformationContainer';
 import SideTrayComponent from '../SideTrayComponent';
 import EditInformationComponent from '../EditInformationComponent';
 import EditAddressComponent from '../EditAddressComponent';
-import EditContactComponent from '../EditContactComponent';
+import EditPhoneComponent from '../EditPhoneComponent';
 import EditVehicleComponent from '../EditVehicleComponent';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+const mockStore = configureStore([]);
+const store = mockStore({});
 
 
 test('should render without errors', () => {
   //const history = createMemoryHistory();
   expect(() => {
     render(
-        <YourInformationContainer >
+
+      <Provider store={store}>
+      <YourInformationContainer >
           
           <SideTrayComponent >
             <EditInformationComponent informationData={mockProfileData}/>
@@ -28,7 +34,7 @@ test('should render without errors', () => {
           </SideTrayComponent>
 
           <SideTrayComponent >
-            <EditContactComponent contactData={mockProfileData}/>
+            <EditPhoneComponent phoneData={mockProfileData}/>
           </SideTrayComponent>
 
           <SideTrayComponent >
@@ -36,6 +42,8 @@ test('should render without errors', () => {
           </SideTrayComponent>
 
           </YourInformationContainer>
+    </Provider>
+   
     );
   }).not.toThrowError();
 });

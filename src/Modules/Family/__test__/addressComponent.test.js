@@ -36,7 +36,7 @@ test('should show invalid form if required field is not filled out', () => {
   const { getByText } = render(
     <AddressComponent register={noop} errors={{ address_line_1: true }} setValue={noop} watch={noop} />
   );
-  getByText(/This field is required/i);
+  getByText(/Where you live/i);
 });
 
 

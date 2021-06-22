@@ -14,5 +14,5 @@ export const eventSlice = createSlice({
 });
 
 export const { setCurrentEvent } = eventSlice.actions;
-export const selectEvent = state => state.event.event;
+export const selectEvent = state => state.event && state.event.event;
 export default eventSlice.reducer;
