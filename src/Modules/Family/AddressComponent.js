@@ -59,103 +59,103 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
   return (
     <Fragment>
       <h2>{localization.register_where_you_live}</h2>
-      <div className="form-group relative">
-        <label htmlFor="address_line_1">{localization.street_address}<span className="text-danger">*</span></label>
-        <PlacesAutocomplete
-          value={addressLine1}
-          onChange={(e) => setValue('address_line_1', e)}
-          onSelect={handleSelect}
-        >
-          {({
-            getInputProps,
-            suggestions,
-            getSuggestionItemProps,
-            loading,
-          }) => (
-            <>
-              <input
-                type="text"
-                className= {`form-control ${errors.address_line_1 && 'invalid'}`}
-                name="address_line_1"
-                id="address_line_1"
-                {...getInputProps()}
-                ref={register({ required: true })}
-                autoComplete="off"
-              />
-              {errors.address_line_1 && (
-                <span className="text-danger">This field is required</span>
-              )}
-              {/* No spinners are set here as of now. You can re-use the loader from EventContainer page; 
-                    though the size of the spinner is set as 10em,fixed in main.scss file. */}
-              {loading ? "Loading..." : null}
-              {suggestions.length > 0 && (
-                <div
-                  data-testid="suggestions"
-                  id="suggestions"
-                  name="suggestions"
-                  className="suggestions-container"
-                >
-                  {suggestions.map(suggestion => {
-                    return (
-                      <div {...getSuggestionItemProps(suggestion)} key={suggestion.id} >
-                        {suggestion.description}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </>
-          )}
-        </PlacesAutocomplete>
-      </div>
+      <div className="form-field-container">
+        <div className="form-group-50 form-group relative">
+          <label htmlFor="address_line_1">{localization.street_address}<span className="text-danger">*</span></label>
+          <PlacesAutocomplete
+            value={addressLine1}
+            onChange={(e) => setValue('address_line_1', e)}
+            onSelect={handleSelect}
+          >
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }) => (
+              <>
+                <input
+                  type="text"
+                  className= {`form-control ${errors.address_line_1 && 'invalid'}`}
+                  name="address_line_1"
+                  id="address_line_1"
+                  {...getInputProps()}
+                  ref={register({ required: true })}
+                  autoComplete="off"
+                />
+                {errors.address_line_1 && (
+                  <span className="text-danger">This field is required</span>
+                )}
+                {/* No spinners are set here as of now. You can re-use the loader from EventContainer page; 
+                      though the size of the spinner is set as 10em,fixed in main.scss file. */}
+                {loading ? "Loading..." : null}
+                {suggestions.length > 0 && (
+                  <div
+                    data-testid="suggestions"
+                    id="suggestions"
+                    name="suggestions"
+                    className="suggestions-container"
+                  >
+                    {suggestions.map(suggestion => {
+                      return (
+                        <div {...getSuggestionItemProps(suggestion)} key={suggestion.id} >
+                          {suggestion.description}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </>
+            )}
+          </PlacesAutocomplete>
+        </div>
 
-      <div className="form-group">
-        <label htmlFor="address_line_2">{localization.lot_suite}</label>
-        <input
-          type="text"
-          className="form-control"
-          name="address_line_2"
-          id="address_line_2"
-          ref={register}
-        />
-      </div>
-
-      <div className="d-flex city-state-form">
-        <div className="form-group">
-          <label htmlFor="city">{localization.city}<span className="text-danger">*</span></label>
+        <div className="form-group form-group-50 ">
+          <label htmlFor="address_line_2">{localization.lot_suite}</label>
           <input
             type="text"
-            className= {`form-control ${errors.city && 'invalid'}`}
-            name="city"
-            id="city"
-            defaultValue={cityName}
-            ref={register({ required: true })}
+            className="form-control"
+            name="address_line_2"
+            id="address_line_2"
+            ref={register}
           />
-          {errors.city && (
-            <span className="text-danger">This field is required</span>
-          )}
-        </div>
-        <StateDropdownComponent
-          register={register}
-          errors={errors}
-          defaultValue={shortStateName}
-        />
-
-        <div className="form-group ml-2">
-          <label htmlFor="zip_code">{localization.zip_code}<span className="text-danger">*</span></label>
-          <input
-            type="text"
-            className= {`form-control ${errors.zip_code && 'invalid'}`}
-            name="zip_code"
-            defaultValue={zip}
-            id="zip_code"
-            ref={register({ required: true })}
-          />
-          {errors.zip_code && (
-            <span className="text-danger">This field is required</span>
-          )}
         </div>
       </div>
+        <div className="form-field-container city-state-form">
+          <div className="form-group">
+            <label htmlFor="city">{localization.city}<span className="text-danger">*</span></label>
+            <input
+              type="text"
+              className= {`form-control ${errors.city && 'invalid'}`}
+              name="city"
+              id="city"
+              defaultValue={cityName}
+              ref={register({ required: true })}
+            />
+            {errors.city && (
+              <span className="text-danger">This field is required</span>
+            )}
+          </div>
+          <StateDropdownComponent
+            register={register}
+            errors={errors}
+            defaultValue={shortStateName}
+          />
+          <div className="form-group ml-2">
+            <label htmlFor="zip_code">{localization.zip_code}<span className="text-danger">*</span></label>
+            <input
+              type="text"
+              className= {`form-control ${errors.zip_code && 'invalid'}`}
+              name="zip_code"
+              defaultValue={zip}
+              id="zip_code"
+              ref={register({ required: true })}
+            />
+            {errors.zip_code && (
+              <span className="text-danger">This field is required</span>
+            )}
+          </div>
+        </div>
     </Fragment>
   );
 });

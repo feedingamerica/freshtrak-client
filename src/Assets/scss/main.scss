@@ -1039,3 +1039,18 @@ a {
     padding-left: 20px;
   }
 }
+.form-field-container {
+    display: flex;
+    justify-content: space-between;
+
+    & .form-group {
+    width: 31%;
+    }
+    & .form-group-50 {
+    width: 49%;
+    }
+}
+
+.responsive-wrapper {
+    max-width: 100% !important;
+}

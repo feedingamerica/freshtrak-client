@@ -38,75 +38,78 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
   return (
   <div className="mt-4">
     <h2>{localization.register_who_are_you}</h2>
-    <div className="form-group">
-      <label htmlFor="first_name">{localization.first_name}<span className="text-danger">*</span></label>
-      <input
-        type="text"
-        className= {`form-control ${errors.first_name && 'invalid'}`}
-        name="first_name"
-        id="first_name"
-        ref={register({ required: true })}
-      />
-      {errors.first_name && <span className="text-danger">This field is required</span>}
-    </div>
-    <div className="form-group">
-      <label htmlFor="middle_name">{localization.middle_name}</label>
-      <input
-        type="text"
-        className="form-control"
-        name="middle_name"
-        id="middle_name"
-        ref={register}
-      />
-    </div>
-    <div className="form-group">
-      <label htmlFor="last_name">{localization.last_name}<span className="text-danger">*</span></label>
-      <input
-        type="text"
-        className= {`form-control ${errors.last_name && 'invalid'}`}
-        name="last_name"
-        id="last_name"
-        ref={register({ required: true })}
-      />
-      {errors.last_name && <span className="text-danger">This field is required</span>}
-    </div>
-    <div className="form-group">
-      <label htmlFor="suffix">{localization.suffix}</label>
-      <select
-        name="suffix"
-        id="suffix"
-        className="form-control"
-        ref={register}
-      >
-        <option value="" defaultValue></option>
-        <option value="SR">Sr</option>
-        <option value="JR">Jr</option>
-        <option value="I">I</option>
-        <option value="II">II</option>
-        <option value="III">III</option>
-        <option value="IV">IV</option>
-        <option value="V">V</option>
-        <option value="VI">VI</option>
-      </select>
-    </div>
-    <div className="form-group">
-      <label htmlFor="date_of_birth">{localization.dob}<span className="text-danger">*</span></label>
-      <input
-        type="text"
-        className= {`form-control ${errors.date_of_birth && 'invalid'}`}
-        name="date_of_birth"
-        id="date_of_birth"
-        placeholder="mm/dd/yyyy"
-        onChange={e => handleChangeDob(e)}
-        value={date_of_birth}
-        ref={register({ required: true, validate: value => isValidDob(value)})}
-      />
-      {errors.date_of_birth && ( errors.date_of_birth.type === "validate"
-        ? <span className="text-danger">Invalid DOB</span>
-        : <span className="text-danger">This field is required</span> )
-      }
-    </div>
-    <div className="form-group">
+    <div className="form-field-container">
+        <div className="form-group">
+          <label htmlFor="first_name">{localization.first_name}<span className="text-danger">*</span></label>
+          <input
+            type="text"
+            className= {`form-control ${errors.first_name && 'invalid'}`}
+            name="first_name"
+            id="first_name"
+            ref={register({ required: true })}
+          />
+          {errors.first_name && <span className="text-danger">This field is required</span>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="middle_name">{localization.middle_name}</label>
+          <input
+            type="text"
+            className="form-control"
+            name="middle_name"
+            id="middle_name"
+            ref={register}
+          />
+        </div>
+        <div className="form-group">
+        <label htmlFor="last_name">{localization.last_name}<span className="text-danger">*</span></label>
+        <input
+          type="text"
+          className= {`form-control ${errors.last_name && 'invalid'}`}
+          name="last_name"
+          id="last_name"
+          ref={register({ required: true })}
+        />
+        {errors.last_name && <span className="text-danger">This field is required</span>}
+      </div>
+      </div>
+    <div className="form-field-container">
+        <div className="form-group">
+          <label htmlFor="suffix">{localization.suffix}</label>
+          <select
+            name="suffix"
+            id="suffix"
+            className="form-control"
+            ref={register}
+          >
+            <option value="" defaultValue></option>
+            <option value="SR">Sr</option>
+            <option value="JR">Jr</option>
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+            <option value="IV">IV</option>
+            <option value="V">V</option>
+            <option value="VI">VI</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="date_of_birth">{localization.dob}<span className="text-danger">*</span></label>
+          <input
+            type="text"
+            className= {`form-control ${errors.date_of_birth && 'invalid'}`}
+            name="date_of_birth"
+            id="date_of_birth"
+            placeholder="mm/dd/yyyy"
+            onChange={e => handleChangeDob(e)}
+            value={date_of_birth}
+            ref={register({ required: true, validate: value => isValidDob(value)})}
+          />
+          {errors.date_of_birth && ( errors.date_of_birth.type === "validate"
+            ? <span className="text-danger">Invalid DOB</span>
+            : <span className="text-danger">This field is required</span> )
+          }
+        </div>
+        <div className="form-group">
       <label htmlFor="gender">{localization.gender}<span className="text-danger">*</span></label>
       <select
         className= {`form-control ${errors.gender && 'invalid'}`}
@@ -121,6 +124,7 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
         <option value="not_specify">{localization.not_to_say}</option>
       </select>
       {errors.gender && <span className="text-danger">This field is required</span>}
+    </div>
     </div>
   </div>
   )
