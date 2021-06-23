@@ -29,7 +29,7 @@ const PhoneComponent = (props) =>{
         </div>
       </div>
 
-      {props.phones.map((value, index) =>{
+      {props && props.phones && props.phones.map((value, index) =>{
       return <div key={index} className="d-flex flex-column"> 
       {value.phone ?<div>{value.phone}</div> : null}
       </div>}

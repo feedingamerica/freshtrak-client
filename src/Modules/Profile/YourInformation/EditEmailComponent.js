@@ -19,7 +19,7 @@ const EditEmailComponent = (props) => {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    if (email == null) {
+    if (email == null || email == undefined) {
       setEmailDetails()
     }
     return () => {
@@ -105,30 +105,14 @@ const EditEmailComponent = (props) => {
 
   const onEmailChange = (e,index) => {
     const number = e.target.value;
-    //let phoneNumber = number.replace(/[^0-9]/ig, "");
     let allEmails = [...emails];
     let emailObject = allEmails[index];
-    // if (phoneNumber.length > 10) {
-    //     phoneNumber = phoneNumber.substring(0, 10)
-    //     const num = `(${phoneNumber.substring(0, 3)}) ${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6, phoneNumber.length)}`;
-    //     //setPhone(num) //old single phone edit
-    //     //new array edit
-    //     let newPhoneObject = {
-    //         ...phoneObject,
-    //         "phone" : num
-    //     }
-    //     allPhones[index] = newPhoneObject;
-    //     setPhones(allPhones)
-    // }
-    //else {
         let newEmailObject = {
             ...emailObject,
             "email" : e.target.value
         }
         allEmails[index] = newEmailObject;
         setEmails(allEmails)
-        //setPhone(e.target.value) //old single phone edit
-    //}
 }
 
 
@@ -145,7 +129,7 @@ const EditEmailComponent = (props) => {
 
 
         {       
-            emails.map((value, index) =>{
+            emails && emails.map((value, index) =>{
                 return <div key={index} className="form-group">
                   <div className="mt-3 mb-3">Email {index+1}{value.is_primary ? " ( Primary )" : null}</div>
                   

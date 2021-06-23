@@ -13,7 +13,7 @@ const EmailComponent = (props) =>{
         </div>
       </div>
 
-      {props.emails.map((value, index) =>{
+      {props && props.emails && props.emails.map((value, index) =>{
       return <div key={index} className="d-flex flex-column"> 
       {value.email ?<div>{value.email}</div> : null}
       </div>}
