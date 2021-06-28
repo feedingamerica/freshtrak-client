@@ -4,6 +4,7 @@ import localization from '../Localization/LocalizationComponent'
 
 const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watch }, ref) => {
   const date_of_birth = watch('date_of_birth') || '';
+  const gender = watch('gender') || '';
 
   const checkValue = (str, max) => {
     if (str.charAt(0) !== '0' || str === '00') {
@@ -33,13 +34,16 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
     setValue('date_of_birth', value)
     //setDateOfBirth(value)
   }
+  const handleGenderChange = (e)=>{
+    var value = e.target.value;
+    setValue('gender', value)
+  }
 
   const isValidDob = (value) => {
     const maxAgeDate = moment().subtract(123, 'years');
     const enteredDate = moment(value, 'MM / DD / YYYY');
     return enteredDate.isAfter(maxAgeDate);
   }
-
   return (
   <div className="mt-4">
     <h2>{localization.register_who_are_you}</h2>
@@ -117,6 +121,8 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
         className= {`form-control ${errors.gender && 'invalid'}`}
         name="gender"
         id="gender"
+        defaultValue={gender}
+        onChange={e => handleGenderChange(e)}
         ref={register({required: true})}
       >
         <option value="" defaultValue></option>

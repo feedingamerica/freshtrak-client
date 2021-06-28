@@ -40,13 +40,14 @@ export const API_URL = {
     UPDATE_PEOPLE : `${REGISTRATION_URL}api/people`,
     UPDATE_PHONE : `${REGISTRATION_URL}api/phones`,
     UPDATE_EMAIL : `${REGISTRATION_URL}api/emails`,
-    UPDATE_ADDRESS : `${REGISTRATION_URL}api/address`,
+    UPDATE_ADDRESS : `${REGISTRATION_URL}api/addresses`,
 
-    GET_ADDRESS : `${REGISTRATION_URL}api/address`,
+    GET_ADDRESS : `${REGISTRATION_URL}api/addresses`,
     GET_USER_DETAILS : `${REGISTRATION_URL}api/users/sign_in`,
     GET_PEOPLE : `${REGISTRATION_URL}api/people`,
     GET_PHONE : `${REGISTRATION_URL}api/phones`,
     GET_EMAIL : `${REGISTRATION_URL}api/emails`,
+    GET_EVENT_RESERVATION : `${REGISTRATION_URL}api/reservations`,
     
 };
 

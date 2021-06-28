@@ -9,44 +9,71 @@ import SpinnerComponent from '../../General/SpinnerComponent';
 
 
 const EditPhoneComponent = (props) => {
-  const { register, handleSubmit, errors } = useForm();
-  const [phone, setPhone] = useState(null);
+  const { register } = useForm();
+  //const [phone, setPhone] = useState(null);
   const [phones, setPhones] = useState([]);
   const [phonesUnedited, setPhonesUnedited] = useState([]);
   const currentUser = useSelector(selectUser);
   const [user, setUser] = useState(currentUser);
   const [isLoading, setLoading] = useState(false);
+  const [errorObject, setErrorObject] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    if (phone == null || phones&& phones.length <= 0) {
+    if (phones && phones.length <= 0) {
       setPhoneDetails()
     }
     return () => {
     };
+      //setPhoneDetails()
+
   })
 
   const setPhoneDetails=()=>{
-    let phoneDetails = {...props.phoneData}
+    let phoneDetails = [props.phones]
     setPhones(props.phones)
     setPhonesUnedited(props.phones)
-    setPhone(phoneDetails.phone)
+    phoneDetails = phoneDetails.map((item)=>{
+    return{
+      ...item,
+      is_error:false
+    }
+    })
+    setErrorObject(phoneDetails)
   }
 
 
 
 
-  const onSubmit = () => {
-    // phonesUnedited.forEach((phoneObject,index)=>{
-    //     let changedPhone = checkEqual(phoneObject,phones[index])
-    //     if(changedPhone){ 
-    //         postData(changedPhone)
-    //     }else{
-    //         props.tabClose()
-    //     }
-    // })
-    props.tabClose()
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if(isValidate()){
+    phonesUnedited.forEach((phoneObject,index)=>{
+         let changedPhone = checkEqual(phoneObject,phones[index])
+         if(changedPhone){ 
+             postData(changedPhone)
+         }else{
+             props.tabClose()
+         }
+     })}
+    //props.tabClose()
   }
+
+
+  const isValidate=()=>{
+    let error_flag = true;
+    let error_object = [...errorObject];
+    phones.forEach((phone,i)=>{
+    if(!phone.phone){
+      error_flag = false;
+      error_object[i] = {...error_object[i],is_error:true}
+      setErrorObject(error_object)
+    }
+   
+    })
+    return error_flag;
+  }
+
 
   const checkEqual=(object1, object2)=>{
     const keys1 = Object.keys(object1);
@@ -61,7 +88,6 @@ const EditPhoneComponent = (props) => {
         return (object2);
       }
     }
-    //return true;
   }
 
 
@@ -102,6 +128,16 @@ const EditPhoneComponent = (props) => {
   }
   }
 
+  const getClassName=(id)=>{
+    let className = 'form-control';
+    errorObject.forEach((item)=>{
+    if(item.id === id && item.is_error){
+    className = 'form-control invalid';
+    }
+    })
+    return className;
+  }
+
 
 
 
@@ -131,11 +167,11 @@ const EditPhoneComponent = (props) => {
         allPhones[index] = newPhoneObject;
         setPhones(allPhones)
         //setPhone(e.target.value) //old single phone edit
+      }
     }
-}
   return (
     
-    <div> <form onSubmit={handleSubmit(onSubmit)}>
+    <div> <form onSubmit={onSubmit}>
 
         <div className="form-group">
 
@@ -149,7 +185,7 @@ const EditPhoneComponent = (props) => {
                     <div className="mt-3 mb-3">Phone {index+1}{value.is_primary ? " ( Primary )" : null}</div>
                     <PhoneComponent
                     type="text"
-                    className= {`form-control ${errors.phone && 'invalid'}`}
+                    className= {getClassName(value.id)}
                     name="phone"
                     disabled={value.is_primary}
                     placeholder="(xxx) xxx-xxxx"
@@ -158,6 +194,39 @@ const EditPhoneComponent = (props) => {
                     onChange={(e)=>onPhoneChange(e,index)}
                     register={register}
                     />
+
+
+                    {/* <div className="d-flex flex-column">
+                      <div className="d-flex">
+                        <div className="flex-grow-1">
+                        <PhoneComponent
+                          type="text"
+                          className= {getClassName(value.id)}
+                          name="phone"
+                          disabled={value.is_primary}
+                          placeholder="(xxx) xxx-xxxx"
+                          id={value.phone}
+                          value={value.phone}
+                          onChange={(e)=>onPhoneChange(e,index)}
+                          register={register}
+                          />
+                        </div>
+
+                        <div className="ml-2 pointer">
+                                x
+                        </div>
+                    
+                      </div>
+
+                      <div className="checkbox-custom">
+                                    <input type="checkbox"
+                                        disabled={false}
+                                        id={index}
+                                        name={index} 
+                                        />
+                                    <label htmlFor={index}>send notifcation</label>
+                                </div>
+                    </div> */}
                 </div>
                 })
             }

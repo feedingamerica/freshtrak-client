@@ -30,9 +30,10 @@ const PhoneComponent = (props) =>{
       </div>
 
       {props && props.phones && props.phones.map((value, index) =>{
-      return <div key={index} className="d-flex flex-column"> 
+      return <div key={index} className="d-flex mb-2"> 
       {value.phone ?<div>{value.phone}</div> : null}
-      </div>}
+      {value.is_primary ?<span className="badge badge-success ml-1">Primary</span> : null}
+      </div> }
       )
       }
          

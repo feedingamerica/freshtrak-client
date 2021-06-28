@@ -37,7 +37,7 @@ const ResourceCategoryComponent = () => {
     }
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[addressDetails]);
+  },[addressDetails,currentUser]);
 
   const setCurrentUserData=(userType)=>{
     let authToken,authHeader;
@@ -73,7 +73,7 @@ const ResourceCategoryComponent = () => {
         
         data = {...user,...userDetails}
         setUser(data)
-        dispatch(setCurrentUser(data));
+        //dispatch(setCurrentUser(data));
       if(userType === 0){
         //let userId = userDetails.id;
         getUserData(authHeader)
@@ -91,7 +91,7 @@ const ResourceCategoryComponent = () => {
 
   const getUserData = async (authHeader) =>{
     
-    //getAddressDetails(authHeader) //API ERROR IN GET ADDRESS
+    getAddressDetails(authHeader)
 
   }
 

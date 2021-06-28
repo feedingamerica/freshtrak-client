@@ -8,11 +8,11 @@ import { useHistory } from 'react-router-dom';
 import { RENDER_URL } from "../../Utils/Urls";
 import SpinnerComponent from '../General/SpinnerComponent';
 import { formatMMDDYYYY } from '../../Utils/DateFormat';
-import { setCurrentUser, selectUser } from '../../Store/userSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { selectUser } from '../../Store/userSlice';
+import { useSelector } from 'react-redux';
 
 const ProfileContainer = () => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const history = useHistory();
   const authToken = localStorage.getItem('authToken');
   const currentUser = useSelector(selectUser);
@@ -41,9 +41,8 @@ const ProfileContainer = () => {
 
   const getInformationDetails = async () =>{
 
-//new
-setLoading(true);
-const { GET_USER_DETAILS } = API_URL;
+  setLoading(true);
+  const { GET_USER_DETAILS } = API_URL;
     try {
       const UserDataResp = await axios.get(GET_USER_DETAILS, {
          headers: { Authorization: authToken },
@@ -56,12 +55,8 @@ const { GET_USER_DETAILS } = API_URL;
           "user_type": resp.user_type
         }
         setUser({...user,...userDetails})
-        //setUserData(userDetails)
-        //dispatch(setCurrentUser({...user,...userDetails}));
-      //if(userType === 0){
         let userId = userDetails.id;
         getPersonDetails(authToken,userId)
-      //}
       }
       setLoading(false);
     } catch (e) {
@@ -96,7 +91,7 @@ const getPersonDetails = async (authToken,id) =>{
 
       let data = {...user,...personDetails}
       setUser(data)
-      dispatch(setCurrentUser(data));
+      //dispatch(setCurrentUser(data));
       setInformationData(data)
       }
       setLoading(false);

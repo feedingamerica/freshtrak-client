@@ -59,7 +59,13 @@ const RegistrationContainer = (props) => {
       //}  //calling get api's to retrieve user data
     }
   }
-  useEffect(fetchBusinesses, [user]);
+
+  //useEffect(fetchBusinesses, [user]);
+
+  useEffect(() => {
+    fetchBusinesses()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
   
   const getEvent = async () => {
     setLoading(true)
@@ -122,8 +128,8 @@ const RegistrationContainer = (props) => {
          "middle_name" : personDetailsResponse.middle_name,
          "last_name" : personDetailsResponse.last_name,
          "date_of_birth" : personDetailsResponse.date_of_birth,
+         "gender" : personDetailsResponse.gender
        }
-
       let data = {...user,...personDetails}
       setUser(data)
       //dispatch(setCurrentUser({...user,personDetails}));
@@ -136,11 +142,12 @@ const RegistrationContainer = (props) => {
     }
   }
 
-  const getAddressDetails = async (authHeader)=>{
+  const getAddressDetails = async (authHeader,id)=>{
     setLoading(true)
     const { GET_ADDRESS } = API_URL;
+    let URL = `${GET_ADDRESS}/${id}`
     try {
-      const AddressDataResp = await axios.get(GET_ADDRESS, {
+      const AddressDataResp = await axios.get(URL, {
          headers: { Authorization: authHeader },
       });
       if(AddressDataResp && AddressDataResp.data && AddressDataResp.data.address){
@@ -275,7 +282,7 @@ const RegistrationContainer = (props) => {
     getPersonDetails(authHeader,id)
     
     //get address details
-    //getAddressDetails(authHeader) //API ERROR IN GET ADDRESS
+    getAddressDetails(authHeader,id)
 
     //get phone data
     getPhoneDetails(authHeader)
@@ -474,9 +481,11 @@ const customer_registration = async (user,authHeader) => {
   }
 
   const updateAddress = async(address,authHeader)=>{
-    const {CREATE_ADDRESS}= API_URL;
+    const {UPDATE_ADDRESS}= API_URL;
+    let id = personData.id;
+    let URL = `${UPDATE_ADDRESS}/${id}`;
     try{
-      await axios.post(CREATE_ADDRESS,{ address },
+      await axios.put(URL,{ address },
               { headers: { Authorization: authHeader } }
             );
             setLoading(false)

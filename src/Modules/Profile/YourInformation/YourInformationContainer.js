@@ -14,19 +14,19 @@ import LanguagePreferenceComponent from './LanguagePreferenceComponent';
 import VehiclesComponent from './VehiclesComponent';
 import SideTrayComponent from './SideTrayComponent';
 import axios from 'axios';
-import { setCurrentUser,selectUser } from '../../../Store/userSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { selectUser } from '../../../Store/userSlice';
+//import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import SpinnerComponent from '../../General/SpinnerComponent';
 import { formatMMDDYYYY } from '../../../Utils/DateFormat';
 
 import { API_URL } from '../../../Utils/Urls';
 
 const YourInformationContainer = (props) =>{
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const { errors } = useForm();
   const [showInformationTray, setShowInformationTray] = useState(false)
   const [showAddressTray, setShowAddressTray] = useState(false)
-  const [showContactTray, setShowContactTray] = useState(false)
   const [showPhoneTray, setShowPhoneTray] = useState(false)
   const [showEmailTray, setShowEmailTray] = useState(false)
   const [showLangPrefTray, setShowLangPrefTray] = useState(false)
@@ -66,7 +66,7 @@ const YourInformationContainer = (props) =>{
 
 
   const refreshAddressTab=()=>{
-    getAddressDetails()
+    getAddressDetails(userData.id)
   }
 
   
@@ -82,7 +82,7 @@ const YourInformationContainer = (props) =>{
   // }
 
   const refreshVehicleTab=()=>{
-   // getVehicleDetails()
+    getVehicleDetails(userData.id)
   }
 
 
@@ -102,7 +102,7 @@ const getUserDetails = async()=>{
       let data = {...user,...userDetails}
       setUser(data)
       setUserData(data)
-      dispatch(setCurrentUser(data));
+      //dispatch(setCurrentUser(data));
       let userId = userDetails.id;
       getUserData(userId)
     }
@@ -138,7 +138,7 @@ const getPersonDetails = async(id)=>{
 
     let data = {...user,...personDetails}
     setUser(data)
-    dispatch(setCurrentUser(data));
+    //dispatch(setCurrentUser(data));
     setPersonData(data)
     }
     setLoading(false);
@@ -148,16 +148,18 @@ const getPersonDetails = async(id)=>{
   }
 }
 
-  const getAddressDetails = async ()=>{
+  const getAddressDetails = async (id)=>{
     const { GET_ADDRESS } = API_URL;
+    let URL = `${GET_ADDRESS}/${id}`;
     try {
-      const AddressDataResp = await axios.get(GET_ADDRESS, {
+      const AddressDataResp = await axios.get(URL, {
          headers: { Authorization: authToken },
       });
       if(AddressDataResp && AddressDataResp.data && AddressDataResp.data.address){
         let addressDetailsResp,addressDetails;
         addressDetailsResp = AddressDataResp.data.address
         addressDetails ={
+          "id": addressDetailsResp.id,
           "city": addressDetailsResp.city,
           "line_1": addressDetailsResp.line_1,
           "line_2": addressDetailsResp.line_2,
@@ -167,7 +169,7 @@ const getPersonDetails = async(id)=>{
         let data = {...user,...addressDetails}
       setUser(data)
       setAddressData(data)
-      dispatch(setCurrentUser(data));
+      //dispatch(setCurrentUser(data));
       }
       setLoading(false);
     } catch (e) {
@@ -204,7 +206,7 @@ const getPhoneDetails = async()=>{
     }
     let data = {...user,...phoneDetails}
     setUser(data)
-    dispatch(setCurrentUser(data));
+    //dispatch(setCurrentUser(data));
     setPhoneData(data)
     }
     
@@ -236,7 +238,7 @@ const getEmailDetails = async()=>{
       }
     let data = {...user,...emailDetails}
     setUser(data)
-    dispatch(setCurrentUser(data));
+    //dispatch(setCurrentUser(data));
     setEmailData(data)
     }
     setLoading(false);
@@ -268,20 +270,28 @@ const getEmailDetails = async()=>{
 // }
 
 
-// const getVehicleDetails = async () =>{
-//   const {USER_VEHICLE} = API_URL;
-//   try {
-//     const userVehicleResp = await axios.get(USER_VEHICLE, {
-//       headers: { Authorization: `${authToken}` }
-//     });
-//     if(userVehicleResp && userVehicleResp.data && 
-//       userVehicleResp.data.data && userVehicleResp.data.data[0]){
-//       setVehicleData(userVehicleResp.data.data[0])
-//     }
-//   } catch (e) {
-//     console.log("api error vehicle >>",e);
-//   } 
-// }
+const getVehicleDetails = async (id) =>{
+  const {GET_EVENT_RESERVATION} = API_URL;
+  let URL = `${GET_EVENT_RESERVATION}/${id}`;
+  try {
+    const userVehicleResp = await axios.get(URL, {
+      headers: { Authorization: `${authToken}` }
+    });
+    if(userVehicleResp && userVehicleResp.data && 
+      userVehicleResp.data.data && userVehicleResp.data){
+        let licenseData = userVehicleResp.data;
+      let licenseDetails = {
+        "license_plate" : licenseData.license_plate
+      }
+      let data = {...user,...licenseDetails}
+      setVehicleData(data)
+    }
+    setLoading(false);
+  } catch (e) {
+    setLoading(false);
+    console.error(e);
+  } 
+}
 
 
 
@@ -289,11 +299,13 @@ const getUserData = async (id) =>{
     
   getPersonDetails(id)
   
-  //getAddressDetails() //API ERROR IN GET ADDRESS
+  getAddressDetails(id)
 
   getPhoneDetails()
  
   getEmailDetails()
+
+  getVehicleDetails(id)
 
   
 }
@@ -326,7 +338,7 @@ const getUserData = async (id) =>{
   }
 
   const setEmailTab = () => {
-    if(showContactTray === true){
+    if(showEmailTray === true){
       setShowEmailTray(false)
     }else{
       setShowEmailTray(true)

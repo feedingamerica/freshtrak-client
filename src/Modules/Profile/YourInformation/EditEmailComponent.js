@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
-import PhoneComponent from '../../General/PhoneComponent';
 import axios from 'axios';
 import { API_URL } from '../../../Utils/Urls';
 import { useSelector,useDispatch } from 'react-redux';
@@ -9,17 +8,18 @@ import SpinnerComponent from '../../General/SpinnerComponent';
 
 
 const EditEmailComponent = (props) => {
-  const { register, handleSubmit, errors } = useForm();
-  const [email, setEmail] = useState(null);
+  const { register, errors } = useForm();
+  //const [email, setEmail] = useState(null);
   const [emails, setEmails] = useState([]);
   const [emailsUnedited, setEmailsUnedited] = useState([]);
   const currentUser = useSelector(selectUser);
   const [user, setUser] = useState(currentUser);
   const [isLoading, setLoading] = useState(false);
+  const [errorObject, setErrorObject] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    if (email == null || email == undefined) {
+    if (emails && emails.length<=0) {
       setEmailDetails()
     }
     return () => {
@@ -27,25 +27,47 @@ const EditEmailComponent = (props) => {
   })
 
   const setEmailDetails=()=>{
-    let emailDetails = {...props.emailData}
+    let emailDetails = [...props.emails]
     setEmails(props.emails)
     setEmailsUnedited(props.emails)
-    setEmail(emailDetails.email)
+    emailDetails = emailDetails.map((item)=>{
+      return{
+        ...item,
+        is_error:false
+      }
+      })
+      setErrorObject(emailDetails)
   }
 
 
 
 
-  const onSubmit = () => {
-      //emailsUnedited.forEach((emailObject,index)=>{
-      //let changedEmail = checkEqual(emailObject,emails[index])
-      // if(changedEmail){
-      //     postData(changedEmail)
-      // }else{
-      //     props.tabClose()
-      // }
-      //})
-      props.tabClose()
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if(isValidate()){
+      emailsUnedited.forEach((emailObject,index)=>{
+      let changedEmail = checkEqual(emailObject,emails[index])
+      if(changedEmail){
+          postData(changedEmail)
+      }else{
+        props.tabClose()
+    }
+      })
+    }  
+  }
+
+  const isValidate=()=>{
+    let error_flag = true;
+    let error_object = [...errorObject];
+    emails.forEach((email,i)=>{
+    if(!email.email){
+      error_flag = false;
+      error_object[i] = {...error_object[i],is_error:true}
+      setErrorObject(error_object)
+    }
+   
+    })
+    return error_flag;
   }
 
   const checkEqual=(object1, object2)=>{
@@ -103,8 +125,18 @@ const EditEmailComponent = (props) => {
   }
   }
 
+
+  const getClassName=(id)=>{
+    let className = 'form-control';
+    errorObject.forEach((item)=>{
+    if(item.id === id && item.is_error){
+    className = 'form-control invalid';
+    }
+    })
+    return className;
+  }
+
   const onEmailChange = (e,index) => {
-    const number = e.target.value;
     let allEmails = [...emails];
     let emailObject = allEmails[index];
         let newEmailObject = {
@@ -119,7 +151,7 @@ const EditEmailComponent = (props) => {
 
   return (
     
-    <div> <form onSubmit={handleSubmit(onSubmit)}>
+    <div> <form onSubmit={onSubmit}>
 
         <div className="form-group">
 
@@ -135,7 +167,8 @@ const EditEmailComponent = (props) => {
                   
                   <input
                     type="email"
-                    className= {`form-control ${errors.email && 'invalid'}`}
+                    //className= {`form-control ${errors.email && 'invalid'}`}
+                    className= {getClassName(value.id)}
                     name="email"
                     //id="email"
                     //value={email ? email : ""}
@@ -146,9 +179,9 @@ const EditEmailComponent = (props) => {
                     onChange={(e)=>onEmailChange(e,index)}
                     ref={register({ required: true })}
                   />
-                  <small className="text-muted">
+                  {/* <small className="text-muted">
                     No Email? <a href="https://support.google.com/mail/answer/56256" target="_blank" rel="noopener noreferrer">Get one free from Google.</a>
-                  </small><br />
+                  </small><br /> */}
                   {errors.email && <span className="text-danger">This field is required</span>}
                 </div>
               }
