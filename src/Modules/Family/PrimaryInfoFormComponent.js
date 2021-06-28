@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import moment from 'moment';
 import localization from '../Localization/LocalizationComponent'
 
-const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watch }, ref) => {
+const PrimaryInfoFormComponent =  forwardRef(({ register, getValues,  triggerValidation, continueHandler, errors, setValue, watch }, ref) => {
   const date_of_birth = watch('date_of_birth') || '';
 
   const checkValue = (str, max) => {
@@ -122,6 +122,21 @@ const PrimaryInfoFormComponent =  forwardRef(({ register, errors, setValue, watc
       </select>
       {errors.gender && <span className="text-danger">This field is required</span>}
     </div>
+    {/* <button type="button" onClick={() => { triggerValidation(["first_name", "last_name"]); }}>
+    validate
+    </button> */}
+
+    <button
+    type="button"
+    // onClick = {continueHandler}
+    onClick= {async() => { 
+      const values = getValues()
+      const result = await triggerValidation(["first_name", "last_name" , "date_of_birth", "gender"]); 
+      if (result) continueHandler(values)
+    }}
+    className="btn custom-button"
+    data-testid="continue button"
+  > Continue</button> 
   </div>
   )
 });
