@@ -3,6 +3,7 @@ import { render,wait } from '@testing-library/react';
 import { 
   mockProfileData
 } from '../../../Testing/mock-profile';
+import { act } from "react-dom/test-utils";
 import { BrowserRouter as Router } from 'react-router-dom';
 import ProfileContainer from '../ProfileContainer';
 import ProfileComponent from "../ProfileComponent";
@@ -16,6 +17,7 @@ jest.setTimeout(30000);
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 const mockStore = configureStore([]);
+const store = mockStore({});
 
 //passed
 const originalWarn = console.warn.bind(console.warn);
@@ -28,18 +30,13 @@ afterAll(() => {
 });
 
 
-test('ProfileContainer rendered without errors', () => {
-  expect(() => {
-    const store = mockStore({});
-    render(
+test('ProfileContainer rendered without errors',async () => {
+    await act(async () => {
       <Provider store={store}>
-        <Router>
           <ProfileContainer data={mockProfileData}/>
-        </Router>
       </Provider>
        
-    );
-  }).not.toThrowError();
+    });
 });
 
 
@@ -54,12 +51,10 @@ test('rendered with passed data, api response success', async () => {
    };
    const store = mockStore({});
    axios.get.mockImplementation(() => Promise.resolve(response));
-   const { getByText } = render(
+  await act(async () => {
     <Provider store={store}>
-      <Router>
-        <ProfileContainer data={response.data}/>
-      </Router>
+        <ProfileContainer data={mockProfileData}/>
     </Provider>
-    
-  );
+     
+  });
 });

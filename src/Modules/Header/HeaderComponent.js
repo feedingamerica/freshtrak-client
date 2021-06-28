@@ -63,9 +63,13 @@ const HeaderComponent = (props) => {
         setNavbarShrink("");
       }
     };
+    return () => {
+      setNavbarShrink("");
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn,dispatch,userType]);
-   const clearStorage= ()=>{
+
+   const clearStorage= () => {
     localStorage.removeItem('userToken');
     localStorage.removeItem('tokenExpiresAt');
     localStorage.removeItem('search_zip');
@@ -81,12 +85,7 @@ const HeaderComponent = (props) => {
     localStorage.setItem('isLoggedIn', false);
     localStorage.removeItem('isAdded');
      if(userType === 0){ 
-       //setIsLoggedIn(false);
-       localStorage.removeItem('userType');
-       localStorage.removeItem('selectedEventId');
-       localStorage.removeItem('authToken');
-    await LogOut().then(async res => {
-         //let data = res.data;
+     await LogOut().then(async res => {
          if(res && res.status){
            dispatch(setCurrentEvent({}));
            dispatch(setCurrentUser({}));
@@ -101,7 +100,6 @@ const HeaderComponent = (props) => {
 
      }
      else{
-       //setIsLoggedIn(false);
        localStorage.setItem('isLoggedIn',false);
        clearStorage()
        dispatch(setCurrentEvent({}));
@@ -109,7 +107,7 @@ const HeaderComponent = (props) => {
        dispatch(setLoggedIn(false));
        history.push(`${RENDER_URL.ROOT_URL}`);
      }  
-    
+     dispatch(setLoggedIn(false));
     //window.FB.logout()
   }
 
@@ -118,7 +116,6 @@ const HeaderComponent = (props) => {
   }
 
   const handleClose = () => setShow(false);
-  //const handleShow = () => setShow(true);
   
   return (
     <Fragment>
@@ -225,6 +222,7 @@ const HeaderComponent = (props) => {
                  Sign Out
                </a>
              </LinkContainer>)*/}
+
              {userType === USER_TYPES.CUSTOMER && localIsLoggedIn === 'true' && (
             <div className="mr-3 font-weight-bold pointer text-white" 
             onClick={() => goToProfile()}>

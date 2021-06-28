@@ -3,6 +3,7 @@
  */
 export const STATUS_ACTIVE = 1;
 export const STATUS_INACTIVE = 0;
+export const DIAL_CODE = "+91";
 
 export const MESSAGES = {
     SOMETHING_WENT_WRONG: 'Something went wrong'

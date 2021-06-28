@@ -10,8 +10,14 @@ const toastTypes = {
   default: toast.TYPE.DEFAULT
 }
 export const showToast = (message, type = "default") => {
+  toast.configure()
   toast(message, {
-    type: toastTypes[type]
+    type: toastTypes[type],
+    hideProgressBar: true,
+    enter: "fadeIn",
+    hideEasing: "linear",
+    showMethod: "fadeIn",
+    hideMethod: "fadeOut"
   })
 }
 export const NotifyToast = ({position='top-left', }) => {

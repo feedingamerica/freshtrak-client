@@ -45,8 +45,8 @@ const InformationComponent = (props) => {
       </div>
       <div className="d-flex">
         
-       { props && props.data && props.data.dob ? <div className="w-50">
-          {props.data.dob}, {moment().diff(props.data.dob, 'years',false)}
+       { props && props.data && props.data.date_of_birth ? <div className="w-50">
+          {props.data.date_of_birth}, {moment().diff(props.data.date_of_birth, 'years',false)}
           </div>:null}
 
         <div></div>

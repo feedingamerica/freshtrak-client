@@ -6,7 +6,8 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 
 const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref) => {
-  const addressLine1 = watch('address_line_1') || '';
+  //const addressLine1 = watch('address_line_1') || '';
+  const addressLine1 = watch('line_1') || '';
   const cityName = watch('city') || '';
   const shortStateName = watch('state') || '';
   const zip = watch('zip_code') || '';
@@ -17,7 +18,8 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
     delete errors.city
     delete errors.zip_code
     let destructuredAddress = getDestructured(results[0]["address_components"]);
-    setValue('address_line_1', destructuredAddress["street_number"]!==undefined?`${destructuredAddress["street_number"]} ${destructuredAddress["route"]}`:'');
+    //setValue('address_line_1', destructuredAddress["street_number"]!==undefined?`${destructuredAddress["street_number"]} ${destructuredAddress["route"]}`:'');
+    setValue('line_1', destructuredAddress["street_number"]!==undefined?`${destructuredAddress["street_number"]} ${destructuredAddress["route"]}`:'');
     setValue('city', destructuredAddress["locality"]);
     setValue('state', destructuredAddress["administrative_area_level_1_short"]);
     setValue('zip_code', destructuredAddress["postal_code"]);
@@ -60,10 +62,10 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
     <Fragment>
       <h2>{localization.register_where_you_live}</h2>
       <div className="form-group relative">
-        <label htmlFor="address_line_1">{localization.street_address}<span className="text-danger">*</span></label>
+        <label htmlFor="line_1">{localization.street_address}<span className="text-danger">*</span></label>
         <PlacesAutocomplete
           value={addressLine1}
-          onChange={(e) => setValue('address_line_1', e)}
+          onChange={(e) => setValue('line_1', e)}
           onSelect={handleSelect}
         >
           {({
@@ -75,14 +77,14 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
             <>
               <input
                 type="text"
-                className= {`form-control ${errors.address_line_1 && 'invalid'}`}
-                name="address_line_1"
-                id="address_line_1"
+                className= {`form-control ${errors.line_1 && 'invalid'}`}
+                name="line_1"
+                id="line_1"
                 {...getInputProps()}
                 ref={register({ required: true })}
                 autoComplete="off"
               />
-              {errors.address_line_1 && (
+              {errors.line_1 && (
                 <span className="text-danger">This field is required</span>
               )}
               {/* No spinners are set here as of now. You can re-use the loader from EventContainer page; 
@@ -110,12 +112,12 @@ const AddressComponent = forwardRef(({ register, errors, watch, setValue }, ref)
       </div>
 
       <div className="form-group">
-        <label htmlFor="address_line_2">{localization.lot_suite}</label>
+        <label htmlFor="line_2">{localization.lot_suite}</label>
         <input
           type="text"
           className="form-control"
-          name="address_line_2"
-          id="address_line_2"
+          name="line_2"
+          id="line_2"
           ref={register}
         />
       </div>

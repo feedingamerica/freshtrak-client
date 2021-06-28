@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React, {useState} from "react";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import LoginLogo from "../../Assets/img/login-logo.png";
@@ -18,7 +18,7 @@ import { RENDER_URL,API_URL } from '../../Utils/Urls';
 import { setLoggedIn } from '../../Store/loggedInSlice';
 import SpinnerComponent from "../General/SpinnerComponent";
 import { setCurrentUser} from '../../Store/userSlice';
-
+import { DIAL_CODE} from '../../Utils/Constants';
 
 const UserBlockContainer = (props) => {
   const history = useHistory();
@@ -26,18 +26,16 @@ const UserBlockContainer = (props) => {
   const [username, setUserName] = useState('');
   const [customError,setCustomError] = useState({});
   const [user,setUser] = useState({});
+  //const currentUser = useSelector(selectUser);
   const [destinationMedium, setDestinationMedium] = useState('');
   const [mfaType, setMfaType] = useState('');
   //const [dialcode,setDialCode] = useState('+91');
-  const dialcode = "+91";
+  const dialcode = DIAL_CODE;
   const event = useSelector(selectEvent);
   //const [selectedEvent, setSelectedEvent] = useState(event);
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  })
 
   const onSignUp = async (signupData) => {
     setLoading(true);
@@ -167,13 +165,15 @@ const UserBlockContainer = (props) => {
     } 
   }
   const createUser = async (userToken) => {
-    const {USER_CREATION } = API_URL;
+    //const {USER_CREATION } = API_URL; //old api
+    const {CREATE_USER } = API_URL; // new api
       try {
-       const resp = await axios.post(USER_CREATION, {},
+       const resp = await axios.post(CREATE_USER, {},
           { headers: { Authorization: `${userToken}` } }
         );
        localStorage.setItem('isAdded', 1);
        dispatch(setCurrentUser(resp.data.user));
+       //setUser()
       } catch (e) {
         console.log(e);
       }

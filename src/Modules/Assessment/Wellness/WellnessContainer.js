@@ -5,7 +5,6 @@ import React, {useState,useContext,useEffect} from 'react';
 import { useSelector } from 'react-redux';
 
 // import general components
-//import ButtonComponent from '../../General/ButtonComponent';
 // import all pages.
 import BeginAssessComponent from './BeginAssessComponent';
 import RangeQstnComponent from './RangeQstnComponent';
@@ -53,8 +52,11 @@ const WellnessContainer = (props) => {
 	
     const setAssessmentQuestions = async() => {
 			let assessmentUri = API_URL.QUESTIONS;
-            try {
-                const resp = await axios.get(assessmentUri);
+			let zip = currentUser && currentUser.zip_code;
+			try {
+				const resp = await axios.get(assessmentUri, {
+					params: { zip_code: zip}
+				});
 				if(resp && resp.data && 
 					resp.data.data.length > 0 
 					&& assessmentData == null){
@@ -62,7 +64,7 @@ const WellnessContainer = (props) => {
 							context.question_source_id = resp.data.data[0].question_source_id;
 							context.assessment_id = resp.data.data[0].assessment_id;
 						}
-						context.total_questions = resp.data.data.length;
+						//context.total_questions = resp.data.data.length;
 					setAssessmentData(resp.data.data)
 					setDataLength(resp.data.data.length)
 					if(dataLength === 0){
@@ -118,7 +120,7 @@ const WellnessContainer = (props) => {
 		if(currPage !== -1){
 			//let progression = 100/(totalMainQstns);
 			let progress = 100/dataLength;
-			if(assessmentData[currPage] 
+			if(assessmentData && assessmentData[currPage] 
 				&& assessmentData[currPage].assessment_qn_id 
 				&& assessmentData[currPage].is_main){
 				let progression = progress * assessmentData[currPage].assessment_qn_id;
@@ -141,15 +143,17 @@ const WellnessContainer = (props) => {
 			goToNextPage(page)
 			
 		}else{
-			let page = currPage - 1;
+			//let page = currPage - 1;
 				setType("prev")
-		 	  setCurrPage(page)
-		 	 	goToPrevPage(page)
+		 	  //setCurrPage(page)
+		 	 	//goToPrevPage(page)
+		 	 	goToPrevPage()
 				
 		}
 	}
 
 	const handleSubmit = async()=>{
+		context.previous = []
 		let assessmentUri = API_URL.SUBMIT_ASSESSMENT;
 		const authToken = localStorage.getItem('authToken');
 		let ansArray = [];
@@ -212,10 +216,17 @@ const WellnessContainer = (props) => {
 
 
 
-	const goToPrevPage = async (currpage) => {
-		setCurrPage(context.previous_page[currPage])
-	
-			//handleProgress("prev");
+	const goToPrevPage = async () => {
+		if(assessmentData[currPage].question_type === "Check Box"){
+			context.answers[currPage] = [];
+			context.option_id.splice(currPage,1);
+		}else{
+			context.answers[currPage] = " ";
+			context.option_id.splice(currPage,1);
+		}
+		let index = context.previous.length-2;
+		setCurrPage(context.previous[index])
+		context.previous.pop()
 	}
     return (  
 			

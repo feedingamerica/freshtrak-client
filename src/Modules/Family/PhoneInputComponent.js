@@ -36,7 +36,7 @@ const PhoneInputComponent = (props) => {
         value={props.value}
         onChange={(e) => formatPhone(e)}
         ref={props.register({
-          validate: value => value.length >= 14
+          validate: (value) => value.length >= 14
         })}
       />
     </Fragment>

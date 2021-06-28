@@ -3,7 +3,7 @@ import React,{useContext, useEffect,useState} from 'react';
 //import ButtonComponent from '../../General/ButtonComponent';
 import WellnessContext from './WellnessContext';
 const YesOrNoQstnComponent = (props) => {
-let {question,assessment_qn_id,go_to_page,option_id,previous_page,next_page} = props.content;
+let {question,assessment_qn_id,go_to_page,option_id,next_page} = props.content;
 let context = useContext(WellnessContext);
 const [selected,setSelected] = useState(null); 
 const setValue = (e) =>{
@@ -21,13 +21,15 @@ const setValue = (e) =>{
             context.go_to_page[assessment_qn_id-1] = (go_to_page[1])-1;
         }
 
-}
-useEffect(()=>{
-    setSelected(context.answers[assessment_qn_id-1])
-    context.previous_page[assessment_qn_id-1] = previous_page-1;
-    context.next_page[assessment_qn_id-1] = next_page-1;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-},[props.content.question,props.content.assessment_qn_id])
+    }
+    useEffect(()=>{
+        setSelected(context.answers[assessment_qn_id-1])
+        if(context.previous.indexOf(assessment_qn_id-1) === -1){
+            context.previous.push(assessment_qn_id-1);
+        }
+        context.next_page[assessment_qn_id-1] = next_page-1;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[props.content.question,props.content.assessment_qn_id])
     return (
 		<>
                             <div className="assesment-content flex-grow-1 flex-column justify-content-between d-flex mt-3 mb-3">

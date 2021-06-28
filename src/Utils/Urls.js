@@ -25,12 +25,29 @@ export const API_URL = {
     USER_CONTACT : `${REGISTRATION_URL}profiles/user_contact_details`,
     USER_VEHICLE : `${REGISTRATION_URL}profiles/user_vehicle_details`,
     UPDATE_INFORMATION : `${REGISTRATION_URL}profiles/update_user_data`,
-    UPDATE_ADDRESS : `${REGISTRATION_URL}profiles/update_user_address`,
+    //UPDATE_ADDRESS : `${REGISTRATION_URL}profiles/update_user_address`,
     UPDATE_CONTACT : `${REGISTRATION_URL}profiles/update_user_contact`,
     UPDATE_VEHICLE : `${REGISTRATION_URL}profiles/update_user_vehicle`,
     QUESTIONS : WELLNESS_URL + 'api/assessment_questions',
     SUBMIT_ASSESSMENT :  WELLNESS_URL + 'api/user_assessment_answers',
     TRIGGER_ASSESSMENT : WELLNESS_URL + 'api/assessments',
+    
+    //new API's
+    CREATE_USER : `${REGISTRATION_URL}api/users/sign_in`,
+    CREATE_ADDRESS : `${REGISTRATION_URL}api/address`,
+    CREATE_EVENT_RESERVATION : `${REGISTRATION_URL}api/reservations`,
+
+    UPDATE_PEOPLE : `${REGISTRATION_URL}api/people`,
+    UPDATE_PHONE : `${REGISTRATION_URL}api/phones`,
+    UPDATE_EMAIL : `${REGISTRATION_URL}api/emails`,
+    UPDATE_ADDRESS : `${REGISTRATION_URL}api/addresses`,
+
+    GET_ADDRESS : `${REGISTRATION_URL}api/addresses`,
+    GET_USER_DETAILS : `${REGISTRATION_URL}api/users/sign_in`,
+    GET_PEOPLE : `${REGISTRATION_URL}api/people`,
+    GET_PHONE : `${REGISTRATION_URL}api/phones`,
+    GET_EMAIL : `${REGISTRATION_URL}api/emails`,
+    GET_EVENT_RESERVATION : `${REGISTRATION_URL}api/reservations`,
     
 };
 

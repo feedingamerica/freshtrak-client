@@ -5,18 +5,24 @@ import moment from "moment";
 import { API_URL } from '../../../Utils/Urls';
 //import { formatDateForServer } from '../../../Utils/DateFormat';
 import axios from 'axios';
-
+import { useSelector,useDispatch } from 'react-redux';
+import { setCurrentUser, selectUser } from '../../../Store/userSlice';
+import SpinnerComponent from '../../General/SpinnerComponent';
 
 
 const EditInformationComponent = (props) => {
-    const { register, handleSubmit, errors,setValue } = useForm();
-    const [first_name, setFirstName] = useState(null)
-    const [date_of_birth, setDateOfBirth] = useState(null)
-    const [middle_name, setMiddleName] = useState(null)
-    const [last_name, setLastName] = useState(null)
-    const [race, setRace] = useState(null)
-    const [ethnicity, setEthnicity] = useState(null)
-    const [gender, setGender] = useState(null)
+  const { register, handleSubmit, errors,setValue } = useForm();
+  const [isLoading, setLoading] = useState(false);
+  const [first_name, setFirstName] = useState(null)
+  const [date_of_birth, setDateOfBirth] = useState(null)
+  const [middle_name, setMiddleName] = useState(null)
+  const [last_name, setLastName] = useState(null)
+  const [race, setRace] = useState(null)
+  const [ethnicity, setEthnicity] = useState(null)
+  const [gender, setGender] = useState(null)
+  const currentUser = useSelector(selectUser);
+  const [user, setUser] = useState(currentUser);
+  const dispatch = useDispatch();
    
     useEffect(() => {
         if (props.informationData) {
@@ -27,12 +33,9 @@ const EditInformationComponent = (props) => {
             setGender(informationDetails.gender)
             setEthnicity(informationDetails.ethnicity)
             setRace(informationDetails.race)
-            setDateOfBirth(moment(informationDetails.dob).format("MM/DD/YYYY"))
+            setDateOfBirth(moment(informationDetails.date_of_birth).format("MM/DD/YYYY"))
             
-        } else {
-            //props.proxyData.proxyTypes.length && setproxyTypeId(props.proxyData.proxyTypes[0].proxy_type_id)
-        }
-
+        } 
     }, [props])
 
 
@@ -73,31 +76,53 @@ const EditInformationComponent = (props) => {
     }
 
     const onSubmit = (data) => {
-      props.tabClose()
        updateInformation(data)
     }
 
     const updateInformation = async (data) =>{
+      setLoading(true)
+      const { UPDATE_PEOPLE } = API_URL;
+      let UPDATE_PEOPLE_URL = `${UPDATE_PEOPLE}/${props.informationData.id}`;
       let param = {
-       "user": {first_name : data.first_name,
+       "person": {
+        first_name : data.first_name,
         middle_name : data.middle_name,
         last_name : data.last_name,
         date_of_birth : moment(date_of_birth).format('YYYY-MM-DD'),
-        race : (data.race === "" || data.race == null || data.race === undefined ? race : data.race),
-        ethnicity : (data.ethnicity === "" || data.ethnicity == null || data.ethnicity === undefined ? ethnicity : data.ethnicity),
+        race : (data.race ? data.race : race),
+        ethnicity : (data.ethnicity ? data.ethnicity : ethnicity ),
         //is_adult : 1,
-        gender : (data.gender === "" || data.gender == null || data.gender === undefined ? gender : data.gender)
+        gender : (data.gender ? gender : data.gender)
       }
     }
 
+    let updatedUser = {
+      ...user,
+        first_name : data.first_name,
+        middle_name : data.middle_name,
+        last_name : data.last_name,
+        date_of_birth : moment(date_of_birth).format('YYYY-MM-DD'),
+        race : (data.race ? data.race : race),
+        ethnicity : (data.ethnicity ? data.ethnicity :ethnicity),
+        gender : (data.gender ? data.gender : gender)
+
+}
+
       const authToken = localStorage.getItem('authToken');
         try {
-          await axios.put(API_URL.UPDATE_INFORMATION, param,
+          // API_URL.UPDATE_INFORMATION
+          await axios.put(UPDATE_PEOPLE_URL, param,
             { headers: { Authorization: `${authToken}` } }
           );
+          setUser(updatedUser);
+          dispatch(setCurrentUser(updatedUser));
+          setLoading(false)
           props.refreshMainTab()
+          props.tabClose()
         } catch (e) {
           console.log("error occured >",e)
+          setLoading(false)
+          props.tabClose()
     }
   }
 
@@ -303,6 +328,9 @@ const EditInformationComponent = (props) => {
                 className="btn complete-button w-100"
                 name="save"
             >Save</button>
+        </div>
+        <div className="mt-3 mb-3">
+        {isLoading && <SpinnerComponent></SpinnerComponent>}
         </div>
         <div className="mt-3 text-center">
             <span className="text-purple font-weight-bold" onClick={props.tabClose}>Cancel</span>

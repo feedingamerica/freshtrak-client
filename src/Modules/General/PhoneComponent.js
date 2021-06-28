@@ -35,21 +35,6 @@ const PhoneComponent = (props) => {
   };
 
 
-//   const onPhoneChange = (e) => {
-//     const number = e.target.value;
-//     let phoneNumber = number.replace(/[^0-9]/ig, "");
-//     if (phoneNumber.length > 10) {
-//         phoneNumber = phoneNumber.substring(0, 10)
-//         const num = `(${phoneNumber.substring(0, 3)}) ${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6, phoneNumber.length)}`;
-//         //setPhone(num)
-//         console.log("num is>>",num)
-//     }
-//     else {
-//       console.log("num in else is>>",e.target.value)
-//         //setPhone(e.target.value)
-//     }
-// }
-
   return (
     <Fragment>
       <input
@@ -58,6 +43,7 @@ const PhoneComponent = (props) => {
         name={props.name}
         placeholder={props.placeholder}
         id={props.id}
+        disabled={props.disabled}
         value={formatPhoneNumber(props.value)}
         onChange={(e)=>props.onChange(e)}
         ref={props.register({

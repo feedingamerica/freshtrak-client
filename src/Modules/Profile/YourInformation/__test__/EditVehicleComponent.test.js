@@ -7,11 +7,18 @@ import EditVehicleComponent from '../EditInformationComponent';
 jest.mock('axios');
 jest.setTimeout(30000);
 import axios from "axios";
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+const mockStore = configureStore([]);
+
 
 test('EditVehicleComponent rendered without errors', () => {
   expect(() => {
+    const store = mockStore({});
     render(
-        <EditVehicleComponent vehicleData={mockProfileData}/>
+      <Provider store={store}>
+          <EditVehicleComponent vehicleData={mockProfileData}/>
+      </Provider>    
     );
   }).not.toThrowError();
 });
@@ -25,9 +32,11 @@ test('Successful api call', async () => {
     statusText: 'OK',
   };
   axios.get.mockImplementation(() => Promise.resolve(successResponse));
-
+  const store = mockStore({});
   const { getByText } = render(
+    <Provider store={store}>
     <EditVehicleComponent vehicleData={mockProfileData}/>
+    </Provider>
   );
 
   await wait(() => {

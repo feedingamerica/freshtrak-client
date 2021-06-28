@@ -6,22 +6,22 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 
 const AddressComponent = forwardRef(({ register, errors, addressData, watch, setValue }, ref) => { //register, errors, addressData, states, setValue, watch
-  const addressLine1 = watch('address_line_1') || '';
+  const addressLine1 = watch('line_1') || '';
   const cityName = watch('city') || '';
   const zip = watch('zip_code') || '';
   const stateCode = watch('state_code') || '';
   const [invalidStreet, setInvalidStreet] = useState(false);
-const [address_line_2, setAddress_line_2] = useState("");
+const [line_2, setAddress_line_2] = useState("");
 
 
        useEffect(() => {
          if (addressData) {
              let addressInfo = { ...addressData }
-             setValue('address_line_1', addressInfo.address1);
+             setValue('line_1', addressInfo.line_1);
              setValue('city', addressInfo.city);
              setValue('state_code', addressInfo.state);
-             setValue('zip_code', addressInfo.zipcode);
-             setAddress_line_2(addressInfo.address2);
+             setValue('zip_code', addressInfo.zip_code);
+             setAddress_line_2(addressInfo.line_2);
          }
          // eslint-disable-next-line react-hooks/exhaustive-deps
      }, [addressData])
@@ -39,7 +39,7 @@ const [address_line_2, setAddress_line_2] = useState("");
                  else{
                      setInvalidStreet(true)
                  }
-    setValue('address_line_1', destructuredAddress["street_number"]!==undefined?`${destructuredAddress["street_number"]} ${destructuredAddress["route"]}`:'');
+    setValue('line_1', destructuredAddress["street_number"]!==undefined?`${destructuredAddress["street_number"]} ${destructuredAddress["route"]}`:'');
     setValue('city', destructuredAddress["locality"]);
     setValue('state_code', destructuredAddress["administrative_area_level_1_short"]);
     setValue('zip_code', destructuredAddress["postal_code"]);
@@ -87,7 +87,7 @@ const [address_line_2, setAddress_line_2] = useState("");
       <label>Address</label>
         <PlacesAutocomplete
           value={addressLine1}
-          onChange={(e) => setValue('address_line_1', e)}
+          onChange={(e) => setValue('line_1', e)}
           onSelect={handleSelect}
         >
           {({
@@ -99,14 +99,14 @@ const [address_line_2, setAddress_line_2] = useState("");
             <>
               <input
                 type="text"
-                className= {`form-control ${errors.address_line_1 && 'invalid'}`}
-                name="address_line_1"
-                id="address_line_1"
+                className= {`form-control ${errors.line_1 && 'invalid'}`}
+                name="line_1"
+                id="line_1"
                 {...getInputProps()}
                 ref={register({ required: true })}
                 autoComplete="off"
               />
-              {errors.address_line_1 && (
+              {errors.line_1 && (
                 <span className="text-danger">This field is required</span>
               )}
               {/* No spinners are set here as of now. You can re-use the loader from EventContainer page; 
@@ -141,10 +141,10 @@ const [address_line_2, setAddress_line_2] = useState("");
              <input
                  className="form-control"
                  type="text"
-                 name="address_line_2"
-                 id="address_line_2"
+                 name="line_2"
+                 id="line_2"
                  ref={register}
-                 defaultValue={address_line_2}
+                 defaultValue={line_2}
              />
 
          </div>
