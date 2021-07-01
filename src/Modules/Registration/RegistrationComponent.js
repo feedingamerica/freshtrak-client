@@ -17,16 +17,16 @@ const RegistrationComponent = ({ user, onRegister, event, disabled }) => {
   const configureTimeLine= () => {
     const timeline = document.querySelector("#timeline")
     if (timeline) {
-      timeline.steps = [ 'step1', 'step2', 'step3']
+      timeline.steps = [ 'Your Details', 'Your Address Details', 'Your Family Details']
       // timeline.addEventListener("opc-timeline-step:click", timelineClickHandler)
     }
   }
 
-  const timelineClickHandler = (event) =>{
-    setFormStep(event.detail.data.index)
-  }
+  // const timelineClickHandler = (event) =>{
+  //   setFormStep(event.detail.data.index)
+  // }
   useEffect ( () => { configureTimeLine() }, [])
-
+   
   const continueHandler = (values) =>{
     // const res = await triggerValidation(["first_name","last_name"])
    setFormValues({...formValues, ...values})

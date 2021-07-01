@@ -1349,6 +1349,14 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
+"@one-platform/opc-timeline@0.0.3-prerelease":
+  version "0.0.3-prerelease"
+  resolved "https://registry.yarnpkg.com/@one-platform/opc-timeline/-/opc-timeline-0.0.3-prerelease.tgz#b44072a160ef485e5a526c3d4a322458b8f6b26a"
+  integrity sha512-F1O3wdALJr0UDzYZpeg19oaHm2wlamkt4+yvPmIaCg8Id8ijQOnuBXt8TtVMP7TJSs/ijnnrFu1wenTd4shSqQ==
+  dependencies:
+    lit-element "2.4.0"
+    lit-html "1.3.0"
+
 "@popperjs/core@^2.5.3", "@popperjs/core@^2.6.0":
   version "2.8.2"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.8.2.tgz#1fd24b99e417176566f8ada718fd16dbc7ef2b7a"
@@ -6866,6 +6874,23 @@ lines-and-columns@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
+
+lit-element@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/lit-element/-/lit-element-2.4.0.tgz#b22607a037a8fc08f5a80736dddf7f3f5d401452"
+  integrity sha512-pBGLglxyhq/Prk2H91nA0KByq/hx/wssJBQFiYqXhGDvEnY31PRGYf1RglVzyLeRysu0IHm2K0P196uLLWmwFg==
+  dependencies:
+    lit-html "^1.1.1"
+
+lit-html@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-1.3.0.tgz#c80f3cc5793a6dea6c07172be90a70ab20e56034"
+  integrity sha512-0Q1bwmaFH9O14vycPHw8C/IeHMk/uSDldVLIefu/kfbTBGIc44KGH6A8p1bDfxUfHdc8q6Ct7kQklWoHgr4t1Q==
+
+lit-html@^1.1.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-1.4.1.tgz#0c6f3ee4ad4eb610a49831787f0478ad8e9ae5e0"
+  integrity sha512-B9btcSgPYb1q4oSOb/PrOT6Z/H+r6xuNzfH4lFli/AWhYwdtrgQkQWBbIc6mdnf6E2IL3gDXdkkqNktpU0OZQA==
 
 load-json-file@^1.0.0:
   version "1.1.0"
