@@ -123,8 +123,8 @@ const RegistrationConfirmComponent = props => {
   return (
     <Fragment>
       {event && (
-        <div className="mt-4">
-          <section className="container pt-100 pb-100 register-confirmation">
+        <div className="mt-4 content-wrapper">
+          <section className="container pb-100 register-confirmation">
             <h1 className="big-title med-title mt-5 mb-5 mobile-mb">
               You're Registered
             </h1>
@@ -146,20 +146,19 @@ const RegistrationConfirmComponent = props => {
             </div>
             <div className="mt-5">
               <h2>
-                Your Confirmation Number <br />
-                <b> {identification_code.toUpperCase()} </b>
+                Your Confirmation Number:  <b> {identification_code.toUpperCase()} </b>
               </h2>
               <br />
             </div>
-            <div className="mt-1">
+            <div>
               <h2>
-                Your QR Code <br />
-                <QRCode value= {`https://secure.pantrytrak.com/mobile/qr_code_processing.php?code=${identification_code.toUpperCase()}&event_date_id=${eventDateId}${event_slot_id?"&event_slot_id="+event_slot_id: ""}`} />
+                Your QR Code:
               </h2>
+              <QRCode className= "qr-code" value= {`https://secure.pantrytrak.com/mobile/qr_code_processing.php?code=${identification_code.toUpperCase()}&event_date_id=${eventDateId}${event_slot_id?"&event_slot_id="+event_slot_id: ""}`} />
               <br />
             </div>
-            { event &&
-                  <div className="col-6">
+            { event && 
+                  <div className="col-6 reg-confirm-card">
                     <div className="day-view">
                       <EventCardComponent key={event.id} event={event} registrationView={true}/>
                     </div>
