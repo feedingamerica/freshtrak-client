@@ -1051,3 +1051,25 @@ li.timeline-steps__step.active::after{
     height: 1.2rem !important;
     width: 1.2rem !important;
 }
+
+.qr-flex{
+    display: flex;
+    justify-content: center;
+    *{
+        align-items: flex-start;
+    }
+}
+
+.qr-code{
+    margin-left: 15px;
+
+}
+
+.reg-confirm-card{
+    margin-top: 15px; 
+}
+
+.center-aligned{
+    text-align: center;
+
+}
