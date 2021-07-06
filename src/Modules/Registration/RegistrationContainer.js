@@ -128,8 +128,10 @@ const RegistrationContainer = (props) => {
          "middle_name" : personDetailsResponse.middle_name,
          "last_name" : personDetailsResponse.last_name,
          "date_of_birth" : personDetailsResponse.date_of_birth,
-         "gender" : personDetailsResponse.gender
+         "gender" : personDetailsResponse.gender,
+         "id" : personDetailsResponse.id
        }
+       
       let data = {...user,...personDetails}
       setUser(data)
       //dispatch(setCurrentUser({...user,personDetails}));
@@ -202,7 +204,23 @@ const RegistrationContainer = (props) => {
     }
 
   }
+  const normalizeInput = (value) => {
+    if (!value) return value;
+    const currentValue = value.replace(/[^\d]/g, '');
+    const cvLength = currentValue.length;
 
+    if (value.length) {
+      if (cvLength < 4) return currentValue;
+      if (cvLength < 7)
+        return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3)}`;
+      return `(${currentValue.slice(0, 3)}) ${currentValue.slice(
+        3,
+        6
+      )}-${currentValue.slice(6, 10)}`;
+    } else {
+      return value
+    }
+  };
   const getPhoneDetails = async(authHeader)=>{
     setLoading(true)
     const { GET_PHONE } = API_URL;
@@ -221,7 +239,7 @@ const RegistrationContainer = (props) => {
           }
         })
         phoneDetails = {
-          "phone" : phoneDetailsResponse.phone,
+          "phone" :  normalizeInput(phoneDetailsResponse.phone),
           "permission_to_text": phoneDetailsResponse.permission_to_text
         }
         if (phoneDetails.phone["phone"] !== null && phoneDetails.phone["phone"] !== undefined){
@@ -483,9 +501,9 @@ const customer_registration = async (user,authHeader) => {
   const updateAddress = async(address,authHeader)=>{
     const {UPDATE_ADDRESS}= API_URL;
     let id = personData.id;
-    let URL = `${UPDATE_ADDRESS}/${id}`;
+    let URL = `${UPDATE_ADDRESS}`;
     try{
-      await axios.put(URL,{ address },
+      await axios.post(URL,{ address },
               { headers: { Authorization: authHeader } }
             );
             setLoading(false)
@@ -550,6 +568,7 @@ const customer_registration = async (user,authHeader) => {
   }
 
   const createReservation = async(user,reservation,authHeader)=>{
+    
     let event_slot_id = parseInt(eventSlotId, 10);
     let identification_code;
     const {CREATE_EVENT_RESERVATION}= API_URL;
