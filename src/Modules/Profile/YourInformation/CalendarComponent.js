@@ -2,6 +2,7 @@ import React from 'react'
 import { Calendar } from 'primereact/calendar';
 const CalenderComponent = (props) => {
     return (
+        <>
         <Calendar
             dateFormat={props.dateFormat ? props.dateFormat : "dd/mm/yy"}
             value={props.value}
@@ -14,6 +15,7 @@ const CalenderComponent = (props) => {
             className={props.className ? props.className : ""}
             icon={props.icon ? props.icon : ""}
             showIcon={props.showIcon} />
+            </>
     )
 }
 export default CalenderComponent

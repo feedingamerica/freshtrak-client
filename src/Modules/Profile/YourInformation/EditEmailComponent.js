@@ -8,6 +8,7 @@ import SpinnerComponent from '../../General/SpinnerComponent';
 
 
 const EditEmailComponent = (props) => {
+  debugger
   const { register, errors } = useForm();
   //const [email, setEmail] = useState(null);
   const [emails, setEmails] = useState([]);

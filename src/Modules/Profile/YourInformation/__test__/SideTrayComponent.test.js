@@ -16,10 +16,7 @@ test('SideTrayComponent rendered without errors', () => {
     render(
       <Provider store={store}>
         <SideTrayComponent header={"header"} show={true}>
-          <EditVehicleComponent/>
-          <EditAddressComponent/>
-          <EditPhoneComponent/>
-          <EditInformationComponent/>
+          <div>Unit Test</div>
           </SideTrayComponent>
       </Provider>
         
