@@ -1,7 +1,6 @@
 import React, { useEffect,useState } from "react";
 import ProfileComponent from "../Profile/ProfileComponent";
 import ProfileTabComponent from "../Profile/ProfileTabComponent";
-import TakeTheAssessmentComponent from "../General/TakeTheAssessmentComponent";
 import axios from 'axios';
 import { API_URL } from '../../Utils/Urls';
 import { useHistory } from 'react-router-dom';
@@ -112,9 +111,7 @@ const getPersonDetails = async (authToken,id) =>{
     <div className="profile-tabs-wrapper">
       <ProfileTabComponent onRefresh={()=>getInformationDetails()}/>
     </div>
-    <div className="assessment-section">
-      <TakeTheAssessmentComponent/>
-    </div>
+  
     </div>
   );
 };

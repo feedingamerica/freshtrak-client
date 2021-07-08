@@ -4,22 +4,16 @@ import healthImage from '../../Assets/img/health.png';
 import educationImage from '../../Assets/img/education.png';
 import economicImage from '../../Assets/img/economic.png';
 import homeImage from '../../Assets/img/home.png';
-import WellnessContainer from '../Assessment/Wellness/WellnessContainer';
-import WellnessContext from '../Assessment/Wellness/WellnessContext';
 import {API_URL} from '../../Utils/Urls';
 import axios from 'axios';
-import moment from 'moment';
 //import { formatMMDDYYYY } from '../../Utils/DateFormat';
 import { useSelector,useDispatch } from 'react-redux';
 import { setCurrentUser, selectUser } from '../../Store/userSlice';
 import SpinnerComponent from '../General/SpinnerComponent';
-import { showToast } from '../Notifications/NotifyToastComponent';
 
 const ResourceCategoryComponent = () => {
-  let context = useContext(WellnessContext);
   const dispatch = useDispatch();
 
-  const [showModal, setShowModal] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
   const authToken = localStorage.getItem('authToken');
@@ -124,43 +118,6 @@ const ResourceCategoryComponent = () => {
     }
   }
 
-  const setAssessmentData = async() => {
-    setLoading(true)
-    let assessmentUri = API_URL.TRIGGER_ASSESSMENT;
-    let zip = currentUser && currentUser.zip_code;
-    try {
-      const resp = await axios.get(assessmentUri, {
-        params: { zip_code: zip}
-    });
-         
-        if(resp && resp.data && 
-            resp.data.data){
-            context.beginAssessmentData = resp.data.data;
-            context.total_questions = resp.data.data.total_question;
-            if(Object.keys(context.beginAssessmentData).length !== 0){
-              setShowModal(true)
-              context.start_time = moment().format('YYYY-MM-DD hh:mm'); 
-            }
-        }else{
-          let msg = "No assessment available for you.";
-          showToast(msg,'error');
-
-        }
-        setLoading(false)
-    } catch (err) {
-        console.log("ERROR LOADING ASSESSMENT DATA",err)
-        setLoading(false)
-        let msg = "Error loading Assessment Data.";
-        showToast(msg,'error');
-    }
-  };
-
-
-  const triggerAssessment=()=>{
-    if(authToken){
-      setAssessmentData()
-    }
-    }
   return (
     <>
     {isLoading && <SpinnerComponent />}
@@ -175,7 +132,7 @@ const ResourceCategoryComponent = () => {
              </div>
              <div className="flex-grow-1">
                <div className="font-weight-bold mb-0 profile-title">Food</div>
-               <div onClick={()=>triggerAssessment()} className="small">Take the Assessment</div>
+               {/* <div onClick={()=>triggerAssessment()} className="small">Take the Assessment</div> */}
              </div>
            </div>
          </div>
@@ -188,8 +145,7 @@ const ResourceCategoryComponent = () => {
              </div>
              <div className="flex-grow-1">
                <div className="font-weight-bold mb-0 profile-title">Health</div>
-               <div onClick={()=>triggerAssessment()} className="small">Take the Assessment</div>
-             </div>
+               </div>
            </div>
          </div>
        </div>
@@ -201,8 +157,7 @@ const ResourceCategoryComponent = () => {
              </div>
              <div className="flex-grow-1">
                <div className="font-weight-bold mb-0 profile-title">Social & Community</div>
-               <div onClick={()=>triggerAssessment()} className="small">Take the Assessment</div>
-             </div>
+              </div>
            </div>
          </div>
        </div>
@@ -214,8 +169,7 @@ const ResourceCategoryComponent = () => {
              </div>
              <div className="flex-grow-1">
                <div className="font-weight-bold mb-0 profile-title">Education</div>
-               <div onClick={()=>triggerAssessment()} className="small">Take the Assessment</div>
-             </div>
+               </div>
            </div>
          </div>
        </div>
@@ -227,7 +181,6 @@ const ResourceCategoryComponent = () => {
              </div>
              <div className="flex-grow-1">
                <div className="font-weight-bold mb-0 profile-title">Neighborhood & Environment</div>
-               <div onClick={()=>triggerAssessment()} className="small">Take the Assessment</div>
              </div>
            </div>
          </div>
@@ -240,13 +193,11 @@ const ResourceCategoryComponent = () => {
              </div>
              <div className="flex-grow-1">
                <div className="font-weight-bold mb-0 profile-title">Economic Stability</div>
-               <div onClick={()=>triggerAssessment()} className="small">Take the Assessment</div>
-             </div>
+                </div>
            </div>
          </div>
        </div>
      </div>
-     {showModal && <WellnessContainer closeModal={()=>setShowModal(false)}/>}
     </>
   )
 }

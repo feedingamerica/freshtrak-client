@@ -28,9 +28,6 @@ export const API_URL = {
     //UPDATE_ADDRESS : `${REGISTRATION_URL}profiles/update_user_address`,
     UPDATE_CONTACT : `${REGISTRATION_URL}profiles/update_user_contact`,
     UPDATE_VEHICLE : `${REGISTRATION_URL}profiles/update_user_vehicle`,
-    QUESTIONS : WELLNESS_URL + 'api/assessment_questions',
-    SUBMIT_ASSESSMENT :  WELLNESS_URL + 'api/user_assessment_answers',
-    TRIGGER_ASSESSMENT : WELLNESS_URL + 'api/assessments',
     
     //new API's
     CREATE_USER : `${REGISTRATION_URL}api/users/sign_in`,
