@@ -8,6 +8,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import ProfileContainer from '../ProfileContainer';
 import ProfileComponent from "../ProfileComponent";
 import ProfileTabComponent from "../ProfileTabComponent";
+import TakeTheAssessmentComponent from "../../General/TakeTheAssessmentComponent";
 import axios from 'axios';
 jest.mock('axios');
 jest.setTimeout(30000);
