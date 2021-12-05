@@ -28,14 +28,16 @@ const EventCardComponent = props => {
       eventService,
       acceptReservations,
       acceptInterest,
+      acceptWalkin,
       eventDetails,
       exceptionNote
     },
     registrationView,
     alreadyRegistered
   } = props;
-  const showRsvp = acceptInterest && !acceptReservations;
-
+  const showRsvp = acceptInterest && !acceptReservations && !acceptWalkin;
+  const showRsvpOptional = acceptInterest && !acceptReservations && acceptWalkin;
+  
   const getButton = (buttonName, targetUrl) => {
     return (
       <LinkContainer to={targetUrl}>
@@ -106,6 +108,7 @@ const EventCardComponent = props => {
               </p>
             </div>
           )}
+         {!!showRsvpOptional && <span className="text-danger font-size-point-85rem">RSVP is optional for this event</span>}
          {!!showRsvp && <span className="text-danger font-size-point-85rem">RSVP is required for this event</span>}
          {alreadyRegistered && <span className="text-danger font-size-point-85rem">Already Registered</span>}
           <div className="day-view-item-detail-footer d-flex mt-3">
